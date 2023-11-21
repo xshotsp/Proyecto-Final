@@ -7,7 +7,7 @@ const {
   DB_USER, DB_PASSWORD, DB_HOST,
 } = process.env;
 
-const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/"NOMBRE"`, {
+const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/products`, {
   logging: false, 
   native: false, 
 });
@@ -29,9 +29,10 @@ let capsEntries = entries.map((entry) => [entry[0][0].toUpperCase() + entry[0].s
 sequelize.models = Object.fromEntries(capsEntries);
 
 
+const { Product, Brand } = sequelize.models;
 
-
-const {} = sequelize.models;
+Product.belongsToMany(Brand, {through: "Product_Brand"})
+Brand.belongsToMany(Product, {through: "Product_Brand"})
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
