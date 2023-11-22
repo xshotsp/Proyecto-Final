@@ -29,7 +29,7 @@ const getProductByName = async (name) => {
   });
   if (productDB.length === 0) {
     return [
-      { message: "No se encontraron prductos que coincidan con la búsqueda." },
+      { message: "No se encontraron productos que coincidan con la búsqueda." },
     ];
   }
 
@@ -45,7 +45,7 @@ const createProducts = async (productData) => {
       name,
       image,
       price,
-      color,
+      colour,
       additionalImage,
     } = productData;
 
@@ -63,7 +63,7 @@ const createProducts = async (productData) => {
         name,
         image,
         price,
-        color,
+        colour,
         additionalImage,
     });
     
@@ -113,7 +113,7 @@ const updateProductById = async (id, newData) => {
         name,
         image,
         price,
-        color,
+        colour,
         additionalImage,
     } = newData;
     const productToUpdate = await Product.findByPk(id);
@@ -134,7 +134,7 @@ const updateProductById = async (id, newData) => {
       name,
       image,
       price,
-      color,
+      colour,
       additionalImage,
     });
 
