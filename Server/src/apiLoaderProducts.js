@@ -18,8 +18,9 @@ const apiLoaderProducts = async () => {
   const URL = "https://asos2.p.rapidapi.com/products/v2/list";
 
   try {
+    
     const { data } = await axios.request(URL, { params, headers });
-
+    
     data.products.forEach(
       async ({
         name,
