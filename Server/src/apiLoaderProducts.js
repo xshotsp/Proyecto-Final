@@ -20,7 +20,7 @@ const apiLoaderProducts = async () => {
   try {
     
     const { data } = await axios.request(URL, { params, headers });
-    console.log(data)
+    
     data.products.forEach(
       async ({
         name,
