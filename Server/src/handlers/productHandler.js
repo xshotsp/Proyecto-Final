@@ -24,6 +24,7 @@ const {
 
   const getAllProductsHandler = async (req, res) => {
     try {
+    
       const results = await getAllProducts(req, res);
       res.status(200).json(results);
     } catch (error) {
