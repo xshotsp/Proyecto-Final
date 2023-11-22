@@ -21,7 +21,7 @@ module.exports = (sequelize) => {
         type: DataTypes.INTEGER,
         allowNull: false
     },
-    color: {
+    colour: {
         type: DataTypes.STRING,
         allowNull: false
     },
