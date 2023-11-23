@@ -24,3 +24,19 @@ export const getAllProducts = async () => {
       console.error('Error al obtener productos:', error);
     });
   
+    // Acción para iniciar la creación del producto
+export const createProductRequest = () => ({
+  type: CREATE_PRODUCT_REQUEST,
+});
+
+// Acción para manejar el éxito de la creación del producto
+export const createProductSuccess = (newProduct) => ({
+  type: CREATE_PRODUCT_SUCCESS,
+  payload: newProduct,
+});
+
+// Acción para manejar el fallo en la creación del producto
+export const createProductFailure = (error) => ({
+  type: CREATE_PRODUCT_FAILURE,
+  payload: error,
+});
