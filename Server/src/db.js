@@ -30,10 +30,19 @@ let capsEntries = entries.map((entry) => [entry[0][0].toUpperCase() + entry[0].s
 sequelize.models = Object.fromEntries(capsEntries);
 
 
-const { Product, Brand } = sequelize.models;
+const { Product, Brand, Rewiew, User, Favorite } = sequelize.models;
 
 Product.belongsToMany(Brand, {through: "Product_Brand"})
 Brand.belongsToMany(Product, {through: "Product_Brand"})
+
+Product.belongsToMany(Rewiew, {through:"Product_Rewiew"})
+Rewiew.belongsToMany(Product, {through:"Product_Rewiew"})
+
+Product.belongsToMany(User, {through:"Product_User"})
+User.belongsToMany(Product, {through:"Product_User"})
+
+Product.belongsToMany(Favorite, {through:"Product_Favorite"})
+Favorite.belongsToMany(Product, {through:"Product_Favorite"})
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
