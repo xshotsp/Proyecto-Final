@@ -17,24 +17,20 @@ const getBrandApi = async () => {
     
       const URL = "https://asos2.p.rapidapi.com/products/v2/list";
 
-      try {
-        const { data } = await axios.request(URL, { params, headers })
+      const { data } = await axios.request(URL, { params, headers })
+      
+      const allBrand = data.products?.map((p) => (p.brandName ? p.brandName : "No Info"))
 
-        data.products.forEach(
-            async({
-                brandName
-            }) => {
-                await Brand.findOrCreate({
-                    where: {
-                        brand: brandName
-                    }
-                })
-            }
-        )
-        
-      } catch (error) {
-        console.log(error.message);
-      }
+      let oneBrand = [...new Set(allBrand.flat())]
+      oneBrand.forEach((b) => {
+        if(b){
+          Brand.findOrCreate({
+            where: {name: b}
+          })
+        }
+      })
+      oneBrand = await Brand.findAll()
+      return oneBrand
 }
 
 module.exports = {

@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const {getAllProductsHandler, getIdHandler, getProductsByName,createProductsHandler,
   deleteProductsHandler,updateProductsHandler, restoreProductHandler} = require("../handlers/productHandler")
+const { getBrandHandler } = require("../handlers/brandHandler")
 
 // Ruta de ejemplo
 router.get('/', (req, res) => {
@@ -18,5 +19,6 @@ router.post("/product/",createProductsHandler);
 router.post('/product/restore/:id', restoreProductHandler); // esto es para el borrado logico
 router.delete("/product/delete/:id", deleteProductsHandler);
 router.put("/product/put/:id", updateProductsHandler);
+router.get("/brand", getBrandHandler)
 
 module.exports = router;
