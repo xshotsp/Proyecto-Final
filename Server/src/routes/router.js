@@ -4,6 +4,7 @@ const router = express.Router();
 const {getAllProductsHandler, getIdHandler, getProductsByName,createProductsHandler,
   deleteProductsHandler,updateProductsHandler, restoreProductHandler} = require("../handlers/productHandler")
 const { getBrandHandler } = require("../handlers/brandHandler")
+const {getUserHandler, putUserHandler, createUserHandler} = require("../handlers/userHandler")
 
 // Ruta de ejemplo
 router.get('/', (req, res) => {
@@ -20,5 +21,8 @@ router.post('/product/restore/:id', restoreProductHandler); // esto es para el b
 router.delete("/product/delete/:id", deleteProductsHandler);
 router.put("/product/put/:id", updateProductsHandler);
 router.get("/brand", getBrandHandler)
+router.get("/user", getUserHandler)
+router.put("/user/:id", putUserHandler)
+router.post("/user", createUserHandler)
 
 module.exports = router;
