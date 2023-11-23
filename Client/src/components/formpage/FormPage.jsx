@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { createProductRequest, createProductSuccess, createProductFailure } from '../../redux/actions';
+import { createProductRequest, createProductSuccess, createProductFailure } from '../../redux/actions/actions';
 import axios from 'axios';
 
 const ProductForm = () => {
