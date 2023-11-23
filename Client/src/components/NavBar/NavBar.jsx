@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import SearchBar from "../searchbar/SearchBar"
 
 const NavBar = () => {
@@ -5,13 +6,26 @@ const NavBar = () => {
   return (
     <div>
       <nav>
-        <h1>Quirkz!</h1>
+        <h1>
+        <u>Quirkz!</u>
+        </h1>
         <SearchBar/> 
         <ul>
-          <li>Shop</li>
-          <li>Men</li>
-          <li>Women</li>
-          <li>Kids</li>
+          <Link to="/">
+          <li>Tienda</li>
+          </Link>
+
+          <Link to="/hombre">
+          <li>Hombre</li>
+          </Link>
+          
+          <Link to="/mujer">
+          <li>Mujer</li>
+          </Link>
+
+          <Link to="/niños">
+          <li>Niños</li>
+          </Link>
         </ul>
       </nav>
       <div>
