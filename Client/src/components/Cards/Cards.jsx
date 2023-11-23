@@ -1,24 +1,26 @@
-// ProductList.jsx
-
+import Pagination from '../pagination/Pagination';
 import React, { useEffect, useState } from 'react';
 import { getAllProducts } from '../../redux/actions/actions';
 import s from './cards.module.css';
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        const startIndex = (currentPage - 1) * 18;
+        const endIndex = startIndex + 18;
         const productsData = await getAllProducts();
-        setProducts(productsData);
+        setProducts(productsData.slice(startIndex, endIndex));
       } catch (error) {
         console.error('Error al obtener productos:', error);
       }
     };
 
     fetchData();
-  }, []);
+  }, [currentPage]);
 
   return (
     <div>
@@ -28,19 +30,12 @@ const ProductList = () => {
           <ProductCard key={product.id} product={product} />
         ))}
       </div>
-    </div>
-  );
-};
-
-const ProductCard = ({ product }) => {
-  const { name, imageUrl, price, colour } = product;
-
-  return (
-    <div className={s.product-card}>
-      <img src={imageUrl} alt={name} className={s.product-image} width="100" height="100" />
-      <h3>{name}</h3>
-      <p>Precio: {price}</p>
-      <p>Color: {colour}</p>
+      <Pagination
+        currentPage={currentPage}
+        totalCount={products.length}  
+        pageSize={18}
+        onPageChange={(newPage) => setCurrentPage(newPage)}
+      />
     </div>
   );
 };
