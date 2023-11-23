@@ -1,4 +1,4 @@
-import Pagination from './RUTA-AL-COMPONENTE-PAGINACION';
+import Pagination from '../pagination/Pagination';
 import React, { useEffect, useState } from 'react';
 import { getAllProducts } from '../../redux/actions/actions';
 import s from './cards.module.css';
