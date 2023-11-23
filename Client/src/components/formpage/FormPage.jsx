@@ -67,8 +67,11 @@ const ProductForm = () => {
           <input type="text" name="additionalImage" value={productData.additionalImage} onChange={handleChange} />
         </label>
         <br />
-        <button type="submit" disabled={creatingProduct}>Crear Producto</button>
+        <button type="submit" disabled={creatingProduct}>
+          Crear Producto
+        </button>
       </form>
+
       {/* Mostrar el resultado de la creación */}
       {newProduct && <p>Producto creado con éxito: {newProduct.name}</p>}
       {error && <p>Error al crear el producto: {error}</p>}

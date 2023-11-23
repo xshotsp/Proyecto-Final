@@ -1,5 +1,9 @@
 import axios from "axios";
-
+import {
+  CREATE_PRODUCT_REQUEST,
+  CREATE_PRODUCT_SUCCESS,
+  CREATE_PRODUCT_FAILURE,
+} from './actionTypes';
 
 export const getAllProducts = async () => {
     try {
@@ -24,7 +28,7 @@ export const getAllProducts = async () => {
       console.error('Error al obtener productos:', error);
     });
   
-    // Acción para iniciar la creación del producto
+// Acción para iniciar la creación del producto
 export const createProductRequest = () => ({
   type: CREATE_PRODUCT_REQUEST,
 });
