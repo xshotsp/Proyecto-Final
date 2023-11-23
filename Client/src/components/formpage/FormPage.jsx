@@ -12,7 +12,7 @@ const ProductForm = () => {
     image: '',
     price: '',
     colour: '',
-    additionalImage: '',
+    additionalImage: [],
   });
 
   const handleChange = (e) => {
