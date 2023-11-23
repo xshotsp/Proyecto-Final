@@ -1,6 +1,7 @@
 const axios = require("axios");
 const { Product } = require("./db");
 const { API_KEY } = process.env;
+const cloudinary = require('cloudinary').v2;
 
 const apiLoaderProducts = async () => {
   const params = {
@@ -19,8 +20,7 @@ const apiLoaderProducts = async () => {
 
   try {
     
-    const { data } = await axios.request(URL, { params, headers });
-    
+    const { data } = await axios.request(URL, { params, headers }); 
     data.products.forEach(
       async ({
         name,

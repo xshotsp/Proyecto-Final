@@ -49,14 +49,14 @@ const createProducts = async (productData) => {
       additionalImage,
     } = productData;
 
-    const productCreated = await Product.findOne ({where: {name:name, price: price, color:color}})
+    const productCreated = await Product.findOne ({where: {name:name, price: price, colour:colour}})
     if(productCreated) {
       throw new Error ('Un producto ya existe con esas caracteristicas')
     }
     
      // CLOUDINARY
-    //   const cloudinaryUpload = await cloudinary.uploader.upload(`${image}`);
-    //   const img = cloudinaryUpload.secure_url;
+    const cloudinaryUpload = await cloudinary.uploader.upload(`${image}`);
+    image = cloudinaryUpload.secure_url;
       
 
     const newProduct = await Product.create({
