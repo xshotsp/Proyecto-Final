@@ -38,8 +38,11 @@ Brand.belongsToMany(Product, {through: "Product_Brand"})
 Product.belongsToMany(Rewiew, {through:"Product_Rewiew"})
 Rewiew.belongsToMany(Product, {through:"Product_Rewiew"})
 
-Product.belongsToMany(User, {through:"Product_User"})
-User.belongsToMany(Product, {through:"Product_User"})
+// Product.belongsToMany(User, {through:"Product_User"})
+// User.belongsToMany(Product, {through:"Product_User"})
+
+User.hasMany(Product)
+Product.belongsTo(User)
 
 Product.belongsToMany(Favorite, {through:"Product_Favorite"})
 Favorite.belongsToMany(Product, {through:"Product_Favorite"})
