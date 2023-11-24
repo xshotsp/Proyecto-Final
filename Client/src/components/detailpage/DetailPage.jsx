@@ -4,19 +4,16 @@ import { cleanProductDetail, fetchProductById } from '../../redux/actions/action
 import s from './detail.module.css';
 import { useParams } from 'react-router-dom';
 
-// const DetailPage = ({ match, productDetails, fetchProductById }) => {
   const DetailPage = () => {
   const dispatch = useDispatch()
   const params = useParams()
   const productDetails = useSelector((state) => state.productDetails)
-  // const { id } = match.params;
 
   useEffect(() => {
     // Llama a la acción para obtener los detalles del producto al montar el componente
     dispatch(fetchProductById(params.id));
     return () => {dispatch(cleanProductDetail())}
   }, []);
-  // }, [id, fetchProductById]);
 
   if (!productDetails) {
     // Puedes mostrar un indicador de carga o un mensaje de error aquí si productDetails es nulo
@@ -31,7 +28,6 @@ import { useParams } from 'react-router-dom';
       <div className={s.productInfo}>
         <p>Precio: {productDetails.price}</p>
         <p>Color: {productDetails.colour}</p>
-        {/* <p>Descripción: {productDetails.description}</p> */}
       </div>
     </div>
   );

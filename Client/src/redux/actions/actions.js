@@ -90,3 +90,5 @@ export function cleanProductDetail() {
     type: CLEAN_PRODUCT_DETAIL
   }
 }
+
+//nuevo
