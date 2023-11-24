@@ -1,5 +1,5 @@
 const { Product } = require("../db");
-//const cloudinary = require('cloudinary').v2;
+const cloudinary = require('cloudinary').v2;
 
 //*********************************************************** */
 // trae todos los productos de la base de datos
@@ -41,7 +41,7 @@ const getProductByName = async (name) => {
 const createProducts = async (productData) => {
   console.log (productData)
   try {
-    const {
+    let {
       name,
       image,
       price,
@@ -55,10 +55,11 @@ const createProducts = async (productData) => {
     }
     
      // CLOUDINARY
-    //   const cloudinaryUpload = await cloudinary.uploader.upload(`${image}`);
-    //   const img = cloudinaryUpload.secure_url;
+    console.log (image)
+    const cloudinaryUpload = await cloudinary.uploader.upload(`${image}`);
+    image = cloudinaryUpload.secure_url;
       
-
+    console.log ('controller')
     const newProduct = await Product.create({
         name,
         image,

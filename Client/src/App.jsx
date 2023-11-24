@@ -7,10 +7,10 @@ import Footer from "./Components/Footer/Footer";
 import CreateUserForm from "./components/createUserForm/CreateUserForm";
 
 function App() {
-  const pathname = useLocation();
+  const {pathname} = useLocation();
   return (
     <div className="App">
-      {pathname === "/"  ? null : <NavBar />}
+      {pathname === "/" || pathname === "/createuser" ? null : <NavBar />}
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/createuser" element={<CreateUserForm />} />

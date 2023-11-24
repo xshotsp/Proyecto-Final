@@ -26,12 +26,6 @@ const NavBar = () => {
           <Link to="/niños">
           <li>Niños</li>
           </Link>
-
-          {
-            pathname === "/" && <Link to="/createuser">
-          <button>Registrarse</button></Link>
-          }
-          
         </ul>
       </nav>
       <div>

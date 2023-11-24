@@ -48,7 +48,6 @@ const {
   /************************************************************* */
   const createProductsHandler = async (req, res) => {
     try {
-    
       const product = await createProducts(req.body);
       res.status(201).json(product);
     } catch (error) {

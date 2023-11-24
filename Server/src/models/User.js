@@ -26,14 +26,6 @@ module.exports = (sequelize) => {
             allowNull: false,
             defaultValue: 'https://t3.ftcdn.net/jpg/01/09/00/64/360_F_109006426_388PagqielgjFTAMgW59jRaDmPJvSBUL.jpg'
         },
-        // register: {
-        //     type: DataTypes.DATEONLY,
-        //     defaultValue: NOW
-        // },
-        member: {
-            type: DataTypes.STRING,
-            defaultValue: 'standar'
-        }
     },{
         timestamps: false
     }
