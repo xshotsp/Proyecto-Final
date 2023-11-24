@@ -1,5 +1,7 @@
-import { useEffect, useState } from 'react';
-import { getAllProducts } from '../../redux/actions/actions';  
+import React, { useEffect, useState } from 'react';
+import { getAllProducts } from '../../redux/actions/actions';
+import s from './cards.module.css';
+
 const ProductList = () => {
   const [products, setProducts] = useState([]);
 
@@ -19,7 +21,7 @@ const ProductList = () => {
   return (
     <div>
       <h1>Lista de Productos</h1>
-      <div className="product-list">
+      <div className={s.product-list}>
         {products.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}
@@ -32,8 +34,8 @@ const ProductCard = ({ product }) => {
   const { name, imageUrl, price, colour } = product;
 
   return (
-    <div className="product-card">
-      <img src={imageUrl} alt={name} className="product-image" width="100" height="100" />
+    <div className={s.product-card}>
+      <img src={imageUrl} alt={name} className={s.product-image} width="100" height="100" />
       <h3>{name}</h3>
       <p>Precio: {price}</p>
       <p>Color: {colour}</p>
