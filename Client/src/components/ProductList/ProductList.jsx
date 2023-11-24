@@ -1,13 +1,19 @@
 /* eslint-disable react/prop-types */
 // ProductList.jsx
-import  { useEffect, useState } from 'react';
+import  { useEffect } from 'react';
+import { useSelector, useDispatch} from 'react-redux';
 import { getAllProducts } from '../../redux/actions/actions';
 import s from './ProductList.module.css';
 import Card from '../card/Card';
 import Pagination from '../pagination/Pagination';
 
 const ProductList = () => {
-  const [products, setProducts] = useState([]);
+
+  
+  const products = useSelector ((state) => state.allproducts)
+  const dispatch = useDispatch()
+
+  
   const [currentPage, setCurrentPage] = useState(1);
 
   const cardsPerPage = 5;
@@ -17,27 +23,34 @@ const ProductList = () => {
 
   const currentCards = products.slice(firstCardIndex, lastCardIndex);
 
+
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const productsData = await getAllProducts();
-        setProducts(productsData);
-      } catch (error) {
-        console.error('Error al obtener productos:', error);
-      }
-    };
+     dispatch(getAllProducts());
+  }, [dispatch]);
 
-    fetchData();
-  }, []);
-
+  
   return (
     <div>
-      <h1>Lista de Productos</h1>
+      {
+      (products[0]?.message) && <h2>{products[0].message}</h2>
+      }
+      
+      {
+       (products[0]?.name) && <h1>Lista de Productos</h1>
+      }
+      
+      {
+        (products[0]?.name) &&
+      
       <div className={s.productList}>
         {currentCards.map((product) => (
           <Card key={product.id} product={product} />
         ))}
       </div>
+      }
+
+  
+
       <Pagination
       filteredCountries={products}
       cardsPerPage={cardsPerPage}
