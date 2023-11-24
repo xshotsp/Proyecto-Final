@@ -1,5 +1,7 @@
+const { Sequelize } = require("sequelize");
 const { Product } = require("../db");
 const cloudinary = require('cloudinary').v2;
+const { Op } = require("sequelize");
 
 //*********************************************************** */
 // trae todos los productos de la base de datos
