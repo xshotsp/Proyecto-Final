@@ -3,9 +3,14 @@ import {
   CREATE_PRODUCT_REQUEST,
   CREATE_PRODUCT_SUCCESS,
   CREATE_PRODUCT_FAILURE,
+
+  GET_PRODUCT_NAME,
   FETCH_PRODUCT_SUCCESS,
   FETCH_PRODUCT_FAILURE
+
 } from './actionTypes';
+
+const URL = "http://localhost:3001"
 
 export const getAllProducts = async () => {
     try {
@@ -48,6 +53,22 @@ export const createProductFailure = (error) => ({
 });
 
 
+export const getProductName = (name) => {
+  return async (dispatch) => {
+      try{
+        const productsname = (await axios.get(`${URL}/products/name/${name}`)).data;
+
+          return dispatch({
+              type: GET_PRODUCT_NAME, 
+              payload: productsname
+          });
+      }catch (error) {
+          throw error.response.data
+      }
+  };
+};
+
+
 export const fetchProductById = (id) => async (dispatch) => {
   try {
     const response = await fetch(`http://localhost:3001/product/${id}`);
@@ -63,3 +84,4 @@ export const fetchProductById = (id) => async (dispatch) => {
     dispatch({ type: FETCH_PRODUCT_FAILURE, payload: error.message });
   }
 };
+

@@ -1,20 +1,27 @@
 import { useState } from "react"
+import { getProductName } from "../../redux/actions/actions";
+import { useDispatch } from "react-redux";
 
 const SearchBar = () => {
-  
+    const dispatch = useDispatch;
     const [search, setSearch] = useState('');
 
     const handleInputChange = (e) => {
         setSearch(e.target.value)
     }
 
-    const handleSearch = () => {
-        if(search.trim() === '') return null;
-        // prueba
-        console.log('Searching for ', search);
-        setSearch('')
+ 
+    const handleSearch = async (event) => {
+        event.preventDefault();
+        try {
+            await dispatch(getProductName(search))
+        } catch (error) {
+            console.log(error)
+        }
+        
     }
-  
+
+      
     return (
     <div>
         <input 

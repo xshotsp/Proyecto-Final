@@ -5,6 +5,7 @@ import {
   CREATE_PRODUCT_FAILURE,
   FETCH_PRODUCT_SUCCESS,
   FETCH_PRODUCT_FAILURE
+  GET_PRODUCT_NAME,
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -57,8 +58,15 @@ export default function reducer(state = initialState, action) {
         productDetails: null,
         error: action.payload,
       };
+     
+    case GET_PRODUCT_NAME:
+          return {
+            ...state,
+            allproducts: [...action.payload],
+      };
 
     default:
       return state;
+
   }
 }
