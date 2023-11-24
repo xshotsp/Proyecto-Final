@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 // ProductList.jsx
-import { useEffect } from 'react';
+import { useEffect , useState} from 'react';
 import { useSelector, useDispatch} from 'react-redux';
 import { getAllProducts } from '../../redux/actions/actions';
 import s from './ProductList.module.css';
@@ -25,10 +25,10 @@ const ProductList = () => {
 
 
   useEffect(() => {
+    
      dispatch(getAllProducts());
   }, [dispatch]);
 
-  
   return (
     <div>
       {
