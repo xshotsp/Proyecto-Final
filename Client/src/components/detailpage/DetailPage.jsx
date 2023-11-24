@@ -23,8 +23,6 @@ import { useParams } from 'react-router-dom';
     return <p className={s.error}>Cargando...</p>;
   }
 
-  // const { name, imageUrl, price, colour, description } = productDetails;
-
   return (
     <div className={s.productDetailsContainer}>
       <h2>{productDetails.id}</h2>
