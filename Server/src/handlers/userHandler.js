@@ -35,7 +35,7 @@ const putUserHandler = async(req, res)=>{
 
 const createUserHandler = async(req, res)=>{
     try {
-        const {username, password, email, profile_Picture, member} = req.body
+        const {username, password, email, profile_Picture} = req.body
 
         if(!username || !password || !email){
             return res.status(400).json('Missing data')
@@ -55,7 +55,7 @@ const createUserHandler = async(req, res)=>{
         if (searchUser.length || searchEmail.length){
             res.status(404).json('User/email already exist')
         } else{
-            const newUser = await User.create({username,password, email, profile_Picture, member})
+            const newUser = await User.create({username,password, email, profile_Picture})
             res.status(200).json(newUser)
         }
     } catch (error) {
