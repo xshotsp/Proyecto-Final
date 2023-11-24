@@ -4,6 +4,7 @@ import s from './Card.module.css';
 
 
 
+//esto es nuevo
 const Card = ({product}) => {
   const { name, price, colour, image, id,description } = product;
   return (
