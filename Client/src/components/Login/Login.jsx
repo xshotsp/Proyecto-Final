@@ -16,7 +16,7 @@ const Login = () => {
         usuario,
         contraseña,
       });
-      if(response) return console.log('Login correcto');
+      if(response.ok) console.log('Login correcto');
 
     } catch (error) {
       console.error('Error al iniciar sesión:', error.message);

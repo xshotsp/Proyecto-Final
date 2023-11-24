@@ -1,32 +1,43 @@
 const { Sequelize } = require("sequelize");
-const { Product } = require("../db");
-const cloudinary = require('cloudinary').v2;
+const { Product, Brand } = require("../db");
+const cloudinary = require("cloudinary").v2;
 const { Op } = require("sequelize");
 
 //*********************************************************** */
 // trae todos los productos de la base de datos
 const getAllProducts = async () => {
-  
-  const productsDB = await Product.findAll();
+  const productsDB = await Product.findAll({
+    include: {
+      model: Brand,
+      through: { attributes: [] },
+    },
+  });
   return productsDB;
 };
 //*********************************************************** */
 
-
 // trae el procucto del id correspondiente...se usa para el detalle
 const getProductsById = async (id) => {
-  const productDB = await Product.findByPk(id);
+  const productDB = await Product.findByPk(id, {
+    include: {
+      model: Brand,
+      through: { attributes: [] },
+    },
+  });
   return productDB;
 };
-
 /**************************************************************** */
 // se usa para busqueda por nombre
 const getProductByName = async (name) => {
   const productDB = await Product.findAll({
     where: {
       name: {
-        [Op.iLike]: `%${name}%`, 
+        [Op.iLike]: `%${name}%`,
       },
+    },
+    include: {
+      model: Brand,
+      through: { attributes: [] },
     },
   });
   if (productDB.length === 0) {
@@ -41,38 +52,34 @@ const getProductByName = async (name) => {
 /************************************************************************* */
 // se usa para crear el producto
 const createProducts = async (productData) => {
-  console.log (productData)
+  console.log(productData);
   try {
-    let {
+    let { name, image, price, colour, additionalImage } = productData;
+
+    const productCreated = await Product.findOne({
+      where: { name: name, price: price, colour: colour },
+    });
+    if (productCreated) {
+      throw new Error("Un producto ya existe con esas caracteristicas");
+    }
+
+    // CLOUDINARY
+    console.log(image);
+    const cloudinaryUpload = await cloudinary.uploader.upload(`${image}`);
+    image = cloudinaryUpload.secure_url;
+
+    console.log("controller");
+    const newProduct = await Product.create({
       name,
       image,
       price,
       colour,
       additionalImage,
-    } = productData;
-
-    const productCreated = await Product.findOne ({where: {name:name, price: price, colour:colour}})
-    if(productCreated) {
-      throw new Error ('Un producto ya existe con esas caracteristicas')
-    }
-    
-     // CLOUDINARY
-    console.log (image)
-    const cloudinaryUpload = await cloudinary.uploader.upload(`${image}`);
-    image = cloudinaryUpload.secure_url;
-      
-    console.log ('controller')
-    const newProduct = await Product.create({
-        name,
-        image,
-        price,
-        colour,
-        additionalImage,
     });
-    
+
     return newProduct;
   } catch (error) {
-    console.log(error)
+    console.log(error);
     throw error;
   }
 };
@@ -101,35 +108,27 @@ const deleteProductById = async (id) => {
 const restoreProductById = async (id) => {
   try {
     const restoredProduct = await Product.restore({ where: { id } });
-    return restoredProduct; 
+    return restoredProduct;
   } catch (error) {
-    throw error; 
+    throw error;
   }
 };
 
 /******************************************************************************* */
 // Para editar o actualizar un producto con un id especifico
 const updateProductById = async (id, newData) => {
-  
   try {
-    const {
-        name,
-        image,
-        price,
-        colour,
-        additionalImage,
-    } = newData;
+    const { name, image, price, colour, additionalImage } = newData;
     const productToUpdate = await Product.findByPk(id);
-    
+
     if (!productToUpdate) {
       throw new Error(`Producto con ID ${id} no encontrado.`);
     }
-    
+
     // CLOUDINARY
     // const cloudinaryUpload = await cloudinary.uploader.upload(`${image}`);
     // const img = cloudinaryUpload.secure_url;
-    
-       
+
     // Actualiza los campos del producto con los nuevos datos
 
     await productToUpdate.update({
@@ -154,5 +153,5 @@ module.exports = {
   createProducts,
   deleteProductById,
   updateProductById,
-  restoreProductById
+  restoreProductById,
 };

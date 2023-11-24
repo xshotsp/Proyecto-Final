@@ -1,0 +1,41 @@
+.container{
+  position: sticky;
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+.nav{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.nav__h1{
+  margin: 0 10px 0 0;
+  font-size: 3rem;
+
+}
+
+.nav__ul{
+  display: flex;
+  justify-content: flex-end;
+  width: 30%;
+  margin-right: 30px;
+}
+
+
+.nav__ul li {
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  list-style: none;
+  border: 2px solid white;
+  height: 40px;
+  margin-right: 5px;
+  border-radius: 10px;
+  padding: 10px;
+}
+
