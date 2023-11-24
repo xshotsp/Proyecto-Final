@@ -1,3 +1,4 @@
+// ProductList.jsx
 import React, { useEffect, useState } from 'react';
 import { getAllProducts } from '../../redux/actions/actions';
 import s from './cards.module.css';
@@ -31,11 +32,11 @@ const ProductList = () => {
 };
 
 const ProductCard = ({ product }) => {
-  const { name, imageUrl, price, colour } = product;
+  const { name, price, colour, imageUrl } = product;
 
   return (
     <div className={s.productCard}>
-      <img src={imageUrl} alt={name} className={s.productImage} width="100" height="100" />
+      {imageUrl && <img src={imageUrl} alt={name} className={s.productImage} />}
       <h3>{name}</h3>
       <p>Precio: {price}</p>
       <p>Color: {colour}</p>
