@@ -20,7 +20,7 @@ router.post("/product/",createProductsHandler);
 router.post('/product/restore/:id', restoreProductHandler); // esto es para el borrado logico
 router.delete("/product/delete/:id", deleteProductsHandler);
 router.put("/product/put/:id", updateProductsHandler);
-router.get("/brand", getBrandHandler)
+router.get("/brands", getBrandHandler)
 router.get("/user", getUserHandler)
 router.put("/user/:id", putUserHandler)
 router.post("/user", createUserHandler)
