@@ -1,8 +1,8 @@
-import { Link } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 import SearchBar from "../searchbar/SearchBar"
 
 const NavBar = () => {
-
+  const {pathname} = useLocation()
   return (
     <div>
       <nav>
@@ -26,6 +26,12 @@ const NavBar = () => {
           <Link to="/niños">
           <li>Niños</li>
           </Link>
+
+          {
+            pathname === "/" && <Link to="/createuser">
+          <button>Registrarse</button></Link>
+          }
+          
         </ul>
       </nav>
       <div>

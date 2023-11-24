@@ -49,7 +49,7 @@ const createProducts = async (productData) => {
       additionalImage,
     } = productData;
 
-    const productCreated = await Product.findOne ({where: {name:name, price: price, color:color}})
+    const productCreated = await Product.findOne ({where: {name:name, price: price, colour:colour}})
     if(productCreated) {
       throw new Error ('Un producto ya existe con esas caracteristicas')
     }

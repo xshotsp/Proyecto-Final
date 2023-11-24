@@ -1,21 +1,23 @@
-import './App.css'
+import "./App.css";
 
-import { Route, Routes, useLocation} from 'react-router-dom'
-import NavBar from './components/NavBar/NavBar'
-import HomePage from './Components/Home/HomePage'
-import Footer from './Components/Footer/Footer'
+import { Route, Routes, useLocation } from "react-router-dom";
+import NavBar from "./components/NavBar/NavBar";
+import HomePage from "./Components/Home/HomePage";
+import Footer from "./Components/Footer/Footer";
+import CreateUserForm from "./components/createUserForm/CreateUserForm";
 
 function App() {
-  const pathname = useLocation()
+  const pathname = useLocation();
   return (
-        <div className='App'>
-          {pathname === '/' ? null : <NavBar/>}
+    <div className="App">
+      {pathname === "/"  ? null : <NavBar />}
       <Routes>
-            <Route path='/' element={<HomePage />}/>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/createuser" element={<CreateUserForm />} />
       </Routes>
-      <Footer/>
+      <Footer />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
