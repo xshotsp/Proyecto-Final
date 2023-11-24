@@ -7,6 +7,7 @@ import {
   FETCH_PRODUCT_FAILURE,
   GET_PRODUCT_NAME,
   GET_ALL_SELECTS
+  CLEAN_PRODUCT_DETAIL,
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -14,7 +15,8 @@ const initialState = {
   creatingProduct: false,
   newProduct: null,
   error: null,
-  productDetails: null,
+  // productDetails: null,
+  productDetails: {},
 };
 
 export default function reducer(state = initialState, action) {
@@ -48,6 +50,7 @@ export default function reducer(state = initialState, action) {
       };
 
     case FETCH_PRODUCT_SUCCESS:
+      console.log(action.payload);
       return {
         ...state,
         productDetails: action.payload,
@@ -68,12 +71,18 @@ export default function reducer(state = initialState, action) {
             allproducts: [...action.payload],
       };
 
+
       case GET_ALL_SELECTS:
         return {
           ...state,
           selectFilter: action.payload,
         };
   
+    case CLEAN_PRODUCT_DETAIL:
+      return{
+        ...state,
+        productDetails: {}
+      }
 
     default:
       return state;
