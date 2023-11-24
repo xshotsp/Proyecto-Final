@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 // ProductList.jsx
-import  { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { getAllProducts } from '../../redux/actions/actions';
 import s from './ProductList.module.css';
 import Card from '../card/Card';
@@ -26,12 +26,11 @@ const ProductList = () => {
       <h1>Lista de Productos</h1>
       <div className={s.productList}>
         {products.map((product) => (
-          <Card key={product.id} product={product} />
+          <Card key={product.id} product={product} className={s.productCard} />
         ))}
       </div>
     </div>
   );
 };
-
 
 export default ProductList;
