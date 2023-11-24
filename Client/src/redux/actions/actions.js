@@ -6,7 +6,8 @@ import {
   GET_ALL_PRODUCTS,
   GET_PRODUCT_NAME,
   FETCH_PRODUCT_SUCCESS,
-  FETCH_PRODUCT_FAILURE
+  FETCH_PRODUCT_FAILURE,
+  CLEAN_PRODUCT_DETAIL
 
 } from './actionTypes';
 
@@ -66,7 +67,6 @@ export const getProductName = (name) => {
 export const fetchProductById = (id) => async (dispatch) => {
   try {
     const response = await fetch(`http://localhost:3001/product/${id}`);
-    
     if (!response.ok) {
       throw new Error(`Error al obtener el producto. Código de estado: ${response.status}`);
     }
@@ -79,3 +79,8 @@ export const fetchProductById = (id) => async (dispatch) => {
   }
 };
 
+export function cleanProductDetail() {
+  return{
+    type: CLEAN_PRODUCT_DETAIL
+  }
+}
