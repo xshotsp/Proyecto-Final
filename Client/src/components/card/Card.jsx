@@ -2,6 +2,7 @@
 import s from "./Card.module.css"
 import {Link} from "react-router-dom"
 
+//esto es nuevo
 const Card = ({product}) => {
   const { name, price, colour, image, id } = product;
   return (
