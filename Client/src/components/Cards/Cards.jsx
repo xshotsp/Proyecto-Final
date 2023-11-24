@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 // ProductList.jsx
 import React, { useEffect, useState } from 'react';
 import { getAllProducts } from '../../redux/actions/actions';
@@ -32,11 +33,12 @@ const ProductList = () => {
 };
 
 const ProductCard = ({ product }) => {
-  const { name, price, colour, imageUrl } = product;
+  const { name, price, colour, image } = product;
+  console.log(image)
 
   return (
     <div className={s.productCard}>
-      {imageUrl && <img src={imageUrl} alt={name} className={s.productImage} />}
+      {image && <img src={`https://${image}`} alt={name} className={s.productImage} />}
       <h3>{name}</h3>
       <p>Precio: {price}</p>
       <p>Color: {colour}</p>

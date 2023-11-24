@@ -10,7 +10,7 @@ function App() {
   const {pathname} = useLocation();
   return (
     <div className="App">
-      {pathname === "/" || pathname === "/createuser" ? null : <NavBar />}
+      <NavBar />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/createuser" element={<CreateUserForm />} />

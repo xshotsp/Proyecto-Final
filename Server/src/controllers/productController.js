@@ -14,9 +14,9 @@ const getAllProducts = async () => {
 // trae el procucto del id correspondiente...se usa para el detalle
 const getProductsById = async (id) => {
   const productDB = await Product.findByPk(id);
+  console.log(productDB)
   return productDB;
 };
-
 /**************************************************************** */
 // se usa para busqueda por nombre
 const getProductByName = async (name) => {

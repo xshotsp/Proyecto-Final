@@ -34,6 +34,9 @@ const NavBar = () => {
           <Link to="/login">
             <li>Mi Cuenta</li>
           </Link>
+          <Link to="/createuser">
+            <li>Registrarse</li>
+          </Link>
 
         </ul>
       </nav>

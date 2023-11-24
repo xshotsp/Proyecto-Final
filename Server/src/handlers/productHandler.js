@@ -39,7 +39,7 @@ const {
     const id = req.params.id;
     try {
       const response = await getProductsById(id);
-      res.status(200).send(response);
+      res.status(200).json(response);
     } catch (error) {
       res.status(400).json({ error: error.message });
     }
