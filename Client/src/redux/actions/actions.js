@@ -56,7 +56,7 @@ export const createProductFailure = (error) => ({
 export const getProductName = (name) => {
   return async (dispatch) => {
       try{
-        const productsname = (await axios.get(`${URL}/products/name/${name}`)).data;
+        const productsname = (await axios.get(`${URL}/product/name/${name}`)).data;
 
           return dispatch({
               type: GET_PRODUCT_NAME, 
