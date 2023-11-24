@@ -1,47 +1,40 @@
-import { Link, useLocation } from "react-router-dom"
-import SearchBar from "../searchbar/SearchBar"
+import React from "react";
+import { Link } from "react-router-dom";
+import SearchBar from "../searchbar/SearchBar";
+import s from "./navbar.module.css"; // Asegúrate de importar tus estilos CSS
 
 const NavBar = () => {
-  const {pathname} = useLocation()
   return (
     <div>
-      <nav>
+      <nav className={s.navBar}>
         <h1>
-        <u>Quirkz!</u>
+          <u>Quirkz!</u>
         </h1>
-        <SearchBar/> 
-        <ul>
-          <Link to="/">
-          <li>Tienda</li>
-          </Link>
-
-          <Link to="/hombre">
-          <li>Hombre</li>
-          </Link>
-          
-          <Link to="/mujer">
-          <li>Mujer</li>
-          </Link>
-
-          <Link to="/niños">
-          <li>Niños</li>
-          </Link>
-          
-          <Link to="/contacto">
-          <li>Contacto</li>
-          </Link>
-
-          <Link to="/login">
-            <li>Mi Cuenta</li>
-          </Link>
-
+        <SearchBar />
+        <ul className={s.navList}>
+          <li>
+            <Link to="/">Tienda</Link>
+          </li>
+          <li>
+            <Link to="/hombre">Hombre</Link>
+          </li>
+          <li>
+            <Link to="/mujer">Mujer</Link>
+          </li>
+          <li>
+            <Link to="/niños">Niños</Link>
+          </li>
+          <li>
+            <Link to="/contacto">Contacto</Link>
+          </li>
+          <li>
+            <Link to="/login">Mi Cuenta</Link>
+          </li>
         </ul>
       </nav>
-      <div>
-
-      </div>
+      <div></div>
     </div>
-  )
-}
+  );
+};
 
-export default NavBar
+export default NavBar;
