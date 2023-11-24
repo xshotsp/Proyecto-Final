@@ -1,0 +1,80 @@
+/* Filters.module.css */
+.selectcontainer {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  text-align: center;
+  flex-wrap: wrap;
+}
+
+select {
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: white;
+}
+
+/* Estilos para las opciones del select */
+option {
+  font-size: 1rem;
+  padding: 0.5rem;
+}
+
+
+/* Filters.module.css */
+.selectcontainer {
+  display: flex;
+  align-items: center;
+  margin: 0.1rem;
+  perspective: 1000px; /* Agrega perspectiva para el efecto de rotación */
+}
+
+select {
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f0f0f0;
+  min-width: 150px;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out, background-color 0.2s, transform 0.2s; /* Agrega la propiedad de transform al hover */
+}
+
+select:hover {
+  transform: translateY(-3px) rotateX(5deg); /* Aplica una rotación y una elevación al pasar el mouse */
+  border: 1px solid #030303;
+}
+
+select:focus {
+  outline: none;
+}
+
+/* Agrega estos estilos al final de tu archivo Filters.module.css */
+
+.selectcontainer:hover .options {
+  display: block;
+}
+
+.options {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background-color: #ffffff8e;
+  border: 1px solid #0f8804bf;
+  border-radius: 5px;
+  padding: 5px;
+  z-index: 1;
+  transition: display 0.2s;
+}
+
+.option {
+  padding: 5px;
+  cursor: pointer;
+}
+
+.hovered .options {
+  display: block;
+}
