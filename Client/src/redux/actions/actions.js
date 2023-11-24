@@ -1,4 +1,5 @@
 import axios from "axios";
+import getFindSelects from "../../functions/getFindSelects";
 import {
   CREATE_PRODUCT_REQUEST,
   CREATE_PRODUCT_SUCCESS,
@@ -6,7 +7,8 @@ import {
   GET_ALL_PRODUCTS,
   GET_PRODUCT_NAME,
   FETCH_PRODUCT_SUCCESS,
-  FETCH_PRODUCT_FAILURE
+  FETCH_PRODUCT_FAILURE,
+  GET_ALL_SELECTS
 
 } from './actionTypes';
 
@@ -50,7 +52,7 @@ export const getProductName = (name) => {
   return async (dispatch) => {
       try{
         const productsname = (await axios.get(`${URL}/product/name/${name}`)).data;
-        console.log(productsname)
+    
         //if (!productsname) throw new Error ('No se encuentra un producto que coincida con ese nombre')
           return dispatch({
               type: GET_PRODUCT_NAME, 
@@ -79,3 +81,13 @@ export const fetchProductById = (id) => async (dispatch) => {
   }
 };
 
+
+export function getAllSelects() {
+  return async function (dispatch) {
+    const productsInfo = await getFindSelects();
+    dispatch({
+      type: GET_ALL_SELECTS,
+      payload: productsInfo,
+    });
+  };
+}

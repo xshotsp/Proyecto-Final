@@ -8,31 +8,34 @@ const getFindSelects = async () => {
             
         
         let allColors = [];
-       
-        const productsInfo = (await axios.get(`${URL}/products/`)).data;
-        //obtiene todos los selects y quita espacios
+        let allBrands = [];
+               
+        const productsInfo = (await axios.get(`${URL}/product`)).data;
+
+        
+        //obtiene todos los selects de colour y quita espacios
         for (let i=0; i<productsInfo.length; i++){
             allColors.push(productsInfo[i].colour?.trim());
-           
-            //allSize.flat();
-            //console.log(allSize)
         }  
  
-        //quita los repetidos
         
-        
+        //quita los repetidos  
         let setColors = new Set (allColors);
         let colorsSinRepetidos = Array.from(setColors);
-        
-        //console.log(sizesSinRepetidos)
+        console.log(colorsSinRepetidos)
 
         //los organiza alfabeticamente
-           
         let sortedColors=colorsSinRepetidos.sort();
-        
-       
-        
-       return ({colour: sortedColors});        
+    
+
+        const brandsInfo = (await axios.get(`${URL}/brands`)).data;
+        for (let i=0; i<brandsInfo.length; i++){
+            allBrands.push(brandsInfo[i].name?.trim());
+        }  
+        let sortedBrands = allBrands.sort();
+    
+
+       return ({colour: sortedColors, brand: sortedBrands});        
            
 }
 
