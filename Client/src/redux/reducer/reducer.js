@@ -3,6 +3,7 @@ import {
     CREATE_PRODUCT_REQUEST,
     CREATE_PRODUCT_SUCCESS,
     CREATE_PRODUCT_FAILURE,
+    GET_PRODUCT_NAME,
   } from "../actions/actionTypes";
   
   const initialState = {
@@ -40,6 +41,12 @@ import {
           creatingProduct: false,
           error: action.payload,
         };
+
+        case GET_PRODUCT_NAME:
+          return {
+            ...state,
+            allproducts: [...action.payload],
+          };
   
       default:
         return state;

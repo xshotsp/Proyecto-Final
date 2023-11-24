@@ -3,7 +3,10 @@ import {
   CREATE_PRODUCT_REQUEST,
   CREATE_PRODUCT_SUCCESS,
   CREATE_PRODUCT_FAILURE,
+  GET_PRODUCT_NAME,
 } from './actionTypes';
+
+const URL = "http://localhost:3001"
 
 export const getAllProducts = async () => {
     try {
@@ -44,3 +47,20 @@ export const createProductFailure = (error) => ({
   type: CREATE_PRODUCT_FAILURE,
   payload: error,
 });
+
+
+export const getProductName = (name) => {
+  return async (dispatch) => {
+      try{
+        const productsname = (await axios.get(`${URL}/products/name/${name}`)).data;
+
+          return dispatch({
+              type: GET_PRODUCT_NAME, 
+              payload: productsname
+          });
+      }catch (error) {
+          throw error.response.data
+      }
+  };
+};
+
