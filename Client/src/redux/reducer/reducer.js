@@ -6,6 +6,7 @@ import {
   FETCH_PRODUCT_SUCCESS,
   FETCH_PRODUCT_FAILURE,
   GET_PRODUCT_NAME,
+  GET_ALL_SELECTS
   CLEAN_PRODUCT_DETAIL,
 } from "../actions/actionTypes";
 
@@ -70,6 +71,13 @@ export default function reducer(state = initialState, action) {
             allproducts: [...action.payload],
       };
 
+
+      case GET_ALL_SELECTS:
+        return {
+          ...state,
+          selectFilter: action.payload,
+        };
+  
     case CLEAN_PRODUCT_DETAIL:
       return{
         ...state,
