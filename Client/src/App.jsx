@@ -8,6 +8,7 @@ import Footer from './components/Footer/Footer';
 import HomePage from './components/Home/HomePage';
 import FormPage from './components/formpage/FormPage';
 import Login from './components/Login/Login';
+import ProductDetail from './components/detailpage/DetailPage'
 
 function App() {
   const pathname = useLocation();
@@ -17,6 +18,7 @@ function App() {
       {pathname === '/' ? null : <NavBar />}
       <Routes>
         <Route path='/' element={<HomePage />} />
+        <Route path="/detalle/:id" component={ProductDetail} />
         <Route path='/form' element={<FormPage />} />
         <Route path='/login' element={<Login />} />
       </Routes>

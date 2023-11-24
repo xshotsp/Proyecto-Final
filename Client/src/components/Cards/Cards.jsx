@@ -1,5 +1,5 @@
-// ProductList.jsx
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom'; // Importa el componente Link de React Router
 import { getAllProducts } from '../../redux/actions/actions';
 import s from './cards.module.css';
 
@@ -32,15 +32,19 @@ const ProductList = () => {
 };
 
 const ProductCard = ({ product }) => {
-  const { name, price, colour, imageUrl } = product;
+  const { id, name, price, colour, imageUrl } = product;
 
   return (
-    <div className={s.productCard}>
-      {imageUrl && <img src={imageUrl} alt={name} className={s.productImage} />}
-      <h3>{name}</h3>
-      <p>Precio: {price}</p>
-      <p>Color: {colour}</p>
-    </div>
+    <Link to={`/detalle/${id}`} className={s.productCardLink}>
+      <div className={s.productCard}>
+        {imageUrl && (
+          <img src={imageUrl} alt={name} className={s.productImage} width="100" height="100" />
+        )}
+        <h3>{name}</h3>
+        <p>Precio: {price}</p>
+        <p>Color: {colour}</p>
+      </div>
+    </Link>
   );
 };
 
