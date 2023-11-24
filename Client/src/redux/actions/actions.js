@@ -3,10 +3,11 @@ import {
   CREATE_PRODUCT_REQUEST,
   CREATE_PRODUCT_SUCCESS,
   CREATE_PRODUCT_FAILURE,
-
+  GET_PRODUCTS,
   GET_PRODUCT_NAME,
   FETCH_PRODUCT_SUCCESS,
-  FETCH_PRODUCT_FAILURE
+  FETCH_PRODUCT_FAILURE,
+  GET_BRANDS
 
 } from './actionTypes';
 
@@ -34,6 +35,20 @@ export const getAllProducts = async () => {
     .catch(error => {
       console.error('Error al obtener productos:', error);
     });
+
+    export function getProducts(){
+      return async function(dispatch){
+          try {
+              const response= await axios.get("http://localhost:3001/product/")
+              dispatch({
+                  type: GET_PRODUCTS,
+                  payload: response.data
+              })
+          } catch (error) {
+              console.log(error);
+          }
+      }
+  }
   
 // Acción para iniciar la creación del producto
 export const createProductRequest = () => ({
@@ -85,3 +100,16 @@ export const fetchProductById = (id) => async (dispatch) => {
   }
 };
 
+export function getBrands(){
+  return async function(dispatch){
+    try {
+      const response = await axios.get("http://localhost:3001/brands")
+      dispatch({
+        type: GET_BRANDS,
+        payload: response.data
+      })
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
