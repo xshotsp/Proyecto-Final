@@ -21,7 +21,7 @@ const ProductList = () => {
   return (
     <div>
       <h1>Lista de Productos</h1>
-      <div className={s.product-list}>
+      <div className={s.productList}>
         {products.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}
@@ -34,8 +34,8 @@ const ProductCard = ({ product }) => {
   const { name, imageUrl, price, colour } = product;
 
   return (
-    <div className={s.product-card}>
-      <img src={imageUrl} alt={name} className={s.product-image} width="100" height="100" />
+    <div className={s.productCard}>
+      <img src={imageUrl} alt={name} className={s.productImage} width="100" height="100" />
       <h3>{name}</h3>
       <p>Precio: {price}</p>
       <p>Color: {colour}</p>
