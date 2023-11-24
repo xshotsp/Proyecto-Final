@@ -20,34 +20,36 @@ const apiLoaderProducts = async () => {
 
   try {
     const { data } = await axios.request(URL, { params, headers });
-    for (const {
-      name,
-      imageUrl,
-      price,
-      colour,
-      additionalImageUrls,
-      brandName,
-    } of data.products) {
-      const [product] = await Product.findOrCreate({
-        where: {
-          name,
-          image: imageUrl,
-          price: price.current.text,
-          colour,
-          additionalImage: additionalImageUrls,
-        },
-      });
-      
-      // Busca o crea la marca
-      const [brand] = await Brand.findOrCreate({
-        where: {
-          name: brandName,
-        },
-      });
-      
-      // Crea la relación en la tabla intermedia
-      await product.addBrand(brand);
-    }
+    data.products.forEach(
+      async ({
+        name,
+        imageUrl,
+        price,
+        colour,
+        additionalImageUrls,
+        brandName,
+      }) => {
+        const [product] = await Product.findOrCreate({
+          where: {
+            name,
+            image: imageUrl,
+            price: price.current.text,
+            colour,
+            additionalImage: additionalImageUrls,
+          },
+        });
+
+        // Busca o crea la marca
+        const [brand] = await Brand.findOrCreate({
+          where: {
+            name: brandName,
+          },
+        });
+
+        // Crea la relación en la tabla intermedia
+        await product.addBrand(brand);
+      }
+    );
     console.log("Carga en la base de datos exitosa");
   } catch (error) {
     console.log(error.message);
