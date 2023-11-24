@@ -1,0 +1,30 @@
+
+
+/* .product-card {
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin: 10px;
+    width: 200px; 
+    text-align: center;
+  }
+  
+  .product-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px; 
+  }
+  
+  .product-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  } */
+  
+/* ProductList.module.css */
+
+.productList {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+  }
+  

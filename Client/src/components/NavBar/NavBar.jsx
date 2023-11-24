@@ -1,30 +1,18 @@
-import { Link, useLocation } from "react-router-dom"
+import { Link } from "react-router-dom"
 import SearchBar from "../searchbar/SearchBar"
+import styles from "./NavBar.module.css"
 
 const NavBar = () => {
-  const {pathname} = useLocation()
   return (
-    <div>
-      <nav>
-        <h1>
+    <div className={styles.container}>
+      <nav className={styles.nav}>
+        <h1 className={styles.nav__h1}>
         <u>Quirkz!</u>
         </h1>
         <SearchBar/> 
-        <ul>
+        <ul className={styles.nav__ul}>
           <Link to="/">
           <li>Tienda</li>
-          </Link>
-
-          <Link to="/hombre">
-          <li>Hombre</li>
-          </Link>
-          
-          <Link to="/mujer">
-          <li>Mujer</li>
-          </Link>
-
-          <Link to="/niños">
-          <li>Niños</li>
           </Link>
           
           <Link to="/contacto">

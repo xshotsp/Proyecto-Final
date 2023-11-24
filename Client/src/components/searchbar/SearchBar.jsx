@@ -1,4 +1,5 @@
 import { useState } from "react"
+import styles from "./SearchBar.module.css"
 
 const SearchBar = () => {
   
@@ -16,12 +17,13 @@ const SearchBar = () => {
     }
   
     return (
-    <div>
+    <div className={styles.container}>
         <input 
         type="text"
         placeholder="Buscar..."
         value={search}
-        onChange={handleInputChange} />
+        onChange={handleInputChange} 
+        className={styles.input}/>
 
         <button onClick={handleSearch}>Buscar</button>
     </div>
