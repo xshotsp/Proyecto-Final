@@ -26,9 +26,9 @@ const putUserHandler = async (req, res) => {
     newUser.profile_picture = profile_picture;
     await newUser.save();
 
-    res.status(200).json(newUser);
+    return res.status(200).json(newUser);
   } catch (error) {
-    res.status(400).json({ error: error.message });
+   return res.status(400).json({ error: error.message });
   }
 };
 
