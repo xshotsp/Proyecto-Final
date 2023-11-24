@@ -5,30 +5,30 @@ import { useSelector, useDispatch} from 'react-redux';
 import { getAllProducts } from '../../redux/actions/actions';
 import s from './ProductList.module.css';
 import Card from '../card/Card';
+import Pagination from '../pagination/Pagination';
 
 const ProductList = () => {
-  //const [products, setProducts] = useState([]);
+
+  
   const products = useSelector ((state) => state.allproducts)
   const dispatch = useDispatch()
 
-  useEffect(() => {
-    // const fetchData = async () => {
-    //   try {
-    //     const productsData = await getAllProducts();
-    //     //setProducts(productsData);
-    //   } catch (error) {
-    //     console.error('Error al obtener productos:', error);
-    //   }
-    // };
+  
+  const [currentPage, setCurrentPage] = useState(1);
 
-    // fetchData();
-    dispatch(getAllProducts());
+  const cardsPerPage = 5;
+
+  const lastCardIndex = currentPage * cardsPerPage;
+  const firstCardIndex = lastCardIndex - cardsPerPage;
+
+  const currentCards = products.slice(firstCardIndex, lastCardIndex);
+
+
+  useEffect(() => {
+     dispatch(getAllProducts());
   }, [dispatch]);
 
-  if (products[0]?.name) console.log ('hola')
-  else console.log('adios')
   
-  console.log(products)
   return (
     <div>
       {
@@ -43,13 +43,19 @@ const ProductList = () => {
         (products[0]?.name) &&
       
       <div className={s.productList}>
-        {products.map((product) => (
+        {currentCards.map((product) => (
           <Card key={product.id} product={product} />
         ))}
       </div>
       }
 
   
+
+      <Pagination
+      filteredCountries={products}
+      cardsPerPage={cardsPerPage}
+      setCurrentPage={setCurrentPage}
+      currentPage={currentPage}/>
     </div>
   );
 };
