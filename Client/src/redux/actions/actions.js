@@ -10,6 +10,8 @@ import {
   FETCH_PRODUCT_FAILURE,
   GET_ALL_SELECTS,
   CLEAN_PRODUCT_DETAIL,
+  GET_PRODUCTS,
+  GET_BRANDS,
 
 } from './actionTypes';
 
@@ -30,6 +32,34 @@ const URL = "http://localhost:3001"
           }
       };
     };
+
+    export function getProducts(){
+      return async function(dispatch){
+          try {
+              const response= await axios.get("http://localhost:3001/product/")
+              dispatch({
+                  type: GET_PRODUCTS,
+                  payload: response.data
+              })
+          } catch (error) {
+              console.log(error);
+          }
+      }
+  }
+
+  export function getBrands(){
+    return async function(dispatch){
+      try {
+        const response = await axios.get("http://localhost:3001/brands")
+        dispatch({
+          type: GET_BRANDS,
+          payload: response.data
+        })
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  }
 
 // Acción para iniciar la creación del producto
 export const createProductRequest = () => ({

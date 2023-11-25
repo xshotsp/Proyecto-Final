@@ -1,55 +1,33 @@
-/* NavBar.module.css */
-
-.container {
+.container{
   position: sticky;
   width: 100%;
   margin-bottom: 30px;
 }
 
-u {
-  text-decoration: none;
-  color: black;
-}
-
-.nav {
+.nav{
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
   width: 100%;
-  text-decoration: none;
 }
 
-.nav__h1 {
+.nav__h1{
   margin: 0 10px 0 0;
   font-size: 3rem;
-  color: black;
+
 }
 
-/* Estilo específico para la barra de búsqueda */
-.search-bar {
-  flex: 1; /* Toma el espacio restante para centrar la barra de búsqueda */
+.nav__ul{
   display: flex;
-  align-items: center;
-  justify-content: center; /* Centra el contenido horizontalmente */
+  justify-content: flex-end;
+  width: 30%;
+  margin-right: 30px;
 }
 
-.search-bar input {
-  width: 80%; /* Ajustado el ancho de la barra de búsqueda */
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  margin-right: 10px; /* Separación entre la barra de búsqueda y los botones */
-}
-
-.nav__ul {
-  display: flex;
-  align-items: center; /* Alinea los elementos verticalmente en el centro */
-  width: 30%; /* Ajustado el ancho para mejorar la distribución de los elementos */
-}
 
 .nav__ul li {
-  color: black;
+  color: white;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -61,12 +39,3 @@ u {
   padding: 10px;
 }
 
-/* Estilos para los iconos */
-.nav__ul li svg {
-  margin-right: 5px;
-}
-
-/* Estilos adicionales para mejorar la distribución de los elementos */
-.nav__ul li:last-child {
-  margin-right: 0; /* Elimina el margen derecho del último elemento */
-}
