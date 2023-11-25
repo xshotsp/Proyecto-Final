@@ -102,6 +102,7 @@ const ProductForm = () => {
       }
       return disabledAux
     }
+    //un
 
     const remove = (e) =>{
       setProductData({
@@ -109,7 +110,7 @@ const ProductForm = () => {
         [e.target.name] : [...productData[e.target.name].filter(X=>X !== e.target.id)]
       })
     }
-
+  //comentario
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -193,10 +194,10 @@ const ProductForm = () => {
             allBrands?.map((b)=><option key={b} value={b.name}>{b.name}</option>)
           }
         </select>
-        <div>
+        <div> 
           {
             productData.brands?.map(b=><div><span id={b}>{b}</span><button type="button" name="brands" id={b} onClick={remove}>X</button></div>)
-          }
+          } //*uno mas//
         </div>
         {/* <input disabled={buttonDisabled()} type="submit"/> */}
         <button type="submit" disabled={creatingProduct}>

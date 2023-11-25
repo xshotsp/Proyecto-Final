@@ -36,7 +36,7 @@ export const getAllProducts = async () => {
       console.error('Error al obtener productos:', error);
     });
 
-    export function getProducts(){
+    export function getProducts(){      //
       return async function(dispatch){
           try {
               const response= await axios.get("http://localhost:3001/product/")
@@ -100,7 +100,7 @@ export const fetchProductById = (id) => async (dispatch) => {
   }
 };
 
-export function getBrands(){
+export function getBrands(){                  //
   return async function(dispatch){
     try {
       const response = await axios.get("http://localhost:3001/brands")

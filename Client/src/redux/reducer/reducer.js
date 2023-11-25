@@ -61,7 +61,7 @@ export default function reducer(state = initialState, action) {
         error: action.payload,
       };
      
-    case GET_PRODUCT_NAME:
+    case GET_PRODUCT_NAME:      //
           return {
             ...state,
             allproducts: [...action.payload],
@@ -69,7 +69,7 @@ export default function reducer(state = initialState, action) {
     case GET_BRANDS: 
           return{
             ...state,
-            allBrands: action.payload
+            allBrands: action.payload       //
       }
     default:
       return state;
