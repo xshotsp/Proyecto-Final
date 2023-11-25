@@ -1,5 +1,5 @@
 import {
-  GET_PRODUCTS,
+  GET_ALL_PRODUCTS,
   CREATE_PRODUCT_REQUEST,
   CREATE_PRODUCT_SUCCESS,
   CREATE_PRODUCT_FAILURE,
@@ -7,6 +7,8 @@ import {
   FETCH_PRODUCT_FAILURE,
   GET_PRODUCT_NAME,
   GET_BRANDS,
+  GET_ALL_SELECTS,
+  CLEAN_PRODUCT_DETAIL,
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -16,11 +18,14 @@ const initialState = {
   error: null,
   productDetails: null,
   allBrands: [],
+  // productDetails: null,
+  productDetails: {},
 };
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
-    case GET_PRODUCTS:
+
+    case GET_ALL_PRODUCTS:
       return {
         ...state,
         allproducts: [...action.payload],
@@ -48,6 +53,7 @@ export default function reducer(state = initialState, action) {
       };
 
     case FETCH_PRODUCT_SUCCESS:
+      console.log(action.payload);
       return {
         ...state,
         productDetails: action.payload,
@@ -61,7 +67,6 @@ export default function reducer(state = initialState, action) {
         error: action.payload,
       };
      
-    case GET_PRODUCT_NAME:      //
           return {
             ...state,
             allproducts: [...action.payload],
@@ -71,6 +76,20 @@ export default function reducer(state = initialState, action) {
             ...state,
             allBrands: action.payload       //
       }
+
+
+      case GET_ALL_SELECTS:
+        return {
+          ...state,
+          selectFilter: action.payload,
+        };
+  
+    case CLEAN_PRODUCT_DETAIL:
+      return{
+        ...state,
+        productDetails: {}
+      }
+
     default:
       return state;
 

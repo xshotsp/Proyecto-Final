@@ -7,7 +7,7 @@ import CreateUserForm from "./components/createUserForm/CreateUserForm";
 import HomePage from "./components/HomePage/HomePage";
 import FormPage from "./components/formpage/FormPage";
 import Login from "./components/Login/Login";
-import ProductDetail from "./components/detailpage/DetailPage";
+import DetailPage from "./components/detailpage/DetailPage";
 
 function App() {
   return (
@@ -15,7 +15,7 @@ function App() {
       <NavBar />
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/detalle/:id" component={ProductDetail} />
+        <Route path="/product/:id" element={<DetailPage />} />
         <Route path="/form" element={<FormPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/createuser" element={<CreateUserForm />} />
@@ -26,3 +26,5 @@ function App() {
 }
 
 export default App;
+
+//cambio

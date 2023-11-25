@@ -64,9 +64,11 @@ const createProducts = async (productData) => {
     }
 
     // CLOUDINARY
-    console.log(image);
-    const cloudinaryUpload = await cloudinary.uploader.upload(`${image}`);
-    image = cloudinaryUpload.secure_url;
+    if (image){
+      const cloudinaryUpload = await cloudinary.uploader.upload(`${image}`);
+      image = cloudinaryUpload.secure_url;
+    }
+   
 
     console.log("controller");
     const newProduct = await Product.create({
@@ -146,7 +148,61 @@ const updateProductById = async (id, newData) => {
   }
 };
 /*************************************************************************************** */
+
+const getProductswithFilter = async (req, res, next) => {
+  
+  // Obtén los parámetros de consulta de la URL
+  const { name, colour, brand, price } = req.query;
+  console.log(price);
+  console.log(req.query);
+  // Crea un objeto de condiciones vacío
+  const whereConditions = {};
+
+  // Agrega condiciones al objeto según los parámetros de consulta
+  if (name) {
+    whereConditions.name = {
+      [Op.iLike]: `%${name}%`,
+    };
+  }
+
+  if (brand) {
+    whereConditions.brand = {
+      [Op.iLike]: `%${brand}%`,
+    };
+  }
+ 
+  if (colour) {
+    whereConditions.colour = {
+      [Op.iLike]: `%${colour}%`,
+    };
+  }
+ 
+ 
+  try {
+    const order = [];
+    if (price === "highest") {
+      order.push(["price", "DESC"]);
+    } else if (price === "lowest") {
+      order.push(["price", "ASC"]);
+    }
+
+    const products = await Product.findAll({
+      where: whereConditions, // Aplica las condiciones de filtro
+      order: order, // Aplica el ordenamiento por precio
+    });
+
+    results.results = products;
+
+  } catch (e) {
+    res.status(500).json({ message: e.message });
+  }
+};
+
+
+
+
 module.exports = {
+  getProductswithFilter,
   getAllProducts,
   getProductsById,
   getProductByName,
