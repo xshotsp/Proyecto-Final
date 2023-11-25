@@ -6,56 +6,36 @@ const URL = "http://localhost:3001";
 
 const getFindSelects = async () => {
             
-        const allCategories = [];
+        
         let allColors = [];
-        let allSize = [];
-       
-        const productsInfo = (await axios.get(`${URL}/products/all-products`)).data;
-        //obtiene todos los selects y quita espacios
+        let allBrands = [];
+               
+        const productsInfo = (await axios.get(`${URL}/product`)).data;
+
+        
+        //obtiene todos los selects de colour y quita espacios
         for (let i=0; i<productsInfo.length; i++){
-            allCategories.push(productsInfo[i].category?.trim());
-            allColors.push(productsInfo[i].color?.trim());
-            allSize.push(productsInfo[i].size?.flatMap(siz => Object.keys(siz)));
-            //allSize.flat();
-            //console.log(allSize)
+            allColors.push(productsInfo[i].colour?.trim());
         }  
  
-        //quita los repetidos
-        const setCategories = new Set (allCategories);
-        let categoriesSinRepetidos = Array.from(setCategories);
         
+        //quita los repetidos  
         let setColors = new Set (allColors);
         let colorsSinRepetidos = Array.from(setColors);
-        
-        let setSizes = new Set (allSize.flat());
-        let sizesSinRepetidos = Array.from(setSizes);
-        //console.log(sizesSinRepetidos)
+        console.log(colorsSinRepetidos)
 
         //los organiza alfabeticamente
-        let sortedCategories = categoriesSinRepetidos.sort();       
         let sortedColors=colorsSinRepetidos.sort();
-        
-        //los organiza talla menor a mayor
-        let sortedSize = [];
-        for (let size of sizesSinRepetidos){
-            if (size === 'XS') sortedSize.push(size)
-        }
-        for (let size of sizesSinRepetidos){
-            if (size === 'S') sortedSize.push(size)
-        }
-        for (let size of sizesSinRepetidos){
-            if (size === 'M') sortedSize.push(size)
-        }
-        for (let size of sizesSinRepetidos){
-            if (size === 'L') sortedSize.push(size)
-        }
-        for (let size of sizesSinRepetidos){
-            if (size === 'XL') sortedSize.push(size)
-        }
-        for (let size of sizesSinRepetidos){
-            if (size === 'XXL') sortedSize.push(size)
-        }
-       return ({category: sortedCategories, color: sortedColors, size: sortedSize});        
+    
+
+        const brandsInfo = (await axios.get(`${URL}/brands`)).data;
+        for (let i=0; i<brandsInfo.length; i++){
+            allBrands.push(brandsInfo[i].name?.trim());
+        }  
+        let sortedBrands = allBrands.sort();
+    
+
+       return ({colour: sortedColors, brand: sortedBrands});        
            
 }
 

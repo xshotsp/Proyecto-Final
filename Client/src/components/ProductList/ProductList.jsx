@@ -1,51 +1,47 @@
 /* eslint-disable react/prop-types */
 // ProductList.jsx
-import  { useEffect, useState } from 'react';
-import { getAllProducts } from '../../redux/actions/actions';
-import s from './ProductList.module.css';
-import Card from '../card/Card';
-import Pagination from '../pagination/Pagination';
+import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { getAllProducts } from "../../redux/actions/actions";
+import s from "./ProductList.module.css";
+import Card from "../card/Card";
+import Pagination from "../pagination/Pagination";
 
 const ProductList = () => {
-  const [products, setProducts] = useState([]);
+  const products = useSelector((state) => state.allproducts);
+  const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1);
-
-  const cardsPerPage = 12;
-
+  const cardsPerPage = 5;
   const lastCardIndex = currentPage * cardsPerPage;
   const firstCardIndex = lastCardIndex - cardsPerPage;
-
   const currentCards = products.slice(firstCardIndex, lastCardIndex);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const productsData = await getAllProducts();
-        setProducts(productsData);
-      } catch (error) {
-        console.error('Error al obtener productos:', error);
-      }
-    };
-
-    fetchData();
-  }, []);
+    dispatch(getAllProducts());
+  }, [dispatch]);
 
   return (
     <div>
-      <h1>Lista de Productos</h1>
-      <div className={s.productList}>
-        {currentCards.map((product) => (
-          <Card key={product.id} product={product} />
-        ))}
-      </div>
+      {products[0]?.message && <h2>{products[0].message}</h2>}
+
+      {products[0]?.name && <h1>Lista de Productos</h1>}
+
+      {products[0]?.name && (
+        <div className={s.productList}>
+          {products.map((product) => (
+            <Card key={product.id} product={product} />
+          ))}
+        </div>
+      )}
+
       <Pagination
-      filteredCountries={products}
-      cardsPerPage={cardsPerPage}
-      setCurrentPage={setCurrentPage}
-      currentPage={currentPage}/>
+        filteredCountries={products}
+        cardsPerPage={cardsPerPage}
+        setCurrentPage={setCurrentPage}
+        currentPage={currentPage}
+      />
     </div>
   );
 };
-
 
 export default ProductList;

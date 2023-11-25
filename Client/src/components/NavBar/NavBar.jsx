@@ -1,38 +1,50 @@
-import { Link } from "react-router-dom"
-import SearchBar from "../searchbar/SearchBar"
-import styles from "./NavBar.module.css"
+// NavBar.jsx
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faShoppingCart, faUser } from '@fortawesome/free-solid-svg-icons';
+import SearchBar from '../searchbar/SearchBar';
+import styles from './NavBar.module.css';
 
 const NavBar = () => {
   return (
     <div className={styles.container}>
       <nav className={styles.nav}>
-        <h1 className={styles.nav__h1}>
-        <u>Quirkz!</u>
-        </h1>
-        <SearchBar/> 
+      <Link to="/">
+          <h1 className={styles.nav__h1}>
+            <u>QUIRKZ</u>
+          </h1>
+        </Link>
+        <SearchBar expanded={true} />
         <ul className={styles.nav__ul}>
-          <Link to="/">
-          <li>Tienda</li>
+          <Link to="/contacto">
+            <li>
+              Contacto
+            </li>
+          </Link>
+          <Link to="/login">
+            <li>
+              <FontAwesomeIcon icon={faUser} />
+            </li>
+            </Link>
+            <Link to="/createuser">
+            <li>
+              Registrarse
+            </li> 
           </Link>
           
-          <Link to="/contacto">
-          <li>Contacto</li>
+          <Link to="/cart">
+            <li>
+              <FontAwesomeIcon icon={faShoppingCart} />
+            </li>
           </Link>
-
-          <Link to="/login">
-            <li>Mi Cuenta</li>
-          </Link>
-          <Link to="/createuser">
-            <li>Registrarse</li>
-          </Link>
-
         </ul>
       </nav>
       <div>
-
+        
       </div>
     </div>
-  )
+  );
 }
 
-export default NavBar
+export default NavBar;
