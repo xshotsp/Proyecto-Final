@@ -9,7 +9,7 @@ import {
   FETCH_PRODUCT_SUCCESS,
   FETCH_PRODUCT_FAILURE,
 
-  GET_ALL_SELECTS
+  GET_ALL_SELECTS,
 
   CLEAN_PRODUCT_DETAIL
 
@@ -92,10 +92,9 @@ export function getAllSelects() {
       payload: productsInfo,
     });
   };
+}
 export function cleanProductDetail() {
   return{
     type: CLEAN_PRODUCT_DETAIL
   }
 }
-
-//nuevo
