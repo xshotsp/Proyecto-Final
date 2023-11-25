@@ -1,10 +1,15 @@
-/* hero.module.css */
+.heroContainer {
+  position: relative;
+  width: 60%;
+  height: 400px; 
+  background-color: #4CAF50; 
+  color: #000000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto; 
+}
 
-.hero-container {
-    text-align: center;
-  }
-  
-  .hero-text {
-    font-size: 2.5em; 
-  }
-  
+.heroText {
+  text-align: center;
+}
