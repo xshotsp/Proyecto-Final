@@ -12,6 +12,10 @@
   color: #000000;
 }
 
+h3{
+  text-decoration: none;
+  color: #000000;
+}
 .productCard:hover {
   transform: scale(1.05);
 }
