@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart, faUser } from '@fortawesome/free-solid-svg-icons';
 import SearchBar from '../searchbar/SearchBar';
-import styles from './NavBar.module.css';
+import styles from './navbar.module.css';
 
 const NavBar = () => {
   return (

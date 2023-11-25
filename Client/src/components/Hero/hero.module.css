@@ -1,15 +1,33 @@
+/* hero.module.css */
+
 .heroContainer {
   position: relative;
   width: 60%;
-  height: 400px; 
-  background-color: #4CAF50; 
-  color: #000000;
+  height: 400px;
+  background-color: #4CAF50;
+  color: #ffffff;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 0 auto; 
+  margin: 0 auto;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: background-image 0.5s ease-in-out;
+  overflow: hidden;
+}
+
+.heroContainer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
 }
 
 .heroText {
   text-align: center;
+  z-index:1;
 }
