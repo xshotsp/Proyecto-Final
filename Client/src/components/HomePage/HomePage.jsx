@@ -3,7 +3,7 @@ import Hero from "../Hero/Hero";
 import ProductList from "../ProductList/ProductList";
 import Filters from "../Filters/Filters";
 import { useEffect, useState } from 'react';
-import { getAllSelects, getFilters } from '../../redux/actions/actions';
+import { getAllSelects,} from '../../redux/actions/actions';
 
 const HomePage = () => {
 

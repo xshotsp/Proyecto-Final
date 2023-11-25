@@ -11,14 +11,18 @@ const ProductList = () => {
   
   const products = useSelector ((state) => state.allproducts)
   const dispatch = useDispatch()
+  const [currentPage, setCurrentPage] = useState(1);
+  const cardsPerPage = 5;
+  const lastCardIndex = currentPage * cardsPerPage;
+  const firstCardIndex = lastCardIndex - cardsPerPage;
+  const currentCards = products.slice(firstCardIndex, lastCardIndex);
+
 
   useEffect(() => {
-    
-    dispatch(getAllProducts());
+     dispatch(getAllProducts());
   }, [dispatch]);
 
-   
-
+  
   return (
     <div>
       {
