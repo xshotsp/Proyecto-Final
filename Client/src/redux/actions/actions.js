@@ -8,11 +8,13 @@ import {
   GET_PRODUCT_NAME,
   FETCH_PRODUCT_SUCCESS,
   FETCH_PRODUCT_FAILURE,
-  GET_BRANDS
+  GET_BRANDS,
   GET_ALL_PRODUCTS,
   GET_PRODUCT_NAME,
   FETCH_PRODUCT_SUCCESS,
   FETCH_PRODUCT_FAILURE,
+  GET_ALL_SELECTS,
+  CLEAN_PRODUCT_DETAIL,
   GET_ALL_SELECTS,
   CLEAN_PRODUCT_DETAIL,
 } from './actionTypes';
@@ -144,9 +146,9 @@ export function getAllSelects() {
       payload: productsInfo,
     });
   };
+}
 export function cleanProductDetail() {
   return{
     type: CLEAN_PRODUCT_DETAIL
   }
 }
-
