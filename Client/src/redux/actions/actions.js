@@ -59,7 +59,7 @@ const URL = "http://localhost:3001"
         console.log(error);
       }
     }
-  }
+  }//algo mas
 
 // Acción para iniciar la creación del producto
 export const createProductRequest = () => ({

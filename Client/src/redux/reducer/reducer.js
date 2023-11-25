@@ -90,7 +90,7 @@ export default function reducer(state = initialState, action) {
       return{
         ...state,
         allBrands: action.payload
-  }
+  }//algo
 
     default:
       return state;
