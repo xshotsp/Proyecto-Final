@@ -6,6 +6,8 @@ import {
   FETCH_PRODUCT_SUCCESS,
   FETCH_PRODUCT_FAILURE,
   GET_PRODUCT_NAME,
+  GET_ALL_SELECTS,
+  GET_FILTROS
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -66,6 +68,18 @@ export default function reducer(state = initialState, action) {
             ...state,
             allproducts: [...action.payload],
       };
+
+      case GET_ALL_SELECTS:
+        return {
+          ...state,
+          selectFilter: action.payload,
+        };
+  
+        case GET_FILTROS:
+          return {
+            ...state,
+            allproducts: action.payload,
+          };
 
     default:
       return state;

@@ -12,6 +12,7 @@ const getAllProducts = async () => {
       through: { attributes: [] },
     },
   });
+
   return productsDB;
 };
 //*********************************************************** */
@@ -146,10 +147,69 @@ const updateProductById = async (id, newData) => {
   }
 };
 /*************************************************************************************** */
+const getProductswithFilter = async (req, res, next) => {
+  
+  const results = {};
+  // Obtén los parámetros de consulta de la URL
+  const { name, brand, colour, price } = req.query;
+
+  console.log(req.query);
+  // Crea un objeto de condiciones vacío
+  const whereConditions = {};
+
+  // Agrega condiciones al objeto según los parámetros de consulta
+  if (name) {
+    whereConditions.name = {
+      [Op.iLike]: `%${name}%`,
+    };
+  }
+
+
+  if (colour) {
+    whereConditions.colour = {
+      [Op.iLike]: `%${colour}%`,
+    };
+  }
+   
+  try {
+    const order = [];
+    if (price === "highest") {
+      order.push(["price", "DESC"]);
+    } else if (price === "lowest") {
+      order.push(["price", "ASC"]);
+    }
+ 
+    
+    let products = await Product.findAll({
+      where: whereConditions, // Aplica las condiciones de filtro
+      order: order, // Aplica el ordenamiento por precio
+      include: {
+        model: Brand,
+        through: { attributes: [] },
+        }
+    });
+
+    
+    if (brand) {
+        products = products.filter((prod) => prod.brands[0].name === brand );
+    }
+
+
+    if (products.length === 0) products = [{message: "No se encontraron productos que coincidan con la búsqueda."}]
+
+    
+    res.paginatedResults = products;
+    next();
+  } catch (e) {
+    res.status(500).json({ message: e.message });
+  }
+};
+
 module.exports = {
   getAllProducts,
   getProductsById,
   getProductByName,
+  getProductswithFilter,
   createProducts,
   deleteProductById,
   updateProductById,
