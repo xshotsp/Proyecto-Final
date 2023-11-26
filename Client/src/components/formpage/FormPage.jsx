@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   createProductRequest,
   createProductSuccess,
   createProductFailure,
+  postProduct,
   getProducts,
   getBrands,
 } from "../../redux/actions/actions";
@@ -39,6 +40,7 @@ const ProductForm = () => {
   });
 
   const validate = (productData, name) => {
+    console.log(name);
     if (name === "name") {
         if (productData.name === "") setErrors({ ...errors, name: "El nombre es requerido" });
       else if (productData.name.length >= 15) setErrors({ ...errors, name: "El nombre es muy largo" })
@@ -82,27 +84,24 @@ const ProductForm = () => {
     //   [name]: value,
     // }));
     //RE-RENDERIZADO
-    validate(
-      {
+    validate({
         ...productData,
-        [e.target.name]: e.target.value,
-      },
-      e.target.name
-    );
+        [e.target.name]: e.target.value},
+        e.target.name);
     return;
   };
 
-      const buttonDisabled= ()=>{
-      let disabledAux = true;
-      for(let error in errors){
-        if(errors[error]=== "") disabledAux = false;
-        else{
-          disabledAux = true;
-          break;
-        }
-      }
-      return disabledAux
-    }
+    //   const buttonDisabled= ()=>{
+    //   let disabledAux = true;
+    //   for(let error in errors){
+    //     if(errors[error]=== "" || errors[error] == []) disabledAux = false;
+    //     else{
+    //       disabledAux = true;
+    //       break;
+    //     }
+    //   }
+    //   return disabledAux;
+    // }
     //ver
 
     const remove = (e) =>{
@@ -129,6 +128,11 @@ const ProductForm = () => {
       dispatch(createProductFailure(error.message));
     }
   };
+
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   dispatch(postProduct(productData));
+  // };
 
   return (
     <div>

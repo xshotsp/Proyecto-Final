@@ -59,7 +59,19 @@ const URL = "http://localhost:3001"
         console.log(error);
       }
     }
-  }//algo mas
+  }
+  
+  //Funcion Post Independiente
+export function postProduct(state){
+  return async function(dispatch){
+    try {
+      await axios.post("http://localhost:3001/product", state)
+      alert("Producto creado con exito")
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
 
 // Acción para iniciar la creación del producto
 export const createProductRequest = () => ({
