@@ -1,15 +1,24 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   createProductRequest,
   createProductSuccess,
   createProductFailure,
+  getProducts,
+  getBrands,
 } from "../../redux/actions/actions";
 import axios from "axios";
 
 const ProductForm = () => {
   const dispatch = useDispatch();
+  const allBrands = useSelector((state)=>state.allBrands);
   const { creatingProduct, newProduct, error } = useSelector((state) => state);
+
+  useEffect(()=>{
+    dispatch(getProducts())
+    dispatch(getBrands())
+  }, [])
+
 
   const [productData, setProductData] = useState({
     name: "",
@@ -17,6 +26,7 @@ const ProductForm = () => {
     price: "",
     colour: "",
     additionalImage: [],
+    brands: []
   });
 
   const [errors, setErrors] = useState({
@@ -25,47 +35,52 @@ const ProductForm = () => {
     price: "Data is required",
     colour: "Data is required",
     additionalImage: [],
+    brands: []
   });
 
   const validate = (productData, name) => {
     if (name === "name") {
-      if (productData.name === "")
-        setErrors({ ...errors, name: "El nombre es requerido" });
-      else if (productData.name.length >= 15)
-        setErrors({ ...errors, name: "" });
+        if (productData.name === "") setErrors({ ...errors, name: "El nombre es requerido" });
+      else if (productData.name.length >= 15) setErrors({ ...errors, name: "El nombre es muy largo" })
+      else setErrors({...errors, name: ""})
     }
 
     if (name === "image") {
-      const regex =
-        /[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/;
-      if (regex.test(productData.image)) {
-        setErrors({ ...errors, image: "" });
-      } else {
-        setErrors({ ...errors, image: "La imagen debe ser una URL" });
-      }
+      const regex =/[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/;
+      if (regex.test(productData.image)) setErrors({ ...errors, image: "" })
+      else setErrors({ ...errors, image: "La imagen debe ser una URL" })
     }
 
     if (name === "price") {
-      if (isNaN(parseInt(productData.price)))
-        setErrors({ ...errors, price: "El dato debe ser un numero" });
-      else if (productData.price < 100 || productData.price > 0) {
-        errors.price = "El valor debe ser de 0 a 100";
-      } else setErrors({ ...errors, price: "" });
+       if (isNaN(parseInt(productData.price))) setErrors({ ...errors, price: "El dato debe ser un numero" });
+      else if (productData.price > 100 || productData.price < 0) {errors.price = "El valor debe ser de 0 a 100"} 
+      else setErrors({ ...errors, price: "" });
     }
 
     if (name === "colour") {
-      if (!productData.colour.length)
-        setErrors({ ...errors, colour: "Minimo un color requerido" });
+      if (!productData.colour.length) setErrors({ ...errors, colour: "El color es requerido" });
       else setErrors({ ...errors, colour: "" });
     }
   };
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setProductData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
+       if(e.target.name === "brands"){
+    if(productData.brands.includes(e.target.value)) return
+    setProductData({
+      ...productData,
+      [e.target.name] : [...productData[e.target.name], e.target.value]
+    })
+   } else{
+    setProductData({
+      ...productData,
+      [e.target.name] : e.target.value
+    })
+  }
+    // const { name, value } = e.target;
+    // setProductData((prevData) => ({
+    //   ...prevData,
+    //   [name]: value,
+    // }));
     //RE-RENDERIZADO
     validate(
       {
@@ -76,6 +91,26 @@ const ProductForm = () => {
     );
     return;
   };
+
+      const buttonDisabled= ()=>{
+      let disabledAux = true;
+      for(let error in errors){
+        if(errors[error]=== "") disabledAux = false;
+        else{
+          disabledAux = true;
+          break;
+        }
+      }
+      return disabledAux
+    }
+    //ver
+
+    const remove = (e) =>{
+      setProductData({
+        ...productData,
+        [e.target.name] : [...productData[e.target.name].filter(X=>X !== e.target.id)]
+      })
+    }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -153,6 +188,18 @@ const ProductForm = () => {
           />
         </label>
         <br />
+         <label>Marcas: </label>
+        <select onChange={handleChange} name="brands" id="">
+          <option hidden>seleccionar marca</option>{
+            allBrands?.map((b)=><option key={b} value={b.name}>{b.name}</option>)
+          }
+        </select>
+        <div>
+          {
+            productData.brands?.map(b=><div><span id={b}>{b}</span><button type="button" name="brands" id={b} onClick={remove}>X</button></div>)
+          }
+        </div>
+        {/* <input disabled={buttonDisabled()} type="submit"/> */}
         <button type="submit" disabled={creatingProduct}>
           Crear Producto
         </button>

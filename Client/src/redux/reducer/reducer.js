@@ -8,6 +8,7 @@ import {
   GET_PRODUCT_NAME,
   GET_ALL_SELECTS,
   CLEAN_PRODUCT_DETAIL,
+  GET_BRANDS,
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -17,6 +18,7 @@ const initialState = {
   error: null,
   // productDetails: null,
   productDetails: {},
+  allBrands: [],
 };
 
 export default function reducer(state = initialState, action) {
@@ -83,6 +85,12 @@ export default function reducer(state = initialState, action) {
         ...state,
         productDetails: {}
       }
+
+      case GET_BRANDS: 
+      return{
+        ...state,
+        allBrands: action.payload
+  }//algo
 
     default:
       return state;
