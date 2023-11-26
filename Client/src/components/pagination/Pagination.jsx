@@ -31,6 +31,7 @@ const Pagination = ({
     setCurrentPage((prev) => prev + value);
   };
 
+  console.log(filteredCountries);
   return (
     <div className={styles.container}>
       {isMinimumToRender && (

@@ -22,9 +22,9 @@ const ProductList = () => {
 
 
   useEffect(() => {
-     dispatch(getAllProducts());
+    if(products.length === 0) dispatch(getAllProducts());
      setCurrentPage(1)
-  }, [dispatch]);
+  }, [products]);
 
   
   return (
@@ -41,7 +41,7 @@ const ProductList = () => {
         (products[0]?.name) &&
       
       <div className={s.productList}>
-        {products.map((product) => (
+        {currentCards.map((product) => (
           <Card key={product.id} product={product} />
         ))}
       </div>

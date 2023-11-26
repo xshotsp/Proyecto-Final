@@ -10,4 +10,3 @@ export const GET_BRANDS = "GET_BRANDS" //
 export const CLEAN_PRODUCT_DETAIL = "CLEAN_PRODUCT_DETAIL"
 export const GET_ALL_SELECTS = 'GET_ALL_SELECTS';
 export const GET_PRODUCTS = "GET_PRODUCTS";
-export const GET_BRANDS = "GET_BRANDS";//hola

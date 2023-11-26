@@ -7,11 +7,9 @@ import {
   FETCH_PRODUCT_FAILURE,
   GET_PRODUCT_NAME,
   GET_ALL_SELECTS,
-  GET_FILTROS
+  GET_FILTROS,
   GET_BRANDS,
   CLEAN_PRODUCT_DETAIL,
-  GET_BRANDS,
-
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -19,16 +17,13 @@ const initialState = {
   creatingProduct: false,
   newProduct: null,
   error: null,
-  productDetails: null,
   allBrands: [],
   // productDetails: null,
   productDetails: {},
-  allBrands: [],
 };
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
-
     case GET_ALL_PRODUCTS:
       return {
         ...state,
@@ -57,7 +52,7 @@ export default function reducer(state = initialState, action) {
       };
 
     case FETCH_PRODUCT_SUCCESS:
-      console.log(action.payload);
+     /*  console.log(action.payload); */
       return {
         ...state,
         productDetails: action.payload,
@@ -70,44 +65,38 @@ export default function reducer(state = initialState, action) {
         productDetails: null,
         error: action.payload,
       };
-     
-          return {
-            ...state,
-            allproducts: [...action.payload],
-      };
-    case GET_BRANDS: 
-          return{
-            ...state,
-            allBrands: action.payload       //
-      }
 
+    case GET_PRODUCT_NAME:
+      return {
+        ...state,
+        allproducts: [...action.payload],
+      };
+
+    case GET_BRANDS:
+      return {
+        ...state,
+        allBrands: action.payload, //
+      };
 
     case CLEAN_PRODUCT_DETAIL:
-      return{
+      return {
         ...state,
-        productDetails: {}
-      }
+        productDetails: {},
+      };
 
-      case GET_BRANDS: 
-      return{
+    case GET_ALL_SELECTS:
+      return {
         ...state,
-        allBrands: action.payload
-  }//algo
+        selectFilter: action.payload,
+      };
 
-      case GET_ALL_SELECTS:
-        return {
-          ...state,
-          selectFilter: action.payload,
-        };
-  
-        case GET_FILTROS:
-          return {
-            ...state,
-            allproducts: action.payload,
-          };
+    case GET_FILTROS:
+      return {
+        ...state,
+        allproducts: action.payload,
+      };
 
     default:
       return state;
-
   }
 }

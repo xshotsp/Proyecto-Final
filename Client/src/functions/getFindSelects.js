@@ -12,7 +12,7 @@ const getFindSelects = async () => {
                
 
         const productsInfo = (await axios.get(`${URL}/product/all-products`)).data;
-        console.log(productsInfo)
+        /* console.log(productsInfo) */
 
         
         //obtiene todos los selects de colour y quita espacios
@@ -24,7 +24,7 @@ const getFindSelects = async () => {
         //quita los repetidos  
         let setColors = new Set (allColors);
         let colorsSinRepetidos = Array.from(setColors);
-        console.log(colorsSinRepetidos)
+        /* console.log(colorsSinRepetidos) */
 
         //los organiza alfabeticamente
         let sortedColors=colorsSinRepetidos.sort();
