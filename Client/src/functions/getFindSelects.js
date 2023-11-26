@@ -10,8 +10,10 @@ const getFindSelects = async () => {
         let allColors = [];
         let allBrands = [];
                
+
         const productsInfo = (await axios.get(`${URL}/product/all-products`)).data;
         console.log(productsInfo)
+
         
         //obtiene todos los selects de colour y quita espacios
         for (let i=0; i<productsInfo.length; i++){
@@ -29,7 +31,7 @@ const getFindSelects = async () => {
     
 
         const brandsInfo = (await axios.get(`${URL}/brands`)).data;
-        console.log(brandsInfo)
+
         for (let i=0; i<brandsInfo.length; i++){
             allBrands.push(brandsInfo[i].name?.trim());
         }  

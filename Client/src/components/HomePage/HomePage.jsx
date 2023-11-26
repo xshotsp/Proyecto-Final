@@ -3,7 +3,10 @@ import Hero from "../Hero/Hero";
 import ProductList from "../ProductList/ProductList";
 import Filters from "../Filters/Filters";
 import { useEffect, useState } from 'react';
+
 import { getAllSelects, getFilters } from '../../redux/actions/actions';
+
+
 
 const HomePage = () => {
 
@@ -21,11 +24,14 @@ const PriceOpt = ['highest', 'lowest'];
     dispatch (getFilters(initialFilters))
 }, [dispatch, initialFilters])
 
+
+
 const handleChange = (event) => {
   const { name, value } = event.target;
   setInitialFilters({ ...initialFilters, [name]: value });
   dispatch(getFilters(initialFilters));
  }
+
 
  const handleFilterRemove = (filterName) => {
   const newInitialFilters = { ...initialFilters };
@@ -34,12 +40,13 @@ const handleChange = (event) => {
   dispatch(getFilters(newInitialFilters));
 };
 
+
   return (
     <div>
         <Filters
           name="colour"
           options={colourOpt}
-          handleChange={handleChange}
+          handleChange={handleChange}    
           state={null}
         />
         <Filters
@@ -80,6 +87,7 @@ const handleChange = (event) => {
           </div>
         )}
       </div>
+      
       <Hero />
       <ProductList />
     </div>

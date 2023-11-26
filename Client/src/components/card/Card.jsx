@@ -1,12 +1,14 @@
 /* eslint-disable react/prop-types */
 import s from "./Card.module.css"
+import {Link} from "react-router-dom"
 
+//esto es nuevo
 const Card = ({product}) => {
-  const { name, price, colour, image } = product;
+  const { name, price, colour, image, id } = product;
   return (
-    <div className={s.productCard}>
+    <div className={s.productCard}>        
       {image && <img src={`https://${image}`} alt={name} className={s.productImage} />}
-      <h3>{name}</h3>
+      <Link to={`/product/${id}`}> <h3>{name}</h3></Link>
       <p>Precio: {price}</p>
       <p>Color: {colour}</p>
     </div>

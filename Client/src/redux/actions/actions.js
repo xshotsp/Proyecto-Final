@@ -4,17 +4,61 @@ import {
   CREATE_PRODUCT_REQUEST,
   CREATE_PRODUCT_SUCCESS,
   CREATE_PRODUCT_FAILURE,
+  GET_PRODUCTS,
+  GET_PRODUCT_NAME,
+  FETCH_PRODUCT_SUCCESS,
+  FETCH_PRODUCT_FAILURE,
+  GET_BRANDS,
   GET_ALL_PRODUCTS,
   GET_PRODUCT_NAME,
   FETCH_PRODUCT_SUCCESS,
   FETCH_PRODUCT_FAILURE,
   GET_ALL_SELECTS,
   GET_FILTROS
+  CLEAN_PRODUCT_DETAIL,
+  CLEAN_PRODUCT_DETAIL,
 
 } from './actionTypes';
 
 const URL = "http://localhost:3001"
 
+export const getAllProducts = async () => {
+    try {
+      const response = await fetch('http://localhost:3001/product'); 
+      if (!response.ok) {
+        throw new Error('No se pudo obtener la lista de productos');
+      }
+  
+      const products = await response.json();
+      return products;
+    } catch (error) {
+      console.error('Error al obtener los productos:', error);
+      throw error;
+    }
+  };
+  
+  getAllProducts()
+    .then(products => {
+      console.log('Productos obtenidos:', products);
+    })
+    .catch(error => {
+      console.error('Error al obtener productos:', error);
+    });
+
+    export function getProducts(){      //
+      return async function(dispatch){
+          try {
+              const response= await axios.get("http://localhost:3001/product/")
+              dispatch({
+                  type: GET_PRODUCTS,
+                  payload: response.data
+              })
+          } catch (error) {
+              console.log(error);
+          }
+      }
+  }
+  
 // Acción para traer todos los productos
     export const getAllProducts = () => {
       return async (dispatch) => {
@@ -53,7 +97,7 @@ export const getProductName = (name) => {
   return async (dispatch) => {
       try{
         const productsname = (await axios.get(`${URL}/product/name/${name}`)).data;
-        console.log(productsname)
+    
         //if (!productsname) throw new Error ('No se encuentra un producto que coincida con ese nombre')
           return dispatch({
               type: GET_PRODUCT_NAME, 
@@ -69,7 +113,6 @@ export const getProductName = (name) => {
 export const fetchProductById = (id) => async (dispatch) => {
   try {
     const response = await fetch(`http://localhost:3001/product/${id}`);
-    
     if (!response.ok) {
       throw new Error(`Error al obtener el producto. Código de estado: ${response.status}`);
     }
@@ -83,6 +126,20 @@ export const fetchProductById = (id) => async (dispatch) => {
 };
 
 
+export function getBrands(){                  //
+  return async function(dispatch){
+    try {
+      const response = await axios.get("http://localhost:3001/brands")
+      dispatch({
+        type: GET_BRANDS,
+        payload: response.data
+      })
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
+
 export function getAllSelects() {
   return async function (dispatch) {
     const productsInfo = await getFindSelects();
@@ -92,7 +149,6 @@ export function getAllSelects() {
     });
   };
 }
-
 
 export const getFilters = (filtros) => {
   return async (dispatch) => {
@@ -121,3 +177,9 @@ export const getFilters = (filtros) => {
     }
   };
 };
+export function cleanProductDetail() {
+  return{
+    type: CLEAN_PRODUCT_DETAIL
+  }
+}
+

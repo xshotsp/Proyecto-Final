@@ -1,37 +1,35 @@
+import React from 'react';
+import s from './footer.module.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {faFacebook, faInstagram } from '@fortawesome/free-brands-svg-icons';
 
 const Footer = () => {
   return (
-    <div>
-        <div>
-            <img src="" alt="" />
-            <u>QUIRKZ!</u>
+    <div className={s.container}>
+        <u>QUIRKZ!</u>
+      <ul className={s.links}>
+        <li>Empresa</li>
+        <li>Productos</li>
+        <li>Acerca De</li>
+        <li>Oficinas</li>
+        <li>Consultas:</li>
+        <li>consultas@quirkz.com.ar</li>
+      </ul>
+      <div className={s.socialIcons}>
+        
+        <div className={s.iconContainer}>
+          <FontAwesomeIcon icon={faFacebook} />
         </div>
-        <ul className="links">
-            <li>Empresa</li>
-            <li>Productos</li>
-            <li>Acerca De</li>
-            <li>Redes Sociales</li>
-            <li>Oficinas</li>
-            <li>Consultas:</li>
-            <li>consultas@quirkz.com.ar</li>
-        </ul>
-        <div className="footer-social-iconos">
-        <div className="footer-iconos-contenedor">
-                <img src="" alt="" />
-            </div>
-            <div className="footer-iconos-contenedor">
-                <img src="" alt="" />
-            </div>
-            <div className="footer-iconos-contenedor">
-                <img src="" alt="" />
-            </div>
+        <div className={s.iconContainer}>
+          <FontAwesomeIcon icon={faInstagram} />
         </div>
-        <div className="footer-copyright">
-            <hr />
-            <p>Copyright © 2023 - Todos Los Derechos Reservados</p> 
-        </div>
+      </div>
+      <div className={s.copyright}>
+        <hr />
+        <p>Copyright © 2023 - Todos Los Derechos Reservados</p>
+      </div>
     </div>
-  )
+  );
 }
 
-export default Footer
+export default Footer;
