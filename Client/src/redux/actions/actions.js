@@ -14,9 +14,10 @@ import {
   FETCH_PRODUCT_SUCCESS,
   FETCH_PRODUCT_FAILURE,
   GET_ALL_SELECTS,
+  GET_FILTROS
   CLEAN_PRODUCT_DETAIL,
-  GET_ALL_SELECTS,
   CLEAN_PRODUCT_DETAIL,
+
 } from './actionTypes';
 
 const URL = "http://localhost:3001"
@@ -58,12 +59,11 @@ export const getAllProducts = async () => {
       }
   }
   
-=======
 // Acción para traer todos los productos
     export const getAllProducts = () => {
       return async (dispatch) => {
           try{
-            const productsname = (await axios.get(`${URL}/product`)).data;
+            const productsname = (await axios.get(`${URL}/product/all-products`)).data;
     
               return dispatch({
                   type: GET_ALL_PRODUCTS, 
@@ -125,6 +125,7 @@ export const fetchProductById = (id) => async (dispatch) => {
   }
 };
 
+
 export function getBrands(){                  //
   return async function(dispatch){
     try {
@@ -138,6 +139,7 @@ export function getBrands(){                  //
     }
   }
 }
+
 export function getAllSelects() {
   return async function (dispatch) {
     const productsInfo = await getFindSelects();
@@ -147,8 +149,37 @@ export function getAllSelects() {
     });
   };
 }
+
+export const getFilters = (filtros) => {
+  return async (dispatch) => {
+    // Construye un objeto que solo incluye filtros que tienen un valor definido y no son nulos
+    const filtrosValidos = Object.keys(filtros).reduce((acc, key) => {
+      if (filtros[key] !== null && filtros[key] !== undefined) {
+        acc[key] = filtros[key];
+      }
+      return acc;
+    }, {});
+
+    try {
+      // Construye la cadena de consulta de la URL para filtros
+      const queryString = new URLSearchParams(filtrosValidos).toString();
+
+      const url = `${URL}/product/?${queryString}`;
+      const response = await axios.get(url);
+
+      console.log(response.data)
+      dispatch({
+        type: GET_FILTROS,
+        payload: response.data,
+      });
+    } catch (error) {
+      console.error('Error en la solicitud con filtros:', error);
+    }
+  };
+};
 export function cleanProductDetail() {
   return{
     type: CLEAN_PRODUCT_DETAIL
   }
 }
+
