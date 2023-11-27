@@ -20,7 +20,6 @@ const ProductForm = () => {
     dispatch(getBrands())
   }, [])
 
-
   const [productData, setProductData] = useState({
     name: "",
     image: "",

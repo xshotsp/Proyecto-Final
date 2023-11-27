@@ -1,7 +1,7 @@
 /* Filters.module.css */
 .selectcontainer {
   display: flex;
-  align-items: center;
+  align-items:center;
   align-content: center;
   text-align: center;
   flex-wrap: wrap;
@@ -35,7 +35,8 @@ select {
   font-size: 1rem;
   border: 1px solid #ccc;
   border-radius: 5px;
-  background-color: #f0f0f0;
+  /* background-color: #f0f0f0; */
+  background-color: #1a1a1a;
   min-width: 150px;
   cursor: pointer;
   transition: transform 0.2s ease-in-out, background-color 0.2s, transform 0.2s; /* Agrega la propiedad de transform al hover */

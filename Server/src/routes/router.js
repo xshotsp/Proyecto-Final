@@ -1,7 +1,7 @@
 // router.js
 const express = require('express');
 const router = express.Router();
-const {getAllProductsHandler, getIdHandler, getProductsByName,createProductsHandler,
+const {getAllProductsHandler, getIdHandler, getProductsByName, getProductFilterHandler, createProductsHandler,
   deleteProductsHandler,updateProductsHandler, restoreProductHandler} = require("../handlers/productHandler")
 const { getBrandHandler } = require("../handlers/brandHandler")
 const {getUserHandler, putUserHandler, createUserHandler} = require("../handlers/userHandler")
@@ -13,9 +13,10 @@ router.get('/', (req, res) => {
 
 // Otras rutas pueden agregarse aquí
 // Rutas para la tabla product *****************************/
-router.get("/product/", getAllProductsHandler);
+router.get("/product/all-products", getAllProductsHandler);
 router.get("/product/:id", getIdHandler);
 router.get("/product/name/:name",getProductsByName);
+router.get("/product/", getProductFilterHandler )
 router.post("/product/",createProductsHandler);
 router.post('/product/restore/:id', restoreProductHandler); // esto es para el borrado logico
 router.delete("/product/delete/:id", deleteProductsHandler);

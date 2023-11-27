@@ -34,7 +34,7 @@ const apiLoaderProducts = async () => {
             name,
             image: `https://${imageUrl}`,
             // image: imageUrl,
-            price: price.current.text,
+            price: price.current.value,
             colour,
             //additionalImage: additionalImageUrls,
           },

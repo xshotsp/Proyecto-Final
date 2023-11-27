@@ -18,7 +18,7 @@ const HomePage = () => {
 
   useEffect(() => {
     dispatch(getAllSelects());
-    // dispatch(getFilter(initialFilters))
+    //dispatch(getFilter(initialFilters))
   }, []);
 
   const handleChange = (event) => {
@@ -27,36 +27,98 @@ const HomePage = () => {
     dispatch(getFilters(initialFilters));
   };
 
-  return (
-    <div>
-      <div>
-      <Hero />
-      </div>
-      <div className={s.filtersContainer}>
-        <Filters
-          name="colour"
-          options={colourOpt}
-          onChange={handleChange}
-          state={null}
-        />
-        <Filters
-          name="brand"
-          options={brandOpt}
-          onChange={handleChange}
-          state={null}
-        />
-        <Filters
-          className="filters"
-          name="price"
-          onChange={handleChange}
-          options={PriceOpt}
-          state={null}
-        />
-      </div>
-      
-      <ProductList />
-    </div>
-  );
+
+ const handleFilterRemove = (filterName) => {
+  const newInitialFilters = { ...initialFilters };
+  delete newInitialFilters[filterName];
+  setInitialFilters(newInitialFilters);
+  dispatch(getFilters(newInitialFilters));
 };
+
+return (
+  <div>
+      <Filters
+        name="colour"
+        options={colourOpt}
+        handleChange={handleChange}    
+        state={null}
+      />
+      <Filters
+        name="brand"
+        options={brandOpt}
+        handleChange={handleChange}
+        state={null}
+      />
+       <Filters
+        name="price"
+        handleChange={handleChange}
+        options={PriceOpt}
+        state={null}
+      />
+       <button
+        onClick={() => {
+          dispatch (getAllSelects())
+          dispatch(getFilters({}));
+          setInitialFilters({});
+        }}
+      >
+        Reset
+      </button>
+      <div>
+      {initialFilters?.colour && (
+        <div onClick={() => handleFilterRemove('colour')}>
+          {`x ${initialFilters.colour}`}
+        </div>
+      )}
+      {initialFilters?.brand && (
+        <div onClick={() => handleFilterRemove('brand')}>
+          {`x ${initialFilters.brand}`}
+        </div>
+      )}
+      {initialFilters?.price && (
+        <div onClick={() => handleFilterRemove('price')}>
+          {`x ${initialFilters.price}`}
+        </div>
+      )}
+    </div>
+    
+    <Hero />
+    <ProductList />
+  </div>
+);
+};
+
+
+//   return (
+//     <div>
+//       <div>
+//       <Hero />
+//       </div>
+//       <div className={s.filtersContainer}>
+//         <Filters
+//           name="colour"
+//           options={colourOpt}
+//           handleChange={handleChange}    
+//           state={null}
+//         />
+//         <Filters
+//           name="brand"
+//           options={brandOpt}
+//           handleChange={handleChange}
+//           state={null}
+//         />
+//         <Filters
+//           className="filters"
+//           name="price"
+//           handleChange={handleChange}
+//           options={PriceOpt}
+//           state={null}
+//         />
+//       </div>
+      
+//       <ProductList />
+//     </div>
+//   );
+// };
 
 export default HomePage;

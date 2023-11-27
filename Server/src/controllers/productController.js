@@ -12,6 +12,7 @@ const getAllProducts = async () => {
       through: { attributes: [] },
     },
   });
+
   return productsDB;
 };
 //*********************************************************** */
@@ -154,8 +155,8 @@ const updateProductById = async (id, newData) => {
 const getProductswithFilter = async (req, res, next) => {
   
   // Obtén los parámetros de consulta de la URL
-  const { name, colour, brand, price } = req.query;
-  console.log(price);
+  const { name, brand, colour, price } = req.query;
+
   console.log(req.query);
   // Crea un objeto de condiciones vacío
   const whereConditions = {};
@@ -167,19 +168,13 @@ const getProductswithFilter = async (req, res, next) => {
     };
   }
 
-  if (brand) {
-    whereConditions.brand = {
-      [Op.iLike]: `%${brand}%`,
-    };
-  }
- 
+
   if (colour) {
     whereConditions.colour = {
       [Op.iLike]: `%${colour}%`,
     };
   }
- 
- 
+
   try {
     const order = [];
     if (price === "highest") {
@@ -187,13 +182,27 @@ const getProductswithFilter = async (req, res, next) => {
     } else if (price === "lowest") {
       order.push(["price", "ASC"]);
     }
-
-    const products = await Product.findAll({
+    
+    let products = await Product.findAll({
       where: whereConditions, // Aplica las condiciones de filtro
       order: order, // Aplica el ordenamiento por precio
+      include: {
+        model: Brand,
+        through: { attributes: [] },
+        }
     });
 
-    results.results = products;
+    
+    if (brand) {
+        products = products.filter((prod) => prod.brands[0].name === brand );
+    }
+
+
+    if (products.length === 0) products = [{message: "No se encontraron productos que coincidan con la búsqueda."}]
+
+    
+    res.paginatedResults = products;
+    next();
 
   } catch (e) {
     res.status(500).json({ message: e.message });
@@ -201,13 +210,12 @@ const getProductswithFilter = async (req, res, next) => {
 };
 
 
-
-
 module.exports = {
   getProductswithFilter,
   getAllProducts,
   getProductsById,
   getProductByName,
+  getProductswithFilter,
   createProducts,
   deleteProductById,
   updateProductById,

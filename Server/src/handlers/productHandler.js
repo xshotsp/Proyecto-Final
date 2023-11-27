@@ -5,7 +5,8 @@ const {
     createProducts,
     deleteProductById,
     restoreProductById,
-    updateProductById
+    updateProductById,
+    getProductswithFilter
   } = require("../controllers/productController");
   
   
@@ -91,9 +92,29 @@ const {
       res.status(400).json({ error: error.message });
     }
   };
-  
+  /************************************************************* */
+
+  const getProductFilterHandler = async (req, res) => {
+    try {
+    
+      getProductswithFilter(req, res, () => {
+      console.log (res.paginatedResults)
+      res.status(200).json(res.paginatedResults);
+       });
+      console.log('hola Handler')
+
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    }
+  };
+
+  /*************************************************************** */
+ 
+
+
 
   module.exports = {
+    getProductFilterHandler: getProductFilterHandler,
     getAllProductsHandler: getAllProductsHandler,
     getIdHandler: getIdHandler,
     getProductsByName: getProductsByName,

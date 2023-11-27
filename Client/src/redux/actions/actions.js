@@ -4,36 +4,44 @@ import {
   CREATE_PRODUCT_REQUEST,
   CREATE_PRODUCT_SUCCESS,
   CREATE_PRODUCT_FAILURE,
-  GET_ALL_PRODUCTS,
+  GET_PRODUCTS,
   GET_PRODUCT_NAME,
   FETCH_PRODUCT_SUCCESS,
   FETCH_PRODUCT_FAILURE,
   GET_ALL_SELECTS,
   CLEAN_PRODUCT_DETAIL,
-  GET_PRODUCTS,
   GET_BRANDS,
+  GET_FILTROS,
+  GET_ALL_PRODUCTS,
 
 } from './actionTypes';
 
 const URL = "http://localhost:3001"
 
-// Acción para traer todos los productos
-    export const getAllProducts = () => {
-      return async (dispatch) => {
-          try{
-            const productsname = (await axios.get(`${URL}/product`)).data;
-    
-              return dispatch({
-                  type: GET_ALL_PRODUCTS, 
-                  payload: productsname
-              });
-          }catch (error) {
-              throw error.response.data
-          }
-      };
-    };
+// export const getAllProducts = async () => {
+//     try {
+//       const response = await fetch('http://localhost:3001/product'); 
+//       if (!response.ok) {
+//         throw new Error('No se pudo obtener la lista de productos');
+//       }
+  
+//       const products = await response.json();
+//       return products;
+//     } catch (error) {
+//       console.error('Error al obtener los productos:', error);
+//       throw error;
+//     }
+//   };
+  
+//   getAllProducts()
+//     .then(products => {
+//       console.log('Productos obtenidos:', products);
+//     })
+//     .catch(error => {
+//       console.error('Error al obtener productos:', error);
+//     });
 
-    export function getProducts(){
+    export function getProducts(){      //
       return async function(dispatch){
           try {
               const response= await axios.get("http://localhost:3001/product/")
@@ -46,6 +54,22 @@ const URL = "http://localhost:3001"
           }
       }
   }
+  
+// Acción para traer todos los productos
+    export const getAllProducts = () => {
+      return async (dispatch) => {
+          try{
+            const productsname = (await axios.get(`${URL}/product/all-products`)).data;
+    
+              return dispatch({
+                  type: GET_ALL_PRODUCTS, 
+                  payload: productsname
+              });
+          }catch (error) {
+              throw error.response.data
+          }
+      };
+    };
 
   export function getBrands(){
     return async function(dispatch){
@@ -59,21 +83,19 @@ const URL = "http://localhost:3001"
         console.log(error);
       }
     }
-  }//algo mas
-
-  export function postProduct(){
-    return async function(dispatch){
-      try {
-          const response= await axios.get("http://localhost:3001/product/")
-          dispatch({
-              type: GET_PRODUCTS,
-              payload: response.data
-          })
-      } catch (error) {
-          console.log(error);
-      }
   }
+  
+  //Funcion Post Independiente
+export function postProduct(state){
+  return async function(dispatch){
+    try {
+      await axios.post("http://localhost:3001/product", state)
+      alert("Producto creado con exito")
+    } catch (error) {
+      console.log(error);
+    }
   }
+}
 
 // Acción para iniciar la creación del producto
 export const createProductRequest = () => ({
@@ -125,7 +147,6 @@ export const fetchProductById = (id) => async (dispatch) => {
   }
 };
 
-
 export function getAllSelects() {
   return async function (dispatch) {
     const productsInfo = await getFindSelects();
@@ -135,6 +156,34 @@ export function getAllSelects() {
     });
   };
 }
+
+export const getFilters = (filtros) => {
+  return async (dispatch) => {
+    // Construye un objeto que solo incluye filtros que tienen un valor definido y no son nulos
+    const filtrosValidos = Object.keys(filtros).reduce((acc, key) => {
+      if (filtros[key] !== null && filtros[key] !== undefined) {
+        acc[key] = filtros[key];
+      }
+      return acc;
+    }, {});
+
+    try {
+      // Construye la cadena de consulta de la URL para filtros
+      const queryString = new URLSearchParams(filtrosValidos).toString();
+
+      const url = `${URL}/product/?${queryString}`;
+      const response = await axios.get(url);
+
+      console.log(response.data)
+      dispatch({
+        type: GET_FILTROS,
+        payload: response.data,
+      });
+    } catch (error) {
+      console.error('Error en la solicitud con filtros:', error);
+    }
+  };
+};
 export function cleanProductDetail() {
   return{
     type: CLEAN_PRODUCT_DETAIL
