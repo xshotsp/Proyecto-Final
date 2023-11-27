@@ -9,6 +9,7 @@ import {
   getBrands,
 } from "../../redux/actions/actions";
 import axios from "axios";
+import s from "./productForm.module.css"
 
 const ProductForm = () => {
   const dispatch = useDispatch();
@@ -157,7 +158,7 @@ const ProductForm = () => {
   return (
     <div>
       <h1>Crear Producto</h1>
-      <form onSubmit={handleSubmit}>
+      <form className={`${s.form} ${s["product-form"]}`} onSubmit={handleSubmit}>
         <label>
           Nombre:
           <input

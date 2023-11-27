@@ -1,6 +1,7 @@
-.container{
+.container {
   display: flex;
   justify-content: flex-end;
+  align-items: center; 
   width: 30%;
   height: 40px;
 }
@@ -9,4 +10,10 @@
   padding: 10px;
   border-radius: 10px;
   margin-right: 10px;
+}
+
+.search {
+  background-color: transparent; 
+  border: none; 
+  color: #000; 
 }
