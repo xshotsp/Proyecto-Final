@@ -8,11 +8,11 @@ import {
   GET_PRODUCT_NAME,
   FETCH_PRODUCT_SUCCESS,
   FETCH_PRODUCT_FAILURE,
-  GET_BRANDS,
-  GET_ALL_PRODUCTS,
   GET_ALL_SELECTS,
-  GET_FILTROS,
   CLEAN_PRODUCT_DETAIL,
+  GET_BRANDS,
+  GET_FILTROS,
+  GET_ALL_PRODUCTS,
 
 } from './actionTypes';
 
@@ -71,6 +71,32 @@ const URL = "http://localhost:3001"
       };
     };
 
+  export function getBrands(){
+    return async function(dispatch){
+      try {
+        const response = await axios.get("http://localhost:3001/brands")
+        dispatch({
+          type: GET_BRANDS,
+          payload: response.data
+        })
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  }
+  
+  //Funcion Post Independiente
+export function postProduct(state){
+  return async function(dispatch){
+    try {
+      await axios.post("http://localhost:3001/product", state)
+      alert("Producto creado con exito")
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
+
 // Acción para iniciar la creación del producto
 export const createProductRequest = () => ({
   type: CREATE_PRODUCT_REQUEST,
@@ -120,21 +146,6 @@ export const fetchProductById = (id) => async (dispatch) => {
     dispatch({ type: FETCH_PRODUCT_FAILURE, payload: error.message });
   }
 };
-
-
-export function getBrands(){                  //
-  return async function(dispatch){
-    try {
-      const response = await axios.get("http://localhost:3001/brands")
-      dispatch({
-        type: GET_BRANDS,
-        payload: response.data
-      })
-    } catch (error) {
-      console.log(error);
-    }
-  }
-}
 
 export function getAllSelects() {
   return async function (dispatch) {

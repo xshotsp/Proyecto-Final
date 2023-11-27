@@ -1,0 +1,64 @@
+.s-form {
+    max-width: 400px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    color: #000;
+  }
+  
+  .s-form fieldset {
+    border: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .s-form label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .s-form input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #555;
+    border-radius: 5px;
+    background-color: #fff;
+    color: #fff;
+  }
+  
+  .s-form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .s-form button:hover {
+    background-color: #27ae60;
+  }
+  
+  .s-form p {
+    color: #888;
+    font-size: 14px;
+  }
+  
+  .s-form .notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #e74c3c;
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    display: none;
+  }
+  
+  .s-form .notification.show {
+    display: block;
+  }

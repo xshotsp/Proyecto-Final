@@ -1,13 +1,15 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   createProductRequest,
   createProductSuccess,
   createProductFailure,
-  getBrands,
+  postProduct,
   getProducts,
+  getBrands,
 } from "../../redux/actions/actions";
 import axios from "axios";
+import s from "./productForm.module.css"
 
 const ProductForm = () => {
   const dispatch = useDispatch();
@@ -38,8 +40,9 @@ const ProductForm = () => {
   });
 
   const validate = (productData, name) => {
+    console.log(name);
     if (name === "name") {
-      if (productData.name === "") setErrors({ ...errors, name: "El nombre es requerido" });
+        if (productData.name === "") setErrors({ ...errors, name: "El nombre es requerido" });
       else if (productData.name.length >= 15) setErrors({ ...errors, name: "El nombre es muy largo" })
       else setErrors({...errors, name: ""})
     }
@@ -51,7 +54,7 @@ const ProductForm = () => {
     }
 
     if (name === "price") {
-      if (isNaN(parseInt(productData.price))) setErrors({ ...errors, price: "El dato debe ser un numero" });
+       if (isNaN(parseInt(productData.price))) setErrors({ ...errors, price: "El dato debe ser un numero" });
       else if (productData.price > 100 || productData.price < 0) {errors.price = "El valor debe ser de 0 a 100"} 
       else setErrors({ ...errors, price: "" });
     }
@@ -63,7 +66,7 @@ const ProductForm = () => {
   };
 
   const handleChange = (e) => {
-    if(e.target.name === "brands"){
+       if(e.target.name === "brands"){
     if(productData.brands.includes(e.target.value)) return
     setProductData({
       ...productData,
@@ -81,13 +84,10 @@ const ProductForm = () => {
     //   [name]: value,
     // }));
     //RE-RENDERIZADO
-    validate(
-      {
+    validate({
         ...productData,
-        [e.target.name]: e.target.value,
-      },
-      e.target.name
-    );
+        [e.target.name]: e.target.value},
+        e.target.name);
     return;
   };
  
@@ -104,13 +104,33 @@ const ProductForm = () => {
     }
     //un
 
+    // const remove = (e) =>{
+    //   setProductData({
+    //     ...productData,
+    //     [e.target.name] : [...productData[e.target.name].filter(X=>X !== e.target.id)]
+    //   })
+    // }
+  //comentario
+
+    //   const buttonDisabled= ()=>{
+    //   let disabledAux = true;
+    //   for(let error in errors){
+    //     if(errors[error]=== "" || errors[error] == []) disabledAux = false;
+    //     else{
+    //       disabledAux = true;
+    //       break;
+    //     }
+    //   }
+    //   return disabledAux;
+    // }
+    //ver
+
     const remove = (e) =>{
       setProductData({
         ...productData,
         [e.target.name] : [...productData[e.target.name].filter(X=>X !== e.target.id)]
       })
     }
-  //comentario
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -130,10 +150,15 @@ const ProductForm = () => {
     }
   };
 
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   dispatch(postProduct(productData));
+  // };
+
   return (
     <div>
       <h1>Crear Producto</h1>
-      <form onSubmit={handleSubmit}>
+      <form className={`${s.form} ${s["product-form"]}`} onSubmit={handleSubmit}>
         <label>
           Nombre:
           <input
@@ -188,16 +213,16 @@ const ProductForm = () => {
           />
         </label>
         <br />
-        <label>Marcas: </label>
+         <label>Marcas: </label>
         <select onChange={handleChange} name="brands" id="">
           <option hidden>seleccionar marca</option>{
             allBrands?.map((b)=><option key={b} value={b.name}>{b.name}</option>)
           }
         </select>
-        <div> 
+        <div>
           {
             productData.brands?.map(b=><div><span id={b}>{b}</span><button type="button" name="brands" id={b} onClick={remove}>X</button></div>)
-          } //*uno mas//
+          }
         </div>
         {/* <input disabled={buttonDisabled()} type="submit"/> */}
         <button type="submit" disabled={creatingProduct}>

@@ -1,0 +1,71 @@
+/* productForm.module.css */
+
+.product-form {
+    max-width: 400px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    color: #000;
+  }
+  
+  .product-form fieldset {
+    border: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .product-form label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .product-form input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #555;
+    border-radius: 5px;
+    background-color: #fff;
+    color: #000; /* Cambiado a color de texto negro */
+  }
+  
+  .product-form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .product-form button:hover {
+    background-color: #27ae60;
+  }
+  
+  .product-form span {
+    color: #e74c3c;
+    font-size: 14px;
+  }
+  
+  .product-form p {
+    color: #888;
+    font-size: 14px;
+  }
+  
+  .product-form .notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #e74c3c;
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    display: none;
+  }
+  
+  .product-form .notification.show {
+    display: block;
+  }

@@ -8,8 +8,14 @@
   transition: transform 0.3s ease-in-out;
   display: flex;
   flex-direction: column;
+  text-decoration: none;
+  color: #000000;
 }
 
+h3{
+  text-decoration: none;
+  color: #000000;
+}
 .productCard:hover {
   transform: scale(1.05);
 }
@@ -23,5 +29,12 @@
 
 .productInfo {
   flex-grow: 1; 
-  text-align: justify; 
+  text-align: justify;
+  text-decoration: none;
+  color:#000000
+}
+
+a.productCard {
+  text-decoration: none;
+  color: #000000;
 }

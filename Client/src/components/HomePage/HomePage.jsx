@@ -5,6 +5,7 @@ import Filters from "../Filters/Filters";
 import { useEffect, useState } from 'react';
 
 import { getAllSelects, getFilters } from '../../redux/actions/actions';
+import s from "./home.module.css"
 
 
 
@@ -43,6 +44,10 @@ const handleChange = (event) => {
 
   return (
     <div>
+      <div>
+        <Hero />
+      </div>
+      <div className={s.filtersContainer}>
         <Filters
           name="colour"
           options={colourOpt}
@@ -88,7 +93,7 @@ const handleChange = (event) => {
         )}
       </div>
       
-      <Hero />
+      </div>
       <ProductList />
     </div>
   );

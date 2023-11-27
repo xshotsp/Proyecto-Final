@@ -10,7 +10,6 @@ import {
   GET_FILTROS,
   GET_BRANDS,
   CLEAN_PRODUCT_DETAIL,
-
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -21,7 +20,6 @@ const initialState = {
   allBrands: [],
   // productDetails: null,
   productDetails: {},
-  selectFilter: {}
 };
 
 export default function reducer(state = initialState, action) {

@@ -1,7 +1,7 @@
 /* Filters.module.css */
 .selectcontainer {
   display: flex;
-  align-items:center;
+  align-items: center;
   align-content: center;
   text-align: center;
   flex-wrap: wrap;
@@ -15,7 +15,7 @@ select {
   background-color: white;
 }
 
-/* Estilos para las opciones del select */
+
 option {
   font-size: 1rem;
   padding: 0.5rem;
@@ -27,7 +27,7 @@ option {
   display: flex;
   align-items: center;
   margin: 0.1rem;
-  perspective: 1000px; /* Agrega perspectiva para el efecto de rotación */
+  perspective: 1000px; 
 }
 
 select {
@@ -38,19 +38,17 @@ select {
   background-color: #f0f0f0;
   min-width: 150px;
   cursor: pointer;
-  transition: transform 0.2s ease-in-out, background-color 0.2s, transform 0.2s; /* Agrega la propiedad de transform al hover */
+  transition: transform 0.2s ease-in-out, background-color 0.2s, transform 0.2s; 
 }
 
 select:hover {
-  transform: translateY(-3px) rotateX(5deg); /* Aplica una rotación y una elevación al pasar el mouse */
+  transform: translateY(-3px) rotateX(5deg); 
   border: 1px solid #030303;
 }
 
 select:focus {
   outline: none;
 }
-
-/* Agrega estos estilos al final de tu archivo Filters.module.css */
 
 .selectcontainer:hover .options {
   display: block;

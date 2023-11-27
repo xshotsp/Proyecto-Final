@@ -21,12 +21,15 @@ const ProductList = () => {
   const currentCards = products.slice(firstCardIndex, lastCardIndex);
 
 
+  // useEffect(() => {
+  //    dispatch(getAllProducts());
+  //    setCurrentPage(1)
+  // }, [dispatch]);
   useEffect(() => {
-     dispatch(getAllProducts());
-     setCurrentPage(1)
-  }, [dispatch]);
+    if(products.length === 0) dispatch(getAllProducts());
+    setCurrentPage(1)
+ }, [products]);
 
-  
   return (
     <div>
       {
@@ -41,7 +44,8 @@ const ProductList = () => {
         (products[0]?.name) &&
       
       <div className={s.productList}>
-        {products.map((product) => (
+        {/* {products.map((product) => ( */}
+        {currentCards.map((product) => (
           <Card key={product.id} product={product} />
         ))}
       </div>
@@ -50,7 +54,7 @@ const ProductList = () => {
   
 
       <Pagination
-      filteredCountries={products}
+      filteredCountries={products} //cambio
       cardsPerPage={cardsPerPage}
       setCurrentPage={setCurrentPage}
       currentPage={currentPage}/>
