@@ -11,7 +11,7 @@ const Card = ({product}) => {
       {image && <img src={image} alt={name} className={s.productImage} />}
 
       <Link to={`/product/${id}`}> <h3>{name}</h3></Link>
-      <p>Precio: {price}</p>
+      <p>Precio: {`$${price}`}</p>
       <p>Color: {colour}</p>
     </div>
   );

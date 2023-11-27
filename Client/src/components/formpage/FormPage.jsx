@@ -20,7 +20,6 @@ const ProductForm = () => {
     dispatch(getBrands())
   }, [])
 
-
   const [productData, setProductData] = useState({
     name: "",
     image: "",
@@ -90,6 +89,27 @@ const ProductForm = () => {
         e.target.name);
     return;
   };
+ 
+    const buttonDisabled= ()=>{
+      let disabledAux = true;
+      for(let error in errors){
+        if(errors[error]=== "") disabledAux = false;
+        else{
+          disabledAux = true;
+          break;
+        }
+      }
+      return disabledAux
+    }
+    //un
+
+    // const remove = (e) =>{
+    //   setProductData({
+    //     ...productData,
+    //     [e.target.name] : [...productData[e.target.name].filter(X=>X !== e.target.id)]
+    //   })
+    // }
+  //comentario
 
     //   const buttonDisabled= ()=>{
     //   let disabledAux = true;
