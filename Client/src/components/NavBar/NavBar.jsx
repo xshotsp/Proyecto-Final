@@ -4,19 +4,19 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart, faUser } from '@fortawesome/free-solid-svg-icons';
 import SearchBar from '../searchbar/SearchBar';
-import styles from './NavBar.module.css';
+import styles from './navbar.module.css';
 
 const NavBar = () => {
   return (
     <div className={styles.container}>
       <nav className={styles.nav}>
       <Link to="/">
-          <h1 className={styles.nav__h1}>
+          <h1 className={styles.navh1}>
             <u>QUIRKZ</u>
           </h1>
         </Link>
         <SearchBar expanded={true} />
-        <ul className={styles.nav__ul}>
+        <ul className={styles.navul}>
           <Link to="/contacto">
             <li>
               Contacto
@@ -32,7 +32,7 @@ const NavBar = () => {
               Registrarse
             </li> 
           </Link>
-          
+
           <Link to="/cart">
             <li>
               <FontAwesomeIcon icon={faShoppingCart} />
@@ -41,7 +41,7 @@ const NavBar = () => {
         </ul>
       </nav>
       <div>
-        
+
       </div>
     </div>
   );

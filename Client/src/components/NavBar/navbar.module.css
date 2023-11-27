@@ -11,23 +11,28 @@
   flex-wrap: wrap;
   width: 100%;
 }
-
-.nav__h1{
-  margin: 0 10px 0 0;
-  font-size: 3rem;
+u{
+  text-decoration: none;
 
 }
 
-.nav__ul{
+.navh1{
+  margin: 0 10px 0 0;
+  font-size: 3rem;
+  text-decoration: none;
+  color: #000000;
+
+}
+
+.navul{
   display: flex;
   justify-content: flex-end;
   width: 30%;
-  margin-right: 30px;
 }
 
 
 .nav__ul li {
-  color: white;
+  color: #000000;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -37,5 +42,5 @@
   margin-right: 5px;
   border-radius: 10px;
   padding: 10px;
+  text-decoration: none;
 }
-

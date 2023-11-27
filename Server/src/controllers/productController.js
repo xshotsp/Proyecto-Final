@@ -54,7 +54,8 @@ const getProductByName = async (name) => {
 const createProducts = async (productData) => {
   console.log(productData);
   try {
-    let { name, image, price, colour, additionalImage } = productData;
+    let { name, image, price, colour } = productData;
+    // let { name, image, price, colour, additionalImage } = productData;
 
     const productCreated = await Product.findOne({
       where: { name: name, price: price, colour: colour },
@@ -76,7 +77,7 @@ const createProducts = async (productData) => {
       image,
       price,
       colour,
-      additionalImage,
+      //additionalImage,
     });
 
     return newProduct;
@@ -120,7 +121,8 @@ const restoreProductById = async (id) => {
 // Para editar o actualizar un producto con un id especifico
 const updateProductById = async (id, newData) => {
   try {
-    const { name, image, price, colour, additionalImage } = newData;
+    const { name, image, price, colour } = newData;
+    // const { name, image, price, colour, additionalImage } = newData;
     const productToUpdate = await Product.findByPk(id);
 
     if (!productToUpdate) {
@@ -139,7 +141,7 @@ const updateProductById = async (id, newData) => {
       image,
       price,
       colour,
-      additionalImage,
+      //additionalImage,
     });
 
     return productToUpdate;

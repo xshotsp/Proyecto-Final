@@ -9,6 +9,7 @@ import {
   GET_ALL_SELECTS,
   CLEAN_PRODUCT_DETAIL,
   GET_BRANDS,
+  GET_PRODUCTS,
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -29,6 +30,12 @@ export default function reducer(state = initialState, action) {
         ...state,
         allproducts: [...action.payload],
       };
+
+      case GET_PRODUCTS:
+        return {
+          ...state,
+          allproducts: [...action.payload],
+        };
 
     case CREATE_PRODUCT_REQUEST:
       return {

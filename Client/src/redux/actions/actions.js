@@ -61,6 +61,20 @@ const URL = "http://localhost:3001"
     }
   }//algo mas
 
+  export function postProduct(){
+    return async function(dispatch){
+      try {
+          const response= await axios.get("http://localhost:3001/product/")
+          dispatch({
+              type: GET_PRODUCTS,
+              payload: response.data
+          })
+      } catch (error) {
+          console.log(error);
+      }
+  }
+  }
+
 // Acción para iniciar la creación del producto
 export const createProductRequest = () => ({
   type: CREATE_PRODUCT_REQUEST,

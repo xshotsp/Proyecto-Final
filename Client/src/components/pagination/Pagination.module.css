@@ -26,10 +26,10 @@
   font-weight: bolder;
   cursor: pointer;
   transition: 0.2s ease all;
-  color: slategrey;
+  color: #000000;
 
   &:hover {
-    background-color: #3d5a80;
+    background-color: #000000;
     color: white;
     border: 1px solid white;
   }
@@ -37,7 +37,7 @@
 
 .button__selected {
   border: 1px solid lightgray;
-  background-color: #3d5a80;
+  background-color: #000000;
   color: lightgray;
 }
 
@@ -50,10 +50,10 @@
   cursor: pointer;
 
   transition: 0.2s ease all;
-  color: slategrey;
+  color: #000000;
 
   &:hover {
-    background-color: #3d5a80;
+    background-color: #000000;
     color: white;
     border: 1px solid white;
   }
