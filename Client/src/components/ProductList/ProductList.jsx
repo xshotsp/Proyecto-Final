@@ -1,6 +1,8 @@
 /* eslint-disable react/prop-types */
 // ProductList.jsx
+
 import { useEffect , useState} from 'react';
+
 import { useSelector, useDispatch} from 'react-redux';
 import { getAllProducts } from '../../redux/actions/actions';
 import s from './ProductList.module.css';
@@ -8,9 +10,10 @@ import Card from '../card/Card';
 import Pagination from '../pagination/Pagination';
 
 const ProductList = () => {
-  
-  const products = useSelector ((state) => state.allproducts)
+    
   const dispatch = useDispatch()
+  const products = useSelector ((state) => state.allproducts)
+
   const [currentPage, setCurrentPage] = useState(1);
   const cardsPerPage = 5;
   const lastCardIndex = currentPage * cardsPerPage;
@@ -19,8 +22,9 @@ const ProductList = () => {
 
 
   useEffect(() => {
-     dispatch(getAllProducts());
-  }, [dispatch]);
+    if(products.length === 0) dispatch(getAllProducts());
+     setCurrentPage(1)
+  }, [products]);
 
   
   return (
@@ -37,7 +41,7 @@ const ProductList = () => {
         (products[0]?.name) &&
       
       <div className={s.productList}>
-        {products.map((product) => (
+        {currentCards.map((product) => (
           <Card key={product.id} product={product} />
         ))}
       </div>
@@ -46,10 +50,11 @@ const ProductList = () => {
   
 
       <Pagination
-      filteredCountries={products}
-      cardsPerPage={cardsPerPage}
-      setCurrentPage={setCurrentPage}
-      currentPage={currentPage}/>
+        filteredCountries={products}
+        cardsPerPage={cardsPerPage}
+        setCurrentPage={setCurrentPage}
+        currentPage={currentPage}
+      />
     </div>
   );
 };
