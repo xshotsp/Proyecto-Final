@@ -1,5 +1,8 @@
+<<<<<<< HEAD
 /* create.module.css */
 
+=======
+>>>>>>> c6188f362889618f01a2dc5f3d9df4d48c12d2dc
 .s-form {
     max-width: 400px;
     margin: 0 auto;
@@ -63,5 +66,9 @@
   
   .s-form .notification.show {
     display: block;
+<<<<<<< HEAD
   }
   
+=======
+  }
+>>>>>>> c6188f362889618f01a2dc5f3d9df4d48c12d2dc

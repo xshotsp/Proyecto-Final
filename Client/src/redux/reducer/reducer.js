@@ -7,6 +7,8 @@ import {
   FETCH_PRODUCT_FAILURE,
   GET_PRODUCT_NAME,
   GET_ALL_SELECTS,
+  GET_FILTROS,
+  GET_BRANDS,
   CLEAN_PRODUCT_DETAIL,
 } from "../actions/actionTypes";
 
@@ -15,6 +17,7 @@ const initialState = {
   creatingProduct: false,
   newProduct: null,
   error: null,
+  allBrands: [],
   // productDetails: null,
   productDetails: {},
 };
@@ -27,6 +30,13 @@ export default function reducer(state = initialState, action) {
         ...state,
         allproducts: [...action.payload],
       };
+
+      case GET_PRODUCT_NAME:
+        return {
+          ...state,
+          allproducts: [...action.payload],
+        };
+  
 
     case CREATE_PRODUCT_REQUEST:
       return {
@@ -64,13 +74,19 @@ export default function reducer(state = initialState, action) {
         error: action.payload,
       };
      
-    case GET_PRODUCT_NAME:
-      
-          return {
+          
+    case GET_BRANDS: 
+          return{
             ...state,
-            allproducts: [...action.payload],
-      };
+            allBrands: action.payload       //
+      }
 
+
+    case CLEAN_PRODUCT_DETAIL:
+      return{
+        ...state,
+        productDetails: {}
+      }
 
       case GET_ALL_SELECTS:
         return {
@@ -78,16 +94,14 @@ export default function reducer(state = initialState, action) {
           selectFilter: action.payload,
         };
   
-    case CLEAN_PRODUCT_DETAIL:
-      return{
-        ...state,
-        productDetails: {}
-      }
+        case GET_FILTROS:
+          return {
+            ...state,
+            allproducts: action.payload,
+          };
 
     default:
       return state;
 
   }
 }
-
-//nuevo

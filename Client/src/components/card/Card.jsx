@@ -7,9 +7,11 @@ const Card = ({product}) => {
   const { name, price, colour, image, id } = product;
   return (
     <div className={s.productCard}>        
-      {image && <img src={`https://${image}`} alt={name} className={s.productImage} />}
+      {/* {image && <img src={https://${image}} alt={name} className={s.productImage} />} */}
+      {image && <img src={image} alt={name} className={s.productImage} />}
+
       <Link to={`/product/${id}`}> <h3>{name}</h3></Link>
-      <p>Precio: {price}</p>
+      <p>Precio: {`$${price}`}</p>
       <p>Color: {colour}</p>
     </div>
   );
