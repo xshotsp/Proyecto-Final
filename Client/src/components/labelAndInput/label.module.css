@@ -1,6 +1,6 @@
-/* create.module.css */
+/* login.module.css */
 
-.s-form {
+.login-container {
     max-width: 400px;
     margin: 0 auto;
     background-color: #fff;
@@ -10,28 +10,32 @@
     color: #000;
   }
   
-  .s-form fieldset {
-    border: none;
-    padding: 0;
-    margin: 0;
+  .login-container hr {
+    border: 1px solid #ddd;
+    margin-top: 10px;
+    margin-bottom: 20px;
   }
   
-  .s-form label {
+  .login-container h2 {
+    color: #333;
+  }
+  
+  .login-form label {
     display: block;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
   }
   
-  .s-form input {
+  .login-form input {
     width: 100%;
     padding: 8px;
     margin-bottom: 15px;
     border: 1px solid #555;
     border-radius: 5px;
     background-color: #fff;
-    color: #fff;
+    color: #000;
   }
   
-  .s-form button {
+  .login-form button {
     width: 100%;
     padding: 10px;
     background-color: #000;
@@ -41,27 +45,20 @@
     cursor: pointer;
   }
   
-  .s-form button:hover {
+  .login-form button:hover {
     background-color: #27ae60;
   }
   
-  .s-form p {
-    color: #888;
+  .login-form p {
+    color: #e74c3c;
     font-size: 14px;
   }
   
-  .s-form .notification {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background-color: #e74c3c;
-    color: #fff;
-    padding: 10px;
-    border-radius: 5px;
-    display: none;
+  .login-form a {
+    color: #3498db;
+    text-decoration: none;
   }
   
-  .s-form .notification.show {
-    display: block;
+  .login-form a:hover {
+    text-decoration: underline;
   }
-  

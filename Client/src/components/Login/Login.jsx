@@ -1,14 +1,15 @@
 /* eslint-disable no-unused-vars */
 import { useState } from 'react';
 import axios from 'axios';
-import s from './login.module.css'; // Importa los estilos
+import s from "./login.module.css"
 
 const Login = () => {
-  const [usuario, setUsuario] = useState('');
-  const [contraseña, setContraseña] = useState('');
-  const [error, setError] = useState();
+  const [usuario, setUsuario] = useState('')
+  const [contraseña, setContraseña] = useState('')
+  const [error, setError] = useState()
 
   const handleSubmit = async (e) => {
+    
     e.preventDefault();
 
     try {
@@ -16,15 +17,16 @@ const Login = () => {
         usuario,
         contraseña,
       });
-      if (response.ok) console.log('Login correcto');
+      if(response.ok) console.log('Login correcto');
+
     } catch (error) {
       console.error('Error al iniciar sesión:', error.message);
-      setError('Credenciales incorrectas');
+      setError('Credenciales incorrectas')
     }
   };
 
   return (
-    <section className={s['login-container']}>
+<section className={s['login-container']}>
       <hr />
       <h2>Mi Cuenta</h2>
       <hr />

@@ -16,7 +16,7 @@ u{
 
 }
 
-.navh1{
+.nav__h1{
   margin: 0 10px 0 0;
   font-size: 3rem;
   text-decoration: none;
@@ -24,7 +24,7 @@ u{
 
 }
 
-.navul{
+.nav__ul{
   display: flex;
   justify-content: flex-end;
   width: 30%;
@@ -44,3 +44,5 @@ u{
   padding: 10px;
   text-decoration: none;
 }
+
+/* deja de tirar error */

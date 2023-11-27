@@ -1,9 +1,9 @@
 // Hero.js
 import React, { useState, useEffect } from 'react';
 import s from './hero.module.css';
-import colection1Image from '../../assets/colection1.jpg';
-import colection2Image from '../../assets/colection2.jpg';
-import colection3Image from '../../assets/colection3.jpeg';
+import colection1Image from '../../assets/colection1.jpeg';
+import colection2Image from '../../assets/colection2.jpeg';
+import colection3Image from '../../assets/colection3.jpg';
 const Hero = () => {
   const [currentImage, setCurrentImage] = useState(0);
 
