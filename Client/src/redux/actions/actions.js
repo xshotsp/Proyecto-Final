@@ -12,6 +12,7 @@ import {
   CLEAN_PRODUCT_DETAIL,
   GET_BRANDS,
   GET_FILTROS,
+  GET_ALL_PRODUCTS,
 
 } from './actionTypes';
 

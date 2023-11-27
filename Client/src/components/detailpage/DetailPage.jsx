@@ -22,7 +22,7 @@ import { useParams } from 'react-router-dom';
 
   return (
     <div className={s.productDetailsContainer}>
-      <h2>{productDetails.id}</h2>
+      {/* <h2>{productDetails.id}</h2> */}
       <h1>{productDetails.name}</h1>
       {/* <img src={https://${productDetails.image}} alt="product" className={s.productImage} /> */}
       <img src={productDetails.image} alt="product" className={s.productImage} />

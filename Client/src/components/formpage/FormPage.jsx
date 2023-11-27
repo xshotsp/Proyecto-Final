@@ -26,7 +26,7 @@ const ProductForm = () => {
     price: "",
     colour: "",
     additionalImage: [],
-    brands: []
+    brands: [],
   });
 
   const [errors, setErrors] = useState({

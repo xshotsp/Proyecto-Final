@@ -20,7 +20,6 @@ const initialState = {
   allBrands: [],
   // productDetails: null,
   productDetails: {},
-  allBrands: [],
 };
 
 export default function reducer(state = initialState, action) {
@@ -100,12 +99,6 @@ export default function reducer(state = initialState, action) {
             ...state,
             allproducts: action.payload,
           };
-
-      case GET_BRANDS: 
-      return{
-        ...state,
-        allBrands: action.payload
-  }//algo
 
     default:
       return state;
