@@ -32,10 +32,10 @@ const apiLoaderProducts = async () => {
         const [product] = await Product.findOrCreate({
           where: {
             name,
-            image: `https://${imageUrl}`,
+            image: `https://${imageUrl}`, //hola
             // image: imageUrl,
 
-            price: price.current.text,
+            price: price.current.value,
             colour,
             additionalImage: additionalImageUrls,
           },
