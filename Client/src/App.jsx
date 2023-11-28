@@ -2,7 +2,7 @@ import "./App.css";
 
 import { Route, Routes } from "react-router-dom";
 import NavBar from "./components/NavBar/NavBar";
-import Footer from "./Components/Footer/Footer";
+import Footer from "./components/Footer/Footer";
 import CreateUserForm from "./components/createUserForm/CreateUserForm";
 import HomePage from "./components/HomePage/HomePage";
 import FormPage from "./components/formpage/FormPage";
