@@ -2,13 +2,13 @@
 import styles from "./Pagination.module.css";
 
 const Pagination = ({
-  filteredCountries,
+  filteredProducts,
   cardsPerPage,
   setCurrentPage,
   currentPage,
 }) => {
   let pages = [];
-  let totalPages = Math.ceil(filteredCountries.length / cardsPerPage);
+  let totalPages = Math.ceil(filteredProducts.length / cardsPerPage);
   for (let i = 1; i <= totalPages; i++) {
     pages.push(i);
   }
@@ -23,7 +23,7 @@ const Pagination = ({
     pagesToShow = pages.slice(0, 9);
   }
 
-  let isMinimumToRender = filteredCountries.length > cardsPerPage;
+  let isMinimumToRender = filteredProducts.length > cardsPerPage;
 
   const handleCurrentPage = (value) => {
     let checkValue = currentPage + value;
