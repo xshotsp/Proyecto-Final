@@ -2,8 +2,9 @@
 
 .heroContainer {
   position: relative;
-  width: 60%;
-  height: 400px;
+  width: 99%;
+  top: 100px;
+  height: 450px;
   background-color: #4CAF50;
   color: #ffffff;
   display: flex;

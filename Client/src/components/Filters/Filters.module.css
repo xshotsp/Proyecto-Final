@@ -1,10 +1,12 @@
 /* Filters.module.css */
 .selectcontainer {
   display: flex;
+  position: relative;
   align-items: center;
   align-content: center;
   text-align: center;
   flex-wrap: wrap;
+  top: 110px;
 }
 
 select {

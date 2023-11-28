@@ -37,7 +37,7 @@ const ProductList = () => {
       }
       
       {
-       (products[0]?.name) && <h1>Lista de Productos</h1>
+       (products[0]?.name) && <h1 className={s.titulo}>Lista de Productos</h1>
       }
       
       {

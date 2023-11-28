@@ -28,3 +28,7 @@
     flex-wrap: wrap;
   }
   
+  .titulo{
+    position: relative;
+    top: 130px;
+  }

@@ -4,11 +4,13 @@
   align-items: center; 
   width: 30%;
   height: 40px;
+  left: 85%;
+  position: relative;
 }
 
 .input {
   padding: 10px;
-  border-radius: 10px;
+  border-radius: 20px;
   margin-right: 10px;
 }
 

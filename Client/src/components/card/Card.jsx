@@ -1,20 +1,20 @@
-/* eslint-disable react/prop-types */
-import s from "./Card.module.css"
-import {Link} from "react-router-dom"
+import React from 'react';
+import s from './Card.module.css';
+import { Link } from 'react-router-dom';
 
-//esto es nuevo
-const Card = ({product}) => {
+const Card = ({ product }) => {
   const { name, price, colour, image, id } = product;
-  return (
-    <div className={s.productCard}>        
-      {/* {image && <img src={https://${image}} alt={name} className={s.productImage} />} */}
-      {image && <img src={image} alt={name} className={s.productImage} />}
 
-      <Link to={`/product/${id}`}> <h3>{name}</h3></Link>
+  return (
+    <Link to={`/product/${id}`} className={s.productCard}>
+      {image && (
+        <img src={image}alt={name}/>
+      )}
+      <h3>{name}</h3>
       <p>Precio: {`$${price}`}</p>
       <p>Color: {colour}</p>
-    </div>
+    </Link>
   );
-}
+};
 
-export default Card
+export default Card;

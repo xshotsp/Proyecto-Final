@@ -1,5 +1,5 @@
 const axios = require("axios");
-const { Product, Brand, Product_Brand } = require("./db"); // Asumo que ProductBrand es el modelo de la tabla intermedia
+const { Product, Brand, Product_Brand } = require("./db");
 const { API_KEY } = process.env;
 const cloudinary = require("cloudinary").v2;
 
@@ -20,7 +20,9 @@ const apiLoaderProducts = async () => {
 
   try {
     const { data } = await axios.request(URL, { params, headers });
-    data.products.forEach(
+
+    // Utiliza map para crear un array de promesas
+    const productPromises = data.products.map(
       async ({
         name,
         imageUrl,
@@ -32,9 +34,7 @@ const apiLoaderProducts = async () => {
         const [product] = await Product.findOrCreate({
           where: {
             name,
-            image: `https://${imageUrl}`, //hola
-            // image: imageUrl,
-
+            image: `https://${imageUrl}`,
             price: price.current.value,
             colour,
             additionalImage: additionalImageUrls,
@@ -52,6 +52,10 @@ const apiLoaderProducts = async () => {
         await product.addBrand(brand);
       }
     );
+
+    // Usa Promise.all para esperar a que todas las promesas se resuelvan
+    await Promise.all(productPromises);
+
     console.log("Carga en la base de datos exitosa");
   } catch (error) {
     console.log(error.message);
@@ -61,3 +65,4 @@ const apiLoaderProducts = async () => {
 module.exports = {
   apiLoaderProducts,
 };
+
