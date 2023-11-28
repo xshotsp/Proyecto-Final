@@ -1,0 +1,53 @@
+/* En footer.module.css */
+
+.container {
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+}
+
+.container u {
+  text-decoration: none;
+  color: #fff;
+}
+
+.links {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.links li {
+  cursor: pointer;
+  margin: 5px;
+}
+
+.socialIcons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.iconContainer {
+  background-color: #555;
+  padding: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.iconContainer:hover {
+  background-color: #777;
+}
+
+.copyright {
+  margin-top: 20px;
+}
+
+hr {
+  border-color: #888;
+}

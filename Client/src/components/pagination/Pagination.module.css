@@ -1,0 +1,57 @@
+.container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin: 5px auto 0 auto;
+  gap: 0 5px;
+}
+
+.paginator {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 40px;
+  margin: 0 2px;
+  border-radius: 5px;
+  font-weight: bolder;
+  cursor: pointer;
+  transition: 0.2s ease all;
+  color: #000000;
+
+  &:hover {
+    background-color: #000000;
+    color: white;
+    border: 1px solid white;
+  }
+}
+
+.button__selected {
+  border: 1px solid lightgray;
+  background-color: #000000;
+  color: lightgray;
+}
+
+.paginator_buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.2s ease all;
+  color: #000000;
+
+  &:hover {
+    background-color: #000000;
+    color: white;
+    border: 1px solid white;
+  }
+}
