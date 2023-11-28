@@ -13,6 +13,9 @@ import {
   GET_BRANDS,
   GET_FILTROS,
   GET_ALL_PRODUCTS,
+  ADD_TO_CART,
+  REMOVE_FROM_CART,
+  MODIFY_QUANTITY,
 
 } from './actionTypes';
 
@@ -190,3 +193,19 @@ export function cleanProductDetail() {
   }
 }
 
+export const addToCart = (product, quantity) => ({
+  type: ADD_TO_CART,
+  payload: { product, quantity },
+});
+
+// Action to remove a product from the cart
+export const removeFromCart = (productId) => ({
+  type: REMOVE_FROM_CART,
+  payload: { productId },
+});
+
+// Action to modify the quantity of a product in the cart
+export const modifyQuantity = (productId, newQuantity) => ({
+  type: MODIFY_QUANTITY,
+  payload: { productId, newQuantity },
+});

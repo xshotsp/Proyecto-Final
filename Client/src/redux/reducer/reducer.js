@@ -10,6 +10,9 @@ import {
   GET_FILTROS,
   GET_BRANDS,
   CLEAN_PRODUCT_DETAIL,
+  ADD_TO_CART,
+  REMOVE_FROM_CART,
+  MODIFY_QUANTITY,
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -20,6 +23,7 @@ const initialState = {
   allBrands: [],
   // productDetails: null,
   productDetails: {},
+  productsInCart:[],
 };
 
 export default function reducer(state = initialState, action) {
@@ -99,6 +103,39 @@ export default function reducer(state = initialState, action) {
             ...state,
             allproducts: action.payload,
           };
+          case ADD_TO_CART:
+            return {
+              ...state,
+              productsInCart: [
+                ...state.productsInCart,
+                {
+                  ...action.payload.product,
+                  quantity: action.payload.quantity,
+                },
+              ],
+            };
+          
+
+            case REMOVE_FROM_CART:
+              return {
+                ...state,
+                productsInCart: state.productsInCart
+                  ? state.productsInCart.filter(
+                      (product) => product.id !== action.payload.productId
+                    )
+                  : [],
+              };
+            
+
+    case MODIFY_QUANTITY:
+      return {
+        ...state,
+        productsInCart: state.productsInCart.map((product) =>
+          product.id === action.payload.productId
+            ? { ...product, quantity: action.payload.newQuantity }
+            : product
+        ),
+      };
 
     default:
       return state;

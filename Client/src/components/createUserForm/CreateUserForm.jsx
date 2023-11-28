@@ -2,11 +2,7 @@ import { useState } from "react";
 import LabelAndInput from "../labelAndInput/LabelAndInput";
 import axios from "axios";
 import Notification from "../notification/Notification";
-<<<<<<< HEAD
-import s from './create.module.css';
-=======
 import s from "./create.module.css"
->>>>>>> c6188f362889618f01a2dc5f3d9df4d48c12d2dc
 
 const CreateUserForm = () => {
   const [notification, setNotification] = useState(null);
@@ -52,11 +48,7 @@ const CreateUserForm = () => {
     <div>
       <form className={`${s.form} ${s["s-form"]}`} onSubmit={submitHandler}>
         <fieldset>
-<<<<<<< HEAD
-          <legend>Crear Usuario</legend>
-=======
         <legend>Crear Usuario</legend>
->>>>>>> c6188f362889618f01a2dc5f3d9df4d48c12d2dc
           <LabelAndInput
             label="Username*"
             type="text"

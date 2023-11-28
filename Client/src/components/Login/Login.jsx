@@ -1,11 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { useState } from 'react';
 import axios from 'axios';
-<<<<<<< HEAD
-import s from './login.module.css'; // Importa los estilos
-=======
 import s from "./login.module.css"
->>>>>>> c6188f362889618f01a2dc5f3d9df4d48c12d2dc
 
 const Login = () => {
   const [usuario, setUsuario] = useState('');
@@ -28,11 +24,7 @@ const Login = () => {
   };
 
   return (
-<<<<<<< HEAD
-    <section className={s['login-container']}>
-=======
 <section className={s['login-container']}>
->>>>>>> c6188f362889618f01a2dc5f3d9df4d48c12d2dc
       <hr />
       <h2>Mi Cuenta</h2>
       <hr />

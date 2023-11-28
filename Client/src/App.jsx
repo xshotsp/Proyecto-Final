@@ -8,7 +8,7 @@ import HomePage from "./components/HomePage/HomePage";
 import FormPage from "./components/formpage/FormPage";
 import Login from "./components/Login/Login";
 import DetailPage from "./components/detailpage/DetailPage";
-
+import Cart from "./components/cart/cart"
 function App() {
   return (
     <div className="App">
@@ -19,6 +19,7 @@ function App() {
         <Route path="/form" element={<FormPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/createuser" element={<CreateUserForm />} />
+        <Route path="/cart" element={<Cart/>}/>
       </Routes>
       <Footer />
     </div>
@@ -26,5 +27,3 @@ function App() {
 }
 
 export default App;
-
-//cambio

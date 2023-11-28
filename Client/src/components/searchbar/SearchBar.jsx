@@ -1,11 +1,7 @@
 import { useState } from "react";
 import styles from "./SearchBar.module.css";
 import { useDispatch } from "react-redux";
-<<<<<<< HEAD
-import { getProductName } from "../../redux/actions/actions";
-=======
 import { getProductName, getFilters } from "../../redux/actions/actions";
->>>>>>> c6188f362889618f01a2dc5f3d9df4d48c12d2dc
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
@@ -42,11 +38,7 @@ const SearchBar = () => {
         className={styles.input}
       />
 
-<<<<<<< HEAD
-      <button onClick={handleSearch} className={styles.search}>
-=======
 <button onClick={handleSearch} className={styles.search}>
->>>>>>> c6188f362889618f01a2dc5f3d9df4d48c12d2dc
         <FontAwesomeIcon icon={faSearch} />
       </button>
     </div>
