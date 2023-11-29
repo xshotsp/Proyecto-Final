@@ -22,17 +22,16 @@ const NavBar = () => {
               Contacto
             </li>
           </Link>
-          <Link to="/login">
-            <li>
-              <FontAwesomeIcon icon={faUser} />
-            </li>
-            </Link>
             <Link to="/createuser">
             <li>
               Registrarse
             </li> 
           </Link>
-          
+          <Link to="/login">
+            <li>
+              <FontAwesomeIcon icon={faUser} />
+            </li>
+            </Link>
           <Link to="/cart">
             <li>
               <FontAwesomeIcon icon={faShoppingCart} />

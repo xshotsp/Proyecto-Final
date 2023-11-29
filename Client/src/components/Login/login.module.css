@@ -1,64 +1,226 @@
-/* login.module.css */
+:root{
+  --morado:#9b59b6;
+  --blanco: #FFFF;
+}
 
-.login-container {
-    max-width: 400px;
-    margin: 0 auto;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    color: #000;
-  }
+.container_from{
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   top: 200px;
+   height: 80vh;
+   border-radius: 20px;
+   box-shadow: 0 5px 7px rgba(0, 0, 0, .1);
+   max-width: 900px;
+   transition: all 1s ease;
+   padding: 20px;
+   position: relative;
+   margin: 0 auto;
+}
+
+.information{
+  width: 40%;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  height: 80vh;
+  background-color:var(--morado);
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  position: absolute;
+  left: 0;
+}
+
+.info_childs{
+  width:100%;
+  padding: 0 30px;
+}
+
+.info_childs h2{
+  font-size: 2.5rem;
+}
+
+.info_childs p{
+margin: 15px 0;
+}
+
+.info_childs input{
+ background-color: transparent;
+ outline: none;
+ border: solid 2px #FFF;
+ border-radius: 20px;
+ padding: 10px 20px;
+ cursor: pointer;
+ transition: backround-color .3s ease;
+}
+
+.info_childs input:hover{
+  background-color:var(--blanco);
+  border: none;
+  color:var(--morado);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, .1);
+ }
+
+ .from_information{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background-color: #f8f8f8;
+  width: 60%;
+  right: 0;
+  height: 80vh;
+  position: absolute;
+ border-top-right-radius: 20px;
+ border-bottom-right-radius: 20px;
   
-  .login-container hr {
-    border: 1px solid #ddd;
-    margin-top: 10px;
-    margin-bottom: 20px;
-  }
-  
-  .login-container h2 {
-    color: #333;
-  }
-  
-  .login-form label {
-    display: block;
-    margin-bottom: 10px;
-  }
-  
-  .login-form input {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 15px;
-    border: 1px solid #555;
-    border-radius: 5px;
-    background-color: #fff;
-    color: #000;
-  }
-  
-  .login-form button {
-    width: 100%;
-    padding: 10px;
-    background-color: #000;
-    color: #fff;
+ }
+
+ .infor_childs{
+padding: 0 30px;
+ }
+
+ .infor_childs h2{
+   color: var(--morado);
+   font-size: 2rem;
+   }
+
+   .infor_childs p{
+     color: var(--morado);
+     }
+
+    .icons{
+      margin: 15px 0;
+      display: flex;
+      justify-content: center;
+    }
+
+    .icons i{
+      display: flex;
+      align-items: center;
+      border-radius: 50%;
+      padding: 15px;
+      cursor: pointer;
+      margin: 0 10px;
+      transition: background-color 0.3s ease;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, .1);
+      background-color: var(--morado);
+      color: var(--blanco);
+    }
+    .icons i img{
+     filter: invert(1);      
+    }
+
+    .form{
+      margin: 30px 0 0 0;
+    }
+
+    .form label {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+      border-radius: 20px;
+      padding: 0 10px;
+      background-color: #fff;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, .1);
+
+    }
+
+    .form label input{
+      width: 100%;
+      padding: 10px;
+      background-color: #fff;
+      border: none;
+      outline: none;
+      border-radius: 20px;
+      color: #333;
+    }
+
+    .form label i {
+      color: #a7a7a7;
+    }
+
+
+   .form input[type='submit']{
+    background-color: var(--morado);
+    color: var(--blanco);
+    border-radius: 20px;
     border: none;
-    border-radius: 5px;
+    padding: 10px 15px;
     cursor: pointer;
+    margin-top:10px ;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, .1);
+   }
+
+   .form input[type='submit']:hover{
+    background-color: var(--blanco);
+    color: var(--morado);
+    border: solid 1px var(--morado);
+   }
+
+   .error {
+    color: red;
+   }
+
+.bx_user{
+ height: 23px;
+}
+
+.bx_contra{
+  height: 23px;
+ }
+
+ .bx_email{
+  height: 23px;
+ }
+
+ .bx_fc{
+  height: 30px;
+ }
+
+ .bx_gl{
+  height: 30px;
+ }
+
+ .bx_in{
+  height: 30px;
+ }
+
+ /* response from*/
+
+ @media screen and (max-width:750px) {
+  html{
+    font-size: 12px;
+  }
+ }
+
+ @media screen and (max-width:580px) {
+  html{
+    font-size: 10px;
+  }
+  .container_from{
+    height: auto;
+    flex-direction: column;
+    top: 300px;
+    height: 50vh;
+  }
+
+  .information{
+    width: 100%;
+    padding: 20px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-left-radius: 0px;
   }
   
-  .login-form button:hover {
-    background-color: #27ae60;
+  .from_information{
+    width: 100%;
+    padding: 20px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius:20px;
+    border-bottom-left-radius:20px;
+    top: 300px;
   }
-  
-  .login-form p {
-    color: #e74c3c;
-    font-size: 14px;
-  }
-  
-  .login-form a {
-    color: #3498db;
-    text-decoration: none;
-  }
-  
-  .login-form a:hover {
-    text-decoration: underline;
-  }
+
+ }
