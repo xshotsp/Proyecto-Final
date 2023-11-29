@@ -84,9 +84,11 @@ const login = async (req, res) => {
     if (user.password !== password) {
       return res.status(403).send("Contraseña incorrecta");
     }
-
+    console.log(user)
     return res.json({
       access: true,
+      email: user.email,
+      photo: user.profile_picture
     });
   } catch (error) {
     return res.status(500).send(error.message);

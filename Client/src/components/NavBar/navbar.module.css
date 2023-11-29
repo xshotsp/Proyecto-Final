@@ -45,4 +45,26 @@ u{
   text-decoration: none;
 }
 
+.nav__ul img{
+  border-radius: 50%;
+  height: 40px;
+  transition: all 0.1s ease-out;
+}
+.nav__ul img:hover{
+  border: 1px solid rgb(255, 255, 255)
+}
+
+.options {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  right: 15px;
+  top: 50px;
+}
+
+.options button{
+  font-size: 0.8rem;
+}
+
 /* deja de tirar error */

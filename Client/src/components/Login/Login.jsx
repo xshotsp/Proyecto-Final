@@ -1,62 +1,74 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import { useState, useEffect } from "react";
 import axios from "axios";
 import s from "./login.module.css";
 import { gapi } from "gapi-script";
 import GoogleLogin from "react-google-login";
+import FacebookLogin from "react-facebook-login";
 import { useNavigate } from "react-router-dom";
 
-const Login = () => {
+const Login = ({ setLogin, login }) => {
   const [usuario, setUsuario] = useState("");
   const [contraseña, setContraseña] = useState("");
   const [error, setError] = useState();
-  const [access,setAccess] = useState(false)
   const navigate = useNavigate();
 
-
-  const clientID = import.meta.env.VITE_CLIENT_ID_GOOGLE;
+  const clientIdGoogle = import.meta.env.VITE_CLIENT_ID_GOOGLE;
+  const clientIdFb = import.meta.env.VITE_FB_APP_ID
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await axios(`http://localhost:3001/user/login/?email=${usuario}&password=${contraseña}`);
-      setAccess(response.data)
+      const response = await axios(
+        `http://localhost:3001/user/login/?email=${usuario}&password=${contraseña}`
+      );
+      setLogin(response.data);
+      console.log(response.data);
     } catch (error) {
       console.error("Error al iniciar sesión:", error.message);
       setError("Credenciales incorrectas");
     }
   };
 
-
-
   const onSuccess = (response) => {
     const userObject = {
+      access: true,
       email: response.profileObj.email,
-      name: response.profileObj.givenName,
-      lastName: response.profileObj.familyName,
+      photo: response.profileObj.imageUrl,
     };
-    if (userObject.name && userObject.email && userObject.lastName) {
-      navigate("/");
-    }
+    setLogin(userObject);
   };
 
   const onFailure = (response) => {
     console.log(response);
   };
 
+  const responseFacebook = (response) => {
+    console.log(response);
+
+    const userObject = {
+      access: true,
+      email: response.email,
+      photo: response.picture.data.url,
+    };
+    setLogin(userObject);
+
+  }
+
+
   useEffect(() => {
     const start = () => {
       gapi.auth2.init({
-        clientId: clientID,
+        clientId: clientIdGoogle,
       });
     };
-    if(access) navigate("/");
+    if (login.access) navigate("/");
 
     gapi.load("client:auth2", start);
-  }, [access]);
-
-
+  }, [login.access]);
 
   return (
     <section className={s["login-container"]}>
@@ -93,11 +105,17 @@ const Login = () => {
       <h3 className={s.or__h3}> O </h3>
       <div>
         <GoogleLogin
-          clientId={clientID}
+          clientId={clientIdGoogle}
           onSuccess={onSuccess}
           onFailure={onFailure}
           cookiePolicy={"single_host_policy"}
           className={s.google__button}
+        />
+        <FacebookLogin
+          appId={clientIdFb}
+          autoLoad={false}
+          fields="name,email,picture"
+          callback={responseFacebook}
         />
       </div>
     </section>

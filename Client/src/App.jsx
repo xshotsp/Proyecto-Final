@@ -14,6 +14,11 @@ import { useState } from "react";
 function App() {
 
   const [cartItems, setCartItems] = useState([]);
+  const [login, setLogin] = useState({
+    access: false,
+    email:"",
+    photo:""
+  })
 
   const handleAddProduct = (product) => {
     const ProductExist = cartItems.find((item) => item.id === product.id);
@@ -48,13 +53,13 @@ function App() {
 
   return (
     <div className="App">
-      <NavBar />
+      <NavBar login={login} setLogin={setLogin}/>
       <Routes>
         <Route path="/" element={<HomePage
         handleAddProduct={handleAddProduct} />} />
         <Route path="/product/:id" element={<DetailPage />} />
         <Route path="/form" element={<FormPage />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<Login setLogin={setLogin} login={login}/>} />
         <Route path="/createuser" element={<CreateUserForm />} />
         <Route path="/cart"
          element={<Cart
