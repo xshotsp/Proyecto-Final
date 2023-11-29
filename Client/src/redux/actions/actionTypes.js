@@ -10,6 +10,4 @@ export const GET_ALL_SELECTS = 'GET_ALL_SELECTS';
 export const GET_PRODUCTS = "GET_PRODUCTS";
 export const GET_BRANDS = "GET_BRANDS";
 export const GET_FILTROS = "GET_FILTROS"
-export const ADD_TO_CART = 'ADD_TO_CART';
-export const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
-export const MODIFY_QUANTITY = 'MODIFY_QUANTITY';
+
