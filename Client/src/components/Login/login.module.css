@@ -62,3 +62,12 @@
   .login-form a:hover {
     text-decoration: underline;
   }
+  .or__h3 {
+    font-size: 1rem;
+    color: gray;
+  }
+  .google__button{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }

@@ -23,6 +23,7 @@ const CreateUserForm = () => {
 
   const submitHandler = async (event) => {
     event.preventDefault();
+    console.log(input)
     try {
       const response = await axios.post("http://localhost:3001/user", input);
       setNotification({
@@ -43,6 +44,7 @@ const CreateUserForm = () => {
       }, 5000);
     }
   };
+
 
   return (
     <div>
