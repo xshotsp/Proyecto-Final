@@ -20,6 +20,7 @@ const initialState = {
   allBrands: [],
   // productDetails: null,
   productDetails: {},
+  
 };
 
 export default function reducer(state = initialState, action) {
@@ -99,6 +100,7 @@ export default function reducer(state = initialState, action) {
             ...state,
             allproducts: action.payload,
           };
+          
 
     default:
       return state;
