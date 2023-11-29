@@ -39,6 +39,7 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    margin-top: 20px;
   }
   
   .product-form button:hover {
@@ -48,6 +49,7 @@
   .product-form span {
     color: #e74c3c;
     font-size: 14px;
+    
   }
   
   .product-form p {
@@ -69,3 +71,14 @@
   .product-form .notification.show {
     display: block;
   }
+
+  .product-form img {
+    max-width: 60px;
+    max-height: 100px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-top: -20px;
+    text-align: center
+
+  }
+

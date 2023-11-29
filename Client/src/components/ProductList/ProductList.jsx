@@ -30,6 +30,8 @@ const ProductList = () => {
     setCurrentPage(1)
  }, [products]);
 
+ console.log(products)
+
   return (
     <div>
       {
@@ -37,7 +39,7 @@ const ProductList = () => {
       }
       
       {
-       (products[0]?.name) && <h1>Lista de Productos</h1>
+       (products[0]?.name) && <h2>Lista de Productos</h2>
       }
       
       {

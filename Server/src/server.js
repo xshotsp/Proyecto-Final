@@ -4,6 +4,8 @@ const morgan = require("morgan");
 const cors = require("cors");
 
 const server = express();
+server.use(express.json({ limit: "200mb" }));
+server.use(express.text({ limit: "200mb" }));
 
 server.use(morgan("dev"));
 server.use(express.json());
