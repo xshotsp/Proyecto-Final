@@ -8,5 +8,6 @@ export const FETCH_PRODUCT_FAILURE = 'FETCH_PRODUCT_FAILURE';
 export const CLEAN_PRODUCT_DETAIL = "CLEAN_PRODUCT_DETAIL";
 export const GET_ALL_SELECTS = 'GET_ALL_SELECTS';
 export const GET_PRODUCTS = "GET_PRODUCTS";
-export const GET_BRANDS = "GET_BRANDS";//hola
+export const GET_BRANDS = "GET_BRANDS";
 export const GET_FILTROS = "GET_FILTROS"
+
