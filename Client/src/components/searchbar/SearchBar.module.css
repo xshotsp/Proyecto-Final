@@ -1,7 +1,12 @@
+:root {
+  --input: #dcdcdc;
+  --titulos: #9b59b6;
+}
+
 .container {
   display: flex;
   justify-content: flex-end;
-  align-items: center; 
+  align-items: center;
   width: 30%;
   height: 40px;
   left: 85%;
@@ -12,10 +17,17 @@
   padding: 10px;
   border-radius: 20px;
   margin-right: 10px;
+  background-color: var(--input);
+  border: var(--titulos);
+  outline: none; /* Evitar el borde al hacer clic */
 }
 
 .search {
-  background-color: transparent; 
-  border: none; 
-  color: #000; 
+  background-color: transparent;
+  border: none;
+  color: var(--titulos);
+  outline: none !important; /* Evitar el borde al hacer clic */
 }
+
+
+

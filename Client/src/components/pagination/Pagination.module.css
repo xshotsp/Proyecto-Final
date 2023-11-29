@@ -1,3 +1,8 @@
+:root {
+  --morado: #9b59b6;
+  --blanco: #FFFFFF;
+}
+
 .container {
   position: relative;
   display: flex;
@@ -5,8 +10,7 @@
   width: 100%;
   margin: 5px auto 0 auto;
   gap: 0 5px;
-  top: 250px;
-
+  top: 135px;
 }
 
 .paginator {
@@ -26,19 +30,21 @@
   font-weight: bolder;
   cursor: pointer;
   transition: 0.2s ease all;
-  color: #000000;
+  color:var(--blanco);
+  background: var(--morado);
+  outline: none !important; /* Evitar el borde al hacer clic */
 
   &:hover {
-    background-color: #000000;
-    color: white;
-    border: 1px solid white;
+    background-color: var(--blanco);
+    color: var(--morado);
+    border: 1px solid var(--blanco);
   }
 }
 
 .button__selected {
   border: 1px solid lightgray;
-  background-color: #000000;
-  color: lightgray;
+  background: #FFFFFF; /* Se utiliza directamente el valor hexadecimal para el blanco */
+  color: var(--morado);
 }
 
 .paginator_buttons {
@@ -48,13 +54,13 @@
   height: 40px;
   border-radius: 5px;
   cursor: pointer;
-
   transition: 0.2s ease all;
-  color: #000000;
-
+  color: var(--blanco);
+  background: var(--morado);
+  outline: none !important; /* Evitar el borde al hacer clic */
   &:hover {
-    background-color: #000000;
-    color: white;
-    border: 1px solid white;
+    background-color: var(--morado);
+    color: var(--blanco);
+    border: 1px solid var(--blanco);
   }
 }

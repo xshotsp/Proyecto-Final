@@ -12,7 +12,6 @@ const Card = ({ product }) => {
       )}
       <h3>{name}</h3>
       <p>Precio: {`$${price}`}</p>
-      <p>Color: {colour}</p>
     </Link>
   );
 };

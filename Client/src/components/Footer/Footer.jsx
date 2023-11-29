@@ -1,6 +1,6 @@
 import s from './footer.module.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {faFacebook, faInstagram } from '@fortawesome/free-brands-svg-icons';
+import FB from '../../assets/FB.ico'
+import INS from '../../assets/inst.ico'
 
 const Footer = () => {
   return (
@@ -11,16 +11,16 @@ const Footer = () => {
         <li>Productos</li>
         <li>Acerca De</li>
         <li>Oficinas</li>
-        <li>Consultas:</li>
-        <li>consultas@quirkz.com.ar</li>
+        <li>Consultas: consultas@quirkz.com.ar</li>
+      
       </ul>
       <div className={s.socialIcons}>
         
         <div className={s.iconContainer}>
-          <FontAwesomeIcon icon={faFacebook} />
+           <a><img src={FB} alt='facebook logo' /></a>
         </div>
         <div className={s.iconContainer}>
-          <FontAwesomeIcon icon={faInstagram} />
+        <a><img src={INS} alt='facebook logo' /></a>
         </div>
       </div>
       <div className={s.copyright}>

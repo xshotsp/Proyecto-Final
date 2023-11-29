@@ -1,34 +1,37 @@
+:root {
+  --titulos: #9b59b6;
+  --fondo: #FFFF;
+  --borde: #ddd;
+}
 
+.product-card {
+  border: 1px solid var(--borde);
+  width: calc(20% - 20px); 
+  margin: 10px; 
+  text-align: center;
+}
 
- .product-card {
-    border: 1px solid #ddd;
-    padding: 15px;
-    margin: 10px;
-    width: 200px; 
-    text-align: center;
-  }
-  
-  .product-image {
-    width: 100%;
-    height: auto;
-    border-radius: 8px; 
-  }
-  
-  .product-list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-  } 
-  
+.product-image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.product-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 /* ProductList.module.css */
 
 .productList {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-  }
-  
-  .titulo{
-    position: relative;
-    top: 130px;
-  }
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.titulo {
+  position: relative;
+  top: 130px;
+  font-family: 'Montserrat';
+  color: var(--titulos);
+}

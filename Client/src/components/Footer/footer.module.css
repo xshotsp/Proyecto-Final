@@ -1,56 +1,83 @@
-/* En footer.module.css */
+/* footer.module.css */
+:root{
+  --morado:#9b59b6;
+  --blanco: #FFFF;
+}
+
+/* footer.module.css */
 
 .container {
-    background-color: #333;
-    color: #fff;
-    padding: 20px;
-    text-align: center;
-    position: relative;
-    top: 400px;
-  }
-  
-  .container u {
-    text-decoration: none;
-    color: #fff;
-  }
-  
+  background-color:var(--morado);
+  color:var(--blanco);
+  padding: 20px;
+  text-align: center;
+  top: 495px;
+  position: relative;
+}
+
+.container u {
+  font-size: 1.5em;
+  font-weight: bold;
+  text-decoration: none;
+  font-family: 'Monastery';
+}
+
+.links {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+  font-family: 'Monastery';
+}
+
+.links li {
+  cursor: pointer;
+}
+
+.socialIcons {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.iconContainer {
+  margin: 0 10px;
+}
+
+/* Estilo para las imágenes en blanco */
+.socialIcons img {
+  width: 40px;
+  height: 40px;
+  filter: invert(1); /* Invierte el color para que la imagen sea blanca */
+  transition: transform 0.3s ease-in-out;
+}
+
+.socialIcons img:hover {
+  transform: scale(1.2);
+}
+
+.copyright {
+  margin-top: 20px;
+  font-family: 'Monastery';
+}
+
+hr {
+  border: 0.5px solid var(--blanco);
+  margin-bottom: 10px;
+}
+
+/* Media Query para pantallas pequeñas */
+@media (max-width: 600px) {
   .links {
-    list-style: none;
-    padding: 0;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-bottom: 20px;
+    flex-direction: column;
   }
-  
-  .links li {
-    cursor: pointer;
-    margin: 5px;
-  }
-  
+
   .socialIcons {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 20px;
+    flex-direction: column;
   }
-  
-  .iconContainer {
-    background-color: #555;
-    padding: 10px;
-    border-radius: 50%;
-    cursor: pointer;
+
+  .socialIcons .iconContainer {
+    margin: 10px 0;
   }
-  
-  .iconContainer:hover {
-    background-color: #777;
-  }
-  
-  .copyright {
-    margin-top: 20px;
-  }
-  
-  hr {
-    border-color: #888;
-  }
-  
+}

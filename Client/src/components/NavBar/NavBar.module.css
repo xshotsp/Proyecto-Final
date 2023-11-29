@@ -1,4 +1,9 @@
-/* Estilo del contenedor superior */
+:root{
+  --titulos:#9b59b6;
+  --fondo: #FFFF;
+}
+
+
 .container {
   position: fixed;
   top: 0;
@@ -7,7 +12,7 @@
   height: 100px;
   margin-bottom: 30px;
   z-index: 99;
-  background-color: aliceblue;
+  background-color:var(--fondo);
   display: flex;
   justify-content: space-between; /* Alinea los elementos en las esquinas */
   align-items: center; /* Centra verticalmente el contenido */
@@ -32,7 +37,9 @@ nav u {
   margin: 0;
   font-size: 3rem;
   text-decoration: none;
-  color: #000000;
+  color:var(--titulos);
+  font-family:'Montserrat';
+  font-weight: bold;
 }
 
 /* Estilo de la lista no ordenada de la barra de navegación */
@@ -44,7 +51,7 @@ nav u {
 
 /* Estilo de cada elemento de la lista de la barra de navegación */
 .nav__ul li {
-  color: #000000;
+  color:var(--titulos);
   display: flex;
   align-items: center;
   list-style: none;
@@ -53,5 +60,7 @@ nav u {
   border-radius: 10px;
   padding: 10px;
   text-decoration: none;
+  font-family:  Montserrat;
+  font-weight: bold;
 }
 
