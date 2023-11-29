@@ -18,7 +18,7 @@ const [initialFilters,setInitialFilters] = useState({})
 const selects = useSelector((state) => state.selectFilter);
 const colourOpt = selects?.colour;
 const brandOpt = selects?.brand;
-const PriceOpt = ['highest', 'lowest'];
+const PriceOpt = ['mayor a menor', 'menor a mayor'];
 
  useEffect (() => {
     dispatch (getAllSelects())
@@ -50,18 +50,21 @@ const handleChange = (event) => {
       <div className={s.filtersContainer}>
         <Filters
           name="colour"
+          ticket = "color"
           options={colourOpt}
           handleChange={handleChange}    
           state={null}
         />
         <Filters
           name="brand"
+          ticket = "marca"
           options={brandOpt}
           handleChange={handleChange}
           state={null}
         />
          <Filters
           name="price"
+          ticket = "ordenar precio"
           handleChange={handleChange}
           options={PriceOpt}
           state={null}
@@ -73,7 +76,7 @@ const handleChange = (event) => {
             setInitialFilters({});
           }}
         >
-          Reset
+          Reinicio
         </button>
         <div>
         {initialFilters?.colour && (

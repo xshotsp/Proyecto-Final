@@ -14,7 +14,7 @@ import {
 
 const initialState = {
   allproducts: [],
-  creatingProduct: false,
+  creatingProduct: true,
   newProduct: null,
   error: null,
   allBrands: [],

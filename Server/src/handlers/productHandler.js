@@ -96,12 +96,11 @@ const {
 
   const getProductFilterHandler = async (req, res) => {
     try {
-    
+      console.log('hola Handler')
       getProductswithFilter(req, res, () => {
-      console.log (res.paginatedResults)
       res.status(200).json(res.paginatedResults);
        });
-      console.log('hola Handler')
+      
 
     } catch (error) {
       res.status(400).json({ error: error.message });
