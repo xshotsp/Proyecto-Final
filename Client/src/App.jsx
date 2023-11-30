@@ -48,7 +48,7 @@ function App() {
 
   return (
     <div className="App">
-      <NavBar />
+      <NavBar cartItems={cartItems} />
       <Routes>
         <Route path="/" element={<HomePage
         handleAddProduct={handleAddProduct} />} />

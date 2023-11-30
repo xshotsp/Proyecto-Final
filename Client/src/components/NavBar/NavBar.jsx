@@ -6,7 +6,7 @@ import { faShoppingCart, faUser } from '@fortawesome/free-solid-svg-icons';
 import SearchBar from '../searchbar/SearchBar';
 import styles from './NavBar.module.css';
 
-const NavBar = () => {
+const NavBar = ({ cartItems }) => {
   return (
     <div className={styles.container}>
       <nav className={styles.nav}>
@@ -33,9 +33,12 @@ const NavBar = () => {
             </li> 
           </Link>
           
-          <Link to="/cart">
+          <Link to="/cart" className={styles.cart}>
             <li>
               <FontAwesomeIcon icon={faShoppingCart} />
+              <span className={styles.nav_cart_length}>
+                {cartItems.length === 0 ? "" : cartItems.length}
+              </span>
             </li>
           </Link>
         </ul>

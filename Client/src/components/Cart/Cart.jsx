@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import s from './Cart.module.css'
 
 
@@ -56,9 +57,9 @@ const Cart = ({ cartItems , handleAddProduct, handleRemoveProduct, handleClearCa
         Precio total: ${totalPrice}
         </h2>
         </div>
-        <div>
+        <div className={s["shop-button-container"]}>
           <br />
-          <button
+          <button className={s["shop-button"]}
           disabled={totalPrice ? false : true}
           >
             Completar compra
