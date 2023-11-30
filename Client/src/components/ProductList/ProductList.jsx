@@ -6,29 +6,29 @@
 import { useEffect , useState} from 'react';
 
 import { useSelector, useDispatch} from 'react-redux';
-import { getAllProducts } from '../../redux/actions/actions';
+import { getAllProducts, getProducts } from '../../redux/actions/actions';
 import s from './ProductList.module.css';
 import Card from '../card/Card';
 import Pagination from '../pagination/Pagination';
-import data from '../data/data';
+//import data from '../data/data';
 
 const ProductList = ({ handleAddProduct }) => {
   
   const dispatch = useDispatch()
-  //const products = useSelector ((state) => state.allproducts)
+  const products = useSelector ((state) => state.allproducts)
   
   const [currentPage, setCurrentPage] = useState(1);
   const cardsPerPage = 5;
   const lastCardIndex = currentPage * cardsPerPage;
   const firstCardIndex = lastCardIndex - cardsPerPage;
-  const currentCards = data.slice(firstCardIndex, lastCardIndex);
+  const currentCards = products.slice(firstCardIndex, lastCardIndex);
 
   // useEffect(() => {
   //    dispatch(getAllProducts());
   //    setCurrentPage(1)
   // }, [dispatch]);
   useEffect(() => {
-    if(data.length === 0) dispatch(getAllProducts());
+    if(products.length === 0) dispatch(getAllProducts());
     console.log(getAllProducts);
     setCurrentPage(1)
  }, []);
@@ -36,15 +36,15 @@ const ProductList = ({ handleAddProduct }) => {
   return (
     <div>
       {
-      (data[0]?.message) && <h2>{data[0].message}</h2>
+      (products[0]?.message) && <h2>{products[0].message}</h2>
       }
       
       {
-       (data[0]?.name) && <h1>Lista de Productos</h1>
+       (products[0]?.name) && <h1>Lista de Productos</h1>
       }
       
       {
-        (data[0]?.name) &&
+        (products[0]?.name) &&
       
       <div className={s.productList}>
         {/* {products.map((product) => ( */}
@@ -57,7 +57,7 @@ const ProductList = ({ handleAddProduct }) => {
   
 
       <Pagination
-      filteredCountries={data} //cambio
+      filteredCountries={products} //cambio
       cardsPerPage={cardsPerPage}
       setCurrentPage={setCurrentPage}
       currentPage={currentPage}/>
