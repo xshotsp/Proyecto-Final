@@ -3,14 +3,11 @@ import "./App.css";
 import { Route, Routes } from "react-router-dom";
 import NavBar from "./components/NavBar/NavBar";
 import Footer from "./components/Footer/Footer";
-import Footer from "./components/Footer/Footer";
 import CreateUserForm from "./components/createUserForm/CreateUserForm";
 import HomePage from "./components/HomePage/HomePage";
 import FormPage from "./components/formpage/FormPage";
 import Login from "./components/Login/Login";
 import DetailPage from "./components/detailpage/DetailPage";
-import Cart from "./components/Cart/Cart";
-import { useState } from "react";
 import Cart from "./components/Cart/Cart";
 import { useState } from "react";
 

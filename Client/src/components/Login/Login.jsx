@@ -27,7 +27,6 @@ const Login = ({ setLogin, login }) => {
         `http://localhost:3001/user/login/?email=${usuario}&password=${contraseña}`
       );
       setLogin(response.data);
-      console.log(response.data);
     } catch (error) {
       console.error("Error al iniciar sesión:", error.message);
       setError("Credenciales incorrectas");
@@ -58,9 +57,7 @@ const Login = ({ setLogin, login }) => {
     setLogin(userObject);
   };
 
-  const responseInstagram = (response) => {
-    console.log(response);
-  };
+
 
   useEffect(() => {
     const start = () => {
@@ -121,12 +118,12 @@ const Login = ({ setLogin, login }) => {
           callback={responseFacebook}
         />
 
-        <InstagramLogin
+{/*         <InstagramLogin
           clientId="690347109869909"
           buttonText="Login"
           onSuccess={responseInstagram}
           onFailure={responseInstagram}
-        />
+        /> */}
       </div>
     </section>
   );

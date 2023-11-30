@@ -27,11 +27,11 @@ const ProductList = ({ handleAddProduct }) => {
   //    dispatch(getAllProducts());
   //    setCurrentPage(1)
   // }, [dispatch]);
+
   useEffect(() => {
     if(products.length === 0) dispatch(getAllProducts());
-    console.log(getAllProducts);
     setCurrentPage(1)
- }, []);
+ }, [products]);
 
   return (
     <div>
