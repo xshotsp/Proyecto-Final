@@ -1,4 +1,10 @@
-/* Filters.module.css */
+
+:root{
+  --morado:#9b59b6;
+  --blanco: #FFFF;
+  --morado-claro:#9370DB;
+}
+
 .selectcontainer {
   display: flex;
   position: relative;
@@ -7,37 +13,13 @@
   text-align: center;
   flex-wrap: wrap;
   top: 130px;
+  left: 7%;
 }
-
 select {
   padding: 0.5rem;
   font-size: 1rem;
   border: 1px solid #ccc;
-  border-radius: 5px;
-  background-color: white;
-}
-
-
-option {
-  font-size: 1rem;
-  padding: 0.5rem;
-}
-
-
-/* Filters.module.css */
-.selectcontainer {
-  display: flex;
-  align-items: center;
-  margin: 0.1rem;
-  perspective: 1000px; 
-}
-
-select {
-  padding: 0.5rem;
-  font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  background-color: #f0f0f0;
+  background-color:var(--morado);
   min-width: 150px;
   cursor: pointer;
   transition: transform 0.2s ease-in-out, background-color 0.2s, transform 0.2s; 
@@ -45,7 +27,6 @@ select {
 
 select:hover {
   transform: translateY(-3px) rotateX(5deg); 
-  border: 1px solid #030303;
 }
 
 select:focus {
@@ -62,9 +43,8 @@ select:focus {
   top: 100%;
   left: 0;
   width: 100%;
-  background-color: #ffffff8e;
+  background-color:var(--morado-claro);
   border: 1px solid #0f8804bf;
-  border-radius: 5px;
   padding: 5px;
   z-index: 1;
   transition: display 0.2s;
