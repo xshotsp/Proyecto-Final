@@ -37,7 +37,15 @@ const Login = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    console.log(`Campo '${name}' cambió a: ${value}`);
     validateField(name, value);
+
+  if (name === 'email') {
+    setEmail(value);
+  } else if (name === 'password') {
+    setPassword(value);
+  }
+
   };
 
   const handleSubmit = async (e) => {
@@ -94,14 +102,12 @@ const Login = () => {
         <label>
           <i className={style.bx}><img className={style.bx_email} src={EML} alt='Email' /></i>
           <input
-            type="email"
-            placeholder='Correo Electronico'
-            value={email}
-            onChange={(e) => {
-              setEmail(e.target.value);
-              validateField('email', e.target.value);
-            }}
-          />
+                  type="email"
+                  placeholder='Correo Electrónico'
+                  name='email'
+                  value={email}
+                  onChange={handleChange}
+                />
         </label>
         </div>
         {emailError && <p className={style.error}>{emailError}</p>}
@@ -109,17 +115,18 @@ const Login = () => {
        <label>
           <i className={style.bx}><img className={style.bx_contra} src={pss} alt='contraseña' /></i>
           <input
-            type="password"
-            placeholder='contraseña'
-            value={password}
-            onChange={(e) => {
-              setPassword(e.target.value);
-              validateField('password', e.target.value);
-            }}
-          />
+                  type="password"
+                  placeholder='Contraseña'
+                  name='password'
+                  value={password}
+                  onChange={handleChange}
+                />
         </label>
        </div>
-        {passwordError && <p className={style.error}>{passwordError}</p>}
+       {passwordError && <p className={style.error}>{passwordError}</p>}
+       <div className={style.olvidar}>
+          <Link to={``}><p>¿olvidaste tu contraseña?</p></Link>
+       </div>
         <input type="submit" value='Iniciar sesión' />
         {loginError && <p className={style.error}>{loginError}</p>}
       </form>
