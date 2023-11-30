@@ -7,7 +7,6 @@ import s from "./login.module.css";
 import { gapi } from "gapi-script";
 import GoogleLogin from "react-google-login";
 import FacebookLogin from "react-facebook-login";
-import { InstagramLogin } from "@amraneze/react-instagram-login";
 import { useNavigate } from "react-router-dom";
 
 const Login = ({ setLogin, login }) => {
@@ -33,21 +32,74 @@ const Login = ({ setLogin, login }) => {
     }
   };
 
-  const onSuccess = (response) => {
+  const onSuccessGoogle = async (response) => {
     const userObject = {
       access: true,
       email: response.profileObj.email,
       photo: response.profileObj.imageUrl,
+      username: response.profileObj.name,
     };
-    setLogin(userObject);
+    try {
+      const { data } = await axios.get(
+        `http://localhost:3001/user/${userObject.email}`
+      );
+
+      if (data) {
+        console.log("Ya existe");
+        setLogin({
+          access: true,
+          email: data.email,
+          photo: data.profile_picture,
+        });
+      } else {
+        const respuesta = await axios.post(`http://localhost:3001/user`, {
+          email: userObject.email,
+          profile_picture: userObject.photo,
+          password: 123456,
+          username: userObject.username,
+        });
+
+        setLogin({
+          access: true,
+          email: respuesta.data.email,
+          photo: respuesta.data.profile_picture,
+        });
+      }
+    } catch (error) {
+      console.error("Error en la solicitud GET:", error);
+    }
   };
 
-  const onFailure = (response) => {
+  const onFailureGoogle = (response) => {
     console.log(response);
   };
 
-  const responseFacebook = (response) => {
-    console.log(response);
+  const responseFacebook = async (response) => {
+    const { data } = await axios.get(
+      `http://localhost:3001/user/${response.email}`
+    );
+
+    if (data) {
+      console.log("Ya existe");
+      setLogin({
+        access: true,
+        email: data.email,
+        photo: data.profile_picture,
+      });
+    }else {
+      const respuesta = await axios.post(`http://localhost:3001/user`, {
+        email: response.email,
+        profile_picture: response.picture.data.url,
+        password: 123456,
+        username: response.name,
+      });
+
+      setLogin({
+        access: true,
+        email: respuesta.data.email,
+        photo: respuesta.data.profile_picture,
+      });
+    }
 
     const userObject = {
       access: true,
@@ -56,8 +108,6 @@ const Login = ({ setLogin, login }) => {
     };
     setLogin(userObject);
   };
-
-
 
   useEffect(() => {
     const start = () => {
@@ -106,8 +156,8 @@ const Login = ({ setLogin, login }) => {
       <div>
         <GoogleLogin
           clientId={clientIdGoogle}
-          onSuccess={onSuccess}
-          onFailure={onFailure}
+          onSuccess={onSuccessGoogle}
+          onFailure={onFailureGoogle}
           cookiePolicy={"single_host_policy"}
           className={s.google__button}
         />
@@ -117,13 +167,6 @@ const Login = ({ setLogin, login }) => {
           fields="name,email,picture"
           callback={responseFacebook}
         />
-
-{/*         <InstagramLogin
-          clientId="690347109869909"
-          buttonText="Login"
-          onSuccess={responseInstagram}
-          onFailure={responseInstagram}
-        /> */}
       </div>
     </section>
   );

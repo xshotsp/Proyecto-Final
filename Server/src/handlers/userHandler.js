@@ -3,7 +3,8 @@ const { User } = require("../db");
 
 const getUserHandler = async (req, res) => {
   try {
-    const results = await getUser();
+    const {id} = req.params
+    const results = await getUser(id);
     res.status(200).json(results);
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -70,6 +71,8 @@ const createUserHandler = async (req, res) => {
 
 
 const login = async (req, res) => {
+  console.log(req.query)
+
   try {
     const { email, password } = req.query;  
     if (!email || !password) {
@@ -84,7 +87,6 @@ const login = async (req, res) => {
     if (user.password !== password) {
       return res.status(403).send("Contraseña incorrecta");
     }
-    console.log(user)
     return res.json({
       access: true,
       email: user.email,
@@ -94,5 +96,6 @@ const login = async (req, res) => {
     return res.status(500).send(error.message);
   }
 };
+
 
 module.exports = { getUserHandler, putUserHandler, createUserHandler ,login};

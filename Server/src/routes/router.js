@@ -23,8 +23,8 @@ router.post('/product/restore/:id', restoreProductHandler); // esto es para el b
 router.delete("/product/delete/:id", deleteProductsHandler);
 router.put("/product/put/:id", updateProductsHandler);
 router.get("/brands", getBrandHandler)
-router.get("/user", getUserHandler)
 router.get("/user/login" ,login)
+router.get("/user/:id", getUserHandler)
 router.put("/user/:id", putUserHandler)
 router.post("/user", createUserHandler)
 

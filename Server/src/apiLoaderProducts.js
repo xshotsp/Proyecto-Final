@@ -17,13 +17,11 @@ const apiLoaderProducts = async () => {
   };
 
   const URL = "https://asos2.p.rapidapi.com/products/v2/list";
-  const URL_DETAIL = 'https://asos2.p.rapidapi.com/products/v3/detail'
 
   try {
     const { data } = await axios.request(URL, { params, headers });
     data.products.forEach(
       async ({
-        id,
         name,
         imageUrl,
         price,
