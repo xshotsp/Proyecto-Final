@@ -31,7 +31,7 @@ const ProductList = ({ handleAddProduct }) => {
     if(products.length === 0) dispatch(getAllProducts());
     console.log(getAllProducts);
     setCurrentPage(1)
- }, []);
+ }, [products]);
 
   return (
     <div>
