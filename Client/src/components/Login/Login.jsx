@@ -80,7 +80,6 @@ const Login = ({ setLogin, login }) => {
     );
 
     if (data) {
-      console.log("Ya existe");
       setLogin({
         access: true,
         email: data.email,
