@@ -1,4 +1,6 @@
+
 import React from 'react';
+import s from './Cart.module.css'
 
 const Cart = ({ cartItems , handleAddProduct, handleRemoveProduct, handleClearCart }) => {
 

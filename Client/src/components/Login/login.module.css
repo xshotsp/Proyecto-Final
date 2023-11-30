@@ -271,4 +271,9 @@ padding: 0 30px;
     width: 50vh;
   }
 
+
  }
+
+  .login-form a:hover {
+    text-decoration: underline;
+  }

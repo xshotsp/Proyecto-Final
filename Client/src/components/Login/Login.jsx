@@ -9,6 +9,7 @@ import pss from '../../assets/cerrar-con-llave.png';
 import { Link } from 'react-router-dom';
 
 const Login = () => {
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
@@ -57,7 +58,7 @@ const Login = () => {
     if (emailFieldError || passwordFieldError) {
       return; // No necesitas manejar el error general aquí
     }
-
+  
     try {
       const response = await axios.post('http://localhost:3001/user/login', {
         email,
@@ -73,7 +74,8 @@ const Login = () => {
       console.error('Error al iniciar sesión:', error.message);
       setLoginError('Credenciales incorrectas, por favor registrate o valida nuevamente');
     }
-  };
+    
+  }
 
   return (
     <div className={style.container_from}>

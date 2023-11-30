@@ -1,25 +1,27 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 // ProductList.jsx
 
 import { useEffect , useState} from 'react';
 
 import { useSelector, useDispatch} from 'react-redux';
-import { getAllProducts } from '../../redux/actions/actions';
+import { getAllProducts, getProducts } from '../../redux/actions/actions';
 import s from './ProductList.module.css';
 import Card from '../card/Card';
 import Pagination from '../pagination/Pagination';
+//import data from '../data/data';
 
-const ProductList = () => {
-    
+const ProductList = ({ handleAddProduct }) => {
+  
   const dispatch = useDispatch()
   const products = useSelector ((state) => state.allproducts)
-
+  
   const [currentPage, setCurrentPage] = useState(1);
   const cardsPerPage = 5;
   const lastCardIndex = currentPage * cardsPerPage;
   const firstCardIndex = lastCardIndex - cardsPerPage;
   const currentCards = products.slice(firstCardIndex, lastCardIndex);
-
 
   // useEffect(() => {
   //    dispatch(getAllProducts());
@@ -27,6 +29,7 @@ const ProductList = () => {
   // }, [dispatch]);
   useEffect(() => {
     if(products.length === 0) dispatch(getAllProducts());
+    console.log(getAllProducts);
     setCurrentPage(1)
  }, [products]);
 
@@ -46,7 +49,7 @@ const ProductList = () => {
       <div className={s.productList}>
         {/* {products.map((product) => ( */}
         {currentCards.map((product) => (
-          <Card key={product.id} product={product} />
+          <Card key={product.id} product={product} handleAddProduct={handleAddProduct} />
         ))}
       </div>
       }

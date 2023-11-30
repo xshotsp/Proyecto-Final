@@ -1,6 +1,6 @@
 :root{
-  --titulos:#9b59b6;
-  --fondo: #FFFF;
+  --morado:#9b59b6;
+  --blanco: #FFFF;
 }
 
 
@@ -42,8 +42,13 @@ h3{
 
 a.productCard {
   text-decoration: none;
+
   color: var(--titulos);
   font-size: 1.2rem;
   font-style: italic;
   font-family:'Montserrat';
+}
+
+.propiedades{
+ color: var(--titulos); 
 }

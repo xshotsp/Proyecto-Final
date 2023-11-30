@@ -1,5 +1,6 @@
 require("dotenv").config();
 const server = require("./src/server");
+const express = require("express");
 const { conn } = require('./src/db.js');
 const { apiLoaderProducts } = require("./src/apiLoaderProducts.js");
 const cloudinary = require("cloudinary").v2;
@@ -18,6 +19,7 @@ cloudinary.config({
 
 conn.sync({ force: true }).then(() => {
 server.listen(PORT, async() => {
+  
   await apiLoaderProducts()
   console.log(`Server listening on port ${PORT}`);
 })
