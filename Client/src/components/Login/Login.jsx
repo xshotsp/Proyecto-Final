@@ -58,8 +58,7 @@ const Login = () => {
 
       if (response.ok) {
         console.log('Login correcto');
-        // Aquí deberías usar el historial de React Router o algún enfoque de redirección
-        // history.push('/');
+        <Link to={`/`}/>
       }
 
     } catch (error) {
