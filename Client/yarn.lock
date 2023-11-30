@@ -15,6 +15,11 @@
     "@jridgewell/gen-mapping" "^0.3.0"
     "@jridgewell/trace-mapping" "^0.3.9"
 
+"@amraneze/react-instagram-login@^4.0.0":
+  version "4.0.0"
+  resolved "https://registry.npmjs.org/@amraneze/react-instagram-login/-/react-instagram-login-4.0.0.tgz"
+  integrity sha512-6WO462FVtXR9AvrW3TNCx78ntt1Ub+ACUaxcJxqo2/R7+hi61SdK3YfZsjz4g143yoUvY8GteiSxjIJDXWqsKA==
+
 "@babel/code-frame@^7.22.13", "@babel/code-frame@^7.23.4":
   version "7.23.4"
   resolved "https://registry.npmjs.org/@babel/code-frame/-/code-frame-7.23.4.tgz"

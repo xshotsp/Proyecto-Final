@@ -7,6 +7,7 @@ import s from "./login.module.css";
 import { gapi } from "gapi-script";
 import GoogleLogin from "react-google-login";
 import FacebookLogin from "react-facebook-login";
+import { InstagramLogin } from "@amraneze/react-instagram-login";
 import { useNavigate } from "react-router-dom";
 
 const Login = ({ setLogin, login }) => {
@@ -16,7 +17,7 @@ const Login = ({ setLogin, login }) => {
   const navigate = useNavigate();
 
   const clientIdGoogle = import.meta.env.VITE_CLIENT_ID_GOOGLE;
-  const clientIdFb = import.meta.env.VITE_FB_APP_ID
+  const clientIdFb = import.meta.env.VITE_FB_APP_ID;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -55,9 +56,11 @@ const Login = ({ setLogin, login }) => {
       photo: response.picture.data.url,
     };
     setLogin(userObject);
+  };
 
-  }
-
+  const responseInstagram = (response) => {
+    console.log(response);
+  };
 
   useEffect(() => {
     const start = () => {
@@ -116,6 +119,13 @@ const Login = ({ setLogin, login }) => {
           autoLoad={false}
           fields="name,email,picture"
           callback={responseFacebook}
+        />
+
+        <InstagramLogin
+          clientId="690347109869909"
+          buttonText="Login"
+          onSuccess={responseInstagram}
+          onFailure={responseInstagram}
         />
       </div>
     </section>
