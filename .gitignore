@@ -108,3 +108,4 @@ dist
 package-lock.json
 Client/package-lock.json
 /Client/src/components/data
+/Client/src/components/data/data.js
