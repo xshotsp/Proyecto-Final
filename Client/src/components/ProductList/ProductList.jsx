@@ -13,10 +13,8 @@ import Pagination from '../pagination/Pagination';
 //import data from '../data/data';
 
 const ProductList = ({ handleAddProduct }) => {
-  
   const dispatch = useDispatch()
   const products = useSelector ((state) => state.allproducts)
-  
   const [currentPage, setCurrentPage] = useState(1);
   const cardsPerPage = 5;
   const lastCardIndex = currentPage * cardsPerPage;
