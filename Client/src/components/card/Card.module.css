@@ -12,10 +12,12 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease-in-out;
   display: flex;
+  align-items: center;
   flex-direction: column;
   text-decoration: none;
   position: relative;
   top: 130px;
+  overflow: hidden; /* Oculta el contenido que se extienda más allá del contenedor */
 }
 
 h3{
@@ -30,7 +32,8 @@ h3{
   height: 200px;
   object-fit: cover;
   border-radius: 10px;
-  margin-bottom: 10px; 
+  margin-bottom: 10px;
+  width: 100%; /* Ajusta según tus preferencias */
 }
 
 .productInfo {
@@ -51,4 +54,17 @@ a.productCard {
 
 .propiedades{
  color: var(--titulos); 
+ margin-top: auto;
+}
+
+.productAddButton {
+  border-radius: 20px;
+  background-color: var(--morado);
+}
+
+.productAddButton:hover{
+  background-color: var(--blanco);
+  color: var(--morado);
+  outline: none;
+  border: solid 1px var(--morado);
 }

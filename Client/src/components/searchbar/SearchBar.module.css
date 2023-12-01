@@ -7,11 +7,10 @@
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  width: 30%;
+  width: 20%;
   height: 40px;
-  left: 85%;
+  left: 34%;
   position: relative;
-  background-color: var(--titulos);
 }
 
 .input {
