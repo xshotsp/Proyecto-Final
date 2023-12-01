@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  createProductRequest,
-  createProductSuccess,
-  createProductFailure,
+  // createProductRequest,
+  // createProductSuccess,
+  // createProductFailure,
   postProduct,
   getProducts,
   getBrands,
 } from "../../redux/actions/actions";
-import axios from "axios";
+// import axios from "axios";
 import s from "./productForm.module.css"
 
 const ProductForm = () => {
   const dispatch = useDispatch();
-  const allBrands = useSelector((state)=>state.allBrands);
-  const { creatingProduct, newProduct, error } = useSelector((state) => state);
+  const allBrands = useSelector((productData)=>productData.allBrands);
+  // const { creatingProduct, newProduct, error } = useSelector((state) => state);
 
   useEffect(()=>{
     dispatch(getProducts())
@@ -26,7 +26,7 @@ const ProductForm = () => {
     image: "",
     price: "",
     colour: "",
-    additionalImage: [],
+    //additionalImage: [],
     brands: [],
   });
 
@@ -35,7 +35,7 @@ const ProductForm = () => {
     image: "",
     price: "Data is required",
     colour: "Data is required",
-    additionalImage: [],
+    //additionalImage: [],
     brands: []
   });
 
@@ -63,6 +63,11 @@ const ProductForm = () => {
       if (!productData.colour.length) setErrors({ ...errors, colour: "El color es requerido" });
       else setErrors({ ...errors, colour: "" });
     }
+
+    if(name==="brands"){
+      if(!productData.brands.length) setErrors({...errors, brands:"La marca es requerida"})
+      else setErrors({...errors, brands: ""})
+    }
   };
 
   const handleChange = (e) => {
@@ -86,9 +91,9 @@ const ProductForm = () => {
     //RE-RENDERIZADO
     validate({
         ...productData,
-        [e.target.name]: e.target.value},
-        e.target.name);
-    return;
+        [e.target.name]: e.target.value
+      }, e.target.name);
+    //return;
   };
  
     const buttonDisabled= ()=>{
@@ -132,28 +137,28 @@ const ProductForm = () => {
       })
     }
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    dispatch(createProductRequest());
-
-    try {
-      const response = await axios.post(
-        "http://localhost:3001/product",
-        productData
-      );
-      const newProduct = response.data;
-
-      dispatch(createProductSuccess(newProduct));
-    } catch (error) {
-      console.error("Error al crear el producto:", error.message);
-      dispatch(createProductFailure(error.message));
-    }
-  };
-
-  // const handleSubmit = (e) => {
+  // const handleSubmit = async (e) => {
   //   e.preventDefault();
-  //   dispatch(postProduct(productData));
+  //   dispatch(createProductRequest());
+
+  //   try {
+  //     const response = await axios.post(
+  //       "http://localhost:3001/product",
+  //       productData
+  //     );
+  //     const newProduct = response.data;
+
+  //     dispatch(createProductSuccess(newProduct));
+  //   } catch (error) {
+  //     console.error("Error al crear el producto:", error.message);
+  //     dispatch(createProductFailure(error.message));
+  //   }
   // };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(postProduct(productData));
+  };
 
   return (
     <div>
@@ -203,7 +208,7 @@ const ProductForm = () => {
         </label>
         <span>{errors.colour}</span>
         <br />
-        <label>
+        {/* <label>
           Imagen Adicional:
           <input
             type="text"
@@ -212,11 +217,11 @@ const ProductForm = () => {
             onChange={handleChange}
           />
         </label>
-        <br />
+        <br /> */}
          <label>Marcas: </label>
         <select onChange={handleChange} name="brands" id="">
           <option hidden>seleccionar marca</option>{
-            allBrands?.map((b)=><option key={b} value={b.name}>{b.name}</option>)
+            allBrands?.map((b)=><option key={b.id} value={b.name}>{b.name}</option>)
           }
         </select>
         <div>
@@ -224,15 +229,16 @@ const ProductForm = () => {
             productData.brands?.map(b=><div><span id={b}>{b}</span><button type="button" name="brands" id={b} onClick={remove}>X</button></div>)
           }
         </div>
-        {/* <input disabled={buttonDisabled()} type="submit"/> */}
-        <button type="submit" disabled={creatingProduct}>
+        <span>{errors.brands}</span>
+        <input disabled={buttonDisabled()} type="submit"/>
+        {/*<button type="submit" disabled={creatingProduct}>
           Crear Producto
-        </button>
+        </button>*/}
       </form>
 
       {/* Mostrar el resultado de la creación */}
-      {newProduct && <p>Producto creado con éxito: {newProduct.name}</p>}
-      {error && <p>Error al crear el producto: {error}</p>}
+      {/* {newProduct && <p>Producto creado con éxito: {newProduct.name}</p>}
+      {error && <p>Error al crear el producto: {error}</p>} */}
     </div>
   );
 };

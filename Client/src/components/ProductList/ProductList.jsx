@@ -54,7 +54,7 @@ const ProductList = () => {
   
 
       <Pagination
-      filteredCountries={products} //cambio
+      filteredProducts={products} //cambio
       cardsPerPage={cardsPerPage}
       setCurrentPage={setCurrentPage}
       currentPage={currentPage}/>

@@ -26,7 +26,7 @@ const apiLoaderProducts = async () => {
         imageUrl,
         price,
         colour,
-        additionalImageUrls,
+        //additionalImageUrls,
         brandName,
       }) => {
         const [product] = await Product.findOrCreate({
@@ -37,7 +37,7 @@ const apiLoaderProducts = async () => {
 
             price: price.current.value,
             colour,
-            additionalImage: additionalImageUrls,
+            //additionalImage: additionalImageUrls,
           },
         });
 
