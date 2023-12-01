@@ -1,8 +1,10 @@
 const { getUser, getOneUser } = require("../controllers/userController");
 const { User } = require("../db");
+
 const getUserHandler = async (req, res) => {
   try {
-    const results = await getUser();
+    const {id} = req.params
+    const results = await getUser(id);
     res.status(200).json(results);
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -35,7 +37,6 @@ const putUserHandler = async (req, res) => {
 const createUserHandler = async (req, res) => {
   try {
     const { username, password, email, profile_picture, member } = req.body;
-
     if (!username || !password || !email) {
       return res.status(400).json("Campos obligatorios incompletos.");
     }
@@ -68,4 +69,33 @@ const createUserHandler = async (req, res) => {
   }
 };
 
-module.exports = { getUserHandler, putUserHandler, createUserHandler };
+
+const login = async (req, res) => {
+  console.log(req.query)
+
+  try {
+    const { email, password } = req.query;  
+    if (!email || !password) {
+      return res.status(400).send("Faltan datos");
+    }
+
+    const user = await User.findOne({ where: { email: email } });
+    if (!user) {
+      return res.status(404).send("Usuario no encontrado");
+    }
+
+    if (user.password !== password) {
+      return res.status(403).send("Contraseña incorrecta");
+    }
+    return res.json({
+      access: true,
+      email: user.email,
+      photo: user.profile_picture
+    });
+  } catch (error) {
+    return res.status(500).send(error.message);
+  }
+};
+
+
+module.exports = { getUserHandler, putUserHandler, createUserHandler ,login};
