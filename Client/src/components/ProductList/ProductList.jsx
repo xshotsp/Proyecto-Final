@@ -23,13 +23,8 @@ const ProductList = ({ handleAddProduct }) => {
   const firstCardIndex = lastCardIndex - cardsPerPage;
   const currentCards = products.slice(firstCardIndex, lastCardIndex);
 
-  // useEffect(() => {
-  //    dispatch(getAllProducts());
-  //    setCurrentPage(1)
-  // }, [dispatch]);
-
   useEffect(() => {
-/*     if(products.length === 0) dispatch(getAllProducts()); */
+    if(products.length === 0) dispatch(getAllProducts()); 
     setCurrentPage(1)
  }, [products]);
 
