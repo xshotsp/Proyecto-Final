@@ -63,6 +63,10 @@ u {
   border-bottom: 2px solid var(--morado);
 }
 
+.nav__ul li .darkMode {
+  color: var(--blanco);
+}
+
 .darkMode {
   background: var(--negro);
   color: var(--blanco);
