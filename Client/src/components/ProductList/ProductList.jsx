@@ -10,7 +10,6 @@ import { getAllProducts, getProducts } from '../../redux/actions/actions';
 import s from './ProductList.module.css';
 import Card from '../card/Card';
 import Pagination from '../pagination/Pagination';
-//import data from '../data/data';
 
 const ProductList = ({ handleAddProduct }) => {
   const dispatch = useDispatch()
@@ -29,15 +28,15 @@ const ProductList = ({ handleAddProduct }) => {
   return (
     <div>
       {
-      (data[0]?.message) && <h2>{data[0].message}</h2>
+      (products[0]?.message) && <h2>{data[0].message}</h2>
       }
       
       {
-       (data[0]?.name) && <h1>Lista de Productos</h1>
+       (products[0]?.name) && <h1>Lista de Productos</h1>
       }
       
       {
-        (data[0]?.name) &&
+        (products[0]?.name) &&
       
       <div className={s.productList}>
         {/* {products.map((product) => ( */}
