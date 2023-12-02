@@ -23,19 +23,15 @@ function App() {
     photo: "",
   });
 
-  
-
   useEffect(() => {
     //Muestra el usuario conectado
     onAuthStateChanged(auth, async (user) => {
-      console.log("Escuchador de usuario");
       if (user === null) {
         setLogin({
           access: false,
           email: "",
           photo: "",
         });
-        console.log("No hay usuario conectado");
       } else {
         const userObject = {
           access: true,
@@ -43,11 +39,9 @@ function App() {
           photo: user.photoURL,
         };
         setLogin(userObject);
-        console.log(`El usuario conectado es`, user.email);
       }
     });
   }, []);
-
 
   const handleAddProduct = (product) => {
     const ProductExist = cartItems.find((item) => item.id === product.id);
@@ -82,7 +76,6 @@ function App() {
   const handleClearCart = () => {
     setCartItems([]);
   };
-
 
   return (
     <div className="App">

@@ -1,12 +1,17 @@
 /* eslint-disable react/prop-types */
-import { googleSignInFunction ,facebookSignInFunction} from "../../firebase/firebase.config";
+import {
+  googleSignInFunction,
+  facebookSignInFunction,
+} from "../../firebase/firebase.config";
 
 const SocialLogin = () => {
   const handleClickGoogle = async () => {
-    await googleSignInFunction();
+    const message = await googleSignInFunction();
+    console.log(message);
   };
   const handleClickFacebook = async () => {
-    await facebookSignInFunction()
+    const message = await facebookSignInFunction();
+    console.log(message);
   };
 
   return (

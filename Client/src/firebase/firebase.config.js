@@ -7,8 +7,6 @@ import {
   FacebookAuthProvider,
   signInWithPopup,
 } from "firebase/auth";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -31,20 +29,23 @@ export const signOutFunction = async () => {
 };
 
 export const googleSignInFunction = async () => {
-  const provider = new GoogleAuthProvider();
 
   try {
-    await signInWithPopup(auth, provider);
+    await signInWithPopup(auth, new GoogleAuthProvider());
+    return "Login correcto"
   } catch (error) {
-    console.log(error);
+    return error.message
   }
 };
 
 export const facebookSignInFunction = async () => {
-  const provider = new FacebookAuthProvider();
   try {
-    await signInWithPopup(auth, provider);
+    await signInWithPopup(auth, new FacebookAuthProvider());
+    return "Login correcto"
   } catch (error) {
-    console.log(error);
+    const message = error.message
+    if (message === 'Firebase: Error (auth/account-exists-with-different-credential).'){
+      return "Este email está asociado a una cuenta de Google"
+    }
   }
 };
