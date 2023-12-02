@@ -1,6 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable react/prop-types */
-/* eslint-disable no-unused-vars */
+
 import { useState, useEffect } from "react";
 import axios from "axios";
 import s from "./login.module.css";
