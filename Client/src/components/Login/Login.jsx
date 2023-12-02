@@ -87,7 +87,7 @@ const Login = ({ setLogin, login }) => {
         photo: data.profile_picture,
       });
     }else {
-      const respuesta = await axios.post(`${URL}:3001/user`, {
+      const respuesta = await axios.post(`${URL}/user`, {
         email: response.email,
         profile_picture: response.picture.data.url,
         password: 123456,
