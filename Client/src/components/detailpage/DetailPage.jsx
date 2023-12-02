@@ -3,7 +3,7 @@
 //import { cleanProductDetail, fetchProductById } from '../../redux/actions/actions';
 import s from './detail.module.css';
 import { Link, useParams } from 'react-router-dom';
-import data from '../data/data'
+
 
 
   const DetailPage = ({ handleAddProduct }) => {
