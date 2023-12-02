@@ -13,23 +13,16 @@ import Pagination from '../pagination/Pagination';
 //import data from '../data/data';
 
 const ProductList = ({ handleAddProduct }) => {
-  
   const dispatch = useDispatch()
   const products = useSelector ((state) => state.allproducts)
-  
   const [currentPage, setCurrentPage] = useState(1);
   const cardsPerPage = 5;
   const lastCardIndex = currentPage * cardsPerPage;
   const firstCardIndex = lastCardIndex - cardsPerPage;
   const currentCards = products.slice(firstCardIndex, lastCardIndex);
 
-  // useEffect(() => {
-  //    dispatch(getAllProducts());
-  //    setCurrentPage(1)
-  // }, [dispatch]);
-
   useEffect(() => {
-/*     if(products.length === 0) dispatch(getAllProducts()); */
+    if(products.length === 0) dispatch(getAllProducts()); 
     setCurrentPage(1)
  }, [products]);
 
