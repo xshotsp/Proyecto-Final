@@ -10,6 +10,7 @@ import {
 import axios from "axios";
 import s from "./productForm.module.css"
 import Swal from 'sweetalert2';
+const URL="https://quirkz.up.railway.app"
 
 const ProductForm = () => {
   const dispatch = useDispatch();
@@ -213,7 +214,7 @@ const ProductForm = () => {
       if (long.every(esVacio)) {
           dispatch(createProductRequest());
           const response = await axios.post(
-          "http://localhost:3001/product",
+            `${URL}/product/`,
           productData
           );
           const newProduct = response.data;

@@ -4,6 +4,7 @@ import axios from "axios";
 import Notification from "../notification/Notification";
 import s from "./create.module.css"
 
+const URL = "https://quirkz.up.railway.app"
 const CreateUserForm = () => {
   const [notification, setNotification] = useState(null);
   const [input, setInput] = useState({
@@ -28,7 +29,7 @@ const CreateUserForm = () => {
       profile_picture: !input.profile_picture ? 'https://t3.ftcdn.net/jpg/01/09/00/64/360_F_109006426_388PagqielgjFTAMgW59jRaDmPJvSBUL.jpg': input.profile_picture
     }
     try {
-      const response = await axios.post("http://localhost:3001/user", objetUser);
+      const response = await axios.post(`${URL}/user`, objetUser);
       setNotification({
         message: "Usuario creado con éxito",
         status: response.status,

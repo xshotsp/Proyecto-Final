@@ -9,6 +9,7 @@ import GoogleLogin from "react-google-login";
 import FacebookLogin from "react-facebook-login";
 import { useNavigate } from "react-router-dom";
 
+const URL="https://quirkz.up.railway.app"
 const Login = ({ setLogin, login }) => {
   const [usuario, setUsuario] = useState("");
   const [contraseña, setContraseña] = useState("");
@@ -23,7 +24,7 @@ const Login = ({ setLogin, login }) => {
 
     try {
       const response = await axios(
-        `http://localhost:3001/user/login/?email=${usuario}&password=${contraseña}`
+        `${URL}/user/login/?email=${usuario}&password=${contraseña}`
       );
       setLogin(response.data);
     } catch (error) {
@@ -41,7 +42,7 @@ const Login = ({ setLogin, login }) => {
     };
     try {
       const { data } = await axios.get(
-        `http://localhost:3001/user/${userObject.email}`
+        `${URL}/user/${userObject.email}`
       );
 
       if (data) {
@@ -52,7 +53,7 @@ const Login = ({ setLogin, login }) => {
           photo: data.profile_picture,
         });
       } else {
-        const respuesta = await axios.post(`http://localhost:3001/user`, {
+        const respuesta = await axios.post(`${URL}/user`, {
           email: userObject.email,
           profile_picture: userObject.photo,
           password: 123456,
@@ -76,7 +77,7 @@ const Login = ({ setLogin, login }) => {
 
   const responseFacebook = async (response) => {
     const { data } = await axios.get(
-      `http://localhost:3001/user/${response.email}`
+      `${URL}/user/${response.email}`
     );
 
     if (data) {
@@ -86,7 +87,7 @@ const Login = ({ setLogin, login }) => {
         photo: data.profile_picture,
       });
     }else {
-      const respuesta = await axios.post(`http://localhost:3001/user`, {
+      const respuesta = await axios.post(`${URL}:3001/user`, {
         email: response.email,
         profile_picture: response.picture.data.url,
         password: 123456,
