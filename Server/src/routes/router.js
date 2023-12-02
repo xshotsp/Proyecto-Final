@@ -5,7 +5,7 @@ const {getAllProductsHandler, getIdHandler, getProductsByName, getProductFilterH
   deleteProductsHandler,updateProductsHandler, restoreProductHandler} = require("../handlers/productHandler")
 const { getBrandHandler } = require("../handlers/brandHandler")
 const {getUserHandler, putUserHandler, createUserHandler, login} = require("../handlers/userHandler");
-
+const { createOrder, successfulPurchase  } = require('../handlers/mercadoPagoHandler');
 
 // Ruta de ejemplo
 router.get('/', (req, res) => {
@@ -27,5 +27,7 @@ router.get("/user/login" ,login)
 router.get("/user/:id", getUserHandler)
 router.put("/user/:id", putUserHandler)
 router.post("/user", createUserHandler)
+router.get("/success", successfulPurchase)
+router.post("/purchase", createOrder)
 
 module.exports = router;

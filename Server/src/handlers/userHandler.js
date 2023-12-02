@@ -72,8 +72,8 @@ const createUserHandler = async (req, res) => {
       }
 
       // para encriptar el password
-      const hashedPassword = await bcrypt.hash(password, 10);
-      password = hashedPassword;
+      // const hashedPassword = await bcrypt.hash(password, 10);
+      // password = hashedPassword;
 
       const newUser = await User.create({
         username,
