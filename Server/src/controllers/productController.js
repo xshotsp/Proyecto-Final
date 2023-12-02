@@ -200,7 +200,7 @@ const getProductswithFilter = async (req, res, next) => {
         }
     });
 
-    console.log (products)
+    //console.log (products)
     
     if (brand) {
         products = products?.filter((prod) => prod.brands[0].name === brand );

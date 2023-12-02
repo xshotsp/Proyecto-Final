@@ -43,6 +43,7 @@ Brand.belongsToMany(Product, { through: "Product_Brand", timestamps: false });
 Product.belongsToMany(Rewiew, { through: "Product_Rewiew" });
 Rewiew.belongsToMany(Product, { through: "Product_Rewiew" });
 
+
 // Product.belongsToMany(User, {through:"Product_User"})
 // User.belongsToMany(Product, {through:"Product_User"})
 

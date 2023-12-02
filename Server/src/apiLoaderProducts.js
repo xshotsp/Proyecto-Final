@@ -35,7 +35,7 @@ const apiLoaderProducts = async () => {
             image: `https://${imageUrl}`, //hola
             // image: imageUrl,
 
-            price: price.current.value,
+            price: price.current.value.toFixed(2),
             colour,
             additionalImage: additionalImageUrls,
           },
