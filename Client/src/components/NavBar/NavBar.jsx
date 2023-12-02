@@ -8,9 +8,6 @@ import { faShoppingCart, faUser } from "@fortawesome/free-solid-svg-icons";
 import SearchBar from "../searchbar/SearchBar";
 import styles from "./navbar.module.css";
 
-const NavBar = ({ login, setLogin }) => {
-  const [showOptions, setShowOptions] = useState(false);
-  const navigate = useNavigate();
 
   const handleLogout = () => {
     setLogin({
@@ -22,6 +19,7 @@ const NavBar = ({ login, setLogin }) => {
     setShowOptions(false);
     navigate("/");
   };
+const NavBar = ({ cartItems }) => {
   return (
     <div className={styles.container}>
       <nav className={styles.nav}>
@@ -52,7 +50,16 @@ const NavBar = ({ login, setLogin }) => {
 
           <Link to="/cart">
             <li>
+              Registrarse
+            </li> 
+          </Link>
+          
+          <Link to="/cart" className={styles.cart}>
+            <li>
               <FontAwesomeIcon icon={faShoppingCart} />
+              <span className={styles.nav_cart_length}>
+                {cartItems.length === 0 ? "" : cartItems.length}
+              </span>
             </li>
           </Link>
 

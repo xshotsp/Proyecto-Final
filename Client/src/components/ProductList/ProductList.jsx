@@ -29,22 +29,22 @@ const ProductList = ({ handleAddProduct }) => {
   // }, [dispatch]);
 
   useEffect(() => {
-/*     if(products.length === 0) dispatch(getAllProducts()); */
+    if(data.length === 0) dispatch(getProducts());
     setCurrentPage(1)
- }, [products]);
+ }, []);
 
   return (
     <div>
       {
-      (products[0]?.message) && <h2>{products[0].message}</h2>
+      (data[0]?.message) && <h2>{data[0].message}</h2>
       }
       
       {
-       (products[0]?.name) && <h1>Lista de Productos</h1>
+       (data[0]?.name) && <h1>Lista de Productos</h1>
       }
       
       {
-        (products[0]?.name) &&
+        (data[0]?.name) &&
       
       <div className={s.productList}>
         {/* {products.map((product) => ( */}

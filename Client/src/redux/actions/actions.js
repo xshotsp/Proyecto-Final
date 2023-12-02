@@ -60,7 +60,6 @@ export function getProducts() {
       return async (dispatch) => {
           try{
             const productsname = (await axios.get(`${URL}/product/all-products`)).data;
-    
               return dispatch({
                   type: GET_ALL_PRODUCTS, 
                   payload: productsname
