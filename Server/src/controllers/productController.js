@@ -55,7 +55,8 @@ const getProductByName = async (name) => {
 const createProducts = async (productData) => {
   
   try {
-    let { name, image, price, colour, additionalImage, brands } = productData;
+    // let { name, image, price, colour, additionalImage } = productData;
+    let { name, image, price, colour } = productData;
 
     const productCreated = await Product.findOne({
       where: { name: name },
@@ -84,7 +85,7 @@ const createProducts = async (productData) => {
       image,
       price,
       colour,
-      additionalImage,
+      //additionalImage,
     });
 
     //crea la asociacion entre producto y marca
@@ -131,7 +132,8 @@ const restoreProductById = async (id) => {
 // Para editar o actualizar un producto con un id especifico
 const updateProductById = async (id, newData) => {
   try {
-    const { name, image, price, colour, additionalImage } = newData;
+    // const { name, image, price, colour, additionalImage } = newData;
+    const { name, image, price, colour } = newData;
     const productToUpdate = await Product.findByPk(id);
 
     if (!productToUpdate) {
@@ -150,7 +152,7 @@ const updateProductById = async (id, newData) => {
       image,
       price,
       colour,
-      additionalImage,
+      //additionalImage,
     });
 
     return productToUpdate;

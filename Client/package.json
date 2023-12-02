@@ -17,6 +17,7 @@
     "@fortawesome/free-regular-svg-icons": "^6.4.2",
     "@fortawesome/free-solid-svg-icons": "^6.4.2",
     "@fortawesome/react-fontawesome": "^0.2.0",
+    "@mercadopago/sdk-react": "^0.0.15",
     "axios": "^1.6.2",
     "gapi-script": "^1.2.0",
     "react": "^18.2.0",
