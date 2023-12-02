@@ -9,11 +9,18 @@ import FormPage from "./components/formpage/FormPage";
 import Login from "./components/Login/Login";
 import DetailPage from "./components/detailpage/DetailPage";
 import Cart from "./components/Cart/Cart";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Contact from "./components/Contact/Contact";
+
 
 function App() {
+  
+  const cartFromLocalStorage = JSON.parse(localStorage.getItem("cart") || '[]')
+  const [cartItems, setCartItems] = useState(cartFromLocalStorage);
 
-  const [cartItems, setCartItems] = useState([]);
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cartItems))
+  }, [cartItems])
 
   const handleAddProduct = (product) => {
     const ProductExist = cartItems.find((item) => item.id === product.id);
@@ -21,7 +28,7 @@ function App() {
       setCartItems(cartItems.map((item) => item.id === product.id 
       ? {...ProductExist, quantity: ProductExist.quantity + 1}
       : item
-        )
+      )
       );
     } else {
       setCartItems([...cartItems, { ...product, quantity: 1 }]);
@@ -51,8 +58,11 @@ function App() {
       <NavBar cartItems={cartItems} />
       <Routes>
         <Route path="/" element={<HomePage
+        handleAddProduct={handleAddProduct} 
+        cartItems={cartItems} />} />
+        <Route path="/product/:id" element={<DetailPage
         handleAddProduct={handleAddProduct} />} />
-        <Route path="/product/:id" element={<DetailPage />} />
+        <Route path="/contacto" element={<Contact />} />
         <Route path="/form" element={<FormPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/createuser" element={<CreateUserForm />} />
@@ -61,8 +71,7 @@ function App() {
           cartItems={cartItems}
           handleRemoveProduct={handleRemoveProduct}
           handleClearCart={handleClearCart}
-          handleAddProduct={handleAddProduct} />}
-          />
+          handleAddProduct={handleAddProduct} />} />
       </Routes>
       <Footer />
     </div>
