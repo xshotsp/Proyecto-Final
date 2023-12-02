@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart, faUser } from "@fortawesome/free-solid-svg-icons";
 import SearchBar from "../searchbar/SearchBar";
 import styles from "./navbar.module.css";
+import {signOutFunction} from "../../firebase/firebase.config"
 
 
   const handleLogout = () => {
@@ -15,6 +16,8 @@ import styles from "./navbar.module.css";
       email: "",
       photo: "",
     });
+
+    signOutFunction()
 
     setShowOptions(false);
     navigate("/");
