@@ -69,16 +69,15 @@ const handleChange = (event) => {
           options={PriceOpt}
           state={null}
         />
-        {/* <button
+         <button
           onClick={() => {
             dispatch (getAllSelects())
             dispatch(getFilters({}));
             setInitialFilters({});
           }}
         >
-          Reset
-        </button>*/}
-        
+          Reinicio
+        </button>
         <div>
         {initialFilters?.colour && (
           <div onClick={() => handleFilterRemove('colour')}>

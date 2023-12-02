@@ -22,13 +22,13 @@
 }
 
 u {
-  text-decoration: none;
+  text-decoration: none !important;
 }
 
 .nav__h1 {
   margin: 0 10px 0 0;
   font-size: 3rem;
-  text-decoration: none;
+  text-decoration: none !important;
   color: var(--morado);
   font-family: 'Monserrat';
 }
@@ -52,8 +52,6 @@ u {
   list-style: none;
   height: 40px;
   margin-right: 15px;
-  border-bottom: 2px solid transparent;
-  transition: border-bottom 0.3s ease;
   left: 100px;
   position: relative;
 }
@@ -62,11 +60,6 @@ u {
 .nav__ul li.active:hover {
   border-bottom: 2px solid var(--morado);
 }
-
-.nav__ul li .darkMode {
-  color: var(--blanco);
-}
-
 .darkMode {
   background: var(--negro);
   color: var(--blanco);
@@ -81,4 +74,11 @@ u {
   cursor: pointer;
   right: 50px;
   position: relative;
+}
+
+
+.darkMode .nav__h1,
+.darkMode .nav__ul li,
+.darkMode .darkModeIcon {
+  color: var(--blanco) !important;
 }

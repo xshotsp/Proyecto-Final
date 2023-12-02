@@ -1,5 +1,4 @@
 import "./App.css";
-
 import { Route, Routes } from "react-router-dom";
 import NavBar from "./components/NavBar/NavBar";
 import Footer from "./components/Footer/Footer";
@@ -9,11 +8,14 @@ import FormPage from "./components/formpage/FormPage";
 import Login from "./components/Login/Login";
 import DetailPage from "./components/detailpage/DetailPage";
 import Cart from "./components/Cart/Cart";
+import { useSelector } from 'react-redux';
 import { useState } from "react";
 
 function App() {
 
   const [cartItems, setCartItems] = useState([]);
+  const darkMode = useSelector((state) => state.darkMode);
+
 
   const handleAddProduct = (product) => {
     const ProductExist = cartItems.find((item) => item.id === product.id);
@@ -47,10 +49,10 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <NavBar />
+     <div className={`App ${darkMode ? 'darkMode' : 'lightMode'}`}>
+      <NavBar/>
       <Routes>
-        <Route path="/" element={<HomePage
+        <Route path="/" element={<HomePage 
         handleAddProduct={handleAddProduct} />} />
         <Route path="/product/:id" element={<DetailPage />} />
         <Route path="/form" element={<FormPage />} />

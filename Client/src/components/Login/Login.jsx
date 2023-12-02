@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import style from "./login.module.css";
 import FB from '../../assets/facebook.png';
@@ -6,15 +6,21 @@ import GL from '../../assets/buscar.png';
 import INS from '../../assets/instagram.png';
 import EML from '../../assets/email.png';
 import pss from '../../assets/cerrar-con-llave.png';
-import { Link } from 'react-router-dom';
+import { gapi } from "gapi-script";
+import { GoogleLogin } from "react-google-login";
+import FacebookLogin from "react-facebook-login";
+import { Link, useNavigate } from "react-router-dom";
 
-const Login = () => {
+const Login = ({ setLogin, login }) => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [loginError, setLoginError] = useState('');
+  const [seHizoClicEnBotonGoogle, setSeHizoClicEnBotonGoogle] = useState(false);
+
+  const navigate = useNavigate();
 
   const isEmailValid = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/; 
   const isPasswordValid = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
@@ -51,31 +57,121 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     const emailFieldError = validateField('email', email);
     const passwordFieldError = validateField('password', password);
-
+  
     if (emailFieldError || passwordFieldError) {
-      return; // No necesitas manejar el error general aquí
+      return; 
     }
   
     try {
-      const response = await axios.post('http://localhost:3001/user/login', {
-        email,
-        password,
+      const response = await axios.post("http://localhost:3001/user/login", {
+        email: email,
+        password: password
+      });
+  
+      setLogin(response.data);
+    } catch (error) {
+      console.error("Error al iniciar sesión:", error.message);
+      setLoginError("Credenciales incorrectas");
+    }
+  }
+  
+
+  
+  const onSuccessGoogle = async (response) => {
+    const userObject = {
+      access: true,
+      email: response.profileObj.email,
+      photo: response.profileObj.imageUrl,
+      username: response.profileObj.name,
+    };
+    try {
+      const { data } = await axios.get(
+        `http://localhost:3001/user/${userObject.email}`
+      );
+
+      if (data) {
+        console.log("Ya existe");
+        setLogin({
+          access: true,
+          email: data.email,
+          photo: data.profile_picture,
+        });
+      } else {
+        const respuesta = await axios.post(`http://localhost:3001/user`, {
+          email: userObject.email,
+          profile_picture: userObject.photo,
+          password: 123456,
+          username: userObject.username,
+        });
+
+        setLogin({
+          access: true,
+          email: respuesta.data.email,
+          photo: respuesta.data.profile_picture,
+        });
+      }
+    } catch (error) {
+      console.error("Error en la solicitud GET:", error);
+    }
+  };
+
+  const onFailureGoogle = (response) => {
+    console.log(response);
+  };
+
+  const responseFacebook = async (response) => {
+    const { data } = await axios.get(
+      `http://localhost:3001/user/${response.email}`
+    );
+
+    if (data) {
+      setLogin({
+        access: true,
+        email: data.email,
+        photo: data.profile_picture,
+      });
+    }else {
+      const respuesta = await axios.post(`http://localhost:3001/user`, {
+        email: response.email,
+        profile_picture: response.picture.data.url,
+        password: 123456,
+        username: response.name,
       });
 
-      if (response.ok) {
-        console.log('Login correcto');
-        <Link to={`/`}/>
-      }
-
-    } catch (error) {
-      console.error('Error al iniciar sesión:', error.message);
-      setLoginError('Credenciales incorrectas, por favor registrate o valida nuevamente');
+      setLogin({
+        access: true,
+        email: respuesta.data.email,
+        photo: respuesta.data.profile_picture,
+      });
     }
-    
-  }
+
+    const userObject = {
+      access: true,
+      email: response.email,
+      photo: response.picture.data.url,
+    };
+    setLogin(userObject);
+  };
+
+  const clientIdGoogle = '23065007090-4e4d3nktl5bh6qrdvgdr3a7fhm8funa6.apps.googleusercontent.com'
+
+  useEffect(() => {
+    const start = () => {
+      gapi.auth2.init({
+        clientId: clientIdGoogle,
+      });
+    };
+  
+    console.log('Login object:', login); // Agrega esta línea
+  
+    if (login && login.access) navigate("/");
+  
+    gapi.load("client:auth2", start);
+  }, [login]);
+  
 
   return (
     <div className={style.container_from}>
@@ -95,7 +191,26 @@ const Login = () => {
          <h2>Inicia Sesión</h2>
          <div className={style.icons}>
            <i className={style.bx}><img className={style.bx_fc} src={FB} alt="logoFacebook" /></i>
-           <i className={style.bx}><img className={style.bx_gl} src={GL} alt="logoGoogle" /></i>
+           <div>
+        <GoogleLogin
+          clientId={clientIdGoogle}
+          onSuccess={onSuccessGoogle}
+          onFailure={onFailureGoogle}
+          cookiePolicy={"single_host_policy"}
+          render={renderProps => (
+            <button
+              onClick={() => {
+                renderProps.onClick();
+                setSeHizoClicEnBotonGoogle(true);
+              }}
+              disabled={renderProps.disabled || seHizoClicEnBotonGoogle}
+              className={style.bxg}
+            >
+              <img className={style.bx_gl} src={GL} alt="logoGoogle" />
+            </button>
+          )}
+        />
+      </div>
            <i className={style.bx}><img className={style.bx_in} src={INS} alt="logoInstagram" /></i>
          </div>
          <p>o usa tu email para iniciar sesión</p>

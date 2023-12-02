@@ -1,14 +1,17 @@
-// NavBar.jsx
 import React, { useState } from 'react';
+import { toggleDarkMode } from '../../redux/actions/actions';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart, faUser,faAddressBook,faListCheck,faMoon,faSun } from '@fortawesome/free-solid-svg-icons';
 import SearchBar from '../searchbar/SearchBar';
 import styles from './navbar.module.css';
 
+
 const NavBar = () => {
-  const [activePage, setActivePage] = useState(''); 
-  const [darkMode, setDarkMode] = useState(false);
+  const [activePage, setActivePage] = useState('');
+  const dispatch = useDispatch();
+  const darkMode = useSelector((state) => state.darkMode);
 
   const handleMouseEnter = (page) => {
     setActivePage(page);
@@ -18,13 +21,13 @@ const NavBar = () => {
     setActivePage('');
   };
 
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
+  const handleDarkModeToggle = () => {
+    dispatch(toggleDarkMode());
   };
 
   return (
     <div className={`${styles.container} ${darkMode ? styles.darkMode : styles.lightMode}`}>
-      <nav className={styles.nav}>
+     <nav className={styles.nav}>
         <Link to="/">
           <h1 className={styles.nav__h1}>
             <u>QUIRKZ</u>
@@ -73,12 +76,12 @@ const NavBar = () => {
             </li>
           </Link>
         </ul>
-        <div className={styles.darkModeToggle} onClick={toggleDarkMode}>
-        <FontAwesomeIcon
-          icon={darkMode ? faSun : faMoon}
-          className={styles.darkModeIcon}
-        />
-      </div>
+        <div className={styles.darkModeToggle}  onClick={handleDarkModeToggle}>
+          <FontAwesomeIcon
+            icon={darkMode ? faSun : faMoon}
+            className={styles.darkModeIcon}
+          />
+        </div>
       </nav>
     </div>
   );

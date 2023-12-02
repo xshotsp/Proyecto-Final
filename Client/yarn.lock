@@ -15,6 +15,11 @@
     "@jridgewell/gen-mapping" "^0.3.0"
     "@jridgewell/trace-mapping" "^0.3.9"
 
+"@amraneze/react-instagram-login@^4.0.0":
+  version "4.0.0"
+  resolved "https://registry.npmjs.org/@amraneze/react-instagram-login/-/react-instagram-login-4.0.0.tgz"
+  integrity sha512-6WO462FVtXR9AvrW3TNCx78ntt1Ub+ACUaxcJxqo2/R7+hi61SdK3YfZsjz4g143yoUvY8GteiSxjIJDXWqsKA==
+
 "@babel/code-frame@^7.22.13", "@babel/code-frame@^7.23.4":
   version "7.23.4"
   resolved "https://registry.npmjs.org/@babel/code-frame/-/code-frame-7.23.4.tgz"
@@ -257,38 +262,38 @@
   resolved "https://registry.npmjs.org/@eslint/js/-/js-8.54.0.tgz"
   integrity sha512-ut5V+D+fOoWPgGGNj83GGjnntO39xDy6DWxO0wb7Jp3DcMX0TfIqdzHF85VTQkerdyGmuuMD9AKAo5KiNlf/AQ==
 
-"@fortawesome/fontawesome-common-types@6.5.0":
-  version "6.5.0"
-  resolved "https://registry.npmjs.org/@fortawesome/fontawesome-common-types/-/fontawesome-common-types-6.5.0.tgz"
-  integrity sha512-vYC8oN2l8meu05sRi1j3Iie/HNFAeIxpitYFhsUrBc11TxiMken9QdXnSQ0q16FYsOSt/6soxs5ghdk+VYGiog==
+"@fortawesome/fontawesome-common-types@6.4.2":
+  version "6.4.2"
+  resolved "https://registry.npmjs.org/@fortawesome/fontawesome-common-types/-/fontawesome-common-types-6.4.2.tgz"
+  integrity sha512-1DgP7f+XQIJbLFCTX1V2QnxVmpLdKdzzo2k8EmvDOePfchaIGQ9eCHj2up3/jNEbZuBqel5OxiaOJf37TWauRA==
 
 "@fortawesome/fontawesome-svg-core@^6.4.2", "@fortawesome/fontawesome-svg-core@~1 || ~6":
-  version "6.5.0"
-  resolved "https://registry.npmjs.org/@fortawesome/fontawesome-svg-core/-/fontawesome-svg-core-6.5.0.tgz"
-  integrity sha512-5DrR+oxQr+ruRQ3CEVV8DSCT/q8Atm56+FzAs0P6eW/epW47OmecSpSwc/YTlJ3u5BfPKUBSGyPR2qjZ+5eIgA==
+  version "6.4.2"
+  resolved "https://registry.npmjs.org/@fortawesome/fontawesome-svg-core/-/fontawesome-svg-core-6.4.2.tgz"
+  integrity sha512-gjYDSKv3TrM2sLTOKBc5rH9ckje8Wrwgx1CxAPbN5N3Fm4prfi7NsJVWd1jklp7i5uSCVwhZS5qlhMXqLrpAIg==
   dependencies:
-    "@fortawesome/fontawesome-common-types" "6.5.0"
+    "@fortawesome/fontawesome-common-types" "6.4.2"
 
 "@fortawesome/free-brands-svg-icons@^6.4.2":
-  version "6.5.0"
-  resolved "https://registry.npmjs.org/@fortawesome/free-brands-svg-icons/-/free-brands-svg-icons-6.5.0.tgz"
-  integrity sha512-LwIl3b5cH0xjmBS7mcy8+SsSsl/7J4xi3aP+Tr4rDUf2Tab8r1c8NcqC8wP5c+bgphGstyG3QPx7l4b9WtcO5Q==
+  version "6.4.2"
+  resolved "https://registry.npmjs.org/@fortawesome/free-brands-svg-icons/-/free-brands-svg-icons-6.4.2.tgz"
+  integrity sha512-LKOwJX0I7+mR/cvvf6qIiqcERbdnY+24zgpUSouySml+5w8B4BJOx8EhDR/FTKAu06W12fmUIcv6lzPSwYKGGg==
   dependencies:
-    "@fortawesome/fontawesome-common-types" "6.5.0"
+    "@fortawesome/fontawesome-common-types" "6.4.2"
 
 "@fortawesome/free-regular-svg-icons@^6.4.2":
-  version "6.5.0"
-  resolved "https://registry.npmjs.org/@fortawesome/free-regular-svg-icons/-/free-regular-svg-icons-6.5.0.tgz"
-  integrity sha512-RaBW/y0jKcCyEPM+NYuBs3bQXuLYZHnXABQPmg6qwuRxNb2EUmyCcVUECUH2dkFmMjggh/xvl6n6y62Pl19JkA==
+  version "6.4.2"
+  resolved "https://registry.npmjs.org/@fortawesome/free-regular-svg-icons/-/free-regular-svg-icons-6.4.2.tgz"
+  integrity sha512-0+sIUWnkgTVVXVAPQmW4vxb9ZTHv0WstOa3rBx9iPxrrrDH6bNLsDYuwXF9b6fGm+iR7DKQvQshUH/FJm3ed9Q==
   dependencies:
-    "@fortawesome/fontawesome-common-types" "6.5.0"
+    "@fortawesome/fontawesome-common-types" "6.4.2"
 
 "@fortawesome/free-solid-svg-icons@^6.4.2":
-  version "6.5.0"
-  resolved "https://registry.npmjs.org/@fortawesome/free-solid-svg-icons/-/free-solid-svg-icons-6.5.0.tgz"
-  integrity sha512-6ZPq8mme67Q7O9Fbp2O+Z7mPZbcWTsRv555JLftLaTodiV0Wq+99YgMhyQ8O6mgNQfComqS9OEvqs7M8ySA92g==
+  version "6.4.2"
+  resolved "https://registry.npmjs.org/@fortawesome/free-solid-svg-icons/-/free-solid-svg-icons-6.4.2.tgz"
+  integrity sha512-sYwXurXUEQS32fZz9hVCUUv/xu49PEJEyUOsA51l6PU/qVgfbTb2glsTEaJngVVT8VqBATRIdh7XVgV1JF1LkA==
   dependencies:
-    "@fortawesome/fontawesome-common-types" "6.5.0"
+    "@fortawesome/fontawesome-common-types" "6.4.2"
 
 "@fortawesome/react-fontawesome@^0.2.0":
   version "0.2.0"
@@ -764,9 +769,9 @@ doctrine@^3.0.0:
     esutils "^2.0.2"
 
 electron-to-chromium@^1.4.535:
-  version "1.4.596"
-  resolved "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.596.tgz"
-  integrity sha512-zW3zbZ40Icb2BCWjm47nxwcFGYlIgdXkAx85XDO7cyky9J4QQfq8t0W19/TLZqq3JPQXtlv8BPIGmfa9Jb4scg==
+  version "1.4.595"
+  resolved "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.595.tgz"
+  integrity sha512-+ozvXuamBhDOKvMNUQvecxfbyICmIAwS4GpLmR0bsiSBlGnLaOcs2Cj7J8XSbW+YEaN3Xl3ffgpm+srTUWFwFQ==
 
 es-abstract@^1.22.1:
   version "1.22.3"
@@ -1124,6 +1129,11 @@ functions-have-names@^1.2.3:
   version "1.2.3"
   resolved "https://registry.npmjs.org/functions-have-names/-/functions-have-names-1.2.3.tgz"
   integrity sha512-xckBUXyTIqT97tq2x2AMb+g163b5JFysYk0x4qxNFwbfQkmNZoiRHb6sPzI9/QV33WeuvVYBUIiD4NzNIyqaRQ==
+
+gapi-script@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.npmjs.org/gapi-script/-/gapi-script-1.2.0.tgz"
+  integrity sha512-NKTVKiIwFdkO1j1EzcrWu/Pz7gsl1GmBmgh+qhuV2Ytls04W/Eg5aiBL91SCiBM9lU0PMu7p1hTVxhh1rPT5Lw==
 
 gensync@^1.0.0-beta.2:
   version "1.0.0-beta.2"
@@ -1742,7 +1752,7 @@ promise-polyfill@^6.0.2:
   resolved "https://registry.npmjs.org/promise-polyfill/-/promise-polyfill-6.1.0.tgz"
   integrity sha512-g0LWaH0gFsxovsU7R5LrrhHhWAWiHRnh1GPrhXnPgYsDkIqjRYUYSZEsej/wtleDrz5xVSIDbeKfidztp2XHFQ==
 
-prop-types@^15.8.1:
+prop-types@^15.6.0, prop-types@^15.8.1:
   version "15.8.1"
   resolved "https://registry.npmjs.org/prop-types/-/prop-types-15.8.1.tgz"
   integrity sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==
@@ -1766,13 +1776,26 @@ queue-microtask@^1.2.2:
   resolved "https://registry.npmjs.org/queue-microtask/-/queue-microtask-1.2.3.tgz"
   integrity sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==
 
-"react-dom@^16.8 || ^17.0 || ^18.0", react-dom@^18.2.0, react-dom@>=16.8:
+"react-dom@^16 || ^17", "react-dom@^16 || ^17 || ^18", "react-dom@^16.8 || ^17.0 || ^18.0", react-dom@^18.2.0, react-dom@>=16.8:
   version "18.2.0"
   resolved "https://registry.npmjs.org/react-dom/-/react-dom-18.2.0.tgz"
   integrity sha512-6IMTriUmvsjHUjNtEDudZfuDQUoWXVxKHhlEGSk81n4YFS+r/Kl99wXiwlVXtPBtJenozv2P+hxDsw9eA7Xo6g==
   dependencies:
     loose-envify "^1.1.0"
     scheduler "^0.23.0"
+
+react-facebook-login@^4.1.1:
+  version "4.1.1"
+  resolved "https://registry.npmjs.org/react-facebook-login/-/react-facebook-login-4.1.1.tgz"
+  integrity sha512-COnHEHlYGTKipz4963safFAK9PaNTcCiXfPXMS/yxo8El+/AJL5ye8kMJf23lKSSGGPgqFQuInskIHVqGqTvSw==
+
+react-google-login@^5.2.2:
+  version "5.2.2"
+  resolved "https://registry.npmjs.org/react-google-login/-/react-google-login-5.2.2.tgz"
+  integrity sha512-JUngfvaSMcOuV0lFff7+SzJ2qviuNMQdqlsDJkUM145xkGPVIfqWXq9Ui+2Dr6jdJWH5KYdynz9+4CzKjI5u6g==
+  dependencies:
+    "@types/react" "*"
+    prop-types "^15.6.0"
 
 react-is@^16.13.1, react-is@^16.7.0:
   version "16.13.1"
@@ -1816,12 +1839,22 @@ react-router@6.20.0:
   dependencies:
     "@remix-run/router" "1.13.0"
 
-"react@^16.8 || ^17.0 || ^18.0", "react@^16.8.0 || ^17.0.0 || ^18.0.0", react@^18.2.0, react@>=16.3, react@>=16.8, react@18.2.0:
+react-social-login-buttons@^3.9.1:
+  version "3.9.1"
+  resolved "https://registry.npmjs.org/react-social-login-buttons/-/react-social-login-buttons-3.9.1.tgz"
+  integrity sha512-KtucVWvdnIZ0icG99WJ3usQUJYmlKsOIBYGyngcuNSVyyYdZtif4KHY80qnCg+teDlgYr54ToQtg3x26ZqaS2w==
+
+"react@^15.0.0 || ^16.0.0 || ^17.x || ^18.x", "react@^16 || ^17", "react@^16 || ^17 || ^18", react@^16.0.0, "react@^16.8 || ^17.0 || ^18.0", "react@^16.8.0 || ^17.0.0 || ^18.0.0", react@^18.2.0, react@>=16.3, react@>=16.8, react@18.2.0:
   version "18.2.0"
   resolved "https://registry.npmjs.org/react/-/react-18.2.0.tgz"
   integrity sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ==
   dependencies:
     loose-envify "^1.1.0"
+
+reactjs-social-login@^2.6.3:
+  version "2.6.3"
+  resolved "https://registry.npmjs.org/reactjs-social-login/-/reactjs-social-login-2.6.3.tgz"
+  integrity sha512-i/pcyJPtlVpHoPRr/j5/KjaP/GNxAInnnHDk0PD2Zo0B3cMdvr0ZiGC/GMjOKAAgKCujyniDf/OiZ7c6MrOLQg==
 
 redux-thunk@^2.4.2:
   version "2.4.2"
@@ -2167,9 +2200,9 @@ use-sync-external-store@^1.0.0:
   integrity sha512-eEgnFxGQ1Ife9bzYs6VLi8/4X6CObHMw9Qr9tPY43iKwsPw8xE8+EFsf/2cFZ5S3esXgpWgtSCtLNS41F+sKPA==
 
 "vite@^4.2.0 || ^5.0.0", vite@^5.0.0:
-  version "5.0.3"
-  resolved "https://registry.npmjs.org/vite/-/vite-5.0.3.tgz"
-  integrity sha512-WgEq8WEKpZ8c0DL4M1+E+kBZEJyjBmGVrul6z8Ljfhv+PPbNF4aGq014DwNYxGz2FGq6NKL0N8usdiESWd2l2w==
+  version "5.0.2"
+  resolved "https://registry.npmjs.org/vite/-/vite-5.0.2.tgz"
+  integrity sha512-6CCq1CAJCNM1ya2ZZA7+jS2KgnhbzvxakmlIjN24cF/PXhRMzpM/z8QgsVJA/Dm5fWUWnVEsmtBoMhmerPxT0g==
   dependencies:
     esbuild "^0.19.3"
     postcss "^8.4.31"

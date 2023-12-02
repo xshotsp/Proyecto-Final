@@ -10,7 +10,7 @@
   width: 100%;
   margin: 5px auto 0 auto;
   gap: 0 5px;
-  top: 150px;
+  top: 175px;
 }
 
 .paginator {
@@ -42,7 +42,6 @@
 }
 
 .button__selected {
-  border: 1px solid lightgray;
   background: #FFFFFF; /* Se utiliza directamente el valor hexadecimal para el blanco */
   color: var(--morado);
 }

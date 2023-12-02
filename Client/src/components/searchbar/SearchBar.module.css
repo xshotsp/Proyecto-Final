@@ -1,6 +1,8 @@
 :root {
-  --input: #dcdcdc;
-  --titulos: #9b59b6;
+  --morado: #9b59b6;
+  --blanco: #ffff;
+  --negro: #000;
+  --input:#4444;
 }
 
 .container {
@@ -29,5 +31,22 @@
   outline: none !important; /* Evitar el borde al hacer clic */
 }
 
+.lightMode .search {
+  color:var(--morado);
+}
 
+.darkMode .search {
+  color: var(--blanco);
+}
+
+.lightMode .input {
+
+  background-color:var(--input);
+  
+}
+
+.darkMode .input {
+  background-color:var(--blanco);
+ 
+}
 

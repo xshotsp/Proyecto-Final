@@ -5,10 +5,10 @@
 }
 
 .product-card {
-  border: 1px solid var(--borde);
   width: calc(20% - 20px); 
   margin: 10px; 
   text-align: center;
+  border: solid 3px var(--titulos);
 }
 
 .product-image {
@@ -17,21 +17,20 @@
   border-radius: 8px;
 }
 
-.product-list {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-/* ProductList.module.css */
-
 .productList {
   display: flex;
   flex-wrap: nowrap;
+  top: 30px;
+  position: relative;
+  left: 1%;
+  right: 2%;
 }
 
 .titulo {
   position: relative;
-  top: 130px;
+  top: 150px;
   font-family: 'Montserrat';
   color: var(--titulos);
+  justify-content: center;
+  display: flex;
 }

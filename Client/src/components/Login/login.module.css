@@ -107,8 +107,22 @@ padding: 0 30px;
       background-color: var(--morado);
       color: var(--blanco);
     }
-    .icons i img{
-     filter: invert(1);      
+
+    .bxg img{
+      filter: invert(2);
+    }
+   
+    .bxg{
+      display: flex;
+      align-items: center;
+      border-radius: 50%;
+      padding: 15px;
+      cursor: pointer;
+      margin: 0 10px;
+      transition: background-color 0.3s ease;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, .1);
+      background-color: var(--morado);
+      color: var(--blanco);
     }
 
     .form{
