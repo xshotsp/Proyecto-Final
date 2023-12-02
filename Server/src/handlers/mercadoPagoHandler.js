@@ -25,15 +25,18 @@ const createOrder = async (req, res) => {
                     currency_id: "ARG"
                 }],
                 "back_urls": {
-                    "success": "http://localhost:3001/success"
+                    "success": "http://127.0.0.1:5173/",
+                    "failure": "http://127.0.0.1:5173/",
+                    "pending": ""
                 },
                 auto_return: "approved",
             }
         }
-        
+               
         const response = await payment.create(preference)
 
-        res.status(200).send(response)
+        //res.status(200).send(response.id)
+        res.status(200).send(response.init_point)
 
     } catch (error) {
         res.status(400).json({error: error.message})
