@@ -23,8 +23,12 @@ const CreateUserForm = () => {
 
   const submitHandler = async (event) => {
     event.preventDefault();
+    const objetUser = {
+      ...input,
+      profile_picture: !input.profile_picture ? 'https://t3.ftcdn.net/jpg/01/09/00/64/360_F_109006426_388PagqielgjFTAMgW59jRaDmPJvSBUL.jpg': input.profile_picture
+    }
     try {
-      const response = await axios.post("http://localhost:3001/user", input);
+      const response = await axios.post("http://localhost:3001/user", objetUser);
       setNotification({
         message: "Usuario creado con éxito",
         status: response.status,
@@ -43,6 +47,7 @@ const CreateUserForm = () => {
       }, 5000);
     }
   };
+
 
   return (
     <div>

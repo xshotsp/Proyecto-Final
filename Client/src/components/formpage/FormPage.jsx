@@ -245,7 +245,7 @@ const ProductForm = () => {
         </select>
         <div>
           {
-            productData.additionalImage[0] && <button type="button" id="button" name="additionalImage0" onClick={removeImageAd}>X</button>
+           productData.brands?.map(b=><div><span id={b}>{b}</span><button type="button" name="brands" id={b} onClick={remove}>X</button></div>)
           }
         </div>
         <span>{errors.brands}</span>
