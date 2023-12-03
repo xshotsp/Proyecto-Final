@@ -10,6 +10,7 @@ import GL2 from '../../assets/google2.png';
 import INS from '../../assets/instagram.png';
 import EML from '../../assets/email.png';
 import pss from '../../assets/cerrar-con-llave.png';
+import SocialLogin from '../SocialLogin/SocialLogin'
 
 const URL="https://quirkz.up.railway.app"
 const Login = ({ setLogin, login }) => {
@@ -172,7 +173,9 @@ const Login = ({ setLogin, login }) => {
   }, [login, navigate]);
 
   return (
+    
     <div className={`${style.container_from} ${darkMode ? style.darkMode : style.lightMode}`}>
+      
       <div className={`${style.information} ${darkMode ? style.darkMode : style.lightMode}`}>
         <div className={style.info_childs}>
           <h2 className={darkMode ? style.darkMode : style.lightMode}>Bienvenido</h2>
@@ -189,15 +192,14 @@ const Login = ({ setLogin, login }) => {
           </Link>
         </div>
       </div>
+      
       <div className={style.from_information}>
         <div className={style.infor_childs}>
           <h2>Inicia Sesión</h2>
           <div className={style.icons}>
+            
             <i className={style.bx}>
-              <img className={style.bx_fc} src={FB} alt="logoFacebook" />
-            </i>
-            <i className={style.bx}>
-              <img className={style.bx_in} src={INS} alt="logoInstagram" />
+            
             </i>
           </div>
           <p>o usa tu email para iniciar sesión</p>
