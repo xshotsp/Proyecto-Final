@@ -12,16 +12,7 @@
     display: flex;
     justify-content: space-around;
     margin-bottom: 20px; 
+    
   }
 
-  .darkMode {
-    /* Estilos específicos para el modo oscuro */
-    background-color:var(--negro);
-    color:var(--negro);
-  }
   
-  .lightMode {
-    /* Estilos específicos para el modo claro */
-    background-color:var(--blanco);
-    color:var(--morado);
-  }

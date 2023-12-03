@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import style from "./create.module.css";
 import FB from '../../assets/facebook.png';
-import GL from '../../assets/buscar.png';
+import GL from '../../assets/google.png';
 import INS from '../../assets/instagram.png';
 import US from '../../assets/usuario.png'
 import EML from '../../assets/email.png';
@@ -71,11 +71,18 @@ const CreateUserForm = ({ history }) => {
       return;
     }
 
+  const submitHandler = async (event) => {
+    event.preventDefault();
+    const objetUser = {
+      ...input,
+      profile_picture: !input.profile_picture ? 'https://t3.ftcdn.net/jpg/01/09/00/64/360_F_109006426_388PagqielgjFTAMgW59jRaDmPJvSBUL.jpg': input.profile_picture
+    }
     try {
-      const response = await axios.post('http://localhost:3001/user/login', {
-        user,
-        email,
-        password,
+      const response = await axios.post("http://localhost:3001/user", objetUser);
+      setNotification({
+        message: "Usuario creado con éxito",
+        status: response.status,
+
       });
 
       if (response.ok) {
@@ -158,6 +165,7 @@ const CreateUserForm = ({ history }) => {
       </div>
     </div>
   );
+  }
 };
 
 export default CreateUserForm;

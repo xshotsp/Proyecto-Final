@@ -10,11 +10,6 @@
   box-sizing: border-box;
 }
 
-body {
-  font-family:'Monserrat';
- 
-}
-
 .darkMode {
   background-color:var(--negro);
   color: var(--blanco);
@@ -26,6 +21,6 @@ body {
 }
 
 .App {
-  min-width: 200vh;
-  min-height: 295vh; /* Asegura que el contenedor principal ocupe al menos el 100% de la altura de la ventana */
+  width: 100vw;
+  min-height: 100vh;
 }

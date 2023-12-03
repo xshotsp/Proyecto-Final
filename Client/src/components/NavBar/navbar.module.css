@@ -1,6 +1,6 @@
 :root {
   --morado: #9b59b6;
-  --blanco: #ffff;
+  --blanco: #fff; 
   --negro: #000;
 }
 
@@ -60,6 +60,7 @@ u {
 .nav__ul li.active:hover {
   border-bottom: 2px solid var(--morado);
 }
+
 .darkMode {
   background: var(--negro);
   color: var(--blanco);
@@ -69,6 +70,7 @@ u {
   background-color: var(--blanco);
   color: var(--morado);
 }
+
 
 .darkModeToggle {
   cursor: pointer;

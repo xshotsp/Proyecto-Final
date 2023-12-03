@@ -1,6 +1,7 @@
 :root{
   --morado:#9b59b6;
   --blanco: #FFFF;
+  --negro : #000;
 }
 
 
@@ -22,7 +23,7 @@
 
 h3{
   text-decoration: none;
-  color: var(--titulos);
+  color: var(--morado);
 }
 .productCard:hover {
   transform: scale(1.05);
@@ -33,7 +34,7 @@ h3{
   object-fit: cover;
   border-radius: 10px;
   margin-bottom: 10px;
-  width: 100%; /* Ajusta según tus preferencias */
+  width: 100%; 
 }
 
 .productInfo {
@@ -60,6 +61,7 @@ a.productCard {
 .productAddButton {
   border-radius: 20px;
   background-color: var(--morado);
+  color: var(--blanco);
 }
 
 .productAddButton:hover{
@@ -68,3 +70,25 @@ a.productCard {
   outline: none;
   border: solid 1px var(--morado);
 }
+
+.darkMode h3 {
+  color: var(--blanco);
+}
+
+.darkMode .productCard {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: none;
+}
+
+.darkMode .productAddButton {
+ background-color: var(--blanco);
+ color: var(--negro);
+}
+
+.darkMode .productAddButton:hover{
+  background-color: var(--negro);
+  border: solid 2px var(--blanco);
+  color: var(--blanco);
+ }
+
+ 

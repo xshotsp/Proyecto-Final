@@ -5,26 +5,19 @@ import { getAllProducts, getProducts } from '../../redux/actions/actions';
 import s from './ProductList.module.css';
 import Card from '../card/Card';
 import Pagination from '../pagination/Pagination';
-//import data from '../data/data';
 
 const ProductList = ({ handleAddProduct }) => {
-  
   const dispatch = useDispatch()
   const products = useSelector ((state) => state.allproducts)
-  
+  const darkMode = useSelector((state) => state.darkMode);
   const [currentPage, setCurrentPage] = useState(1);
   const cardsPerPage = 5;
   const lastCardIndex = currentPage * cardsPerPage;
   const firstCardIndex = lastCardIndex - cardsPerPage;
   const currentCards = products.slice(firstCardIndex, lastCardIndex);
 
-  // useEffect(() => {
-  //    dispatch(getAllProducts());
-  //    setCurrentPage(1)
-  // }, [dispatch]);
   useEffect(() => {
-    if(products.length === 0) dispatch(getAllProducts());
-    console.log(getAllProducts);
+    if(products.length === 0) dispatch(getAllProducts()); 
     setCurrentPage(1)
  }, [products]);
 
@@ -35,13 +28,13 @@ const ProductList = ({ handleAddProduct }) => {
       }
       
       {
-       (products[0]?.name) && <h1 className={s.titulo}>Lista de Productos</h1>
+       (products[0]?.name) && <h1 className={`${s.titulo} ${darkMode ? s.darkMode : s.lightMode} `}>Lista de Productos</h1>
       }
       
       {
         (products[0]?.name) &&
       
-      <div className={s.productList}>
+      <div className={`${s.productList} ${darkMode ? s.darkMode : s.lightMode}`}>
         {/* {products.map((product) => ( */}
         {currentCards.map((product) => (
           <Card key={product.id} product={product} handleAddProduct={handleAddProduct} />

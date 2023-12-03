@@ -1,8 +1,8 @@
-
-:root{
-  --morado:#9b59b6;
+:root {
+  --morado: #9b59b6;
   --blanco: #FFFF;
-  --morado-claro:#9370DB;
+  --morado-claro: #9370DB;
+  --gris: #ccc;
 }
 
 .selectcontainer {
@@ -12,49 +12,44 @@
   align-content: center;
   text-align: center;
   flex-wrap: wrap;
-  top: 150px;
-  left: 7%;
-}
-select {
-  padding: 0.5rem;
-  font-size: 1rem;
-  border: 1px solid #ccc;
-  background-color:var(--morado);
-  min-width: 150px;
-  cursor: pointer;
-  transition: transform 0.2s ease-in-out, background-color 0.2s, transform 0.2s; 
+  top: 550px;
+  left: 17%;
 }
 
-select:hover {
-  transform: translateY(-3px) rotateX(5deg); 
-}
-
-select:focus {
-  outline: none;
-}
-
-.selectcontainer:hover .options {
-  display: block;
-}
-
-.options {
-  display: none;
-  position: absolute;
-  top: 100%;
-  left: 0;
+.selectcontainer select {
   width: 100%;
-  background-color:var(--morado-claro);
-  border: 1px solid #0f8804bf;
-  padding: 5px;
-  z-index: 1;
-  transition: display 0.2s;
+  padding: 10px;
+  cursor: pointer;
+  outline: none;
+  border-radius: 5px;
 }
 
-.option {
-  padding: 5px;
+.selectcontainer select option {
+  background-color: var(--morado);
+  color: var(--blanco);
+  border-radius: 0;
+  font-family: 'Monserrat';
+  font-weight: 400;
   cursor: pointer;
 }
 
-.hovered .options {
-  display: block;
+.darkMode select {
+  color: var(--morado);
+  background-color: var(--blanco);
+  font-family: 'Monserrat';
+  font-weight: 300;
+  border-radius: 5px;
 }
+
+.darkMode select option {
+  background-color: var(--blanco);
+  color: var(--morado);
+}
+
+.lightMode select {
+  background-color: var(--morado);
+  color: var(--blanco);
+  font-family: 'Monserrat';
+  font-weight: 300;
+}
+

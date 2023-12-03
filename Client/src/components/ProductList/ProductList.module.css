@@ -1,9 +1,11 @@
 :root {
-  --titulos: #9b59b6;
-  --fondo: #FFFF;
-  --borde: #ddd;
+  --morado: #9b59b6;
+  --blanco: #FFFF;
+  --gris: #ddd;
+  --negro : #000;
 }
 
+/* Estilos comunes para ambas versiones */
 .product-card {
   width: calc(20% - 20px); 
   margin: 10px; 
@@ -20,7 +22,7 @@
 .productList {
   display: flex;
   flex-wrap: nowrap;
-  top: 30px;
+  top: 450px;
   position: relative;
   left: 1%;
   right: 2%;
@@ -28,9 +30,26 @@
 
 .titulo {
   position: relative;
-  top: 150px;
+  top: 570px;
   font-family: 'Montserrat';
-  color: var(--titulos);
   justify-content: center;
   display: flex;
 }
+
+.darkMode {
+  --titulos: var(--blanco);
+  --borde:var(--negro) ; 
+}
+
+.darkMode .product-card {
+  border: solid 3px var(--negro);
+}
+
+.darkMode h1 {
+  color: var(--blanco) !important;
+}
+
+.lightMode .titulo{
+  color: var(--morado) !important;
+}
+

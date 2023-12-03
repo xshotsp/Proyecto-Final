@@ -1,6 +1,10 @@
 :root{
   --morado:#9b59b6;
   --blanco: #FFFF;
+  --fondo : #f8f8f8;
+  --negro: #000;
+  --morado-claro: #9370DB;
+  --gris:#333333;
 }
 
 .container_from{
@@ -38,16 +42,22 @@
 
 .info_childs h2{
   font-size: 2.5rem;
+  color: var(--blanco);
 }
 
 .info_childs p{
 margin: 15px 0;
+color: var(--blanco);
 }
 
 .info_childs input{
- background-color: transparent;
+ background-color:var(--blanco);
+ color: var(--morado);
+ font-family: 'Monserrat';
+ font-weight: bold;
+ font-size: 16px;
  outline: none;
- border: solid 2px #FFF;
+ border: solid 2px var(--blanco);
  border-radius: 20px;
  padding: 10px 20px;
  cursor: pointer;
@@ -55,9 +65,10 @@ margin: 15px 0;
 }
 
 .info_childs input:hover{
-  background-color:var(--blanco);
+  background-color:var(--morado);
   border: none;
-  color:var(--morado);
+  color:var(--blanco);
+  border: solid 2px var(--blanco);
   box-shadow: 0 2px 5px rgba(0, 0, 0, .1);
  }
 
@@ -66,7 +77,7 @@ margin: 15px 0;
   align-items: center;
   justify-content: center;
   text-align: center;
-  background-color: #f8f8f8;
+  background-color:var(--fondo);
   width: 60%;
   right: 0;
   height: 80vh;
@@ -108,10 +119,6 @@ padding: 0 30px;
       color: var(--blanco);
     }
 
-    .bxg img{
-      filter: invert(2);
-    }
-   
     .bxg{
       display: flex;
       align-items: center;
@@ -122,7 +129,11 @@ padding: 0 30px;
       transition: background-color 0.3s ease;
       box-shadow: 0 2px 5px rgba(0, 0, 0, .1);
       background-color: var(--morado);
-      color: var(--blanco);
+    }
+
+    .bxg:hover{
+      background-color: var(--blanco);
+      border: 1px solid var(--morado);
     }
 
     .form{
@@ -146,7 +157,6 @@ padding: 0 30px;
       border: none;
       outline: none;
       border-radius: 20px;
-      color: #333;
     }
 
     .form label i {
@@ -171,18 +181,10 @@ padding: 0 30px;
     border: solid 1px var(--morado);
    }
 
-   .error {
-    color: #ff0000;
-    font-size: 0.rem;
-    margin-top: 5px;
-    margin-bottom: 7px;
-  }
-
   .tamaño{
     position: relative;
     width: 70vh;
   }
-
 
 .bx_user{
  height: 23px;
@@ -208,8 +210,6 @@ padding: 0 30px;
   height: 30px;
  }
 
- /* response from*/
-
  @media screen and (max-width:750px) {
   html{
     font-size: 12px;
@@ -218,8 +218,6 @@ padding: 0 30px;
     width: 50vh;
   }
 
- 
-  
  }
 
  @media screen and (max-width:580px) {
@@ -287,7 +285,4 @@ padding: 0 30px;
 
 
  }
-
-  .login-form a:hover {
-    text-decoration: underline;
-  }
+ 
