@@ -24,7 +24,7 @@ const ProductList = ({ handleAddProduct }) => {
   return (
     <div>
       {
-      (products[0]?.message) && <h2>{data[0].message}</h2>
+      (products[0]?.message) && <h2>{products[0].message}</h2>
       }
       
       {

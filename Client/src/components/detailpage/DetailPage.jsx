@@ -1,6 +1,6 @@
-//import { useEffect } from 'react';
-//import { connect, useDispatch, useSelector } from 'react-redux';
-//import { cleanProductDetail, fetchProductById } from '../../redux/actions/actions';
+import { useEffect } from 'react';
+import { connect, useDispatch, useSelector } from 'react-redux';
+import { cleanProductDetail, fetchProductById } from '../../redux/actions/actions';
 import s from './detail.module.css';
 import { Link, useParams } from 'react-router-dom';
 
@@ -12,14 +12,14 @@ import { Link, useParams } from 'react-router-dom';
   //const productDetails = useSelector((state) => state.productDetails)
   const product = data.find(item => item.id === id)
 
-  // useEffect(() => {
-  //   //Llama a la acción para obtener los detalles del producto al montar el componente
-  //   dispatch(fetchProductById(params.id));
-  //   return () => {dispatch(cleanProductDetail())}
-  // }, []);
+  useEffect(() => {
+    //Llama a la acción para obtener los detalles del producto al montar el componente
+    dispatch(fetchProductById(params.id));
+    return () => {dispatch(cleanProductDetail())}
+  }, []);
 
 
-  if (!data) {
+  if (!product) {
     // Puedes mostrar un indicador de carga o un mensaje de error aquí si productDetails es
         return <p className={s.error}>Cargando...</p>;
   }
