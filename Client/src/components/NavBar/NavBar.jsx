@@ -1,12 +1,13 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 // NavBar.jsx
-import React, {useState} from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faShoppingCart, faUser } from '@fortawesome/free-solid-svg-icons';
-import SearchBar from '../searchbar/SearchBar';
-import styles from './NavBar.module.css';
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faShoppingCart, faUser } from "@fortawesome/free-solid-svg-icons";
+import SearchBar from "../searchbar/SearchBar";
+import styles from "./navbar.module.css";
+import {signOutFunction} from "../../firebase/firebase.config"
 
 const NavBar = ({ login, setLogin }) => {
   const [showOptions, setShowOptions] = useState(false);
@@ -19,9 +20,13 @@ const NavBar = ({ login, setLogin }) => {
       photo: "",
     });
 
+    signOutFunction()
+
     setShowOptions(false);
     navigate("/");
   };
+
+  
   return (
     <div className={styles.container}>
       <nav className={styles.nav}>

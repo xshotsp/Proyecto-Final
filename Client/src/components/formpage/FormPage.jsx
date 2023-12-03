@@ -1,15 +1,25 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  postProduct,
+  createProductRequest,
+  createProductSuccess,
+  createProductFailure,
   getProducts,
   getBrands,
 } from "../../redux/actions/actions";
+// import axios from "axios";
 import s from "./productForm.module.css"
+import Swal from 'sweetalert2';
+const URL="https://quirkz.up.railway.app"
 
 const ProductForm = () => {
   const dispatch = useDispatch();
-  const allBrands = useSelector((productData)=>productData.allBrands);
+  const allBrands = useSelector((state)=>state.allBrands);
+  
+  
+  const [errorSubmit, setErrorSubmit] = useState("");
+  const [control,setControl] = useState("");
+ 
 
   useEffect(()=>{
     dispatch(getProducts())
@@ -43,9 +53,10 @@ const ProductForm = () => {
   });
 
   const validate = (productData, name) => {
+  
     if (name === "name") {
-      if (productData.name === "") setErrors({ ...errors, name: "El nombre es requerido" });
-      else if (productData.name.length >= 15) setErrors({ ...errors, name: "El nombre es muy largo" })
+        if (productData.name === "") setErrors({ ...errors, name: "El nombre es requerido" });
+      else if (productData.name.length >= 50) setErrors({ ...errors, name: "El nombre debe ser menor a 50 caracteres" })
       else setErrors({...errors, name: ""})
     }
 
@@ -65,8 +76,8 @@ const ProductForm = () => {
       else setErrors({ ...errors, colour: "" });
     }
 
-    if(name === "brands"){
-      if(!productData.brands.length) setErrors({...errors, brands: "Minimium one Brand required"})
+    if(name==="brands"){
+      if(!productData.brands.length) setErrors({...errors, brands:"La marca es requerida"})
       else setErrors({...errors, brands: ""})
     }
   };
@@ -76,12 +87,13 @@ const ProductForm = () => {
       ...productData,
       [e.target.name] : e.target.value
     })
+    setErrorSubmit("")
   
-    //RE-RENDERIZADO
     validate({
         ...productData,
         [e.target.name]: e.target.value
       }, e.target.name);
+    //return;
   };
  
   const handleChangeImage = (event) => {
@@ -146,8 +158,8 @@ const ProductForm = () => {
       }
       return disabledAux
     }
-
-    const remove = (e) =>{
+  
+    const removeImage = (e) =>{
       setProductData({
         ...productData,
         [e.target.name] : "",
@@ -158,6 +170,25 @@ const ProductForm = () => {
         e.target.name);
       
     }
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   dispatch(createProductRequest());
+
+  //   try {
+  //     const response = await axios.post(
+  //       "http://localhost:3001/product",
+  //       productData
+  //     );
+  //     const newProduct = response.data;
+
+  //     dispatch(createProductSuccess(newProduct));
+  //   } catch (error) {
+  //     console.error("Error al crear el producto:", error.message);
+  //     dispatch(createProductFailure(error.message));
+  //   }
+  // };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(postProduct(productData));
@@ -245,12 +276,19 @@ const ProductForm = () => {
         </select>
         <div>
           {
-           productData.brands?.map(b=><div><span id={b}>{b}</span><button type="button" name="brands" id={b} onClick={remove}>X</button></div>)
+            productData.additionalImage[0] && <button type="button" id="button" name="additionalImage0" onClick={removeImageAd}>X</button>
           }
         </div>
         <span>{errors.brands}</span>
         <input disabled={buttonDisabled()} type="submit"/>
+        {/*<button type="submit" disabled={creatingProduct}>
+          Crear Producto
+        </button>*/}
       </form>
+
+      {/* Mostrar el resultado de la creación */}
+      {/* {newProduct && <p>Producto creado con éxito: {newProduct.name}</p>}
+      {error && <p>Error al crear el producto: {error}</p>} */}
     </div>
   );
 };

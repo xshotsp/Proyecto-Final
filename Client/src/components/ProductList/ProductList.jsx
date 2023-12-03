@@ -10,7 +10,6 @@ import { getAllProducts, getProducts } from '../../redux/actions/actions';
 import s from './ProductList.module.css';
 import Card from '../card/Card';
 import Pagination from '../pagination/Pagination';
-//import data from '../data/data';
 
 const ProductList = ({ handleAddProduct }) => {
   const dispatch = useDispatch()
@@ -24,12 +23,12 @@ const ProductList = ({ handleAddProduct }) => {
   useEffect(() => {
     if(products.length === 0) dispatch(getAllProducts()); 
     setCurrentPage(1)
- }, [products]);
+ }, []);
 
   return (
     <div>
       {
-      (products[0]?.message) && <h2>{products[0].message}</h2>
+      (products[0]?.message) && <h2>{data[0].message}</h2>
       }
       
       {

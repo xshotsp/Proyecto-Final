@@ -16,7 +16,7 @@ import {
 
 } from './actionTypes';
 
-const URL = "http://localhost:3001"
+const URL = "https://quirkz.up.railway.app"
 
 // export const getAllProducts = async () => {
 //     try {
@@ -41,26 +41,25 @@ const URL = "http://localhost:3001"
 //       console.error('Error al obtener productos:', error);
 //     });
 
-    export function getProducts(){      //
-      return async function(dispatch){
-          try {
-              const response= await axios.get("http://localhost:3001/product/")
-              dispatch({
-                  type: GET_PRODUCTS,
-                  payload: response.data
-              })
-          } catch (error) {
-              console.log(error);
-          }
-      }
-  }
+export function getProducts() {
+  return async function(dispatch) {
+    try {
+      const response = await axios.get(`${URL}/product/`);
+      dispatch({
+        type: GET_PRODUCTS,
+        payload: response.data
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
   
 // Acción para traer todos los productos
     export const getAllProducts = () => {
       return async (dispatch) => {
           try{
             const productsname = (await axios.get(`${URL}/product/all-products`)).data;
-    
               return dispatch({
                   type: GET_ALL_PRODUCTS, 
                   payload: productsname
@@ -74,7 +73,7 @@ const URL = "http://localhost:3001"
   export function getBrands(){
     return async function(dispatch){
       try {
-        const response = await axios.get("http://localhost:3001/brands")
+        const response = await axios.get(`${URL}/brands/`)
         dispatch({
           type: GET_BRANDS,
           payload: response.data
@@ -89,7 +88,7 @@ const URL = "http://localhost:3001"
 export function postProduct(state){
   return async function(dispatch){
     try {
-      await axios.post("http://localhost:3001/product", state)
+      await axios.post(`${URL}/product`, state)
       alert("Producto creado con exito")
     } catch (error) {
       console.log(error);
@@ -134,7 +133,7 @@ export const getProductName = (name) => {
 
 export const fetchProductById = (id) => async (dispatch) => {
   try {
-    const response = await fetch(`http://localhost:3001/product/${id}`);
+    const response = await fetch(`${URL}/product/${id}`);
     if (!response.ok) {
       throw new Error(`Error al obtener el producto. Código de estado: ${response.status}`);
     }
