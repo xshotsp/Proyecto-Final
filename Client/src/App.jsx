@@ -1,5 +1,4 @@
 import "./App.css";
-import {toggleDarkMode} from './redux/actions/actions'
 import { Route, Routes } from "react-router-dom";
 import NavBar from "./components/NavBar/NavBar";
 import Footer from "./components/Footer/Footer";
@@ -9,6 +8,8 @@ import FormPage from "./components/formpage/FormPage";
 import Login from "./components/Login/Login";
 import DetailPage from "./components/detailpage/DetailPage";
 import Cart from "./components/Cart/Cart";
+import { useSelector, useDispatch } from 'react-redux';
+import {toggleDarkMode} from './redux/actions/actions'
 import { useEffect, useState } from "react";
 import Contact from "./components/Contact/Contact";
 import Error404 from "./components/Error/Error404";
