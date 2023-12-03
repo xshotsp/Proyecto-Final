@@ -7,10 +7,10 @@ import { Link, useParams } from 'react-router-dom';
 
 
   const DetailPage = ({ handleAddProduct }) => {
-  //const dispatch = useDispatch()
+  const dispatch = useDispatch()
   const { id } = useParams()
-  //const productDetails = useSelector((state) => state.productDetails)
-  const product = data.find(item => item.id === id)
+  const productDetails = useSelector((state) => state.productDetails)
+  const product = productDetails.find(item => item.id === id)
 
   useEffect(() => {
     //Llama a la acción para obtener los detalles del producto al montar el componente
@@ -20,13 +20,13 @@ import { Link, useParams } from 'react-router-dom';
 
 
   if (!product) {
-    // Puedes mostrar un indicador de carga o un mensaje de error aquí si productDetails es
+    
         return <p className={s.error}>Cargando...</p>;
   }
 
   return (
     <div className={s.productDetailsContainer}>
-      {/* <h2>{productDetails.id}</h2> */}
+      <h2>{productDetails.id}</h2>
       <div className={s.backBtn}>
       <Link to='/'>
         <button>Volver</button>
@@ -62,13 +62,12 @@ import { Link, useParams } from 'react-router-dom';
   );
 };
 
-// const mapStateToProps = (state) => ({
-//   productDetails: state.productDetails,
-// });
+const mapStateToProps = (state) => ({
+  productDetails: state.productDetails,
+});
 
-// const mapDispatchToProps = {
-//   fetchProductById,
-// };
+const mapDispatchToProps = {
+  fetchProductById,
+};
 
-// export default connect(mapStateToProps, mapDispatchToProps)(DetailPage);
-export default DetailPage
+export default connect(mapStateToProps, mapDispatchToProps)(DetailPage);
