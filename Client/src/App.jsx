@@ -1,5 +1,5 @@
 import "./App.css";
-
+import {toggleDarkMode} from './redux/actions/actions'
 import { Route, Routes } from "react-router-dom";
 import NavBar from "./components/NavBar/NavBar";
 import Footer from "./components/Footer/Footer";
@@ -56,7 +56,7 @@ function App() {
 
   return (
     <div className="App">
-      <NavBar darkMode={darkMode} setDarkMode={() => dispatch(toggleDarkMode())} isLoggedIn={isLoggedIn} setLoggedIn={setLoggedIn} cartItems={cartItems}/>
+     <NavBar darkMode={darkMode} setDarkMode={() => dispatch(toggleDarkMode())} isLoggedIn={isLoggedIn} setLoggedIn={setLoggedIn} cartItems={cartItems}/>
       <Routes>
         <Route path="/" element={<HomePage
         handleAddProduct={handleAddProduct} 
