@@ -20,8 +20,6 @@ const Login = ({ setLogin, login }) => {
   const [passwordError, setPasswordError] = useState('');
   const [loginError, setLoginError] = useState('');
   const darkMode = useSelector((state) => state.darkMode);
-  const [seHizoClicEnBotonGoogle, setSeHizoClicEnBotonGoogle] = useState(false);
-  const [isGoogleButtonHovered, setIsGoogleButtonHovered] = useState(false);
 
   const navigate = useNavigate();
 
@@ -80,98 +78,11 @@ const Login = ({ setLogin, login }) => {
     }
   };
 
-  const onSuccessGoogle = async (response) => {
-    const userObject = {
-      access: true,
-      email: response.profileObj.email,
-      photo: response.profileObj.imageUrl,
-      username: response.profileObj.name,
-    };
-    try {
-      const { data } = await axios.get(
-        `${URL}/user/${userObject.email}`
-      );
-
-      if (data) {
-        console.log('Ya existe');
-        setLogin({
-          access: true,
-          email: data.email,
-          photo: data.profile_picture,
-        });
-      } else {
-        const respuesta = await axios.post(`${URL}/user`, {
-          email: userObject.email,
-          profile_picture: userObject.photo,
-          password: 123456,
-          username: userObject.username,
-        });
-
-        setLogin({
-          access: true,
-          email: respuesta.data.email,
-          photo: respuesta.data.profile_picture,
-        });
-      }
-    } catch (error) {
-      console.error('Error en la solicitud GET:', error);
-    }
-  };
-
-  const onFailureGoogle = (response) => {
-    console.log(response);
-  };
-
-  const responseFacebook = async (response) => {
-    const { data } = await axios.get(
-      `${URL}/user/${response.email}`
-    );
-
-    if (data) {
-      setLogin({
-        access: true,
-        email: data.email,
-        photo: data.profile_picture,
-      });
-
-    }else {
-      const respuesta = await axios.post(`${URL}/user`, {
-
-        email: response.email,
-        profile_picture: response.picture.data.url,
-        password: 123456,
-        username: response.name,
-      });
-
-      setLogin({
-        access: true,
-        email: respuesta.data.email,
-        photo: respuesta.data.profile_picture,
-      });
-    }
-
-    const userObject = {
-      access: true,
-      email: response.email,
-      photo: response.picture.data.url,
-    };
-    setLogin(userObject);
-  };
-
   useEffect(() => {
-    const start = () => {
-      gapi.auth2.init({
-        clientId: clientIdGoogle,
-      });
-    };
+    if (login.access) navigate("/");
+  }, [login.access]);
 
-    console.log('Login object:', login);
-
-    if (login && login.access) navigate('/');
-
-    gapi.load('client:auth2', start);
-  }, [login, navigate]);
-
+  
   return (
     
     <div className={`${style.container_from} ${darkMode ? style.darkMode : style.lightMode}`}>
@@ -242,6 +153,9 @@ const Login = ({ setLogin, login }) => {
             <input type="submit" value="Iniciar sesión" />
             {loginError && <p className={style.error}>{loginError}</p>}
           </form>
+          <div>
+        <SocialLogin />
+      </div>
         </div>
       </div>
     </div>
