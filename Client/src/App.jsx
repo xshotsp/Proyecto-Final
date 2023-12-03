@@ -18,7 +18,10 @@ import Error404 from "./components/Error/Error404";
 function App() {
   const darkMode = useSelector(state => state.darkMode); 
   const cartFromLocalStorage = JSON.parse(localStorage.getItem("cart") || '[]')
-  const [cartItems, setCartItems] = useState(cartFromLocalStorage);
+  const [cartItems, setCartItems] = useState(cartFromLocalStorage); 
+  const [isLoggedIn, setLoggedIn] = useState(false);
+  const dispatch = useDispatch();
+
 
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cartItems))
