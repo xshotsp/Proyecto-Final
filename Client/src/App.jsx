@@ -10,6 +10,9 @@ import DetailPage from "./components/detailpage/DetailPage";
 import Cart from "./components/Cart/Cart";
 import { useSelector, useDispatch } from 'react-redux';
 import {toggleDarkMode} from './redux/actions/actions'
+import { useEffect, useState } from "react";
+import Contact from "./components/Contact/Contact";
+import Error404 from "./components/Error/Error404";
 
 import { useState, useEffect } from "react";
 
@@ -65,28 +68,13 @@ function App() {
         <Route path="/form" element={<FormPage />} />
         <Route path="/login" element={<Login setLoggedIn={setLoggedIn} isLoggedIn={isLoggedIn} />} />
         <Route path="/createuser" element={<CreateUserForm />} />
-        <Route
-          path="/cart"
-          element={
-            <Cart
-              cartItems={cartItems}
-              handleRemoveProduct={handleRemoveProduct}
-              handleClearCart={handleClearCart}
-              handleAddProduct={handleAddProduct}
-            />
-          }
-        />
-        <Route
-          path="/cart"
-          element={
-            <Cart
-              cartItems={cartItems}
-              handleRemoveProduct={handleRemoveProduct}
-              handleClearCart={handleClearCart}
-              handleAddProduct={handleAddProduct}
-            />
-          }
-        />
+        <Route path="*" element={<Error404 />} />
+        <Route path="/cart"
+         element={<Cart
+          cartItems={cartItems}
+          handleRemoveProduct={handleRemoveProduct}
+          handleClearCart={handleClearCart}
+          handleAddProduct={handleAddProduct} />} />
       </Routes>
       <Footer />
     </div>

@@ -14,7 +14,7 @@ import {
 import SearchBar from '../searchbar/SearchBar';
 import styles from './navbar.module.css';
 
-const NavBar = ({isLoggedIn, setLoggedIn }) => {
+const NavBar = ({ isLoggedIn, setLoggedIn }) => {
   const [activePage, setActivePage] = useState('');
   const dispatch = useDispatch();
   const darkMode = useSelector((state) => state.darkMode);
@@ -34,13 +34,14 @@ const NavBar = ({isLoggedIn, setLoggedIn }) => {
   };
 
   const handleLogout = () => {
-    setLogin({
+    setLoggedIn({
       access: false,
       email: '',
       photo: '',
     });
 
-    signOutFunction()
+   
+    signOutFunction();
 
     setShowOptions(false);
     navigate('/');
@@ -68,33 +69,32 @@ const NavBar = ({isLoggedIn, setLoggedIn }) => {
           </Link>
           {!isLoggedIn.access && (
             <Link
-            to="/createuser"
-            onMouseEnter={() => handleMouseEnter('createuser')}
-            onMouseLeave={handleMouseLeave}
-          >
-            <li className={activePage === 'createuser' ? styles.active : ''}>
-              <FontAwesomeIcon icon={faListCheck} />
-              {activePage === 'createuser' && <span>Registrarse</span>}
-            </li>
-          </Link>
+              to="/createuser"
+              onMouseEnter={() => handleMouseEnter('createuser')}
+              onMouseLeave={handleMouseLeave}
+            >
+              <li className={activePage === 'createuser' ? styles.active : ''}>
+                <FontAwesomeIcon icon={faListCheck} />
+                {activePage === 'createuser' && <span>Registrarse</span>}
+              </li>
+            </Link>
           )}
           {!isLoggedIn.access && (
-           <Link
-           to="/login"
-           onMouseEnter={() => handleMouseEnter('login')}
-           onMouseLeave={handleMouseLeave}
-         >
-           <li className={activePage === 'login' ? styles.active : ''}>
-             <FontAwesomeIcon icon={faUser} />
-             {activePage === 'login' && <span>Login</span>}
-           </li>
-         </Link>
+            <Link
+              to="/login"
+              onMouseEnter={() => handleMouseEnter('login')}
+              onMouseLeave={handleMouseLeave}
+            >
+              <li className={activePage === 'login' ? styles.active : ''}>
+                <FontAwesomeIcon icon={faUser} />
+                {activePage === 'login' && <span>Login</span>}
+              </li>
+            </Link>
           )}
-          <Link
-            to="/cart"
-            onMouseEnter={() => handleMouseEnter('cart')}
-            onMouseLeave={handleMouseLeave}
-          >
+          <Link to="/form">
+            <li>Crear producto</li>
+          </Link>
+          <Link to="/cart" className={styles.cart}>
             <li className={activePage === 'cart' ? styles.active : ''}>
               <FontAwesomeIcon icon={faShoppingCart} />
               {activePage === 'cart' && <span>Carrito</span>}
