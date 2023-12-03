@@ -24,15 +24,21 @@
   .product-form input {
     width: 100%;
     padding: 8px;
-    margin-bottom: 15px;
     border: 1px solid #555;
     border-radius: 5px;
     background-color: #fff;
     color: #000; /* Cambiado a color de texto negro */
   }
+
+  .precio {
+    width: 50%;
+    padding: 8px;
+    margin-bottom: 5px;
+    margin: auto;
+  }
   
   .product-form button {
-    width: 100%;
+    width: 50%;
     padding: 10px;
     background-color: #000;
     color: #fff;
@@ -82,3 +88,17 @@
 
   }
 
+  .inputfile {
+    display:none;
+  }
+
+  .buttonfile {
+    background-color: #8f6aae;
+    padding: 5px;
+    width: 50%;
+    color: white;
+    margin: auto;
+    margin-top: 20px;
+    border-radius: 5px;
+  }
+  

@@ -42,34 +42,36 @@ const putUserHandler = async (req, res) => {
 const createUserHandler = async (req, res) => {
   try {
 
-    let { username, password, email, profile_picture, member } = req.body;
+    //let { username, password, email, profile_picture, member } = req.body;
 
+    const { username, password, email, profile_picture, member } = req.body;
 
-
-    if (!username || !password || !email) {
+   // if (!username || !password || !email) {
+    if (!password || !email) {
       return res.status(400).json("Campos obligatorios incompletos.");
     }
 
-    const searchUser = await User.findAll({
-      where: {
-        username: username,
-      },
-    });
+    // const searchUser = await User.findAll({
+    //   where: {
+    //     username: username,
+    //   },
+    // });
     const searchEmail = await User.findAll({
       where: {
         email: email,
       },
     });
 
-    if (searchUser.length || searchEmail.length) {
-       return res.status(404).json("El usuario o el correo electrónico ya existe.");
+    //if (searchUser.length || searchEmail.length) {
+    if (searchEmail.length) {
+       return res.status(404).json("El correo electrónico ya existe.");
     } else {
 
        // CLOUDINARY
-      if (profile_picture){
-        const cloudinaryUpload = await cloudinary.uploader.upload(`${profile_picture}`);
-        profile_picture = cloudinaryUpload.secure_url;
-      }
+      // if (profile_picture){
+      //   const cloudinaryUpload = await cloudinary.uploader.upload(`${profile_picture}`);
+      //   profile_picture = cloudinaryUpload.secure_url;
+      // }
 
       // para encriptar el password
 /*       const hashedPassword = await bcrypt.hash(password, 10);
@@ -90,17 +92,11 @@ const createUserHandler = async (req, res) => {
         subject: "Bienvenid@ a QUIRKZ",
         html:` 
         <h2>${username}</h2>
-        <p>Mensaje de Bienvenida de nuestra tienda online QUIRKZ</p>
+        <p>Gracias por preferir nuestra tienda online QUIRKZ</p>
         <p style="font-size: 16px; color: #0074d9;">
       Para ir a la pagina, haz clic <a href="http://localhost:5173" style="text-decoration: none; color: #ff4136; font-weight: bold;">aquí</a>.
     </p>` ,
       })
-    
-
-
-
-
-
       
 
       return res.status(200).json(newUser);
