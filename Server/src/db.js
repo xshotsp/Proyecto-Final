@@ -4,28 +4,18 @@ const { Sequelize } = require("sequelize");
 const fs = require("fs");
 const path = require("path");
 
-const { DB_USER, DB_PASSWORD, DB_HOST,DB_NAME } = process.env;
-
-const sequelize = new Sequelize(
-  `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}`,
-  {
-    logging: false,
-    native: false,
-  }
-);
-
-{/*
 const { DATABASE_URL } = process.env;
 
 if (!DATABASE_URL) {
   throw new Error("DATABASE_URL not defined");
 }
 
-const sequelize = new Sequelize(DATABASE_URL, {
-  logging: false,
-  native: false,
-});
-*/}
+  const sequelize = new Sequelize(DATABASE_URL, {
+    logging: false,
+    native: false,
+  });
+
+
 
 const basename = path.basename(__filename);
 

@@ -220,10 +220,12 @@ padding: 0 30px;
 
   .information{
     width: 100%;
-    bottom: 8px;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-    border-bottom-left-radius: 0px;
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #555;
+    border-radius: 5px;
+    background-color: #fff;
+    color: #fff;
   }
   
   .from_information{
@@ -242,38 +244,25 @@ padding: 0 30px;
   html{
     font-size: 10px;
   }
-  .container_from{
-    height: auto;
-    flex-direction: column;
-    top: 300px;
-    height: 50vh;
-  }
-
-  .information{
-    width: 100%;
-    padding: 20px;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-    border-bottom-left-radius: 0px;
+  
+  .s-form p {
+    color: #888;
+    font-size: 14px;
   }
   
-  .from_information{
-    width: 100%;
-    padding: 20px;
-    border-top-left-radius: 0px;
-    border-top-right-radius: 0px;
-    border-bottom-right-radius:20px;
-    border-bottom-left-radius:20px;
-    top: 300px;
+  .s-form .notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #e74c3c;
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    display: none;
   }
-
-  .tamaño{
-    width: 50vh;
-  }
-
-}
   
   .s-form .notification.show {
     display: block;
   }
 
+ }

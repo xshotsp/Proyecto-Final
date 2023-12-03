@@ -1,8 +1,8 @@
-:root {
-  --morado: #9b59b6;
-  --blanco: #fff; 
-  --negro: #000;
+:root{
+  --titulos:#9b59b6;
+  --fondo: #FFFF;
 }
+
 
 .container {
   position: fixed;
@@ -19,74 +19,48 @@
   padding: 0 40px; /* Añade relleno en los lados para mejorar la apariencia */
 }
 
+/* Estilo de la barra de navegación */
 .nav {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  width: 100%;
+  position: relative;
 }
 
-u {
-  text-decoration: none !important;
+/* Estilo de los enlaces no visitados */
+nav u {
+  text-decoration: none;
 }
 
+/* Estilo del título de la barra de navegación */
 .nav__h1 {
-  margin: 0 10px 0 0;
+  margin: 0;
   font-size: 3rem;
-  text-decoration: none !important;
-  color: var(--morado);
-  font-family: 'Monserrat';
+  text-decoration: none;
+  color:var(--titulos);
+  font-family:'Montserrat';
+  font-weight: bold;
 }
 
+/* Estilo de la lista no ordenada de la barra de navegación */
 .nav__ul {
   display: flex;
-  justify-content: flex-end;
-  width: 30%;
-  margin-right: 30px;
+  position: relative;
+  left: 85%;
 }
 
-.nav__ul li.active {
-  border-bottom: 2px solid var(--morado);
-}
-
+/* Estilo de cada elemento de la lista de la barra de navegación */
 .nav__ul li {
-  color: var(--morado);
+  color:var(--titulos);
   display: flex;
   align-items: center;
-  justify-content: center;
   list-style: none;
   height: 40px;
-  margin-right: 15px;
-  left: 100px;
-  position: relative;
+  margin-right: 5px;
+  border-radius: 10px;
+  padding: 10px;
+  text-decoration: none;
+  font-family:  Montserrat;
+  font-weight: bold;
 }
 
-.nav__ul li:hover,
-.nav__ul li.active:hover {
-  border-bottom: 2px solid var(--morado);
-}
-
-.darkMode {
-  background: var(--negro);
-  color: var(--blanco);
-}
-
-.lightMode {
-  background-color: var(--blanco);
-  color: var(--morado);
-}
-
-
-.darkModeToggle {
-  cursor: pointer;
-  right: 50px;
-  position: relative;
-}
-
-
-.darkMode .nav__h1,
-.darkMode .nav__ul li,
-.darkMode .darkModeIcon {
-  color: var(--blanco) !important;
-}
