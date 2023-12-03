@@ -13,9 +13,6 @@ import {toggleDarkMode} from './redux/actions/actions'
 import { useEffect, useState } from "react";
 import Contact from "./components/Contact/Contact";
 import Error404 from "./components/Error/Error404";
-
-import { useState, useEffect } from "react";
-
 const handleAddProduct = (product) => {
   const ProductExist = cartItems.find((item) => item.id === product.id);
   if(ProductExist){
