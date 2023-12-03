@@ -32,6 +32,11 @@ const NavBar = ({ cartItems }) => {
               Registrarse
             </li> 
           </Link>
+          <Link to="/form">
+            <li>
+              Publicar producto
+            </li>
+          </Link>
           
           <Link to="/cart" className={styles.cart}>
             <li>
