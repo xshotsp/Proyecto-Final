@@ -1,3 +1,11 @@
+/* Agrega estilos generales para el modo oscuro */
+:root.darkMode {
+  --morado: #9b59b6;
+  --blanco: #FFFFFF;
+  --negro:  #000;
+}
+
+/* Estilos comunes para ambas versiones */
 .container {
   position: relative;
   display: flex;
@@ -5,7 +13,7 @@
   width: 100%;
   margin: 5px auto 0 auto;
   gap: 0 5px;
-
+  top: 600px;
 }
 
 .paginator {
@@ -25,19 +33,20 @@
   font-weight: bolder;
   cursor: pointer;
   transition: 0.2s ease all;
-  color: #000000;
+  color: var(--blanco);
+  background: var(--morado);
+  outline: none !important; 
 
   &:hover {
-    background-color: #000000;
-    color: white;
-    border: 1px solid white;
+    background-color: var(--blanco);
+    color: var(--morado);
+    border: 1px solid var(--blanco);
   }
 }
 
 .button__selected {
-  border: 1px solid lightgray;
-  background-color: #000000;
-  color: lightgray;
+  background: #FFFFFF; 
+  color: var(--morado);
 }
 
 .paginator_buttons {
@@ -47,13 +56,30 @@
   height: 40px;
   border-radius: 5px;
   cursor: pointer;
-
   transition: 0.2s ease all;
-  color: #000000;
-
+  color: var(--blanco);
+  background: var(--morado);
+  outline: none !important; 
   &:hover {
-    background-color: #000000;
-    color: white;
-    border: 1px solid white;
+    background-color: var(--morado);
+    color: var(--blanco);
+    border: 1px solid var(--blanco);
   }
+}
+
+.darkMode .button {
+  color: var(--morado);
+  background: var(--blanco);
+}
+
+.darkMode .button__selected {
+  background: var(--negro);
+  border: none;
+  color: var(--blanco);
+}
+
+.darkMode .paginator_buttons {
+  color: var(--morado);
+  background: var(--blanco);
+  border: 1px solid var(--blanco);
 }

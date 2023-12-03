@@ -10,6 +10,7 @@ import {
   GET_FILTROS,
   GET_BRANDS,
   CLEAN_PRODUCT_DETAIL,
+  TOGGLE_DARK_MODE,
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -20,6 +21,7 @@ const initialState = {
   allBrands: [],
   // productDetails: null,
   productDetails: {},
+  darkMode: false,
   
 };
 
@@ -100,7 +102,12 @@ export default function reducer(state = initialState, action) {
             ...state,
             allproducts: action.payload,
           };
-          
+        
+          case TOGGLE_DARK_MODE:
+            return {
+              ...state,
+              darkMode: !state.darkMode,
+            };
 
     default:
       return state;

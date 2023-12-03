@@ -1,29 +1,28 @@
-import { useState } from "react";
-import LabelAndInput from "../labelAndInput/LabelAndInput";
-import validate from './validate';
-import axios from "axios";
-import s from "./create.module.css"
+import React, { useState } from 'react';
+import axios from 'axios';
 import Swal from 'sweetalert2';
-const URL = "https://quirkz.up.railway.app"
+import validate from './validate';
+import LabelAndInput from '../labelAndInput/LabelAndInput';
+import s from './create.module.css';
 
-//const URL = "http://localhost:3001"
-
+const URL = 'https://quirkz.up.railway.app';
 
 const CreateUserForm = () => {
- 
   const [input, setInput] = useState({
-    username: "",
-    password: "",
-    passwordRep: "",
-    email: "",
-    profile_picture: "",
-    member: ""
+    username: '',
+    password: '',
+    passwordRep: '',
+    email: '',
+    profile_picture: '',
+    member: '',
   });
+
   const [errors, setErrors] = useState({
     password: '',
     passwordRep: '',
     email: '',
-})
+  });
+
   const mostrarAlerta = (iconType, msjText) => {
     Swal.fire({
       icon: iconType,
@@ -40,36 +39,38 @@ const CreateUserForm = () => {
     setErrors(
       validate({
         ...input,
-        [event.target.name]: event.target.value
+        [event.target.name]: event.target.value,
       })
-    )
-    
+    );
   };
-
- 
 
   const submitHandler = async (event) => {
     event.preventDefault();
     try {
       const long = Object.values(errors);
-          if (long.length === 0) {
-              await axios.post(`${URL}/user`, input);
-              mostrarAlerta('success' , 'El usuario se creó de manera exitosa' );
-              setInput({username: "", password: "", passwordRep: "", email: "", profile_picture: "", member: ""});
-          } else mostrarAlerta('error', 'Debe llenar todos los campos sin errores')
-
+      if (long.length === 0) {
+        await axios.post(`${URL}/user`, input);
+        mostrarAlerta('success', 'El usuario se creó de manera exitosa');
+        setInput({
+          username: '',
+          password: '',
+          passwordRep: '',
+          email: '',
+          profile_picture: '',
+          member: '',
+        });
+      } else mostrarAlerta('error', 'Debe llenar todos los campos sin errores');
     } catch (error) {
-      console.log(error)
-      mostrarAlerta('error' ,error.response.data);
-      
+      console.log(error);
+      mostrarAlerta('error', error.response.data);
     }
   };
 
   return (
     <div>
-      <form className={`${s.form} ${s["s-form"]}`} onSubmit={submitHandler}>
+      <form className={`${s.form} ${s['s-form']}`} onSubmit={submitHandler}>
         <fieldset>
-        <legend>Crear Usuario</legend>
+          <legend>Crear Usuario</legend>
 
           <LabelAndInput
             label="Email*"
@@ -79,9 +80,9 @@ const CreateUserForm = () => {
             handler={formHandler}
           />
           {errors.email && <p>{errors.email}</p>}
-         
+
           <LabelAndInput
-            label="Password*"
+            label="Contraseña*"
             type="password"
             name="password"
             value={input.password}
@@ -89,7 +90,7 @@ const CreateUserForm = () => {
           />
           {errors.password && <p>{errors.password}</p>}
           <LabelAndInput
-            label="Confirmación Password*"
+            label="Confirmación Contraseña*"
             type="password"
             name="passwordRep"
             value={input.passwordRep}
@@ -100,9 +101,10 @@ const CreateUserForm = () => {
           <button type="submit">Crear</button>
         </fieldset>
       </form>
-      {/*<Notification notification={notification} />*/ }
     </div>
   );
 };
 
 export default CreateUserForm;
+
+

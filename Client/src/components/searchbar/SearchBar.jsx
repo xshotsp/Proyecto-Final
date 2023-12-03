@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from "./SearchBar.module.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from 'react-redux';
 import { getProductName, getFilters } from "../../redux/actions/actions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
@@ -9,6 +9,11 @@ const SearchBar = () => {
   const dispatch = useDispatch();
   const [search, setSearch] = useState("");
   const [initialFilters,setInitialFilters] = useState({})
+  const darkMode = useSelector((state) => state.darkMode);
+
+  useEffect(() => {
+    dispatch(getFilters(initialFilters));
+  }, [initialFilters, dispatch]);
 
   const handleInputChange = (e) => {
     setSearch(e.target.value);
@@ -16,6 +21,7 @@ const SearchBar = () => {
     setInitialFilters({ [name]: value });
     dispatch(getFilters(initialFilters));
   };
+
 
   const handleSearch = async (event) => {
     event.preventDefault();
@@ -28,7 +34,7 @@ const SearchBar = () => {
   };
 
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} ${darkMode ? styles.darkMode : styles.lightMode}`}>
       <input
         name = "name"
         type="text"

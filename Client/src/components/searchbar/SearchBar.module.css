@@ -1,19 +1,52 @@
+:root {
+  --morado: #9b59b6;
+  --blanco: #ffff;
+  --negro: #000;
+  --input:#4444;
+}
+
 .container {
   display: flex;
   justify-content: flex-end;
-  align-items: center; 
-  width: 30%;
+  align-items: center;
+  width: 20%;
   height: 40px;
+  left: 34%;
+  position: relative;
 }
 
 .input {
   padding: 10px;
-  border-radius: 10px;
+  border-radius: 20px;
   margin-right: 10px;
+  background-color: var(--input);
+  border: var(--titulos);
+  outline: none; /* Evitar el borde al hacer clic */
 }
 
 .search {
-  background-color: transparent; 
-  border: none; 
-  color: #000; 
+  background-color: transparent;
+  border: none;
+  color: var(--titulos);
+  outline: none !important; /* Evitar el borde al hacer clic */
 }
+
+.lightMode .search {
+  color:var(--morado);
+}
+
+.darkMode .search {
+  color: var(--blanco);
+}
+
+.lightMode .input {
+
+  background-color:var(--input);
+  
+}
+
+.darkMode .input {
+  background-color:var(--blanco);
+ 
+}
+
