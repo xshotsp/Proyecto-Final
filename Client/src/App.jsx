@@ -11,6 +11,7 @@ import DetailPage from "./components/detailpage/DetailPage";
 import Cart from "./components/Cart/Cart";
 import { useEffect, useState } from "react";
 import Contact from "./components/Contact/Contact";
+import Error404 from "./components/Error/Error404";
 
 
 function App() {
@@ -66,6 +67,7 @@ function App() {
         <Route path="/form" element={<FormPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/createuser" element={<CreateUserForm />} />
+        <Route path="*" element={<Error404 />} />
         <Route path="/cart"
          element={<Cart
           cartItems={cartItems}

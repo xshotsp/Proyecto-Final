@@ -34,7 +34,7 @@ const NavBar = ({ cartItems }) => {
           </Link>
           <Link to="/form">
             <li>
-              Publicar producto
+              Crear producto
             </li>
           </Link>
           
