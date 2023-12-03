@@ -56,7 +56,7 @@ function App() {
 
   return (
     <div className="App">
-      <NavBar cartItems={cartItems} />
+      <NavBar darkMode={darkMode} setDarkMode={() => dispatch(toggleDarkMode())} isLoggedIn={isLoggedIn} setLoggedIn={setLoggedIn} />
       <Routes>
         <Route path="/" element={<HomePage
         handleAddProduct={handleAddProduct} 
