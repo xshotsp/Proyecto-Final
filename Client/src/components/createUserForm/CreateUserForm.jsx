@@ -9,8 +9,17 @@ import US from '../../assets/usuario.png'
 import EML from '../../assets/email.png';
 import pss from '../../assets/cerrar-con-llave.png';
 
-
-const CreateUserForm = ({ history }) => {
+const URL = "https://quirkz.up.railway.app"
+const CreateUserForm = () => {
+  const [notification, setNotification] = useState(null);
+  const [input, setInput] = useState({
+    username: "",
+    password: "",
+    email: "",
+    profile_picture: "",
+    member: "",
+  });
+  
   const [user, setUser] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -78,7 +87,7 @@ const CreateUserForm = ({ history }) => {
       profile_picture: !input.profile_picture ? 'https://t3.ftcdn.net/jpg/01/09/00/64/360_F_109006426_388PagqielgjFTAMgW59jRaDmPJvSBUL.jpg': input.profile_picture
     }
     try {
-      const response = await axios.post("http://localhost:3001/user", objetUser);
+      const response = await axios.post(`${URL}/user`, objetUser);
       setNotification({
         message: "Usuario creado con éxito",
         status: response.status,

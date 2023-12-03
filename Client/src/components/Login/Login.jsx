@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { gapi } from 'gapi-script';
-import { GoogleLogin } from 'react-google-login';
-import FacebookLogin from 'react-facebook-login';
 import { Link, useNavigate } from 'react-router-dom';
 import style from './login.module.css';
 import FB from '../../assets/facebook.png';
@@ -13,6 +11,7 @@ import INS from '../../assets/instagram.png';
 import EML from '../../assets/email.png';
 import pss from '../../assets/cerrar-con-llave.png';
 
+const URL="https://quirkz.up.railway.app"
 const Login = ({ setLogin, login }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -69,10 +68,9 @@ const Login = ({ setLogin, login }) => {
     }
 
     try {
-      const response = await axios.post('http://localhost:3001/user/login', {
-        email: email,
-        password: password,
-      });
+      const response = await axios(
+        `${URL}/user/login/?email=${usuario}&password=${contraseña}`
+      );
 
       setLogin(response.data);
     } catch (error) {
@@ -90,7 +88,7 @@ const Login = ({ setLogin, login }) => {
     };
     try {
       const { data } = await axios.get(
-        `http://localhost:3001/user/${userObject.email}`
+        `${URL}/user/${userObject.email}`
       );
 
       if (data) {
@@ -101,7 +99,7 @@ const Login = ({ setLogin, login }) => {
           photo: data.profile_picture,
         });
       } else {
-        const respuesta = await axios.post(`http://localhost:3001/user`, {
+        const respuesta = await axios.post(`${URL}/user`, {
           email: userObject.email,
           profile_picture: userObject.photo,
           password: 123456,
@@ -125,7 +123,7 @@ const Login = ({ setLogin, login }) => {
 
   const responseFacebook = async (response) => {
     const { data } = await axios.get(
-      `http://localhost:3001/user/${response.email}`
+      `${URL}/user/${response.email}`
     );
 
     if (data) {
@@ -134,8 +132,10 @@ const Login = ({ setLogin, login }) => {
         email: data.email,
         photo: data.profile_picture,
       });
-    } else {
-      const respuesta = await axios.post(`http://localhost:3001/user`, {
+
+    }else {
+      const respuesta = await axios.post(`${URL}/user`, {
+
         email: response.email,
         profile_picture: response.picture.data.url,
         password: 123456,
@@ -156,8 +156,6 @@ const Login = ({ setLogin, login }) => {
     };
     setLogin(userObject);
   };
-
-  const clientIdGoogle = '23065007090-4e4d3nktl5bh6qrdvgdr3a7fhm8funa6.apps.googleusercontent.com';
 
   useEffect(() => {
     const start = () => {
@@ -198,29 +196,6 @@ const Login = ({ setLogin, login }) => {
             <i className={style.bx}>
               <img className={style.bx_fc} src={FB} alt="logoFacebook" />
             </i>
-            <div>
-              <GoogleLogin
-                clientId={clientIdGoogle}
-                onSuccess={onSuccessGoogle}
-                onFailure={onFailureGoogle}
-                cookiePolicy={'single_host_policy'}
-                render={(renderProps) => (
-                  <button
-                  onClick={() => {
-                    renderProps.onClick();
-                    setSeHizoClicEnBotonGoogle(true);
-                  }}
-                  onMouseEnter={() => setIsGoogleButtonHovered(true)}
-                  onMouseLeave={() => setIsGoogleButtonHovered(false)}
-                  disabled={renderProps.disabled || seHizoClicEnBotonGoogle}
-                  className={`${style.bxg} ${isGoogleButtonHovered ? style.hovered : ''}`}
-                >
-                  <img className={style.bx_gl} src={isGoogleButtonHovered ? GL : GL2} alt="logoGoogle" />
-                </button>
-                
-                )}
-              />
-            </div>
             <i className={style.bx}>
               <img className={style.bx_in} src={INS} alt="logoInstagram" />
             </i>

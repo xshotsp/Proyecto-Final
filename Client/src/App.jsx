@@ -66,15 +66,13 @@ function App() {
         <Route path="/form" element={<FormPage />} />
         <Route path="/login" element={<Login setLoggedIn={setLoggedIn} isLoggedIn={isLoggedIn} />} />
         <Route path="/createuser" element={<CreateUserForm />} />
-        <Route
-          path="/cart"
-          element={<Cart
-            cartItems={cartItems}
-            handleRemoveProduct={handleRemoveProduct}
-            handleClearCart={handleClearCart}
-            handleAddProduct={handleAddProduct}
-          />}
-        />
+        <Route path="/cart"
+         element={<Cart
+          cartItems={cartItems}
+          handleRemoveProduct={handleRemoveProduct}
+          handleClearCart={handleClearCart}
+          handleAddProduct={handleAddProduct} />}
+          />
       </Routes>
       <Footer />
     </div>

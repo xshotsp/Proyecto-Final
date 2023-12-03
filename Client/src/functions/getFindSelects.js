@@ -1,7 +1,7 @@
 import axios from "axios";
 
 
-const URL = "http://localhost:3001";
+const URL = "https://quirkz.up.railway.app";
 
 
 const getFindSelects = async () => {
