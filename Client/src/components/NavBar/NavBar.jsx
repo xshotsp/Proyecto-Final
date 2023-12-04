@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+/* eslint-disable react/prop-types */
+import  { useState } from 'react';
 import { toggleDarkMode } from '../../redux/actions/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
@@ -13,6 +14,8 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import SearchBar from '../searchbar/SearchBar';
 import styles from './navbar.module.css';
+
+import {signOutFunction} from "../../firebase/firebase.config"
 
 const NavBar = ({ login, setLogin }) => {
   const [activePage, setActivePage] = useState('');
@@ -109,7 +112,7 @@ const NavBar = ({ login, setLogin }) => {
 
         {showOptions && (
           <div className={styles.options}>
-            <p>{isLoggedIn.email}</p>
+            <p>{login.email}</p>
             <button onClick={handleLogout}>Logout</button>
           </div>
         )}
