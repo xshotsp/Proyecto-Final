@@ -3,7 +3,7 @@
   --blanco: #FFFF;
 }
 
-.container_from{
+.form__container{
    display: flex;
    align-items: center;
    justify-content: center;

@@ -19,7 +19,7 @@ const ProductList = ({ handleAddProduct }) => {
   useEffect(() => {
     if(products.length === 0) dispatch(getAllProducts()); 
     setCurrentPage(1)
- }, []);
+ }, [products]);
 
   return (
     <div>
