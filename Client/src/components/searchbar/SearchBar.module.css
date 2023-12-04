@@ -16,9 +16,10 @@
 }
 
 .input {
+  position: relative;
   padding: 10px;
   border-radius: 20px;
-  margin-right: 10px;
+  left: 13px;
   background-color: var(--input);
   border: var(--titulos);
   outline: none;
