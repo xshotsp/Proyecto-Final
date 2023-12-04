@@ -1,4 +1,8 @@
-/* eslint-disable react/prop-types */
+import GL from '../../assets/google.png';
+import GL2 from '../../assets/google2.png';
+import FB from '../../assets/facebook.png';
+import FB2 from '../../assets/facebook2.png';
+import style from './SocialLogin.module.css';
 import {
   googleSignInFunction,
   facebookSignInFunction,
@@ -15,10 +19,14 @@ const SocialLogin = () => {
   };
 
   return (
-    <div>
-      <button onClick={handleClickGoogle}>Sign in with Google</button>
-      <button onClick={handleClickFacebook}>Sign in with Facebook</button>
-    </div>
+    <div className={style.buttonContainer}>
+    <i className={style.btn} onClick={handleClickGoogle}>
+      <img src={GL2} alt="Google" />
+    </i>
+    <i className={style.btn} onClick={handleClickFacebook}>
+      <img src={FB2} alt="Facebook" />
+    </i>
+  </div>
   );
 };
 

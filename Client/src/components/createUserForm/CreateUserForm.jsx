@@ -2,12 +2,21 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import validate from './validate';
+import { useSelector } from 'react-redux';
 import LabelAndInput from '../labelAndInput/LabelAndInput';
-import s from './create.module.css';
+import SocialLogin from "../SocialLogin/SocialLogin";
+import { useNavigate } from "react-router-dom";
+import EML from '../../assets/email.png';
+import pss from '../../assets/cerrar-con-llave.png';
+import style from './create.module.css';
 
 const URL = 'https://quirkz.up.railway.app';
 
 const CreateUserForm = () => {
+
+  const darkMode = useSelector((state) => state.darkMode);
+  const navigate = useNavigate();
+
   const [input, setInput] = useState({
     username: '',
     password: '',
@@ -65,43 +74,86 @@ const CreateUserForm = () => {
       mostrarAlerta('error', error.response.data);
     }
   };
+  
+  const handleLoginClick = () => {
+    navigate('/login');
+  };
 
   return (
-    <div>
-      <form className={`${s.form} ${s['s-form']}`} onSubmit={submitHandler}>
-        <fieldset>
-          <legend>Crear Usuario</legend>
-
-          <LabelAndInput
-            label="Email*"
+    <div className={`${style.container_from} ${darkMode ? style.darkMode : style.lightMode}`}>
+    <div className={`${style.information} ${darkMode ? style.darkMode : style.lightMode}`}>
+      <div className={style.info_childs}>
+        <h2 className={darkMode ? style.darkMode : style.lightMode}>Bienvenido</h2>
+        <p>
+          Para poder comprar en nuestra tienda, disfrutar de nuestro descuentos 
+          y ofertas inicia sesión
+        </p>
+          <input type="button" value="Inicia Sesión" onClick={handleLoginClick}/>
+      </div>
+    </div>
+    <div className={style.from_information}>
+      <div className={style.infor_childs}>
+        <h2>Registrate</h2>
+        <div className={style.icons}>
+        <div>
+            <SocialLogin/>
+          </div>
+        </div>
+        <p>o usa tu email y registrate</p>
+      <form className={`${style.form} ${darkMode ? style.darkMode : style.lightMode}`} onSubmit={submitHandler}>
+          <label>
+          <i className={style.bx}>
+          <img className={style.bx_email} src={EML} alt="Email" />
+          </i>
+           <input
+            placeholder ="Email"
             type="text"
             name="email"
             value={input.email}
-            handler={formHandler}
-          />
+            onChange={formHandler}
+            />
+            <span className={style.required}>*</span>
+          </label>
+         
           {errors.email && <p>{errors.email}</p>}
-
-          <LabelAndInput
-            label="Contraseña*"
+           
+           <label>
+           <i className={style.bx}>
+             <img className={style.bx_contra} src={pss} alt="contraseña" />
+           </i>
+           <input
+            placeholder ="Ingrese su contraseña"
             type="password"
             name="password"
             value={input.password}
-            handler={formHandler}
+            onChange={formHandler}
           />
-          {errors.password && <p>{errors.password}</p>}
-          <LabelAndInput
-            label="Confirmación Contraseña*"
+          <span className={style.required}>*</span>
+           </label>
+
+           <label>
+           <i className={style.bx}>
+             <img className={style.bx_contra} src={pss} alt="contraseña" />
+           </i>
+           <input
+            placeholder ="Confirmación Contraseña"
             type="password"
             name="passwordRep"
             value={input.passwordRep}
-            handler={formHandler}
+            onChange={formHandler}
           />
+          <span className={style.required}>*</span>
+           </label>
+          {errors.password && <p>{errors.password}</p>}
+          
           {errors.passwordRep && <p>{errors.passwordRep}</p>}
-          <span>*Obligatorios</span>
-          <button type="submit">Crear</button>
-        </fieldset>
+          <input type="submit" value="registrarse" />
       </form>
+      <span className={style.aviso}>los campos con el * son Obligatorios</span>
+      
     </div>
+    </div>
+  </div>
   );
 };
 

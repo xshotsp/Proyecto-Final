@@ -10,6 +10,7 @@ import {
   faListCheck,
   faMoon,
   faSun,
+  faBagShopping
 } from '@fortawesome/free-solid-svg-icons';
 import SearchBar from '../searchbar/SearchBar';
 import styles from './navbar.module.css';
@@ -21,11 +22,11 @@ const NavBar = ({ login, setLogin }) => {
   const [showOptions, setShowOptions] = useState(false);
   const navigate = useNavigate();
 
-  const handleMouseEnter = (page) => {
+  const handleMouseOver = (page) => {
     setActivePage(page);
   };
 
-  const handleMouseLeave = () => {
+  const handleMouseOut = () => {
     setActivePage('');
   };
 
@@ -56,49 +57,78 @@ const NavBar = ({ login, setLogin }) => {
         </Link>
         <SearchBar expanded={true} />
         <ul className={styles.nav__ul}>
-          <Link
-            to="/contacto"
-            onMouseEnter={() => handleMouseEnter('contacto')}
-            onMouseLeave={handleMouseLeave}
-          >
-            <li className={activePage === 'contacto' ? styles.active : ''}>
-              <FontAwesomeIcon icon={faAddressBook} />
-              {activePage === 'contacto' && <span>Contacto</span>}
-            </li>
-          </Link>
-          {!login.access && (
-            <Link
-              to="/createuser"
-              onMouseEnter={() => handleMouseEnter('createuser')}
-              onMouseLeave={handleMouseLeave}
+            <div
+             className={styles.nav__linkContainer}
+             onMouseOver={() => handleMouseOver('producto')}
+             onMouseOut={handleMouseOut}
             >
-              <li className={activePage === 'createuser' ? styles.active : ''}>
-                <FontAwesomeIcon icon={faListCheck} />
-                {activePage === 'createuser' && <span>Registrarse</span>}
-              </li>
-            </Link>
-          )}
-          {!login.access && (
-            <Link
-              to="/login"
-              onMouseEnter={() => handleMouseEnter('login')}
-              onMouseLeave={handleMouseLeave}
-            >
-              <li className={activePage === 'login' ? styles.active : ''}>
-                <FontAwesomeIcon icon={faUser} />
-                {activePage === 'login' && <span>Login</span>}
-              </li>
-            </Link>
-          )}
-          <Link to="/form">
-            <li>Crear producto</li>
-          </Link>
-          <Link to="/cart" className={styles.cart}>
+                  <Link to="/form">
+                <li className={activePage === 'producto' ? styles.active : ''}>
+                  <FontAwesomeIcon icon={faBagShopping} />
+                  {activePage === 'producto' && <span>Crea un producto</span>}
+                </li>
+              </Link>
+            </div>
+    
+           <div
+            className={styles.nav__linkContainer}
+            onMouseOver={() => handleMouseOver('cart')}
+            onMouseOut={handleMouseOut}
+           >
+            <Link to="/cart" className={styles.cart}>
             <li className={activePage === 'cart' ? styles.active : ''}>
               <FontAwesomeIcon icon={faShoppingCart} />
               {activePage === 'cart' && <span>Carrito</span>}
             </li>
           </Link>
+           </div>
+
+         {!login.access && (
+             
+             <div
+             className={styles.nav__linkContainer}
+              onMouseOver={() => handleMouseOver('createuser')}
+              onMouseOut={handleMouseOut}
+             >
+                <Link to="/createuser">
+              <li className={activePage === 'createuser' ? styles.active : ''}>
+                <FontAwesomeIcon icon={faListCheck} />
+                {activePage === 'createuser' && <span>Registrarse</span>}
+              </li>
+            </Link>
+          </div>
+           
+          )}
+
+        {!login.access && (
+           <div
+            className={styles.nav__linkContainer}
+            onMouseOver={() => handleMouseOver('login')}
+            onMouseOut={handleMouseOut}
+            >
+                <Link to="/login">
+              <li className={activePage === 'login' ? styles.active : ''}>
+                <FontAwesomeIcon icon={faUser} />
+                {activePage === 'login' && <span>Login</span>}
+              </li>
+              </Link>
+            </div>
+          )}
+
+
+        <div
+          className={styles.nav__linkContainer}
+          onMouseOver={() => handleMouseOver('contacto')}
+          onMouseOut={handleMouseOut}
+         >
+              <Link to="/contacto">
+            <li className={activePage === 'contacto' ? styles.active : ''}>
+              <FontAwesomeIcon icon={faAddressBook} />
+              {activePage === 'contacto' && <span>Contacto</span>}
+            </li>
+          </Link>
+         </div>
+          
         </ul>
         <div className={styles.darkModeToggle} onClick={handleDarkModeToggle}>
           <FontAwesomeIcon

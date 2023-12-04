@@ -7,6 +7,12 @@ import {
   getProducts,
   getBrands,
 } from "../../redux/actions/actions";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+faMoneyBill1,
+faImage,
+faImages,
+} from '@fortawesome/free-solid-svg-icons';
 import axios from "axios";
 import s from "./productForm.module.css"
 import Swal from 'sweetalert2';
@@ -19,6 +25,8 @@ const URL="https://quirkz.up.railway.app"
 const ProductForm = () => {
   const dispatch = useDispatch();
   const allBrands = useSelector((state)=>state.allBrands);
+  const darkMode = useSelector((state) => state.darkMode);
+
   
   
   const [errorSubmit, setErrorSubmit] = useState("");
@@ -242,7 +250,7 @@ const ProductForm = () => {
 
 
   return (
-    <div>
+    <div className={`${s.container_from} ${darkMode ? s.darkMode : s.lightMode}`}>
       <h2>Crear Producto</h2>
       <form className={`${s.form} ${s["product-form"]}`} onSubmit={handleSubmit}>
         <label>
@@ -260,7 +268,11 @@ const ProductForm = () => {
         <br />
         <label
         className={s.buttonfile}
-          htmlFor = "image"> Subir Imagen
+          htmlFor = "image"> 
+            <i>
+          <FontAwesomeIcon icon={faImage} />
+          </i>
+          Imagen:
           <input
           className={s.inputfile}
             type="file"
@@ -282,6 +294,7 @@ const ProductForm = () => {
         
         </div>
         <label className={s.precio}>
+          <i><FontAwesomeIcon icon={faMoneyBill1} /></i>
           Precio:
           <input
             type="text"
@@ -306,6 +319,7 @@ const ProductForm = () => {
         
         <br />
         <label className={s.buttonfile} htmlFor="additionalImage">
+          <i><FontAwesomeIcon icon={faImages} /></i>
           Subir Imagenes Adicionales (3):
           <input
             className={s.inputfile}

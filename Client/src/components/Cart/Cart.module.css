@@ -1,0 +1,132 @@
+/* Cart.module.css */
+:root{
+    --morado:#9b59b6;
+    --blanco: #FFFF;
+    --fondo : #f8f8f8;
+    --negro: #000;
+    --morado-claro: #9370DB;
+    --gris:#333333;
+  }
+
+.cart-items {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+    top: 250px;
+  }
+  
+  .cart-items-header {
+    color: #333;
+    text-align: center;
+  }
+  
+  .clear-cart {
+    text-align: right;
+  }
+  
+  .clear-cart-button {
+    background-color: #f44336;
+    color: #fff;
+    cursor: pointer;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 14px;
+  }
+  
+  .clear-cart-button:hover {
+    background-color: #d32f2f;
+  }
+  
+  .cart-items-empty {
+    color: #555;
+    text-align: center;
+  }
+  
+  .cart-items-list {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+  
+  .cart-items-img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    margin-right: 10px;
+  }
+  
+  .cart-items-name {
+    flex-grow: 1;
+  }
+  
+  .cart-items-name h2 {
+    margin: 0;
+    color: #333;
+  }
+  
+  .cart-items-function {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+  }
+  
+  .cart-items-add,
+  .cart-items-remove {
+    background-color: #4caf50;
+    color: #fff;
+    cursor: pointer;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    margin-right: 5px;
+  }
+  
+  .cart-items-add:hover,
+  .cart-items-remove:hover {
+    background-color: #45a049;
+  }
+  
+  .cart-items-price {
+    color: #333;
+  }
+  
+  .cart-items-total-price-name {
+    text-align: right;
+    margin-top: 20px;
+  }
+  
+  .cart-items-total-price h2 {
+    margin: 0;
+    color: #333;
+  }
+  
+  .shop-button-container {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .shop-button {
+    background-color:var(--morado);
+    color: #fff;
+    cursor: pointer;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  .shop-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .shop-button:hover:enabled {
+    background-color: var(--morado-claro);
+  }
+  

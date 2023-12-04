@@ -1,0 +1,9 @@
+.buttonContainer {
+    display: flex;
+    gap: 10px;
+  }
+  .btn img {
+    max-width: 40px; /* Ajusta el tamaño según tus necesidades */
+    height: auto; /* Mantiene la proporción original */
+  }
+  

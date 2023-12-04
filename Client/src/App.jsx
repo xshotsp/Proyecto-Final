@@ -28,6 +28,11 @@ function App() {
   });
 
   useEffect(() => {
+
+    const body = document.body;
+    body.classList.toggle('darkMode', darkMode);
+    body.classList.toggle('lightMode', !darkMode);
+
     localStorage.setItem("cart", JSON.stringify(cartItems))
     onAuthStateChanged(auth, async (user) => {
       if (user === null) {
@@ -45,7 +50,9 @@ function App() {
         setLogin(userObject);
       }
     });
-  }, [cartItems]);
+  }, [cartItems,darkMode]);
+
+
   console.log(Login)
 
   const handleAddProduct = (product) => {

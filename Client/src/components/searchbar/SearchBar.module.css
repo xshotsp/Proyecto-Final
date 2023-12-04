@@ -11,7 +11,7 @@
   align-items: center;
   width: 20%;
   height: 40px;
-  left: 34%;
+  left: 19%;
   position: relative;
 }
 
@@ -21,14 +21,14 @@
   margin-right: 10px;
   background-color: var(--input);
   border: var(--titulos);
-  outline: none; /* Evitar el borde al hacer clic */
+  outline: none;
 }
 
 .search {
   background-color: transparent;
   border: none;
   color: var(--titulos);
-  outline: none !important; /* Evitar el borde al hacer clic */
+  outline: none !important;
 }
 
 .lightMode .search {

@@ -7,7 +7,7 @@
 
 /* Estilos comunes para ambas versiones */
 .product-card {
-  width: calc(20% - 20px); 
+  width: calc(90% - 20px); 
   margin: 10px; 
   text-align: center;
   border: solid 3px var(--titulos);
@@ -28,7 +28,7 @@
   right: 2%;
 }
 
-.titulo {
+ .titulo {
   position: relative;
   top: 570px;
   font-family: 'Montserrat';
@@ -45,11 +45,7 @@
   border: solid 3px var(--negro);
 }
 
-.darkMode h1 {
-  color: var(--blanco) !important;
-}
-
-.lightMode .titulo{
-  color: var(--morado) !important;
+.darkMode .titulo{
+  color: var(--blanco);
 }
 
