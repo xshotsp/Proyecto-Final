@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { connect, useDispatch, useSelector } from 'react-redux';
 import { cleanProductDetail, fetchProductById } from '../../redux/actions/actions';
 import s from './detail.module.css';
@@ -10,11 +10,11 @@ import { Link, useParams } from 'react-router-dom';
   const dispatch = useDispatch()
   const { id } = useParams()
   const productDetails = useSelector((state) => state.productDetails)
-  const product = productDetails?.find(item => item.id === id)
+  const product = productDetails
 
   useEffect(() => {
     //Llama a la acción para obtener los detalles del producto al montar el componente
-    dispatch(fetchProductById(params.id));
+    dispatch(fetchProductById(id));
     return () => {dispatch(cleanProductDetail())}
   }, []);
 
@@ -26,7 +26,7 @@ import { Link, useParams } from 'react-router-dom';
 
   return (
     <div className={s.productDetailsContainer}>
-      <h2>{productDetails.id}</h2>
+      <h2>{product.id}</h2>
       <div className={s.backBtn}>
       <Link to='/'>
         <button>Volver</button>
@@ -50,7 +50,7 @@ import { Link, useParams } from 'react-router-dom';
       </div>
       <div className={s.productInfo}>
         <h2 className={s.price}>Precio: ${product.price}</h2>
-        <h2 className={s.colour}>Color: {product.colour.sort().join(', ')}</h2>
+        <h2 className={s.colour}>Color: {product.colour}</h2>
       </div>
 
       <div className={s.descriptionTextBox}>

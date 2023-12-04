@@ -83,7 +83,7 @@ function App() {
     <div className="App">
      <NavBar darkMode={darkMode} setDarkMode={() => dispatch(toggleDarkMode())}  login={login} setLogin={setLogin} cartItems={cartItems}/>
       <Routes>
-        <Route path="/" element={<HomePage
+        <Route exath path="/" element={<HomePage
         handleAddProduct={handleAddProduct} 
         cartItems={cartItems} />} />
         <Route path="/product/:id" element={<DetailPage

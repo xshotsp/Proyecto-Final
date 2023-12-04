@@ -18,7 +18,7 @@ const [initialFilters,setInitialFilters] = useState({})
 const selects = useSelector((state) => state.selectFilter);
 const colourOpt = selects?.colour;
 const brandOpt = selects?.brand;
-const PriceOpt = ['highest', 'lowest'];
+const PriceOpt = ['mayor a menor', 'menor a mayor'];
 
  useEffect (() => {
     dispatch (getAllSelects())
