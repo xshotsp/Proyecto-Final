@@ -1,0 +1,86 @@
+:root {
+    --morado: #9b59b6;
+    --blanco: #fff; 
+    --negro: #000;
+  }
+  
+  .container {
+    position: fixed;
+    width: 100%;
+    margin-bottom: 30px;
+    z-index: 99;
+    padding: 30px;
+    top: 0;
+  }
+  
+  .nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+  
+  u {
+    text-decoration: none !important;
+  }
+  
+  .nav__h1 {
+    margin: 0 10px 0 0;
+    font-size: 3rem;
+    text-decoration: none !important;
+    color: var(--morado);
+    font-family: 'Monserrat';
+  }
+  
+  .nav__ul {
+    display: flex;
+    justify-content: flex-end;
+    width: 30%;
+    margin-right: 30px;
+  }
+  
+  .nav__ul li.active {
+    border-bottom: 2px solid var(--morado);
+  }
+  
+  .nav__ul li {
+    color: var(--morado);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    list-style: none;
+    height: 40px;
+    margin-right: 15px;
+    left: 100px;
+    position: relative;
+  }
+  
+  .nav__ul li:hover,
+  .nav__ul li.active:hover {
+    border-bottom: 2px solid var(--morado);
+  }
+  
+  .darkMode {
+    background: var(--negro);
+    color: var(--blanco);
+  }
+  
+  .lightMode {
+    background-color: var(--blanco);
+    color: var(--morado);
+  }
+  
+  
+  .darkModeToggle {
+    cursor: pointer;
+    right: 50px;
+    position: relative;
+  }
+  
+  
+  .darkMode .nav__h1,
+  .darkMode .nav__ul li,
+  .darkMode .darkModeIcon {
+    color: var(--blanco) !important;
+  }
