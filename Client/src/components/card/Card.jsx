@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 const Card = ({ product, handleAddProduct }) => {
 
-  const { name, price, colour, image } = product;
+  const { id, name, price, colour, image } = product;
   const darkMode = useSelector((state) => state.darkMode);
 
   return (
@@ -13,7 +13,7 @@ const Card = ({ product, handleAddProduct }) => {
       {image && (
         <img src={image}alt={name}/>
       )}
-      <Link to={`/product/:id`}><h3>{name}</h3></Link>
+      <Link to={`/product/${id}`}><h3 className={s.namecard}>{name}</h3></Link>
       <div className={s.propiedades}>
       <p>Precio: {`$${price}`}</p>
       <p>Color: {colour}</p>

@@ -53,7 +53,6 @@ const ProductForm = () => {
     image: "Debe incluir una imagen del producto",
     price: "Campo requerido",
     colour: "Campo requerido",
-    additionalImage: "",
     brands: "Campo requerido"
   });
 
@@ -81,12 +80,7 @@ const ProductForm = () => {
       else setErrors({ ...errors, colour: "" });
     }
 
-    if (name === "additionalImage") {
-      console.log(productData.additionalImage.length)
-      if (productData.additionalImage.length === 3){
-        setControl("Maximo tres imagenes" );
-      } 
-    }
+
 
     if (name === "brands") {
       if (!productData.brands.length) setErrors({ ...errors, brands: "La marca es requerida" });
@@ -183,28 +177,7 @@ const ProductForm = () => {
       
     }
 
-    const removeImageAd = (e) =>{
-      setControl("")
-      setErrorSubmit("")
-      if (e.target.name === "additionalImage0"){
-        setProductData({
-          ...productData, 
-          additionalImage : [...productData.additionalImage.filter(X=>X !== productData.additionalImage[0])]
-        })
-      }
-      if (e.target.name === "additionalImage1"){
-        setProductData({
-          ...productData,
-          additionalImage : [...productData.additionalImage.filter(X=>X !== productData.additionalImage[1])]
-         })
-        }
-      else if (e.target.name === "additionalImage2"){
-        setProductData({
-          ...productData,
-          additionalImage : [...productData.additionalImage.filter(X=>X !== productData.additionalImage[2])]
-         })
-        }
-    }
+   
   
     const esVacio= (elemento) => {
       return elemento === "";
@@ -225,7 +198,7 @@ const ProductForm = () => {
           dispatch(createProductSuccess(newProduct));
       
           setProductData({ name: "", image: "", price: "", colour: "", additionalImage: [], brands: ""});
-          setErrors ({name: "Campo requerido", image: "Debe incluir una imagen del producto", price: "Campo requerido", colour: "Campo requerido", additionalImage: "",
+          setErrors ({name: "Campo requerido", image: "Debe incluir una imagen del producto", price: "Campo requerido", colour: "Campo requerido",
           brands: "Campo requerido"});
           setControl("");
 
@@ -305,41 +278,11 @@ const ProductForm = () => {
         
         
         <br />
-        <label className={s.buttonfile} htmlFor="additionalImage">
-          Subir Imagenes Adicionales (3):
-          <input
-            className={s.inputfile}
-            disabled={control}
-            type="file"
-            name="additionalImage"
-            id = "additionalImage"
-            onChange={handleChangeAdditional}
-          />
-        </label>
+       
         <br />
         <img src={productData.additionalImage[0]} alt="" />
         <br />
-        <div>
-          {
-            productData.additionalImage[0] && <button type="button" id="button" name="additionalImage0" onClick={removeImageAd}>X</button>
-          }
-        </div>
-        <br />
-        <img src={productData.additionalImage[1]} alt="" />
-        <br />
-        <div>
-          {
-            productData.additionalImage[1] && <button type="button" id="button" name="additionalImage1" onClick={removeImageAd}>X</button>
-          }
-        </div>
-        <br />
-        <img src={productData.additionalImage[2]} alt="" />
-        <br />
-        <div>
-          {
-            productData.additionalImage[2] && <button type="button" id="button" name="additionalImage2" onClick={removeImageAd}>X</button>
-          }
-        </div>
+        
         <span>{control}</span>
         <br />
          <label>Marcas: </label>

@@ -1,268 +1,79 @@
-:root{
-  --morado:#9b59b6;
-  --blanco: #FFFF;
-}
+/* Estos son estilos de ejemplo, ajústalos según tus preferencias */
 
-.form__container{
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   top: 200px;
-   height: 80vh;
-   border-radius: 20px;
-   box-shadow: 0 5px 7px rgba(0, 0, 0, .1);
-   max-width: 900px;
-   transition: all 1s ease;
-   padding: 20px;
-   position: relative;
-   margin: 0 auto;
-}
+/* CreateUserForm.module.css */
 
-.information{
-  width: 40%;
-  display: flex;
-  align-items: center;
-  text-align: center;
-  height: 80vh;
-  background-color:var(--morado);
-  border-top-left-radius: 20px;
-  border-bottom-left-radius: 20px;
-  position: absolute;
-  left: 0;
-}
-
-.info_childs{
-  width:100%;
-  padding: 0 30px;
-}
-
-.info_childs h2{
-  font-size: 2.5rem;
-}
-
-.info_childs p{
-margin: 15px 0;
-}
-
-.info_childs input{
- background-color: transparent;
- outline: none;
- border: solid 2px #FFF;
- border-radius: 20px;
- padding: 10px 20px;
- cursor: pointer;
- transition: backround-color .3s ease;
-}
-
-.info_childs input:hover{
-  background-color:var(--blanco);
-  border: none;
-  color:var(--morado);
-  box-shadow: 0 2px 5px rgba(0, 0, 0, .1);
- }
-
- .from_information{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  background-color: #f8f8f8;
-  width: 60%;
-  right: 0;
-  height: 80vh;
-  position: absolute;
- border-top-right-radius: 20px;
- border-bottom-right-radius: 20px;
-  
- }
-
- .infor_childs{
-padding: 0 30px;
- }
-
- .infor_childs h2{
-   color: var(--morado);
-   font-size: 2rem;
-   }
-
-   .infor_childs p{
-     color: var(--morado);
-     }
-
-    .icons{
-      margin: 15px 0;
-      display: flex;
-      justify-content: center;
-    }
-
-    .icons i{
-      display: flex;
-      align-items: center;
-      border-radius: 50%;
-      padding: 15px;
-      cursor: pointer;
-      margin: 0 10px;
-      transition: background-color 0.3s ease;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, .1);
-      background-color: var(--morado);
-      color: var(--blanco);
-    }
-    .icons i img{
-     filter: invert(1);      
-    }
-
-    .form{
-      margin: 30px 0 0 0;
-    }
-
-    .form label {
-      display: flex;
-      align-items: center;
-      margin-bottom: 15px;
-      border-radius: 20px;
-      padding: 0 10px;
-      background-color: #fff;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, .1);
-    }
-
-    .form label input{
-      width: 100%;
-      padding: 10px;
-      background-color: #fff;
-      border: none;
-      outline: none;
-      border-radius: 20px;
-      color: #333;
-    }
-
-    .form label i {
-      color: #a7a7a7;
-    }
-
-
-   .form input[type='submit']{
-    background-color: var(--morado);
-    color: var(--blanco);
-    border-radius: 20px;
-    border: none;
-    padding: 10px 15px;
-    cursor: pointer;
-    margin-top:10px ;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, .1);
-   }
-
-   .form input[type='submit']:hover{
-    background-color: var(--blanco);
-    color: var(--morado);
-    border: solid 1px var(--morado);
-   }
-
-   .error {
-    color: #ff0000;
-    font-size: 0.rem;
-    margin-top: 5px;
-    margin-bottom: 7px;
-  }
-
-  .tamaño{
-    position: relative;
-    width: 70vh;
-  }
-
-
-.bx_user{
- height: 23px;
-}
-
-.bx_contra{
-  height: 23px;
- }
-
- .bx_email{
-  height: 23px;
- }
-
- .bx_fc{
-  height: 30px;
- }
-
- .bx_gl{
-  height: 30px;
- }
-
- .bx_in{
-  height: 30px;
- }
-
- /* response from*/
-
- @media screen and (max-width:750px) {
-  html{
-    font-size: 12px;
-  }
-  .tamaño{
-    width: 50vh;
-  }
-
- 
-  
- }
-
- @media screen and (max-width:580px) {
-  html{
-    font-size: 10px;
-  }
-  .container_from{
-    flex-direction: column;
-    top: 300px;
-    height: 50vh;
-  }
-
-  .information{
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 15px;
-    border: 1px solid #555;
-    border-radius: 5px;
-    background-color: #fff;
-    color: #fff;
-  }
-  
-  .from_information{
-    width: 100%;
+.form__container {
+    max-width: 400px;
+    margin: 0 auto;
     padding: 20px;
-    border-top-left-radius: 0px;
-    border-top-right-radius: 0px;
-    border-bottom-right-radius:20px;
-    border-bottom-left-radius:20px;
-    top: 300px;
-  }
-
- }
-
- @media screen and (max-width:400px) {
-  html{
-    font-size: 10px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
   
-  .s-form p {
-    color: #888;
-    font-size: 14px;
+  .form {
+    display: flex;
+    flex-direction: column;
   }
   
-  .s-form .notification {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background-color: #e74c3c;
-    color: #fff;
+  .s-form {
+    margin-top: 20px;
+  }
+  
+  fieldset {
+    border: none;
+  }
+  
+  legend {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 15px;
+  }
+  
+  LabelAndInput {
+    margin-bottom: 15px;
+  }
+  
+  label {
+    font-size: 1rem;
+    color: #333;
+    margin-bottom: 5px;
+  }
+  
+  input {
+    width: 100%;
     padding: 10px;
-    border-radius: 5px;
-    display: none;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
   }
   
-  .s-form .notification.show {
-    display: block;
+  p {
+    font-size: 1rem;
+    color: #d9534f; /* Color de error */
+    margin-top: 5px;
+    margin-bottom: 15px;
+  }
+  
+  span {
+    font-size: 0.8rem;
+    color: #777;
+  }
+  
+  button {
+    background-color: #5bc0de; /* Color de fondo del botón */
+    color: #fff; /* Color del texto del botón */
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #46b8da; /* Color de fondo del botón al pasar el ratón */
   }
 
- }
+  

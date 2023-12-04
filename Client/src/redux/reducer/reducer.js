@@ -19,7 +19,6 @@ const initialState = {
   newProduct: null,
   error: null,
   allBrands: [],
-  // productDetails: null,
   productDetails: {},
   darkMode: false,
   

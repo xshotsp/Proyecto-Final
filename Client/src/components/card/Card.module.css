@@ -1,29 +1,20 @@
-:root{
-  --morado:#9b59b6;
-  --blanco: #FFFF;
-  --negro : #000;
-}
-
-
 .productCard {
   border: 1px solid #ddd;
-  padding: 7px;
-  margin: 7px;
+  border-radius: 8px;
+  padding: 16px;
+  margin: 16px;
   width: 250px; 
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease-in-out;
   display: flex;
-  align-items: center;
   flex-direction: column;
   text-decoration: none;
-  position: relative;
-  top: 130px;
-  overflow: hidden; /* Oculta el contenido que se extienda más allá del contenedor */
+  color: #000000;
 }
 
 h3{
   text-decoration: none;
-  color: var(--morado);
+  color: #000000;
 }
 .productCard:hover {
   transform: scale(1.05);
@@ -33,62 +24,17 @@ h3{
   height: 200px;
   object-fit: cover;
   border-radius: 10px;
-  margin-bottom: 10px;
-  width: 100%; 
+  margin-bottom: 10px; 
 }
 
 .productInfo {
   flex-grow: 1; 
   text-align: justify;
   text-decoration: none;
-  color:var(--titulos)
+  color:#000000
 }
 
 a.productCard {
   text-decoration: none;
-
-  color: var(--titulos);
-  font-size: 1.2rem;
-  font-style: italic;
-  font-family:'Montserrat';
+  color: #000000;
 }
-
-.propiedades{
- color: var(--titulos); 
- margin-top: auto;
-}
-
-.productAddButton {
-  border-radius: 20px;
-  background-color: var(--morado);
-  color: var(--blanco);
-}
-
-.productAddButton:hover{
-  background-color: var(--blanco);
-  color: var(--morado);
-  outline: none;
-  border: solid 1px var(--morado);
-}
-
-.darkMode h3 {
-  color: var(--blanco);
-}
-
-.darkMode .productCard {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border: none;
-}
-
-.darkMode .productAddButton {
- background-color: var(--blanco);
- color: var(--negro);
-}
-
-.darkMode .productAddButton:hover{
-  background-color: var(--negro);
-  border: solid 2px var(--blanco);
-  color: var(--blanco);
- }
-
- 

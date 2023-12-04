@@ -1,55 +1,24 @@
-:root {
-  --morado: #9b59b6;
-  --blanco: #FFFF;
-  --morado-claro: #9370DB;
-  --gris: #ccc;
-}
+/* Filters.module.css */
 
 .selectcontainer {
-  display: flex;
-  position: relative;
-  align-items: center;
-  align-content: center;
-  text-align: center;
-  flex-wrap: wrap;
-  top: 550px;
-  left: 17%;
-}
-
-.selectcontainer select {
-  width: 100%;
-  padding: 10px;
-  cursor: pointer;
-  outline: none;
-  border-radius: 5px;
-}
-
-.selectcontainer select option {
-  background-color: var(--morado);
-  color: var(--blanco);
-  border-radius: 0;
-  font-family: 'Monserrat';
-  font-weight: 400;
-  cursor: pointer;
-}
-
-.darkMode select {
-  color: var(--morado);
-  background-color: var(--blanco);
-  font-family: 'Monserrat';
-  font-weight: 300;
-  border-radius: 5px;
-}
-
-.darkMode select option {
-  background-color: var(--blanco);
-  color: var(--morado);
-}
-
-.lightMode select {
-  background-color: var(--morado);
-  color: var(--blanco);
-  font-family: 'Monserrat';
-  font-weight: 300;
-}
-
+    margin-bottom: 15px;
+  }
+  
+  .selectcontainer select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+  .darkMode {
+    background-color: #333;
+    color: #fff;
+  }
+  
+  .lightMode {
+    background-color: #fff;
+    color: #333;
+  }
+  
