@@ -86,8 +86,7 @@ function App() {
         <Route path="/" element={<HomePage
         handleAddProduct={handleAddProduct} 
         cartItems={cartItems} />} />
-        <Route path="/product/:id" element={<DetailPage
-        handleAddProduct={handleAddProduct} />} />
+        <Route path="/product/:id" element={<DetailPage handleAddProduct={handleAddProduct} />} />
         <Route path="/contacto" element={<Contact />} />
         <Route path="/form" element={<FormPage />} />
         <Route path="/login" element={<Login login={login} setLogin={setLogin} />}  />
