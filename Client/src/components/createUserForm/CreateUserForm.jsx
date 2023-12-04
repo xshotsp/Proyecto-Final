@@ -13,7 +13,7 @@ const CreateUserForm = () => {
     password: '',
     passwordRep: '',
     email: '',
-    profile_picture: '',
+    profile_picture: 'https://t3.ftcdn.net/jpg/01/09/00/64/360_F_109006426_388PagqielgjFTAMgW59jRaDmPJvSBUL.jpg',
     member: '',
   });
 
@@ -67,7 +67,7 @@ const CreateUserForm = () => {
   };
 
   return (
-    <div>
+    <div className={s.form__container}>
       <form className={`${s.form} ${s['s-form']}`} onSubmit={submitHandler}>
         <fieldset>
           <legend>Crear Usuario</legend>

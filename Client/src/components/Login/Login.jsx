@@ -1,14 +1,12 @@
 //Firebase
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "../../firebase/firebase.config";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import s from "./login.module.css";
 import { useNavigate } from "react-router-dom";
 import SocialLogin from "../SocialLogin/SocialLogin";
 
+const URL = "https://quirkz.up.railway.app";
 
-const URL="https://quirkz.up.railway.app"
 const Login = ({ setLogin, login }) => {
   const [usuario, setUsuario] = useState("");
   const [contraseña, setContraseña] = useState("");
@@ -18,7 +16,7 @@ const Login = ({ setLogin, login }) => {
   const handleSubmit = async (e) => {
     
     e.preventDefault();
-
+    console.log(usuario, contraseña);
     try {
       const response = await axios(
         `${URL}/user/login/?email=${usuario}&password=${contraseña}`

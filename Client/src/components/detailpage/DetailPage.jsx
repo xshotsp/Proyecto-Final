@@ -1,22 +1,36 @@
+<<<<<<< HEAD
 import React, { useEffect } from 'react';
+=======
+import React from 'react';
+import { useEffect } from 'react';
+>>>>>>> 1081ef0e8ef2cde78a6561bba52ba7f34dd49630
 import { connect, useDispatch, useSelector } from 'react-redux';
 import { cleanProductDetail, fetchProductById } from '../../redux/actions/actions';
 import s from './detail.module.css';
 import { Link, useParams } from 'react-router-dom';
 
-
-
   const DetailPage = ({ handleAddProduct }) => {
   const dispatch = useDispatch()
-  const { id } = useParams()
+  const { id } = useParams();
+  console.log("Params:", id);
   const productDetails = useSelector((state) => state.productDetails)
   const product = productDetails
 
+  
   useEffect(() => {
+<<<<<<< HEAD
     //Llama a la acción para obtener los detalles del producto al montar el componente
     dispatch(fetchProductById(id));
     return () => {dispatch(cleanProductDetail())}
+=======
+    // Llama a la acción para obtener los detalles del producto al montar el componente
+    dispatch(fetchProductById(id));
+    return () => {
+      dispatch(cleanProductDetail());
+    };
+>>>>>>> 1081ef0e8ef2cde78a6561bba52ba7f34dd49630
   }, []);
+  
 
 
   if (!product) {
