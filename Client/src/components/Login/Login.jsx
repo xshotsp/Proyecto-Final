@@ -63,6 +63,7 @@ const Login = ({ setLogin, login }) => {
             <SocialLogin/>
           </div>
           </div>
+          <p>o usa tu email para iniciar sesión</p>
       <form className={`${style.form} ${darkMode ? style.darkMode : style.lightMode}`}  onSubmit={handleSubmit}>
         <label>
         <i className={style.bx}>

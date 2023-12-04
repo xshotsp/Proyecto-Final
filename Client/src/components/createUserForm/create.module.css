@@ -7,7 +7,7 @@
   --gris:#333333;
 }
 
-.form__container{
+.container_from{
    display: flex;
    align-items: center;
    justify-content: center;
@@ -20,7 +20,6 @@
    padding: 20px;
    position: relative;
    margin: 0 auto;
-   margin-top: 300px;
 }
 
 .information{
@@ -188,6 +187,20 @@ padding: 0 30px;
   }
 
 
+.required{
+  position: relative;
+  left: 20px;
+  top: 5px;
+}
+
+.aviso{
+  position: relative;
+  top: 20px;
+}
+
+.bx_user{
+ height: 23px;
+}
 
 .bx_contra{
   height: 23px;
@@ -197,18 +210,17 @@ padding: 0 30px;
   height: 23px;
  }
 
-.aviso{
-  position: relative;
-  top: 17px;
-}
+ .bx_fc{
+  height: 30px;
+ }
 
-.required {
-  margin-left: 5px;
-  position: relative;
-  left: 21px;
-  top: 4px;
+ .bx_gl{
+  height: 30px;
+ }
 
-}
+ .bx_in{
+  height: 30px;
+ }
 
  @media screen and (max-width:750px) {
   html{

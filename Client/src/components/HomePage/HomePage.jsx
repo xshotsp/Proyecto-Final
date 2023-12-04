@@ -13,6 +13,7 @@ const HomePage = ({ handleAddProduct}) => {
 
 const dispatch = useDispatch();
 
+const darkMode = useSelector((state) => state.darkMode);
 const [initialFilters,setInitialFilters] = useState({})
 
 const selects = useSelector((state) => state.selectFilter);
@@ -69,8 +70,8 @@ const handleChange = (event) => {
           options={PriceOpt}
           state={null}
         />
-        <div>
-         <button className={s.filtersContainer} 
+        <div className={s.filtersContainer} >
+         <button className={`${s.btn} ${darkMode ? s.darkMode : s.lightMode}`}
           onClick={() => {
             dispatch (getAllSelects())
             dispatch(getFilters({}));

@@ -12,7 +12,15 @@
     display: flex;
     justify-content: space-around;
     margin-bottom: 20px; 
-    
+    position: relative;
+    top: 296px;
   }
+.btn{
+  background-color: var(--morado);
+  color: var(--blanco);
+  font-family: 'Monserrat';
+  font-weight: 300;
+  padding: auto;
+}
 
   
