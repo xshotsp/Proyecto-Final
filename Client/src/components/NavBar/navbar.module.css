@@ -84,3 +84,33 @@
   .darkMode .darkModeIcon {
     color: var(--blanco) !important;
   }
+
+  .user__photo{
+    width: 50px;
+  }
+
+  .user__photo img{
+    width: 50px;
+    border-radius: 50%;
+  }
+
+  .user__options{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    position: absolute;
+    right: 20px;
+    top: 85px;
+    background-color: var(--morado);
+    border-radius: 10px;
+    color: var(--blanco);
+    padding: 5px;
+  }
+
+  .user__options button{
+    display: flex;
+    background-color: var(--blanco);
+    color: var(--morado);
+    height: 30px;
+    padding: 2px;
+  }
