@@ -1,10 +1,46 @@
-
-import React from 'react';
+/* eslint-disable react/prop-types */
 import s from './Cart.module.css'
+//import { useNavigate } from 'react-router-dom';
+//import { useState } from 'react';
+//import Swal from 'sweetalert2';
+import axios from 'axios';
+
+//const URL = 'http://localhost:3001'
+const URL = "https://quirkz.up.railway.app"
 
 const Cart = ({ cartItems , handleAddProduct, handleRemoveProduct, handleClearCart }) => {
 
   const totalPrice = cartItems.reduce((price, item) => price + item.quantity * item.price, 0)
+
+  //const navigate = useNavigate();
+
+  const mercadoPago = async () => {
+    //console.log('entre al finishPurchase');
+    // if (login.access === false) {
+    //   const Toast = Swal.mixin({
+    //     toast: 'true',
+    //     position: 'top-end',
+    //     showConfirmButton: false,
+    //     timer: 2000,
+    //     timerProgressBar: true,
+    //     didOpen: (toast) => {
+    //       toast.onmouseenter = Swal.stopTimer;
+    //       toast.onmouseleave = Swal.resumeTimer;
+    //     },
+    //   });
+    //   Toast.fire({
+    //     icon: 'error',
+    //     title: 'Primero debes iniciar sesion',
+    //   });
+
+    //   navigate('/login');
+    // } else {
+    //   //console.log(objectPago)
+    //   //console.log(cartItems)
+      const response = await axios.post(`${URL}/purchase`, cartItems);
+      window.location.href = response.data.init_point;
+    //}
+  };
 
 
   return (
@@ -17,7 +53,7 @@ const Cart = ({ cartItems , handleAddProduct, handleRemoveProduct, handleClearCa
       </div>
 
       {cartItems.length === 0 && (
-        <div className={s["cart-items-empty"]}>Tu carrito esta vacio! 😢 </div>
+        <div className={s["cart-items-empty"]}>Tu carrito esta vacio! ?? </div>
       )}
 
       <div>
@@ -57,10 +93,11 @@ const Cart = ({ cartItems , handleAddProduct, handleRemoveProduct, handleClearCa
         Precio total: ${totalPrice}
         </h2>
         </div>
-        <div className={s["shop-button-container"]}>
+        <div>
           <br />
-          <button className={s["shop-button"]}
+          <button
           disabled={totalPrice ? false : true}
+          onClick = {mercadoPago}
           >
             Completar compra
           </button>
