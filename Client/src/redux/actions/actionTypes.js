@@ -9,5 +9,5 @@ export const CLEAN_PRODUCT_DETAIL = "CLEAN_PRODUCT_DETAIL";
 export const GET_ALL_SELECTS = 'GET_ALL_SELECTS';
 export const GET_PRODUCTS = "GET_PRODUCTS";
 export const GET_BRANDS = "GET_BRANDS";
-export const GET_FILTROS = "GET_FILTROS"
-
+export const GET_FILTERS = "GET_FILTERS";
+export const TOGGLE_DARK_MODE = "TOGGLE_DARK_MODE";

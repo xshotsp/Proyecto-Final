@@ -55,8 +55,8 @@ const getProductByName = async (name) => {
 const createProducts = async (productData) => {
   
   try {
-    let { name, image, price, colour } = productData;
-    // let { name, image, price, colour, additionalImage } = productData;
+    let { name, image, price, colour, additionalImage, brands } = productData;
+    //let { name, image, price, colour } = productData;
 
     const productCreated = await Product.findOne({
       where: { name: name },
@@ -85,7 +85,7 @@ const createProducts = async (productData) => {
       image,
       price,
       colour,
-      //additionalImage,
+      additionalImage,
     });
 
     //crea la asociacion entre producto y marca

@@ -9,7 +9,7 @@ import s from "./home.module.css"
 
 
 
-const HomePage = () => {
+const HomePage = ({ handleAddProduct}) => {
 
 const dispatch = useDispatch();
 

@@ -1,28 +1,55 @@
+:root {
+  --morado: #9b59b6;
+  --blanco: #FFFF;
+  --gris: #ddd;
+  --negro : #000;
+}
+
+/* Estilos comunes para ambas versiones */
 .product-card {
-  border: 1px solid #ddd;
-  padding: 15px;
-  margin: 10px;
-  width: 200px; 
+  width: calc(20% - 20px); 
+  margin: 10px; 
   text-align: center;
+  border: solid 3px var(--titulos);
 }
 
 .product-image {
   width: 100%;
   height: auto;
-  border-radius: 8px; 
+  border-radius: 8px;
 }
-
-.product-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-} 
-
-/* ProductList.module.css */
 
 .productList {
   display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  top: 450px;
+  position: relative;
+  left: 1%;
+  right: 2%;
+}
+
+.titulo {
+  position: relative;
+  top: 570px;
+  font-family: 'Montserrat';
+  justify-content: center;
+  display: flex;
+}
+
+.darkMode {
+  --titulos: var(--blanco);
+  --borde:var(--negro) ; 
+}
+
+.darkMode .product-card {
+  border: solid 3px var(--negro);
+}
+
+.darkMode h1 {
+  color: var(--blanco) !important;
+}
+
+.lightMode .titulo{
+  color: var(--morado) !important;
 }
 

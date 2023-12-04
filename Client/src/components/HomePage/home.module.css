@@ -1,5 +1,18 @@
+:root {
+  --morado: #9b59b6;
+  --blanco: #ffff;
+  --negro: #000;
+}
+
+.container {
+  height:100% !important; 
+}
+
 .filtersContainer {
     display: flex;
     justify-content: space-around;
     margin-bottom: 20px; 
+    
   }
+
+  

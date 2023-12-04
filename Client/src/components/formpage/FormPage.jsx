@@ -7,10 +7,14 @@ import {
   getProducts,
   getBrands,
 } from "../../redux/actions/actions";
-// import axios from "axios";
+import axios from "axios";
 import s from "./productForm.module.css"
 import Swal from 'sweetalert2';
+
 const URL="https://quirkz.up.railway.app"
+//const URL = "http://localhost:3001"
+
+
 
 const ProductForm = () => {
   const dispatch = useDispatch();
@@ -34,22 +38,23 @@ const ProductForm = () => {
     });
   };
 
+  const color_select = ["Black", "White", "Red", "Yellow", "Blue", "Brown", "Gray", "Green", "Beige", "Khaki"]
   const [productData, setProductData] = useState({
     name: "",
     image: "",
     price: "",
     colour: "",
-    //additionalImage: [],
-    brands: [],
+    additionalImage: [],
+    brands: "",
   });
 
   const [errors, setErrors] = useState({
-    name: "Data is required",
-    image: "",
-    price: "Data is required",
-    colour: "Data is required",
-    //additionalImage: [],
-    brands: []
+    name: "Campo requerido",
+    image: "Debe incluir una imagen del producto",
+    price: "Campo requerido",
+    colour: "Campo requerido",
+    additionalImage: "",
+    brands: "Campo requerido"
   });
 
   const validate = (productData, name) => {
@@ -76,9 +81,16 @@ const ProductForm = () => {
       else setErrors({ ...errors, colour: "" });
     }
 
-    if(name==="brands"){
-      if(!productData.brands.length) setErrors({...errors, brands:"La marca es requerida"})
-      else setErrors({...errors, brands: ""})
+    if (name === "additionalImage") {
+      console.log(productData.additionalImage.length)
+      if (productData.additionalImage.length === 3){
+        setControl("Maximo tres imagenes" );
+      } 
+    }
+
+    if (name === "brands") {
+      if (!productData.brands.length) setErrors({ ...errors, brands: "La marca es requerida" });
+      else setErrors({ ...errors, brands: "" });
     }
   };
 
@@ -91,9 +103,9 @@ const ProductForm = () => {
   
     validate({
         ...productData,
-        [e.target.name]: e.target.value
-      }, e.target.name);
-    //return;
+        [e.target.name]: e.target.value},
+        e.target.name);
+    return;
   };
  
   const handleChangeImage = (event) => {
@@ -171,28 +183,63 @@ const ProductForm = () => {
       
     }
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   dispatch(createProductRequest());
+    const removeImageAd = (e) =>{
+      setControl("")
+      setErrorSubmit("")
+      if (e.target.name === "additionalImage0"){
+        setProductData({
+          ...productData, 
+          additionalImage : [...productData.additionalImage.filter(X=>X !== productData.additionalImage[0])]
+        })
+      }
+      if (e.target.name === "additionalImage1"){
+        setProductData({
+          ...productData,
+          additionalImage : [...productData.additionalImage.filter(X=>X !== productData.additionalImage[1])]
+         })
+        }
+      else if (e.target.name === "additionalImage2"){
+        setProductData({
+          ...productData,
+          additionalImage : [...productData.additionalImage.filter(X=>X !== productData.additionalImage[2])]
+         })
+        }
+    }
+  
+    const esVacio= (elemento) => {
+      return elemento === "";
+    } 
 
-  //   try {
-  //     const response = await axios.post(
-  //       "http://localhost:3001/product",
-  //       productData
-  //     );
-  //     const newProduct = response.data;
-
-  //     dispatch(createProductSuccess(newProduct));
-  //   } catch (error) {
-  //     console.error("Error al crear el producto:", error.message);
-  //     dispatch(createProductFailure(error.message));
-  //   }
-  // };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(postProduct(productData));
+    
+    try {
+      let long = Object.values(errors);
+      
+      if (long.every(esVacio)) {
+          dispatch(createProductRequest());
+          const response = await axios.post(`${URL}/product`, productData);
+          const newProduct = response.data;
+          if (newProduct) mostrarAlerta('success' , 'El producto se creó de manera exitosa' );
+  
+          dispatch(createProductSuccess(newProduct));
+      
+          setProductData({ name: "", image: "", price: "", colour: "", additionalImage: [], brands: ""});
+          setErrors ({name: "Campo requerido", image: "Debe incluir una imagen del producto", price: "Campo requerido", colour: "Campo requerido", additionalImage: "",
+          brands: "Campo requerido"});
+          setControl("");
+
+        }else {
+          setErrorSubmit('Debe llenar todos los campos sin errores')
+        }
+    } catch (error) {
+      console.log(error)
+      mostrarAlerta('error', error.response.data);
+      dispatch(createProductFailure(error.message));
+    }
+    
   };
+
 
   return (
     <div>
@@ -211,18 +258,21 @@ const ProductForm = () => {
         </label>
         
         <br />
-        <label>
-          Imagen:
+        <label
+        className={s.buttonfile}
+          htmlFor = "image"> Subir Imagen
           <input
+          className={s.inputfile}
             type="file"
             name="image"
             id="image"
             onChange={handleChangeImage}
           />
-          
+          </label>
         <span>{errors.image}</span>
-        </label>
+        
         <br />
+        
         <img src={productData.image} alt="" />
        <br />
        <div>
@@ -231,7 +281,7 @@ const ProductForm = () => {
         }
         
         </div>
-        <label>
+        <label className={s.precio}>
           Precio:
           <input
             type="text"
@@ -244,22 +294,21 @@ const ProductForm = () => {
         </label>
         
         <br />
-        <label>
-          Color:
-          <input
-            type="text"
-            name="colour"
-            id="colour"
-            value={productData.colour}
-            onChange={handleChange}
-          />
+        <label className="label-form" htmlFor="colour">Color</label>
+            <select  name="colour" onChange={handleChange} value={productData.colour} >
+            <option  hidden>seleccionar color</option>
+              {color_select?.map((option, index) => (
+              <option key={index} value={option}>{option}</option>))}
+            </select>
+        <br />
           <span>{errors.colour}</span>
-        </label>
+        
         
         <br />
-        {/* <label>
-          Imagen Adicional:
+        <label className={s.buttonfile} htmlFor="additionalImage">
+          Subir Imagenes Adicionales (3):
           <input
+            className={s.inputfile}
             disabled={control}
             type="file"
             name="additionalImage"
@@ -267,28 +316,48 @@ const ProductForm = () => {
             onChange={handleChangeAdditional}
           />
         </label>
-        <br /> */}
-         <label>Marcas: </label>
-        <select onChange={handleChange} name="brands" id="">
-          <option hidden>seleccionar marca</option>{
-            allBrands?.map((b)=><option key={b.id} value={b.name}>{b.name}</option>)
-          }
-        </select>
+        <br />
+        <img src={productData.additionalImage[0]} alt="" />
+        <br />
         <div>
           {
             productData.additionalImage[0] && <button type="button" id="button" name="additionalImage0" onClick={removeImageAd}>X</button>
           }
         </div>
+        <br />
+        <img src={productData.additionalImage[1]} alt="" />
+        <br />
+        <div>
+          {
+            productData.additionalImage[1] && <button type="button" id="button" name="additionalImage1" onClick={removeImageAd}>X</button>
+          }
+        </div>
+        <br />
+        <img src={productData.additionalImage[2]} alt="" />
+        <br />
+        <div>
+          {
+            productData.additionalImage[2] && <button type="button" id="button" name="additionalImage2" onClick={removeImageAd}>X</button>
+          }
+        </div>
+        <span>{control}</span>
+        <br />
+         <label>Marcas: </label>
+        <select onChange={handleChange} name="brands" id="brands" value={productData.brands}>
+          <option hidden>seleccionar marca</option>{
+            allBrands?.map((b)=><option key={b} value={b.id}>{b.name}</option>)
+          }
+        </select>
+        <br />
         <span>{errors.brands}</span>
-        <input disabled={buttonDisabled()} type="submit"/>
-        {/*<button type="submit" disabled={creatingProduct}>
+        <br />
+        
+        <button type="submit" id="submit" disabled={buttonDisabled()}>
           Crear Producto
-        </button>*/}
+        </button>
+        {errorSubmit && <span>{errorSubmit}</span>}
       </form>
-
-      {/* Mostrar el resultado de la creación */}
-      {/* {newProduct && <p>Producto creado con éxito: {newProduct.name}</p>}
-      {error && <p>Error al crear el producto: {error}</p>} */}
+      
     </div>
   );
 };

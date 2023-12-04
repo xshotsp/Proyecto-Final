@@ -13,6 +13,7 @@ import {
   GET_BRANDS,
   GET_FILTERS,
   GET_ALL_PRODUCTS,
+  TOGGLE_DARK_MODE,
 
 } from './actionTypes';
 
@@ -188,3 +189,7 @@ export function cleanProductDetail() {
     type: CLEAN_PRODUCT_DETAIL
   }
 }
+
+export const toggleDarkMode = () => ({
+  type: TOGGLE_DARK_MODE,
+});

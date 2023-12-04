@@ -2,8 +2,10 @@
 
 .heroContainer {
   position: relative;
-  width: 60%;
-  height: 400px;
+  width: 96%;
+  right: 1%;
+  top: 535px;
+  height: 550px;
   background-color: #4CAF50;
   color: #ffffff;
   display: flex;
@@ -29,5 +31,7 @@
 
 .heroText {
   text-align: center;
+  font-family: 'Monastery';
+  font-style: italic;
   z-index:1;
 }

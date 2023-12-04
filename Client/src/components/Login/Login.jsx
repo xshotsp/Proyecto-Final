@@ -1,9 +1,12 @@
-
+//Firebase
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../../firebase/firebase.config";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import s from "./login.module.css";
 import { useNavigate } from "react-router-dom";
 import SocialLogin from "../SocialLogin/SocialLogin";
+
 
 const URL="https://quirkz.up.railway.app"
 const Login = ({ setLogin, login }) => {
