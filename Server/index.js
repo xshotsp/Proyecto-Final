@@ -17,7 +17,7 @@ cloudinary.config({
 });
 
 
-conn.sync({ force: true }).then(() => {
+conn.sync({ force: false }).then(() => {
 server.listen(PORT, async() => {
   
   await apiLoaderProducts()

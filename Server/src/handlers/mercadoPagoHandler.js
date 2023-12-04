@@ -22,7 +22,7 @@ const createOrder = async (req, res) => {
                     unit_price: price,
                     colour: colour,
                     brands: brands,
-                    currency_id: "ARG"
+                    currency_id: "ARS"
                 }],
                 "back_urls": {
                     "success": "http://127.0.0.1:5173/",

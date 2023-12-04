@@ -67,7 +67,7 @@ const CreateUserForm = () => {
   };
 
   return (
-    <div>
+    <div className={s.form__container}>
       <form className={`${s.form} ${s['s-form']}`} onSubmit={submitHandler}>
         <fieldset>
           <legend>Crear Usuario</legend>
