@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { toggleDarkMode } from '../../redux/actions/actions';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useState } from "react";
+import { toggleDarkMode } from "../../redux/actions/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faShoppingCart,
   faUser,
@@ -11,12 +11,16 @@ import {
   faMoon,
   faSun,
   faBagShopping
-} from '@fortawesome/free-solid-svg-icons';
-import SearchBar from '../searchbar/SearchBar';
-import styles from './navbar.module.css';
+
+} from "@fortawesome/free-solid-svg-icons";
+import SearchBar from "../searchbar/SearchBar";
+import styles from "./navbar.module.css";
+
+import { signOutFunction } from "../../firebase/firebase.config";
+
 
 const NavBar = ({ login, setLogin }) => {
-  const [activePage, setActivePage] = useState('');
+  const [activePage, setActivePage] = useState("");
   const dispatch = useDispatch();
   const darkMode = useSelector((state) => state.darkMode);
   const [showOptions, setShowOptions] = useState(false);
@@ -26,8 +30,10 @@ const NavBar = ({ login, setLogin }) => {
     setActivePage(page);
   };
 
+
   const handleMouseOut = () => {
     setActivePage('');
+
   };
 
   const handleDarkModeToggle = () => {
@@ -41,14 +47,18 @@ const NavBar = ({ login, setLogin }) => {
       photo: "",
     });
 
-    signOutFunction()
+    signOutFunction();
 
     setShowOptions(false);
     navigate("/");
   };
 
   return (
-    <div className={`${styles.container} ${darkMode ? styles.darkMode : styles.lightMode}`}>
+    <div
+      className={`${styles.container} ${
+        darkMode ? styles.darkMode : styles.lightMode
+      }`}
+    >
       <nav className={styles.nav}>
         <Link to="/">
           <h1 className={styles.nav__h1}>
@@ -78,7 +88,7 @@ const NavBar = ({ login, setLogin }) => {
             <Link to="/cart" className={styles.cart}>
             <li className={activePage === 'cart' ? styles.active : ''}>
               <FontAwesomeIcon icon={faShoppingCart} />
-              {activePage === 'cart' && <span>Carrito</span>}
+              {activePage === "cart" && <span>Carrito</span>}
             </li>
           </Link>
            </div>
@@ -136,10 +146,19 @@ const NavBar = ({ login, setLogin }) => {
             className={styles.darkModeIcon}
           />
         </div>
+        {login.access && (
+          <div className={styles.user__photo}>
+            <img
+              src={login.photo}
+              alt=""
+              onClick={() => setShowOptions(!showOptions)}
+            />
+          </div>
+        )}
 
         {showOptions && (
-          <div className={styles.options}>
-            <p>{isLoggedIn.email}</p>
+          <div className={styles.user__options}>
+            <p>{login.email}</p>
             <button onClick={handleLogout}>Logout</button>
           </div>
         )}

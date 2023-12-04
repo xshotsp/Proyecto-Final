@@ -118,7 +118,7 @@ export const createProductFailure = (error) => ({
 export const getProductName = (name) => {
   return async (dispatch) => {
       try{
-        const productsname = (await axios.get(`${URL}/product/name/${name}`)).data;
+        const productsname = (await fetch(`${URL}/product/name/${name}`)).data;
     
         //if (!productsname) throw new Error ('No se encuentra un producto que coincida con ese nombre')
           return dispatch({
@@ -133,6 +133,7 @@ export const getProductName = (name) => {
 
 
 export const fetchProductById = (id) => async (dispatch) => {
+  console.log(id)
   try {
     const response = await fetch(`${URL}/product/${id}`);
     if (!response.ok) {

@@ -3,7 +3,6 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 import validate from './validate';
 import { useSelector } from 'react-redux';
-import LabelAndInput from '../labelAndInput/LabelAndInput';
 import SocialLogin from "../SocialLogin/SocialLogin";
 import { useNavigate } from "react-router-dom";
 import EML from '../../assets/email.png';
@@ -22,7 +21,7 @@ const CreateUserForm = () => {
     password: '',
     passwordRep: '',
     email: '',
-    profile_picture: '',
+    profile_picture: 'https://t3.ftcdn.net/jpg/01/09/00/64/360_F_109006426_388PagqielgjFTAMgW59jRaDmPJvSBUL.jpg',
     member: '',
   });
 

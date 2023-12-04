@@ -7,7 +7,7 @@
   --gris:#333333;
 }
 
-.container_from{
+.form__container{
    display: flex;
    align-items: center;
    justify-content: center;
@@ -20,6 +20,7 @@
    padding: 20px;
    position: relative;
    margin: 0 auto;
+   margin-top: 300px;
 }
 
 .information{
