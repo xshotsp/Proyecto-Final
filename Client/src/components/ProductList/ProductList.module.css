@@ -1,8 +1,15 @@
 /* En tu archivo ProductList.module.css */
 
+:root {
+  --main-color: #fff;
+  --second-color: #696d7d;
+  --dark-mode: #e58c8a;
+}
+
 .titulo {
+  text-align: center;
   font-size: 24px;
-  color: #333;
+  color: var(--second-color);
   margin-bottom: 20px;
   text-decoration: none;
 }
@@ -10,7 +17,7 @@
 .productList {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: center;
   text-decoration: none;
 }
 .card {
@@ -18,27 +25,22 @@
 }
 
 .darkMode {
-  background-color: #2c3e50;
-  color: #ecf0f1;
-}
+  color: var(--dark-mode);
+} 
 
-.darkMode .titulo {
-  color: #ecf0f1;
-}
-
-.darkMode .productList {
+ .darkMode .productList {
   background-color: #34495e;
 }
 
-.lightMode {
+/* .lightMode {
   background-color: #ecf0f1;
   color: #333;
-}
+} */
 
-.lightMode .titulo {
+/* .lightMode .titulo {
   color: #333;
 }
-
+ */
 .lightMode .productList {
   background-color: #ecf0f1;
 }

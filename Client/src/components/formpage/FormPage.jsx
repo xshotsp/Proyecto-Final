@@ -19,6 +19,7 @@ const URL="https://quirkz.up.railway.app"
 const ProductForm = () => {
   const dispatch = useDispatch();
   const allBrands = useSelector((state)=>state.allBrands);
+  const darkMode = useSelector((state) => state.darkMode);
   
   
   const [errorSubmit, setErrorSubmit] = useState("");
@@ -216,8 +217,8 @@ const ProductForm = () => {
 
   return (
     <div>
-      <h2>Crear Producto</h2>
-      <form className={`${s.form} ${s["product-form"]}`} onSubmit={handleSubmit}>
+      <h2 className={s.h2}>Crear Producto</h2>
+      <form className={`${s.form} ${s["product-form"]}  ${darkMode && s.darkMode}`} onSubmit={handleSubmit}>
         <label>
           Nombre:
           <input
@@ -230,7 +231,6 @@ const ProductForm = () => {
         <span>{errors.name}</span>
         </label>
         
-        <br />
         <label
         className={s.buttonfile}
           htmlFor = "image"> Subir Imagen
@@ -244,13 +244,11 @@ const ProductForm = () => {
           </label>
         <span>{errors.image}</span>
         
-        <br />
         
-        <img src={productData.image} alt="" />
-       <br />
-       <div>
+        <img src={productData.image} alt="" className={s.img}/>
+       <div className={s.div__remove__btn}>
         {
-          productData.image && <button type="button" id="button" name="image" onClick={removeImage}>X</button>
+          productData.image && <button type="button" id="button" name="image" onClick={removeImage} className={s.remove__btn}>X</button>
         }
         
         </div>
@@ -266,34 +264,26 @@ const ProductForm = () => {
           <span>{errors.price}</span>
         </label>
         
-        <br />
         <label className="label-form" htmlFor="colour">Color</label>
             <select  name="colour" onChange={handleChange} value={productData.colour} >
             <option  hidden>seleccionar color</option>
               {color_select?.map((option, index) => (
               <option key={index} value={option}>{option}</option>))}
             </select>
-        <br />
           <span>{errors.colour}</span>
         
         
-        <br />
        
-        <br />
         <img src={productData.additionalImage[0]} alt="" />
-        <br />
         
         <span>{control}</span>
-        <br />
          <label>Marcas: </label>
         <select onChange={handleChange} name="brands" id="brands" value={productData.brands}>
           <option hidden>seleccionar marca</option>{
             allBrands?.map((b)=><option key={b} value={b.id}>{b.name}</option>)
           }
         </select>
-        <br />
         <span>{errors.brands}</span>
-        <br />
         
         <button type="submit" id="submit" disabled={buttonDisabled()}>
           Crear Producto

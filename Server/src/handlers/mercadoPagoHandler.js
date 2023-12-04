@@ -25,8 +25,8 @@ const createOrder = async (req, res) => {
                     currency_id: "ARS"
                 }],
                 "back_urls": {
-                    "success": "http://127.0.0.1:5173/",
-                    "failure": "http://127.0.0.1:5173/",
+                    "success": "http://localhost:5173/",
+                    "failure": "http://localhost:5173/",
                     "pending": ""
                 },
                 auto_return: "approved",

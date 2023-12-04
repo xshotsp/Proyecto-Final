@@ -1,24 +1,28 @@
 /* Filters.module.css */
+:root {
+  --main-color: #fff;
+  --second-color: #696d7d;
+  --dark-mode: #e58c8a;
+}
 
 .selectcontainer {
-    margin-bottom: 15px;
-  }
-  
-  .selectcontainer select {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-  }
-  
-  .darkMode {
-    background-color: #333;
-    color: #fff;
-  }
-  
-  .lightMode {
-    background-color: #fff;
-    color: #333;
-  }
-  
+  margin: 0;
+}
+
+.selectcontainer select {
+  width: 100%;
+  height: 40px;
+  padding: 10px;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.darkMode {
+  background-color: var(--dark-mode);
+  color: black;
+}
+
+.lightMode {
+  background-color: var(--second-color);
+  color: white;
+}

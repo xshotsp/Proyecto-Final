@@ -1,112 +1,109 @@
 /* En tu archivo Pagination.module.css */
 
+:root {
+  --main-color: #fff;
+  --second-color: #696d7d;
+  --dark-mode: #e58c8a;
+}
+
 .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-  }
-  
-  .paginator_buttons {
-    background-color: #3498db;
-    color: #fff;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 14px;
-    margin: 0 5px;
-  }
-  
-  .paginator_buttons:hover {
-    background-color: #2980b9;
-  }
-  
-  .paginator {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .button {
-    background-color: #ecf0f1;
-    color: #333;
-    padding: 10px 15px;
-    border: 1px solid #bdc3c7;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 14px;
-    margin: 0 5px;
-    transition: background-color 0.3s;
-  }
-  
-  .button:hover {
-    background-color: #bdc3c7;
-  }
-  
-  .button__selected {
-    background-color: #3498db;
-    color: #fff;
-  }
-  
-  /* Estilos adicionales según sea necesario */
-  
-  /* Modo oscuro */
-  
-  .darkMode {
-    background-color: #2c3e50;
-    color: #ecf0f1;
-  }
-  
-  .darkMode .paginator_buttons {
-    background-color: #2980b9;
-  }
-  
-  .darkMode .paginator_buttons:hover {
-    background-color: #2574a9;
-  }
-  
-  .darkMode .button {
-    background-color: #34495e;
-    color: #ecf0f1;
-    border-color: #2c3e50;
-  }
-  
-  .darkMode .button:hover {
-    background-color: #2c3e50;
-  }
-  
-  .darkMode .button__selected {
-    background-color: #3498db;
-  }
-  
-  /* Modo claro */
-  
-  .lightMode {
-    background-color: #ecf0f1;
-    color: #333;
-  }
-  
-  .lightMode .paginator_buttons {
-    background-color: #3498db;
-  }
-  
-  .lightMode .paginator_buttons:hover {
-    background-color: #2980b9;
-  }
-  
-  .lightMode .button {
-    background-color: #ecf0f1;
-    color: #333;
-    border-color: #bdc3c7;
-  }
-  
-  .lightMode .button:hover {
-    background-color: #bdc3c7;
-  }
-  
-  .lightMode .button__selected {
-    background-color: #3498db;
-    color: #fff;
-  }
-  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.paginator_buttons {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  margin: 0 5px;
+}
+
+.paginator_buttons:hover {
+  transition: background-color 0.3s;
+}
+
+.paginator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.button {
+  padding: 10px 15px;
+  border: 1px solid #bdc3c7;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  margin: 0 5px;
+  transition: background-color 0.3s;
+}
+
+.button:hover {
+  transition: background-color 0.3s;
+}
+
+.button__selected {
+  color: #fff;
+}
+
+/* Modo oscuro */
+
+.darkMode {
+  color: #ecf0f1;
+}
+
+.darkMode .paginator_buttons {
+  background-color: var(--dark-mode);
+  color: black;
+}
+
+.darkMode .paginator_buttons:hover {
+  background-color: var(--second-color);
+}
+
+.darkMode .button {
+  background-color: var(--dark-mode);
+  color: black;
+  border-color: #2c3e50;
+}
+
+.darkMode .button:hover {
+  background-color: #2c3e50;
+}
+
+.darkMode .button__selected {
+  background-color: var(--second-color);
+}
+
+/* Modo claro */
+
+.lightMode {
+  color: #333;
+}
+
+.lightMode .paginator_buttons {
+  background-color: #ecf0f1;
+  border: 1px solid #bdc3c7;
+}
+
+.lightMode .paginator_buttons:hover {
+  background-color: var(--dark-mode);
+}
+
+.lightMode .button {
+  background-color: #ecf0f1;
+  color: #333;
+  border-color: #bdc3c7;
+}
+
+.lightMode .button:hover {
+  background-color: var(--dark-mode);
+}
+
+.lightMode .button__selected {
+  background-color: var(--second-color);
+}
