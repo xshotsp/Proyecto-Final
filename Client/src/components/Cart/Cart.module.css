@@ -1,0 +1,112 @@
+/* Cart.module.css */
+
+.cart-items {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .cart-items-header {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .clear-cart-button {
+    background-color: #ff6347;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    margin-top: 10px;
+    cursor: pointer;
+  }
+  
+  .clear-cart-button:hover {
+    background-color: #d63a26;
+  }
+  
+  .cart-items-empty {
+    font-size: 1rem;
+    color: #555;
+    margin-top: 10px;
+  }
+  
+  .cart-items-list {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .cart-items-img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    margin-right: 10px;
+    border-radius: 8px;
+  }
+  
+  .cart-items-name h2 {
+    font-size: 1.2rem;
+    color: #333;
+    margin: 0;
+  }
+  
+  .cart-items-function {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+  }
+  
+  .cart-items-add,
+  .cart-items-remove {
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    padding: 5px;
+    margin-right: 5px;
+    cursor: pointer;
+  }
+  
+  .cart-items-add:hover,
+  .cart-items-remove:hover {
+    background-color: #45a049;
+  }
+  
+  .cart-items-price {
+    font-size: 1rem;
+    color: #555;
+    margin-left: auto;
+  }
+  
+  .cart-items-total-price-name {
+    margin-top: 20px;
+  }
+  
+  .cart-items-total-price h2 {
+    font-size: 1.5rem;
+    color: #333;
+    margin: 0;
+  }
+  
+  .cart-items-total-price button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  .cart-items-total-price button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .cart-items-total-price button:hover:enabled {
+    background-color: #0056b3;
+  }
+  

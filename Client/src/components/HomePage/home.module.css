@@ -1,0 +1,53 @@
+/* En tu archivo home.module.css */
+
+.homeContainer {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .filtersContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .filterSection {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+  }
+  
+  .filterSelect {
+    width: 200px;
+    padding: 8px;
+    font-size: 14px;
+  }
+  
+  .buttonReset {
+    background-color: #ff6666;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+  }
+  
+  .buttonReset:hover {
+    background-color: #ff4d4d;
+  }
+  
+  .filtersList {
+    display: flex;
+    gap: 10px;
+    font-size: 14px;
+    color: #666;
+    cursor: pointer;
+  }
+  
+  /* Otros estilos según sea necesario */
+  
+  

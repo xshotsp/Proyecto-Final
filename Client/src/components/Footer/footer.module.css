@@ -1,0 +1,52 @@
+/* footer.module.css */
+
+.container {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+  }
+  
+  .links {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px;
+  }
+  
+  .links li {
+    cursor: pointer;
+  }
+  
+  .socialIcons {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .iconContainer {
+    margin: 0 10px;
+  }
+  
+  .iconContainer a {
+    text-decoration: none;
+  }
+  
+  .iconContainer img {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .copyright {
+    margin-top: 20px;
+  }
+  
+  hr {
+    border-color: #fff;
+  }
+  
+  /* Hover effect for social icons */
+  .iconContainer:hover img {
+    filter: brightness(1.2);
+  }
+  

@@ -1,0 +1,171 @@
+/* En tu archivo navbar.module.css */
+
+.container {
+  background-color: #fff; /* Color de fondo del contenedor */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav a {
+  text-decoration: none;
+}
+.nav {
+  display: flex;
+  align-items: center;
+  flex-grow: 1; /* Nuevo estilo para que los enlaces ocupen todo el espacio disponible */
+}
+
+.nav__h1 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: bold;
+  text-decoration: none; /* Quitar decoración del título */
+  color: #333; /* Color del texto del título */
+  display: flex; /* Nueva propiedad */
+  align-items: center; /* Nueva propiedad */
+}
+
+.nav__ul {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+  justify-content: flex-end; /* Mover los enlaces al extremo derecho */
+  flex-grow: 1; /* Que los enlaces ocupen todo el espacio disponible */
+}
+
+.nav__ul li {
+  margin-right: 20px;
+  cursor: pointer;
+  position: relative;
+}
+
+.nav__ul li span {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: #fff;
+  padding: 5px;
+  border-radius: 4px;
+  font-size: 14px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s;
+}
+
+.nav__ul li:hover span {
+  opacity: 1;
+  visibility: visible;
+}
+
+.nav__ul li.active span {
+  opacity: 1;
+  visibility: visible;
+}
+
+.cart {
+  position: relative;
+}
+
+.cart span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ff5722;
+  color: #fff;
+  border-radius: 50%;
+  padding: 5px;
+  font-size: 12px;
+}
+
+.darkModeToggle {
+  cursor: pointer;
+}
+
+.darkModeIcon {
+  font-size: 20px;
+  color: #333;
+  transition: color 0.3s;
+}
+
+.darkModeToggle:hover .darkModeIcon {
+  color: #f39c12;
+}
+
+.user__photo {
+  cursor: pointer;
+}
+
+.user__photo img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.user__options {
+  position: absolute;
+  top: 60px;
+  right: 0;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  padding: 10px;
+  z-index: 1;
+}
+
+.user__options p {
+  margin: 0;
+  font-size: 14px;
+}
+
+.user__options button {
+  background-color: #e74c3c;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.user__options button:hover {
+  background-color: #c0392b;
+}
+
+/* Nuevos estilos para el SearchBar */
+.searchBar {
+  flex-grow: 1;
+  margin: 0 20px;
+  display: flex;
+  align-items: center;
+}
+
+.searchInput {
+  flex-grow: 1;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.searchButton {
+  background-color: #3498db;
+  color: #fff;
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.searchButton:hover {
+  background-color: #2980b9;
+}
+
+/* Otros estilos según sea necesario */

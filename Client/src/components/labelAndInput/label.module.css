@@ -1,0 +1,23 @@
+/* En tu archivo labelAndInput.module.css */
+
+.labelAndInputContainer {
+    margin-bottom: 16px;
+  }
+  
+  .label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 8px;
+  }
+  
+  .input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+  /* Otros estilos según sea necesario */
+  
+  

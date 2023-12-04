@@ -1,0 +1,89 @@
+/* En tu archivo ProductList.module.css */
+
+.titulo {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
+  text-decoration: none;
+}
+
+.productList {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  text-decoration: none;
+}
+.card {
+  text-decoration: none;
+}
+
+.darkMode {
+  background-color: #2c3e50;
+  color: #ecf0f1;
+}
+
+.darkMode .titulo {
+  color: #ecf0f1;
+}
+
+.darkMode .productList {
+  background-color: #34495e;
+}
+
+.lightMode {
+  background-color: #ecf0f1;
+  color: #333;
+}
+
+.lightMode .titulo {
+  color: #333;
+}
+
+.lightMode .productList {
+  background-color: #ecf0f1;
+}
+
+/* Estilos adicionales según sea necesario */
+
+.cardContainer {
+  width: 100%;
+  max-width: 300px;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.cardImage {
+  width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.cardTitle {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.cardPrice {
+  font-size: 16px;
+  color: #3498db;
+  margin-bottom: 10px;
+}
+
+.cardButton {
+  background-color: #3498db;
+  color: #fff;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.cardButton:hover {
+  background-color: #2980b9;
+}

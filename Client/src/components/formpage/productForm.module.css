@@ -1,0 +1,93 @@
+/* productForm.module.css */
+
+.form {
+  display: flex;
+  flex-direction: column;
+  max-width: 300px; /* Ajusta el ancho según tus necesidades */
+  margin: auto;
+}
+
+.product-form label {
+  margin-bottom: 5px; /* Reduce el espacio entre etiquetas y campos de entrada */
+}
+
+.product-form input,
+.product-form select {
+  width: 100%;
+  padding: 6px; /* Reduce el relleno de los campos de entrada */
+  margin-bottom: 8px; /* Ajusta el espacio entre campos de entrada */
+  box-sizing: border-box;
+}
+
+.product-form button {
+  background-color: #4caf50;
+  color: #fff;
+  padding: 8px; /* Ajusta el relleno del botón */
+  cursor: pointer;
+}
+
+.product-form button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.product-form span {
+  color: #ff0000;
+  font-size: 12px;
+  margin-bottom: 8px; /* Ajusta el espacio entre mensajes de error */
+  display: block;
+}
+
+.product-form .buttonfile {
+  display: inline-block;
+  margin-bottom: 8px; /* Ajusta el espacio entre el campo de archivo y los demás elementos */
+}
+
+.product-form .inputfile {
+  display: none;
+}
+
+.product-form img {
+  max-width: 100%;
+  margin-top: 8px; /* Ajusta el espacio entre la imagen y otros elementos */
+}
+
+.product-form #button {
+  background-color: #ff0000;
+  color: #fff;
+  border: none;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.product-form #button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.product-form .precio {
+  margin-top: 8px; /* Ajusta el espacio entre el campo de precio y otros elementos */
+}
+
+.product-form .label-form {
+  margin-top: 8px; /* Ajusta el espacio entre etiquetas y campos de entrada */
+}
+
+.product-form .label-form select {
+  margin-bottom: 8px; /* Ajusta el espacio entre campos de entrada y el botón */
+}
+
+.product-form .buttonfile {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.product-form .inputfile {
+  font-size: 100px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  cursor: pointer;
+}

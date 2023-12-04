@@ -1,0 +1,39 @@
+/* Hero.module.css */
+.heroContainer {
+    position: relative;
+    height: 700px; /* Puedes ajustar la altura según tus necesidades */
+
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden; /* Para asegurar que la imagen no se desborde del contenedor */
+  }
+  
+  .heroText {
+    color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 80%; /* Limita el ancho del texto para evitar que ocupe demasiado espacio */
+  }
+  
+  .heroText h2 {
+    margin: 0;
+    color: #fff;
+  }
+  
+  /* Añade un estilo adicional para la imagen de fondo para asegurarte de que cubra todo el contenedor */
+  .heroContainer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.3); /* Un overlay oscuro para mejorar la legibilidad del texto */
+    z-index: -1;
+  }
+  
