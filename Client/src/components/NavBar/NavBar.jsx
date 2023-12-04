@@ -14,7 +14,7 @@ import {
 import SearchBar from '../searchbar/SearchBar';
 import styles from './navbar.module.css';
 
-const NavBar = ({ isLoggedIn, setLoggedIn }) => {
+const NavBar = ({ login, setLogin }) => {
   const [activePage, setActivePage] = useState('');
   const dispatch = useDispatch();
   const darkMode = useSelector((state) => state.darkMode);
@@ -34,17 +34,16 @@ const NavBar = ({ isLoggedIn, setLoggedIn }) => {
   };
 
   const handleLogout = () => {
-    setLoggedIn({
+    setLogin({
       access: false,
-      email: '',
-      photo: '',
+      email: "",
+      photo: "",
     });
 
-   
-    signOutFunction();
+    signOutFunction()
 
     setShowOptions(false);
-    navigate('/');
+    navigate("/");
   };
 
   return (
@@ -67,7 +66,7 @@ const NavBar = ({ isLoggedIn, setLoggedIn }) => {
               {activePage === 'contacto' && <span>Contacto</span>}
             </li>
           </Link>
-          {!isLoggedIn.access && (
+          {!login.access && (
             <Link
               to="/createuser"
               onMouseEnter={() => handleMouseEnter('createuser')}
@@ -79,7 +78,7 @@ const NavBar = ({ isLoggedIn, setLoggedIn }) => {
               </li>
             </Link>
           )}
-          {!isLoggedIn.access && (
+          {!login.access && (
             <Link
               to="/login"
               onMouseEnter={() => handleMouseEnter('login')}

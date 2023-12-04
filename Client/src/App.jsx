@@ -13,19 +13,40 @@ import {toggleDarkMode} from './redux/actions/actions'
 import { useEffect, useState } from "react";
 import Contact from "./components/Contact/Contact";
 import Error404 from "./components/Error/Error404";
-
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "./firebase/firebase.config";
 
 function App() {
   const darkMode = useSelector(state => state.darkMode); 
   const cartFromLocalStorage = JSON.parse(localStorage.getItem("cart") || '[]')
   const [cartItems, setCartItems] = useState(cartFromLocalStorage); 
-  const [isLoggedIn, setLoggedIn] = useState(false);
   const dispatch = useDispatch();
-
+  const [login, setLogin] = useState({
+    access: false,
+    email: "",
+    photo: "",
+  });
 
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cartItems))
-  }, [cartItems])
+    onAuthStateChanged(auth, async (user) => {
+      if (user === null) {
+        setLogin({
+          access: false,
+          email: "",
+          photo: "",
+        });
+      } else {
+        const userObject = {
+          access: true,
+          email: user.email,
+          photo: user.photoURL,
+        };
+        setLogin(userObject);
+      }
+    });
+  }, [cartItems]);
+  console.log(Login)
 
   const handleAddProduct = (product) => {
     const ProductExist = cartItems.find((item) => item.id === product.id);
@@ -60,7 +81,7 @@ function App() {
 
   return (
     <div className="App">
-     <NavBar darkMode={darkMode} setDarkMode={() => dispatch(toggleDarkMode())} isLoggedIn={isLoggedIn} setLoggedIn={setLoggedIn} cartItems={cartItems}/>
+     <NavBar darkMode={darkMode} setDarkMode={() => dispatch(toggleDarkMode())}  login={login} setLogin={setLogin} cartItems={cartItems}/>
       <Routes>
         <Route path="/" element={<HomePage
         handleAddProduct={handleAddProduct} 
@@ -69,7 +90,7 @@ function App() {
         handleAddProduct={handleAddProduct} />} />
         <Route path="/contacto" element={<Contact />} />
         <Route path="/form" element={<FormPage />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<Login login={login} setLogin={setLogin} />}  />
         <Route path="/createuser" element={<CreateUserForm />} />
         <Route path="*" element={<Error404 />} />
         <Route path="/cart"
