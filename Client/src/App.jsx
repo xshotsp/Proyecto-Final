@@ -15,6 +15,7 @@ import Contact from "./components/Contact/Contact";
 import Error404 from "./components/Error/Error404";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase/firebase.config";
+import Swal from 'sweetalert2';
 
 function App() {
   const darkMode = useSelector((state) => state.darkMode);
@@ -60,6 +61,13 @@ function App() {
     } else {
       setCartItems([...cartItems, { ...product, quantity: 1 }]);
     }
+    Swal.fire({
+      icon: 'success',
+      title: '',
+      text: 'sumado al carrito ',
+      showConfirmButton: false,
+      timer: 1500
+    })
   };
 
   const handleRemoveProduct = (product) => {
@@ -116,6 +124,7 @@ function App() {
           path="/cart"
           element={
             <Cart
+              login = {login}
               cartItems={cartItems}
               handleRemoveProduct={handleRemoveProduct}
               handleClearCart={handleClearCart}
