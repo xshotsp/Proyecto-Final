@@ -23,12 +23,15 @@ const SearchBar = () => {
   };
 
   const handleSearch = async (event) => {
-    event.preventDefault();
-    try {
-      await dispatch(getProductName(search));
-      setSearch("");
-    } catch (error) {
-      console.log(error);
+    if (event.key === "Enter") { // Verifica si se presionó la tecla "Enter"
+      event.preventDefault();
+      console.log("Tecla presionada:", event.key); // Agrega este console.log para depurar
+      try {
+        await dispatch(getProductName(search));
+        setSearch("");
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
