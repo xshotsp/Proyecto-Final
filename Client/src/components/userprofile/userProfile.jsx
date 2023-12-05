@@ -1,36 +1,36 @@
 // Profile.jsx
 
 import React, { useState } from 'react';
+import styles from './userProfile.module.css';
 
 const Profile = () => {
-  const [profileImage, setProfileImage] = useState('url_de_la_imagen.jpg'); // La URL de la imagen de perfil
+  const [profileImage, setProfileImage] = useState('url_de_la_imagen.jpg');
   const [userName, setUserName] = useState('Nombre de Usuario');
   const [email, setEmail] = useState('correo@ejemplo.com');
 
   const handleImageChange = (event) => {
-    // Implementa la lógica para cambiar la imagen de perfil
-    const newImageUrl = event.target.value; // Puedes usar un campo de texto o cargar una nueva imagen
+    const newImageUrl = event.target.value;
     setProfileImage(newImageUrl);
   };
 
   return (
-    <div>
+    <div className={styles.container}>
       <h2>Perfil de Usuario</h2>
       <div>
-        <img src={profileImage} alt="Imagen de perfil" />
+        <img className={styles.profileImage} src={profileImage} alt="Imagen de perfil" />
         <input
+          className={styles.imageInput}
           type="text"
           placeholder="URL de nueva imagen"
           value={profileImage}
           onChange={handleImageChange}
         />
       </div>
-      <div>
+      <div className={styles.userDetails}>
         <p>Nombre de Usuario: {userName}</p>
         <p>Email: {email}</p>
       </div>
-      {/* Agrega enlaces o botones para ir a otras secciones del perfil, como Mis Pedidos */}
-      <div>
+      <div className={styles.linkSection}>
         <a href="/mis-pedidos">Mis Pedidos</a>
       </div>
     </div>

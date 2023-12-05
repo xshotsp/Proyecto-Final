@@ -1,55 +1,28 @@
+/* Filters.module.css */
 :root {
-  --morado: #9b59b6;
-  --blanco: #FFFF;
-  --morado-claro: #9370DB;
-  --gris: #ccc;
+  --main-color: #fff;
+  --second-color: #696d7d;
+  --dark-mode: #e58c8a;
 }
 
 .selectcontainer {
-  display: flex;
-  position: relative;
-  align-items: center;
-  align-content: center;
-  text-align: center;
-  flex-wrap: wrap;
-  top: 550px;
-  left: 17%;
+  margin: 0;
 }
 
 .selectcontainer select {
   width: 100%;
+  height: 40px;
   padding: 10px;
-  cursor: pointer;
-  outline: none;
-  border-radius: 5px;
+  border-radius: 4px;
+  box-sizing: border-box;
 }
 
-.selectcontainer select option {
-  background-color: var(--morado);
-  color: var(--blanco);
-  border-radius: 0;
-  font-family: 'Monserrat';
-  font-weight: 400;
-  cursor: pointer;
+.darkMode {
+  background-color: var(--dark-mode);
+  color: black;
 }
 
-.darkMode select {
-  color: var(--morado);
-  background-color: var(--blanco);
-  font-family: 'Monserrat';
-  font-weight: 300;
-  border-radius: 5px;
+.lightMode {
+  background-color: var(--second-color);
+  color: white;
 }
-
-.darkMode select option {
-  background-color: var(--blanco);
-  color: var(--morado);
-}
-
-.lightMode select {
-  background-color: var(--morado);
-  color: var(--blanco);
-  font-family: 'Monserrat';
-  font-weight: 300;
-}
-

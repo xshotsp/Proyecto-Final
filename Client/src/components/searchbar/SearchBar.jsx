@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import styles from "./SearchBar.module.css";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from "react-redux";
 import { getProductName, getFilters } from "../../redux/actions/actions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
@@ -8,7 +8,7 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons";
 const SearchBar = () => {
   const dispatch = useDispatch();
   const [search, setSearch] = useState("");
-  const [initialFilters,setInitialFilters] = useState({})
+  const [initialFilters, setInitialFilters] = useState({});
   const darkMode = useSelector((state) => state.darkMode);
 
   useEffect(() => {
@@ -22,7 +22,6 @@ const SearchBar = () => {
     dispatch(getFilters(initialFilters));
   };
 
-
   const handleSearch = async (event) => {
     event.preventDefault();
     try {
@@ -34,9 +33,13 @@ const SearchBar = () => {
   };
 
   return (
-    <div className={`${styles.container} ${darkMode ? styles.darkMode : styles.lightMode}`}>
+    <div
+      className={`${styles.container} ${
+        darkMode ? styles.darkMode : styles.lightMode
+      }`}
+    >
       <input
-        name = "name"
+        name="name"
         type="text"
         placeholder="Buscar..."
         value={search}
@@ -44,7 +47,7 @@ const SearchBar = () => {
         className={styles.input}
       />
 
-<button onClick={handleSearch} className={styles.search}>
+      <button onClick={handleSearch} className={styles.search}>
         <FontAwesomeIcon icon={faSearch} />
       </button>
     </div>

@@ -1,104 +1,144 @@
 /* productForm.module.css */
 
-.product-form {
-    max-width: 400px;
-    margin: 0 auto;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    color: #000;
-  }
-  
-  .product-form fieldset {
-    border: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .product-form label {
-    display: block;
-    margin-bottom: 5px;
-  }
-  
-  .product-form input {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #555;
-    border-radius: 5px;
-    background-color: #fff;
-    color: #000; 
-  }
+:root {
+  --main-color:#fff;
+  --second-color: #696D7D;
+  --dark-mode: #E58C8A;
+}
 
-  .precio {
-    width: 50%;
-    padding: 8px;
-    margin-bottom: 5px;
-    margin: auto;
-  }
-  
-  .product-form button {
-    width: 50%;
-    padding: 10px;
-    background-color: #000;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 20px;
-  }
-  
-  .product-form button:hover {
-    background-color: #27ae60;
-  }
-  
-  .product-form span {
-    color: #e74c3c;
-    font-size: 14px;
-    
-  }
-  
-  .product-form p {
-    color: #888;
-    font-size: 14px;
-  }
-  
-  .product-form .notification {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background-color: #e74c3c;
-    color: #fff;
-    padding: 10px;
-    border-radius: 5px;
-    display: none;
-  }
-  
-  .product-form .notification.show {
-    display: block;
-  }
+.h2 {
+  text-align: center;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  max-width: 300px; /* Ajusta el ancho según tus necesidades */
+  margin: 10px auto;
+  border: 1px solid var(--second-color);
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px rgba(128, 128, 128, 0.361);
+}
 
-  .product-form img {
-    max-width: 60px;
-    max-height: 100px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-top: -20px;
-    text-align: center
+.darkMode .form{
+  border: 1px solid var(--dark-mode);
+}
 
-  }
+.darkMode label{
+  color: var(--dark-mode);
+}
 
-  .inputfile {
-    display:none;
-  }
+.img{
+  margin: 0 auto;
+  width: 200px;
+  border-radius: 20px;
+}
 
-  .buttonfile {
-    background-color: #8f6aae;
-    padding: 5px;
-    width: 50%;
-    color: white;
-    margin: auto;
-    margin-top: 20px;
-    border-radius: 5px;
-  }
-  
+.div__remove__btn{
+  margin-top: 10px;
+  display: flex;
+  place-items: center;
+}
+
+.remove__btn{
+  display: flex;
+  place-items: center;
+  margin: 0 auto;
+  height: 30px;
+  border-radius: 5px;
+}
+
+.product-form label {
+  margin-bottom: 5px; /* Reduce el espacio entre etiquetas y campos de entrada */
+}
+
+.product-form input,
+.product-form select {
+  width: 100%;
+  padding: 6px; /* Reduce el relleno de los campos de entrada */
+  margin-bottom: 8px; /* Ajusta el espacio entre campos de entrada */
+  box-sizing: border-box;
+}
+
+.product-form button {
+  border-radius: 5px;
+  background-color: #4caf50;
+  color: #fff;
+  padding: 8px; /* Ajusta el relleno del botón */
+  cursor: pointer;
+}
+
+.product-form button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.product-form span {
+  color: #ff0000;
+  font-size: 12px;
+  margin-bottom: 8px; /* Ajusta el espacio entre mensajes de error */
+  display: block;
+}
+
+.product-form .buttonfile {
+  margin: 0 auto;
+  width: 50%;
+  border: 1px solid var(--second-color);
+  border-radius: 5px;
+  text-align: center;
+  margin-bottom: 8px; /* Ajusta el espacio entre el campo de archivo y los demás elementos */
+}
+.buttonfile:hover{
+  background-color: var(--second-color);
+  color: white;
+  transition: all 0.2s ease-out;
+}
+
+.product-form .inputfile {
+  display: none;
+}
+
+.product-form img {
+  max-width: 100%;
+  margin-top: 8px; /* Ajusta el espacio entre la imagen y otros elementos */
+}
+
+.product-form #button {
+  background-color: #ff0000;
+  color: #fff;
+  border: none;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.product-form #button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.product-form .precio {
+  margin-top: 8px; /* Ajusta el espacio entre el campo de precio y otros elementos */
+}
+
+.product-form .label-form {
+  margin-top: 8px; /* Ajusta el espacio entre etiquetas y campos de entrada */
+}
+
+.product-form .label-form select {
+  margin-bottom: 8px; /* Ajusta el espacio entre campos de entrada y el botón */
+}
+
+.product-form .buttonfile {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.product-form .inputfile {
+  font-size: 100px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  cursor: pointer;
+}
