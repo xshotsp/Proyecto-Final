@@ -7,7 +7,7 @@ import colection3Image from '../../assets/colection3.jpeg';
 const Hero = () => {
   const [currentImage, setCurrentImage] = useState(0);
 
-  const images = [colection1Image, colection2Image,colection3Image];
+  const images = [colection1Image, colection2Image, colection3Image];
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -17,6 +17,14 @@ const Hero = () => {
     return () => clearInterval(intervalId);
   }, []);
 
+  const nextImage = () => {
+    setCurrentImage((prevImage) => (prevImage + 1) % images.length);
+  };
+
+  const prevImage = () => {
+    setCurrentImage((prevImage) => (prevImage - 1 + images.length) % images.length);
+  };
+
   const backgroundImageStyle = {
     backgroundImage: `url(${images[currentImage]})`,
   };
@@ -24,7 +32,7 @@ const Hero = () => {
   return (
     <div className={s.heroContainer} style={backgroundImageStyle}>
       <div className={s.heroText}>
-        <h2>!NUEVA COLECCIÓN DISPONIBLE!</h2>
+        <h2>¡NUEVA COLECCIÓN DISPONIBLE!</h2>
       </div>
     </div>
   );

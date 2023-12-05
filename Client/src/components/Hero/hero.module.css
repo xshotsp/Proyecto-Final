@@ -1,37 +1,39 @@
-/* hero.module.css */
-
+/* Hero.module.css */
 .heroContainer {
-  position: relative;
-  width: 96%;
-  right: 1%;
-  top: 535px;
-  height: 550px;
-  background-color: #4CAF50;
-  color: #ffffff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0 auto;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  transition: background-image 0.5s ease-in-out;
-  overflow: hidden;
-}
+    position: relative;
+    height: 700px; /* Puedes ajustar la altura según tus necesidades */
 
-.heroContainer::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.3);
-}
-
-.heroText {
-  text-align: center;
-  font-family: 'Monastery';
-  font-style: italic;
-  z-index:1;
-}
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden; /* Para asegurar que la imagen no se desborde del contenedor */
+  }
+  
+  .heroText {
+    color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 80%; /* Limita el ancho del texto para evitar que ocupe demasiado espacio */
+  }
+  
+  .heroText h2 {
+    margin: 0;
+    color: #fff;
+  }
+  
+  /* Añade un estilo adicional para la imagen de fondo para asegurarte de que cubra todo el contenedor */
+  .heroContainer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.3); /* Un overlay oscuro para mejorar la legibilidad del texto */
+    z-index: -1;
+  }
+  

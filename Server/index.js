@@ -25,7 +25,7 @@ server.use((req, res, next) => {
 
 
 
-conn.sync({ force: true }).then(() => {
+conn.sync({ force: false }).then(() => {
 server.listen(PORT, async() => {
   
   await apiLoaderProducts()

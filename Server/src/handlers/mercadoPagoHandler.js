@@ -22,11 +22,11 @@ const createOrder = async (req, res) => {
                     unit_price: price,
                     colour: colour,
                     brands: brands,
-                    currency_id: "ARG"
+                    currency_id: "ARS"
                 }],
                 "back_urls": {
-                    "success": "http://127.0.0.1:5173/",
-                    "failure": "http://127.0.0.1:5173/",
+                    "success": "http://localhost:5173/",
+                    "failure": "http://localhost:5173/",
                     "pending": ""
                 },
                 auto_return: "approved",
