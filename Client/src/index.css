@@ -30,6 +30,7 @@ body {
   min-width: 320px;
   height: 100vh;
   overflow-y: auto; 
+  background-color: #f9f9f9;
 }
 
 

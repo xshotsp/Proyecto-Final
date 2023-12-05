@@ -186,28 +186,12 @@ padding: 0 30px;
     width: 70vh;
   }
 
-.bx_user{
- height: 23px;
-}
-
 .bx_contra{
   height: 23px;
  }
 
  .bx_email{
   height: 23px;
- }
-
- .bx_fc{
-  height: 30px;
- }
-
- .bx_gl{
-  height: 30px;
- }
-
- .bx_in{
-  height: 30px;
  }
 
  @media screen and (max-width:750px) {

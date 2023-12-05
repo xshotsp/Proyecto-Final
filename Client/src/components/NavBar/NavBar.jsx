@@ -76,6 +76,7 @@ const NavBar = ({isLoggedIn, setLoggedIn }) => {
             </li>
           </Link>
           )}
+          
           {!isLoggedIn.access && (
            <Link
            to="/login"

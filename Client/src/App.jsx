@@ -7,6 +7,7 @@ import HomePage from "./components/HomePage/HomePage";
 import FormPage from "./components/formpage/FormPage";
 import Login from "./components/Login/Login";
 import DetailPage from "./components/detailpage/DetailPage";
+import Dashboard from "./components/Dashboard/Dashboard";
 import Cart from "./components/Cart/Cart";
 import { useSelector, useDispatch } from 'react-redux';
 import {toggleDarkMode} from './redux/actions/actions'
@@ -66,6 +67,7 @@ function App() {
         <Route path="/form" element={<FormPage />} />
         <Route path="/login" element={<Login setLoggedIn={setLoggedIn} isLoggedIn={isLoggedIn} />} />
         <Route path="/createuser" element={<CreateUserForm />} />
+        <Route path="/dashboard/admin" element={<Dashboard/>} />
         <Route path="/cart"
          element={<Cart
           cartItems={cartItems}
