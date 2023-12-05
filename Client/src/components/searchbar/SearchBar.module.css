@@ -1,52 +1,60 @@
+/* En tu archivo SearchBar.module.css */
 :root {
-  --morado: #9b59b6;
-  --blanco: #ffff;
-  --negro: #000;
-  --input:#4444;
+  --main-color:#fff;
+  --second-color: #696D7D;
 }
-
 .container {
   display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  width: 20%;
-  height: 40px;
-  left: 34%;
-  position: relative;
+  place-items: center;
+  width: 100%;
+  max-width: 600px;
 }
 
 .input {
-  padding: 10px;
-  border-radius: 20px;
+  border: 1px solid var(--second-color);
+  border-radius: 5px;
+  margin: 0;
+  font-size: 16px;
+  height: 40px;
   margin-right: 10px;
-  background-color: var(--input);
-  border: var(--titulos);
-  outline: none; /* Evitar el borde al hacer clic */
 }
 
 .search {
-  background-color: transparent;
+  color: #fff;
   border: none;
-  color: var(--titulos);
-  outline: none !important; /* Evitar el borde al hacer clic */
+  border-radius: 5px;
+  cursor: pointer;
 }
 
-.lightMode .search {
-  color:var(--morado);
+.search:hover {
+  background-color: #2980b9;
 }
 
-.darkMode .search {
-  color: var(--blanco);
-}
-
-.lightMode .input {
-
-  background-color:var(--input);
-  
+.darkMode {
+  color: #ecf0f1;
 }
 
 .darkMode .input {
-  background-color:var(--blanco);
- 
+  background-color: black;
+  color: #ecf0f1;
 }
 
+.darkMode .search {
+  background-color: #E58C8A;
+  color: #fff;
+}
+
+.lightMode {
+  background-color: var(--main-color);
+  color: #333;
+}
+
+.lightMode .input {
+  background-color: #fff;
+  color: #333;
+}
+
+.lightMode .search {
+  background-color: var(--second-color);
+  color: #fff;
+}

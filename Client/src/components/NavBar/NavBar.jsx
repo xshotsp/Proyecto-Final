@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 import { toggleDarkMode } from "../../redux/actions/actions";
 import { useDispatch, useSelector } from "react-redux";

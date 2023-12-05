@@ -1,5 +1,6 @@
+/* eslint-disable react/prop-types */
 import React from "react";
-import { useSelector} from "react-redux";
+import { useSelector } from "react-redux";
 import styles from "./Pagination.module.css";
 
 const Pagination = ({
@@ -8,7 +9,6 @@ const Pagination = ({
   setCurrentPage,
   currentPage,
 }) => {
-
   const darkMode = useSelector((state) => state.darkMode);
 
   let pages = [];
@@ -39,7 +39,7 @@ const Pagination = ({
     <div className={`${styles.container} ${darkMode ? styles.darkMode : styles.lightMode}`}>
       {isMinimumToRender && (
         <button
-        className={`${styles.paginator_buttons} ${darkMode ? styles.darkMode : styles.lightMode}`}
+          className={`${styles.paginator_buttons} ${darkMode ? styles.darkMode : styles.lightMode}`}
           onClick={() => handleCurrentPage(-1)}
         >
           Prev
@@ -63,7 +63,7 @@ const Pagination = ({
       </div>
       {isMinimumToRender && (
         <button
-        className={`${styles.paginator_buttons} ${darkMode ? styles.darkMode : styles.lightMode}`}
+          className={`${styles.paginator_buttons} ${darkMode ? styles.darkMode : styles.lightMode}`}
           onClick={() => handleCurrentPage(1)}
         >
           Next
