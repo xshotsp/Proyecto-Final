@@ -1,18 +1,31 @@
-import React from 'react';
+import React from "react";
+import { useSelector } from "react-redux";
+import Styles from "./Filters.module.css";
 
-import Styles from './Filters.module.css';
+const Filters = ({ name, ticket, options, handleChange, state }) => {
+  const darkMode = useSelector((state) => state.darkMode);
 
-const Filters = ({ name, options, handleChange, state }) => (
+  return (
     <div className={Styles.selectcontainer}>
-      <select  name={name} onChange={handleChange} value={state || ""}>
-        <option value="" disabled hidden>{name}</option>
+      <select
+        name={name}
+        onChange={handleChange}
+        value={state || ""}
+        className={`${
+          darkMode ? Styles.darkMode : Styles.lightMode
+        }`}
+      >
+        <option value="" disabled hidden>
+          {ticket}
+        </option>
         {options?.map((option, index) => (
           <option key={index} value={option}>
             {option}
           </option>
         ))}
       </select>
-      </div>
+    </div>
   );
+};
 
 export default Filters;

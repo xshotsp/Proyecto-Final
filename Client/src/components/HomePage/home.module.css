@@ -1,5 +1,82 @@
-.filtersContainer {
+/* En tu archivo home.module.css */
+:root {
+  --main-color:#fff;
+  --second-color: #696D7D;
+  --dark-mode: #E58C8A;
+}
+
+
+.homeContainer {
+  display: flex;
+  place-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .filtersContainer {
     display: flex;
     justify-content: space-around;
-    margin-bottom: 20px; 
+    margin: 10px auto;
+    width: 50%;
+    align-items: center;
+    padding: 10px;
   }
+  
+  .filterSection {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+  }
+  
+  .filterSelect {
+    width: 200px;
+    padding: 8px;
+    font-size: 14px;
+  }
+
+ 
+  
+  .reset__button {
+    padding: 0 auto;
+    background-color: var(--second-color);
+    border-radius: 4px;
+    height: 40px;
+    color: #fff;
+    border: 1px solid var(--second-color);
+    cursor: pointer;
+    font-weight: bold;
+  }
+
+  .darkMode{
+    background-color: var(--dark-mode);
+    color: black;
+  }
+  
+  .buttonReset:hover {
+    background-color: #ff4d4d;
+  }
+  
+  .filtersList {
+    display: flex;
+    gap: 10px;
+    font-size: 14px;
+    color: #666;
+    cursor: pointer;
+  }
+  
+  .remove{
+    display: flex;
+    place-items: center;
+    height: 40px;
+    border-radius: 4px;
+    padding: 3px;
+    background-color: rgb(232, 1, 1);
+  }
+
+  .remove:hover{
+    background-color: rgb(117, 0, 0);
+  }
+  /* Otros estilos según sea necesario */
+  
+  

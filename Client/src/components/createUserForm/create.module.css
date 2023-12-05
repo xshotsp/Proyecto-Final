@@ -1,64 +1,73 @@
+.form__container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
 .s-form {
-    max-width: 400px;
-    margin: 0 auto;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    color: #000;
-  }
-  
-  .s-form fieldset {
-    border: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .s-form label {
-    display: block;
-    margin-bottom: 5px;
-  }
-  
-  .s-form input {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 15px;
-    border: 1px solid #555;
-    border-radius: 5px;
-    background-color: #fff;
-    color: #fff;
-  }
-  
-  .s-form button {
-    width: 100%;
-    padding: 10px;
-    background-color: #000;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .s-form button:hover {
-    background-color: #27ae60;
-  }
-  
-  .s-form p {
-    color: #888;
-    font-size: 14px;
-  }
-  
-  .s-form .notification {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background-color: #e74c3c;
-    color: #fff;
-    padding: 10px;
-    border-radius: 5px;
-    display: none;
-  }
-  
-  .s-form .notification.show {
-    display: block;
-  }
+  margin-top: 20px;
+}
+
+fieldset {
+  border: none;
+}
+
+legend {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+LabelAndInput {
+  margin-bottom: 15px;
+}
+
+label {
+  font-size: 1rem;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+p {
+  font-size: 1rem;
+  color: #d9534f; /* / Color de error / */
+  margin-top: 5px;
+  margin-bottom: 15px;
+}
+
+span {
+  font-size: 0.8rem;
+  color: #777;
+}
+
+button {
+  background-color: #5bc0de; /* / Color de fondo del botón / */
+  color: #fff; /* / Color del texto del botón / */
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #46b8da; /* / Color de fondo del botón al pasar el ratón  */
+}

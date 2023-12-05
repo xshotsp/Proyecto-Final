@@ -1,78 +1,28 @@
 /* Filters.module.css */
+:root {
+  --main-color: #fff;
+  --second-color: #696d7d;
+  --dark-mode: #e58c8a;
+}
+
 .selectcontainer {
-  display: flex;
-  align-items: center;
-  align-content: center;
-  text-align: center;
-  flex-wrap: wrap;
+  margin: 0;
 }
 
-select {
-  padding: 0.5rem;
-  font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  background-color: white;
-}
-
-
-option {
-  font-size: 1rem;
-  padding: 0.5rem;
-}
-
-
-/* Filters.module.css */
-.selectcontainer {
-  display: flex;
-  align-items: center;
-  margin: 0.1rem;
-  perspective: 1000px; 
-}
-
-select {
-  padding: 0.5rem;
-  font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  background-color: #f0f0f0;
-  min-width: 150px;
-  cursor: pointer;
-  transition: transform 0.2s ease-in-out, background-color 0.2s, transform 0.2s; 
-}
-
-select:hover {
-  transform: translateY(-3px) rotateX(5deg); 
-  border: 1px solid #030303;
-}
-
-select:focus {
-  outline: none;
-}
-
-.selectcontainer:hover .options {
-  display: block;
-}
-
-.options {
-  display: none;
-  position: absolute;
-  top: 100%;
-  left: 0;
+.selectcontainer select {
   width: 100%;
-  background-color: #ffffff8e;
-  border: 1px solid #0f8804bf;
-  border-radius: 5px;
-  padding: 5px;
-  z-index: 1;
-  transition: display 0.2s;
+  height: 40px;
+  padding: 10px;
+  border-radius: 4px;
+  box-sizing: border-box;
 }
 
-.option {
-  padding: 5px;
-  cursor: pointer;
+.darkMode {
+  background-color: var(--dark-mode);
+  color: black;
 }
 
-.hovered .options {
-  display: block;
+.lightMode {
+  background-color: var(--second-color);
+  color: white;
 }

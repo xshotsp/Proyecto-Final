@@ -24,4 +24,4 @@ dist-ssr
 *.sw?
 package-lock.json
 Client/package-lock.json
-components/data/data.js
+yarn.lock

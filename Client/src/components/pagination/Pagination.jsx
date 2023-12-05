@@ -1,14 +1,18 @@
 /* eslint-disable react/prop-types */
+import React from "react";
+import { useSelector } from "react-redux";
 import styles from "./Pagination.module.css";
 
 const Pagination = ({
-  filteredCountries,
+  filteredProducts,
   cardsPerPage,
   setCurrentPage,
   currentPage,
 }) => {
+  const darkMode = useSelector((state) => state.darkMode);
+
   let pages = [];
-  let totalPages = Math.ceil(filteredCountries.length / cardsPerPage);
+  let totalPages = Math.ceil(filteredProducts.length / cardsPerPage);
   for (let i = 1; i <= totalPages; i++) {
     pages.push(i);
   }
@@ -23,7 +27,7 @@ const Pagination = ({
     pagesToShow = pages.slice(0, 9);
   }
 
-  let isMinimumToRender = filteredCountries.length > cardsPerPage;
+  let isMinimumToRender = filteredProducts.length > cardsPerPage;
 
   const handleCurrentPage = (value) => {
     let checkValue = currentPage + value;
@@ -32,16 +36,16 @@ const Pagination = ({
   };
 
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} ${darkMode ? styles.darkMode : styles.lightMode}`}>
       {isMinimumToRender && (
         <button
-          className={styles.paginator_buttons}
+          className={`${styles.paginator_buttons} ${darkMode ? styles.darkMode : styles.lightMode}`}
           onClick={() => handleCurrentPage(-1)}
         >
           Prev
         </button>
       )}
-      <div className={styles.paginator}>
+      <div className={`${styles.paginator} ${darkMode ? styles.darkMode : styles.lightMode}`}>
         {isMinimumToRender &&
           pagesToShow.map((page, index) => {
             return (
@@ -59,7 +63,7 @@ const Pagination = ({
       </div>
       {isMinimumToRender && (
         <button
-          className={styles.paginator_buttons}
+          className={`${styles.paginator_buttons} ${darkMode ? styles.darkMode : styles.lightMode}`}
           onClick={() => handleCurrentPage(1)}
         >
           Next

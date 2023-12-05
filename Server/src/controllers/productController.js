@@ -53,15 +53,16 @@ const getProductByName = async (name) => {
 /************************************************************************* */
 // se usa para crear el producto
 const createProducts = async (productData) => {
-  console.log(productData);
+  
   try {
-    let { name, image, price, colour, additionalImage } = productData;
+    let { name, image, price, colour, additionalImage, brands } = productData;
+    //let { name, image, price, colour } = productData;
 
     const productCreated = await Product.findOne({
-      where: { name: name, price: price, colour: colour },
+      where: { name: name },
     });
     if (productCreated) {
-      throw new Error("Un producto ya existe con esas caracteristicas");
+      throw new Error("Un producto ya existe con ese nombre");
     }
 
     // CLOUDINARY
@@ -69,8 +70,15 @@ const createProducts = async (productData) => {
       const cloudinaryUpload = await cloudinary.uploader.upload(`${image}`);
       image = cloudinaryUpload.secure_url;
     }
-   
 
+    if (additionalImage.length !==0){
+      for (let i=0; i<additionalImage.length; i++) {
+        const cloudinaryUpload = await cloudinary.uploader.upload(`${additionalImage[i]}`);
+        additionalImage[i] = cloudinaryUpload.secure_url;
+      }
+    }
+   
+    console.log(additionalImage);
     console.log("controller");
     const newProduct = await Product.create({
       name,
@@ -79,6 +87,9 @@ const createProducts = async (productData) => {
       colour,
       additionalImage,
     });
+
+    //crea la asociacion entre producto y marca
+    await newProduct.setBrands(brands);
 
     return newProduct;
   } catch (error) {
@@ -121,7 +132,8 @@ const restoreProductById = async (id) => {
 // Para editar o actualizar un producto con un id especifico
 const updateProductById = async (id, newData) => {
   try {
-    const { name, image, price, colour, additionalImage } = newData;
+    // const { name, image, price, colour, additionalImage } = newData;
+    const { name, image, price, colour } = newData;
     const productToUpdate = await Product.findByPk(id);
 
     if (!productToUpdate) {
@@ -140,7 +152,7 @@ const updateProductById = async (id, newData) => {
       image,
       price,
       colour,
-      additionalImage,
+      //additionalImage,
     });
 
     return productToUpdate;
@@ -175,9 +187,9 @@ const getProductswithFilter = async (req, res, next) => {
 
   try {
     const order = [];
-    if (price === "highest") {
+    if (price === "mayor a menor") {
       order.push(["price", "DESC"]);
-    } else if (price === "lowest") {
+    } else if (price === "menor a mayor") {
       order.push(["price", "ASC"]);
     }
     
@@ -190,9 +202,10 @@ const getProductswithFilter = async (req, res, next) => {
         }
     });
 
+    //console.log (products)
     
     if (brand) {
-        products = products.filter((prod) => prod.brands[0].name === brand );
+        products = products?.filter((prod) => prod.brands[0].name === brand );
     }
 
 

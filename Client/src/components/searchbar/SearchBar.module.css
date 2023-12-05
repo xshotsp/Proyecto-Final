@@ -1,19 +1,60 @@
+/* En tu archivo SearchBar.module.css */
+:root {
+  --main-color:#fff;
+  --second-color: #696D7D;
+}
 .container {
   display: flex;
-  justify-content: flex-end;
-  align-items: center; 
-  width: 30%;
-  height: 40px;
+  place-items: center;
+  width: 100%;
+  max-width: 600px;
 }
 
 .input {
-  padding: 10px;
-  border-radius: 10px;
+  border: 1px solid var(--second-color);
+  border-radius: 5px;
+  margin: 0;
+  font-size: 16px;
+  height: 40px;
   margin-right: 10px;
 }
 
 .search {
-  background-color: transparent; 
-  border: none; 
-  color: #000; 
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.search:hover {
+  background-color: #2980b9;
+}
+
+.darkMode {
+  color: #ecf0f1;
+}
+
+.darkMode .input {
+  background-color: black;
+  color: #ecf0f1;
+}
+
+.darkMode .search {
+  background-color: #E58C8A;
+  color: #fff;
+}
+
+.lightMode {
+  background-color: var(--main-color);
+  color: #333;
+}
+
+.lightMode .input {
+  background-color: #fff;
+  color: #333;
+}
+
+.lightMode .search {
+  background-color: var(--second-color);
+  color: #fff;
 }

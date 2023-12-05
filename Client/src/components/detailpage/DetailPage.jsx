@@ -1,32 +1,36 @@
-//import { useEffect } from 'react';
-//import { connect, useDispatch, useSelector } from 'react-redux';
-//import { cleanProductDetail, fetchProductById } from '../../redux/actions/actions';
+import React from 'react';
+import { useEffect } from 'react';
+import { connect, useDispatch, useSelector } from 'react-redux';
+import { cleanProductDetail, fetchProductById } from '../../redux/actions/actions';
 import s from './detail.module.css';
 import { Link, useParams } from 'react-router-dom';
-import data from '../data/data'
-
 
   const DetailPage = ({ handleAddProduct }) => {
-  //const dispatch = useDispatch()
-  const { id } = useParams()
-  //const productDetails = useSelector((state) => state.productDetails)
-  const product = data.find(item => item.id === id)
+  const dispatch = useDispatch()
+  const { id } = useParams();
+  console.log("Params:", id);
+  const productDetails = useSelector((state) => state.productDetails)
+  const product = productDetails
 
-  // useEffect(() => {
-  //   //Llama a la acción para obtener los detalles del producto al montar el componente
-  //   dispatch(fetchProductById(params.id));
-  //   return () => {dispatch(cleanProductDetail())}
-  // }, []);
+  
+  useEffect(() => {
+    // Llama a la acción para obtener los detalles del producto al montar el componente
+    dispatch(fetchProductById(id));
+    return () => {
+      dispatch(cleanProductDetail());
+    };
+  }, []);
+  
 
 
-  if (!data) {
-    // Puedes mostrar un indicador de carga o un mensaje de error aquí si productDetails es
+  if (!product) {
+    
         return <p className={s.error}>Cargando...</p>;
   }
 
   return (
     <div className={s.productDetailsContainer}>
-      {/* <h2>{productDetails.id}</h2> */}
+      <h2>{product.id}</h2>
       <div className={s.backBtn}>
       <Link to='/'>
         <button>Volver</button>
@@ -62,13 +66,12 @@ import data from '../data/data'
   );
 };
 
-// const mapStateToProps = (state) => ({
-//   productDetails: state.productDetails,
-// });
+const mapStateToProps = (state) => ({
+  productDetails: state.productDetails,
+});
 
-// const mapDispatchToProps = {
-//   fetchProductById,
-// };
+const mapDispatchToProps = {
+  fetchProductById,
+};
 
-// export default connect(mapStateToProps, mapDispatchToProps)(DetailPage);
-export default DetailPage
+export default connect(mapStateToProps, mapDispatchToProps)(DetailPage);
