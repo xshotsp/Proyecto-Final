@@ -1,64 +1,62 @@
-/* login.module.css */
+/* En tu archivo login.module.css */
 
 .login-container {
-    max-width: 400px;
+    max-width: 300px;
     margin: 0 auto;
-    background-color: #fff;
     padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    color: #000;
-  }
-  
-  .login-container hr {
+    background-color: #fff;
     border: 1px solid #ddd;
-    margin-top: 10px;
-    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+
+  .login-container h2 {
+    margin: 10px;
   }
   
-  .login-container h2 {
-    color: #333;
+  .login-form {
+    display: flex;
+    flex-direction: column;
   }
   
   .login-form label {
-    display: block;
     margin-bottom: 10px;
   }
   
   .login-form input {
     width: 100%;
-    padding: 8px;
-    margin-bottom: 15px;
-    border: 1px solid #555;
-    border-radius: 5px;
-    background-color: #fff;
-    color: #000;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
   }
   
   .login-form button {
-    width: 100%;
-    padding: 10px;
-    background-color: #000;
+    background-color: #4caf50;
     color: #fff;
+    padding: 10px;
     border: none;
-    border-radius: 5px;
+    border-radius: 4px;
     cursor: pointer;
   }
   
   .login-form button:hover {
-    background-color: #27ae60;
+    background-color: #45a049;
   }
   
-  .login-form p {
-    color: #e74c3c;
-    font-size: 14px;
+  .or__h3 {
+    text-align: center;
+    font-size: 18px;
+    color: #555;
+    margin: 20px 0;
   }
   
-  .login-form a {
-    color: #3498db;
-    text-decoration: none;
+  .social-login-container {
+    display: flex;
+    justify-content: space-around;
   }
   
-  .login-form a:hover {
-    text-decoration: underline;
-  }
+  /* Otros estilos según sea necesario */
+  
+  

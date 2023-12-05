@@ -1,19 +1,15 @@
 const { User } = require ('../db')
 
-const getUser = async () => {
-    const allUsers = await User.findAll()
-    return allUsers
-}
-
-const getOneUser = async (id) => {
-    const user = await User.findOne({
-        where: {
-            id: id
-        }
-    })
+const getUser = async (id) => {
+    const user = await User.findByPk(id)
     return user
 }
 
+const getUsers = async () => {
+    const users = await User.findAll()
+    return users
+}
 
 
-module.exports = { getUser, getOneUser}
+
+module.exports = { getUser, getUsers}

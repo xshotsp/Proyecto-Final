@@ -3,15 +3,20 @@ const { Sequelize } = require("sequelize");
 
 const fs = require("fs");
 const path = require("path");
-const { DB_USER, DB_PASSWORD, DB_HOST } = process.env;
 
-const sequelize = new Sequelize(
-  `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/products`,
-  {
+const { DATABASE_URL } = process.env;
+
+if (!DATABASE_URL) {
+  throw new Error("DATABASE_URL not defined");
+}
+
+  const sequelize = new Sequelize(DATABASE_URL, {
     logging: false,
     native: false,
-  }
-);
+  });
+
+
+
 const basename = path.basename(__filename);
 
 const modelDefiners = [];
@@ -41,6 +46,7 @@ Brand.belongsToMany(Product, { through: "Product_Brand", timestamps: false });
 
 Product.belongsToMany(Rewiew, { through: "Product_Rewiew" });
 Rewiew.belongsToMany(Product, { through: "Product_Rewiew" });
+
 
 // Product.belongsToMany(User, {through:"Product_User"})
 // User.belongsToMany(Product, {through:"Product_User"})

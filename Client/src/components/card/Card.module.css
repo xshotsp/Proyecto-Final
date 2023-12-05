@@ -1,4 +1,12 @@
-.productCard {
+:root {
+  --main-color: #fff;
+  --second-color: #696d7d;
+  --dark-mode: #e58c8a;
+}
+
+
+ .productCard {
+  height: 560px;
   border: 1px solid #ddd;
   border-radius: 8px;
   padding: 16px;
@@ -12,6 +20,11 @@
   color: #000000;
 }
 
+.darkMode {
+  background-color: var(--dark-mode);
+  color: black;
+}
+
 h3{
   text-decoration: none;
   color: #000000;
@@ -21,10 +34,11 @@ h3{
 }
 
 .productImage {
-  height: 200px;
+  height: 250px;
   object-fit: cover;
   border-radius: 10px;
   margin-bottom: 10px; 
+  box-shadow: 2px 2px 5px gray;
 }
 
 .productInfo {
@@ -38,3 +52,10 @@ a.productCard {
   text-decoration: none;
   color: #000000;
 }
+
+.productAddButton{
+  background-color: var(--second-color);
+  border-radius: 4px;
+  margin-top: auto;
+}
+

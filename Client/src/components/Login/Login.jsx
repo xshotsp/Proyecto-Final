@@ -1,37 +1,44 @@
-/* eslint-disable no-unused-vars */
-import { useState } from 'react';
-import axios from 'axios';
-import s from "./login.module.css"
+/* eslint-disable react/prop-types */
+//Firebase
+import { useState, useEffect } from "react";
+import axios from "axios";
+import s from "./login.module.css";
+import { useNavigate } from "react-router-dom";
+import SocialLogin from "../SocialLogin/SocialLogin";
 
-const Login = () => {
-  const [usuario, setUsuario] = useState('')
-  const [contraseña, setContraseña] = useState('')
-  const [error, setError] = useState()
+const URL = "https://quirkz.up.railway.app";
+
+const Login = ({ setLogin, login }) => {
+  const [usuario, setUsuario] = useState("");
+  const [contraseña, setContraseña] = useState("");
+  const [error, setError] = useState();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
-    
     e.preventDefault();
-
+    console.log(usuario, contraseña);
     try {
-      const response = await axios('http://localhost:3001/user/login', {
-        usuario,
-        contraseña,
-      });
-      if(response.ok) console.log('Login correcto');
-
+      const response = await axios(
+        `${URL}/user/login/?email=${usuario}&password=${contraseña}`
+      );
+      setLogin(response.data);
     } catch (error) {
-      console.error('Error al iniciar sesión:', error.message);
-      setError('Credenciales incorrectas')
+      console.error("Error al iniciar sesión:", error.message);
+      setError("Credenciales incorrectas");
     }
   };
 
+  useEffect(() => {
+    if (login.access) navigate("/");
+  }, [login.access]);
+
   return (
-<section className={s['login-container']}>
+    <section className={s["login-container"]}>
       <hr />
       <h2>Mi Cuenta</h2>
       <hr />
       <h2>Acceder</h2>
-      <form className={s['login-form']} onSubmit={handleSubmit}>
+      <form className={s["login-form"]} onSubmit={handleSubmit}>
         <label>
           <input
             type="text"
@@ -40,7 +47,6 @@ const Login = () => {
             onChange={(e) => setUsuario(e.target.value)}
           />
         </label>
-        <br />
         <br />
         <label>
           <input
@@ -57,6 +63,10 @@ const Login = () => {
       {error && <p>{error}</p>}
       <br />
       <br />
+      <h3 className={s.or__h3}> O </h3>
+      <div>
+        <SocialLogin />
+      </div>
     </section>
   );
 };

@@ -1,47 +1,40 @@
-/* En footer.module.css */
+/* footer.module.css */
 
 .container {
     background-color: #333;
     color: #fff;
     padding: 20px;
-    text-align: center;
-  }
-  
-  .container u {
-    text-decoration: none;
-    color: #fff;
   }
   
   .links {
     list-style: none;
     padding: 0;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-bottom: 20px;
+    justify-content: space-around;
+    margin-top: 10px;
   }
   
   .links li {
     cursor: pointer;
-    margin: 5px;
   }
   
   .socialIcons {
     display: flex;
     justify-content: center;
-    gap: 10px;
-    margin-bottom: 20px;
+    margin-top: 20px;
   }
   
   .iconContainer {
-    background-color: #555;
-    padding: 10px;
-    border-radius: 50%;
-    cursor: pointer;
+    margin: 0 10px;
   }
   
-  .iconContainer:hover {
-    background-color: #777;
+  .iconContainer a {
+    text-decoration: none;
+  }
+  
+  .iconContainer img {
+    width: 30px;
+    height: 30px;
   }
   
   .copyright {
@@ -49,6 +42,11 @@
   }
   
   hr {
-    border-color: #888;
+    border-color: #fff;
+  }
+  
+  /* Hover effect for social icons */
+  .iconContainer:hover img {
+    filter: brightness(1.2);
   }
   
