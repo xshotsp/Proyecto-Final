@@ -50,7 +50,7 @@ import data from '../data/data'
       </div>
       <div className={s.productInfo}>
         <h2 className={s.price}>Precio: ${product.price}</h2>
-        <h2 className={s.colour}>Color: {product.colour.sort().join(', ')}</h2>
+        <h2 className={s.colour}>Color: {product.colour}</h2>
       </div>
 
       <div className={s.descriptionTextBox}>
