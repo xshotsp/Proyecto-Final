@@ -90,7 +90,7 @@ const Cart = ({ cartItems , handleAddProduct, handleRemoveProduct, handleClearCa
         <br />
         <div className={s["cart-items-total-price"]}> 
         <h2>
-        Precio total: ${totalPrice}
+        Precio total: ${totalPrice.toFixed(2)}
         </h2>
         </div>
         <div>
