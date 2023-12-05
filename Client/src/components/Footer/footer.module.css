@@ -1,91 +1,52 @@
 /* footer.module.css */
-:root{
-  --morado:#9b59b6;
-  --blanco: #FFFF;
-}
-
-/* footer.module.css */
 
 .container {
-  background-color:var(--morado);
-  color:var(--blanco);
-  padding: 20px;
-  text-align: center;
-  top: 650px;
-  position: relative;
-  left:2% ;
-  right:2%;
-  width: 95%;
-  height:219px;
-}
-
-.container u {
-  font-size: 1.5em;
-  font-weight: bold;
-  text-decoration: none;
-  font-family: 'Monastery';
-}
-
-.links {
-  list-style: none;
-  padding: 0;
-  display: flex;
-  justify-content: space-around;
-  margin-top: 20px;
-  font-family: 'Monastery';
-}
-
-.links li {
-  cursor: pointer;
-}
-
-.socialIcons {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-}
-
-.iconContainer {
-  margin: 0 10px;
-}
-
-/* Estilo para las imágenes en blanco */
-.socialIcons img {
-  width: 40px;
-  height: 40px;
-  filter: invert(1); /* Invierte el color para que la imagen sea blanca */
-  transition: transform 0.3s ease-in-out;
-}
-
-.socialIcons img:hover {
-  transform: scale(1.2);
-}
-
-.copyright {
-  margin-top: 20px;
-  font-family: 'Monastery';
-}
-
-hr {
-  border: 0.5px solid var(--blanco);
-  margin-bottom: 10px;
-}
-
-/* Media Query para pantallas pequeñas */
-@media (max-width: 580px) {
-  .container{
-    top:800px;
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
   }
+  
   .links {
-    flex-direction: column;
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px;
   }
-
+  
+  .links li {
+    cursor: pointer;
+  }
+  
   .socialIcons {
-    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
   }
-
-  .socialIcons .iconContainer {
-    margin: 10px 0;
+  
+  .iconContainer {
+    margin: 0 10px;
   }
-}
-
+  
+  .iconContainer a {
+    text-decoration: none;
+  }
+  
+  .iconContainer img {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .copyright {
+    margin-top: 20px;
+  }
+  
+  hr {
+    border-color: #fff;
+  }
+  
+  /* Hover effect for social icons */
+  .iconContainer:hover img {
+    filter: brightness(1.2);
+  }
+  

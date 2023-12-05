@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 //Firebase
 import { useState, useEffect } from "react";
 import axios from "axios";
@@ -47,7 +48,6 @@ const Login = ({ setLogin, login }) => {
             onChange={(e) => setUsuario(e.target.value)}
           />
         </label>
-        <br />
         <br />
         <label>
           <input
