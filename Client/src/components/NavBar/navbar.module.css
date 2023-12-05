@@ -126,6 +126,8 @@
 
 .user__options {
   position: absolute;
+  display: flex;
+  flex-direction: column;
   top: 60px;
   right: 0;
   background-color: #fff;
