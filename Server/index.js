@@ -16,6 +16,14 @@ cloudinary.config({
   api_secret: API_SECRET
 });
 
+server.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+  next();
+});
+
+
 
 conn.sync({ force: false }).then(() => {
 server.listen(PORT, async() => {
