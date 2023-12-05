@@ -11,19 +11,30 @@ const payment= new Preference(client)
 const createOrder = async (req, res) => {
 
     try {
-        const {name, image, price, colour, quantity, brands} = req.body
+        const cart = req.body
+
+        let items = cart.map((product) => ({
+            title: product.name,
+            quantity: product.quantity,
+            unit_price: product.price,
+            currency_id: product.currency_id,
+            picture_url: product.image,
+            description: product.description,
+            colour: product.colour
+          }));
 
         let preference = {
             body:{
-                items:[{
-                    title: name,
-                    picture_url: image,
-                    quantity: quantity,
-                    unit_price: price,
-                    colour: colour,
-                    brands: brands,
-                    currency_id: "ARG"
-                }],
+                items: items,
+                // items:[{
+                //     title: name,
+                //     picture_url: image,
+                //     quantity: quantity,
+                //     unit_price: price,
+                //     colour: colour,
+                //     brands: brands,
+                //     currency_id: "ARG"
+                // }],
                 "back_urls": {
                     "success": "http://127.0.0.1:5173/",
                     "failure": "http://127.0.0.1:5173/",
@@ -35,8 +46,8 @@ const createOrder = async (req, res) => {
                
         const response = await payment.create(preference)
 
-        //res.status(200).send(response.id)
-        res.status(200).send(response.init_point)
+        res.status(200).send(response)
+        // res.status(200).send(response.init_point)
 
     } catch (error) {
         res.status(400).json({error: error.message})
