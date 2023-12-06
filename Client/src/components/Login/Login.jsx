@@ -5,23 +5,28 @@ import axios from "axios";
 import s from "./login.module.css";
 import { useNavigate } from "react-router-dom";
 import SocialLogin from "../SocialLogin/SocialLogin";
+import { useDispatch, useSelector } from "react-redux";
+import { setAccess, userLoggedIn } from "../../redux/actions/actions";
 
-const URL = "https://quirkz.up.railway.app";
+/* const URL = "https://quirkz.up.railway.app"; */
+const URL = "http://localhost:3001";
 
-const Login = ({ setLogin, login }) => {
+const Login = () => {
   const [usuario, setUsuario] = useState("");
   const [contraseña, setContraseña] = useState("");
   const [error, setError] = useState();
   const navigate = useNavigate();
+  const access = useSelector((state) => state.access);
+  const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(usuario, contraseña);
     try {
-      const response = await axios(
+      const { data } = await axios(
         `${URL}/user/login/?email=${usuario}&password=${contraseña}`
       );
-      setLogin(response.data);
+      dispatch(setAccess(data.access));
+      dispatch(userLoggedIn(usuario))
     } catch (error) {
       console.error("Error al iniciar sesión:", error.message);
       setError("Credenciales incorrectas");
@@ -29,8 +34,8 @@ const Login = ({ setLogin, login }) => {
   };
 
   useEffect(() => {
-    if (login.access) navigate("/");
-  }, [login.access]);
+    if (access) navigate("/");
+  }, [access]);
 
   return (
     <section className={s["login-container"]}>

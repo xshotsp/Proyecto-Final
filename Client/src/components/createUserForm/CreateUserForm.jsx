@@ -5,7 +5,9 @@ import validate from './validate';
 import LabelAndInput from '../labelAndInput/LabelAndInput';
 import s from './create.module.css';
 
-const URL = 'https://quirkz.up.railway.app';
+/* const URL = 'https://quirkz.up.railway.app'; */
+
+const URL = "http://localhost:3001"
 
 const CreateUserForm = () => {
   const [input, setInput] = useState({
