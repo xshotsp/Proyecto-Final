@@ -9,7 +9,7 @@ import { faCartFlatbed, faHeart, faTruck } from '@fortawesome/free-solid-svg-ico
 import ReviewyComentarios from '../Review y comentarios/ReviewyComentarios'
 
 
-  const DetailPage = ({ handleAddProduct }) => {
+  const DetailPage = ({ login, handleAddProduct }) => {
   const dispatch = useDispatch()
   const { id } = useParams();
   const productDetails = useSelector((state) => state.productDetails)
@@ -81,7 +81,7 @@ import ReviewyComentarios from '../Review y comentarios/ReviewyComentarios'
         <h2>Productos Que Tambien Te Pueden Interesar</h2>
       </div>
       <div>{productDetails[0]}</div>
-      <ReviewyComentarios/>
+      <ReviewyComentarios login={login} productoId={id}/>
     </div>
   );
 };

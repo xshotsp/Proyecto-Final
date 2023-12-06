@@ -2,30 +2,39 @@ import React, { useState, useEffect } from 'react';
 import Review from './Review';
 import Comentarios from './Comentarios';
 
-const ReviewyComentarios = () => {
+const ReviewyComentarios = ({ login, productoId }) => {
   const [userRating, setUserRating] = useState(0);
   const [userComment, setUserComment] = useState('');
   const [ratingsAndComments, setRatingsAndComments] = useState([]);
   const [clearCommentyReview, setClearCommentyReview] = useState(false);
-  const [hasUserReviewed, setHasUserReviewed] = useState(false); // Nuevo estado para controlar si el usuario ya recibio el producto
+  const [hasUserReviewed, setHasUserReviewed] = useState(false);
 
-  const isLoggedIn = true;
+  console.log('login',login);
+
+  const isLoggedIn = login.access;
   const hasPurchased = true;
 
+  const handleClearLocalStorage = () => {
+    localStorage.removeItem(`ratingsAndComments-${productoId}`);
+    setRatingsAndComments([]);
+    console.log('LocalStorage limpiado para productoId:', productoId);
+  };
+
   useEffect(() => {
-    const storedReviews = JSON.parse(localStorage.getItem('ratingsAndComments')) || [];
+    const storedReviews = JSON.parse(localStorage.getItem(`ratingsAndComments-${productoId}`)) || [];
     setRatingsAndComments(storedReviews);
-  }, []);
+    console.log('Obtenidas revisiones del LocalStorage para productoId:', productoId);
+  }, [productoId]);
 
   const handleClearCommentyReview = () => {
     setClearCommentyReview(true);
     setTimeout(() => {
       setClearCommentyReview(false);
-      setUserRating(0); // Limpiar la calificación después de enviar la revisión
-      setUserComment(''); // Limpiar el comentario después de enviar la revisión
+      setUserRating(0);
+      setUserComment('');
+      console.log('Comentario y calificación limpiados');
     }, 100);
   };
-  
 
   const handleRatingChange = (rating) => {
     setUserRating(rating);
@@ -37,50 +46,48 @@ const ReviewyComentarios = () => {
 
   const handleSubmitReview = () => {
     let alertMessage = '';
-  
-    console.log('isLoggedIn:', isLoggedIn);
-    console.log('hasPurchased:', hasPurchased);
-  
+
     if (!isLoggedIn || !hasPurchased) {
       alertMessage = 'Debes iniciar sesión y haber comprado el producto para dejar una revisión.';
     } else {
-      const userReviewed = ratingsAndComments.some(review => review.userId === 'uniqueUserId');
-  
-      console.log('userRating:', userRating);
-      console.log('userComment:', userComment);
-      console.log('userReviewed:', userReviewed);
-  
+      const userReviewed = ratingsAndComments.some((review) => review.userId === 'uniqueUserId');
+
       switch (true) {
         case userRating <= 0 || userComment.trim() === '':
           alertMessage = 'Completa la calificación y el comentario antes de enviar.';
           break;
-        case userReviewed===true:
+        case userReviewed:
           alertMessage = 'Solo puedes calificar el producto una vez.';
           break;
         default:
-          const newReview = { rating: userRating, comment: userComment, userId: 'uniqueUserId' };
+          const newReview = { rating: userRating, comment: userComment, userId: 'uniqueUserId', productoId: productoId };
           setRatingsAndComments((prevReviews) => [...prevReviews, newReview]);
           console.log('Nueva revisión agregada:', newReview);
 
-          localStorage.setItem('ratingsAndComments', JSON.stringify([...ratingsAndComments, newReview]));
+          localStorage.setItem(`ratingsAndComments-${productoId}`, JSON.stringify([...ratingsAndComments, newReview]));
+          console.log('LocalStorage actualizado para productoId:', productoId);
       }
     }
-  
+
     if (alertMessage) {
       console.log('Mostrar alerta:', alertMessage);
       alert(alertMessage);
     }
   };
+
   useEffect(() => {
     console.log('ratingsAndComments actualizado:', ratingsAndComments);
     setClearCommentyReview(false);
 
-    // Actualizar el localStorage
-    localStorage.setItem('ratingsAndComments', JSON.stringify(ratingsAndComments));
-  }, [ratingsAndComments.length]);
+    localStorage.setItem(`ratingsAndComments-${productoId}`, JSON.stringify(ratingsAndComments));
+    console.log('LocalStorage actualizado para productoId:', productoId);
+  }, [ratingsAndComments.length, productoId]);
 
   return (
     <div>
+      <button onClick={handleClearLocalStorage}>
+        Limpiar localStorage
+      </button>
       <section>
         <h2>Crea una reseña de este producto</h2>
         {isLoggedIn && hasPurchased ? (
@@ -94,35 +101,34 @@ const ReviewyComentarios = () => {
 
       <section>
         <Comentarios
-          ratingsAndComments={ratingsAndComments}
+          ratingsAndComments={ratingsAndComments.filter(review => review.productoId === productoId)}
           onCommentChange={handleCommentChange}
           shouldClearCommentyReview={clearCommentyReview}
         />
       </section>
 
       {isLoggedIn && hasPurchased && (
-       <button onClick={() => { handleClearCommentyReview(); handleSubmitReview(); }}>
-       Enviar Reseña
-     </button>
-     
+        <button onClick={() => { handleClearCommentyReview(); handleSubmitReview(); }}>
+          Enviar Reseña
+        </button>
       )}
 
-      {/* Mostrar calficaciones y comentarios existentes del producto */}
       <section>
         <h2>Calificaciones y comentarios</h2>
-        {ratingsAndComments.map((review, index) => (
-          <div key={index}>
-             <p>Usuario:{review.userId}</p>
-            <p>Calificación: {review.rating}</p>
-            <p>Comentario: {review.comment}</p>
-          </div>
-        ))}
+      {ratingsAndComments.length > 0 && (
+        <div>
+          <p>Últimas reseñas:</p>
+          <Review score={ratingsAndComments[ratingsAndComments.length - 1].rating} />
+          <p>Comentario: {ratingsAndComments[ratingsAndComments.length - 1].comment}</p>
+        </div>
+      )}
       </section>
     </div>
   );
 };
 
 export default ReviewyComentarios;
+
 
 
 
