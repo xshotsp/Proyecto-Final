@@ -8,11 +8,20 @@ const ReviewyComentarios = ({ login, productoId }) => {
   const [ratingsAndComments, setRatingsAndComments] = useState([]);
   const [clearCommentyReview, setClearCommentyReview] = useState(false);
   const [hasUserReviewed, setHasUserReviewed] = useState(false);
+  const [userName, setUserName] = useState('');
+
 
   console.log('login',login);
-
+  
   const isLoggedIn = login.access;
   const hasPurchased = true;
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      setUserName(login.email);
+    }
+  }, [isLoggedIn, login.email]);
+  
 
   const handleClearLocalStorage = () => {
     localStorage.removeItem(`ratingsAndComments-${productoId}`);
@@ -50,7 +59,7 @@ const ReviewyComentarios = ({ login, productoId }) => {
     if (!isLoggedIn || !hasPurchased) {
       alertMessage = 'Debes iniciar sesión y haber comprado el producto para dejar una revisión.';
     } else {
-      const userReviewed = ratingsAndComments.some((review) => review.userId === 'uniqueUserId');
+      const userReviewed = ratingsAndComments.some((review) => review.userId === userName );
 
       switch (true) {
         case userRating <= 0 || userComment.trim() === '':
@@ -60,7 +69,7 @@ const ReviewyComentarios = ({ login, productoId }) => {
           alertMessage = 'Solo puedes calificar el producto una vez.';
           break;
         default:
-          const newReview = { rating: userRating, comment: userComment, userId: 'uniqueUserId', productoId: productoId };
+          const newReview = { rating: userRating, comment: userComment, userId:userName, productoId: productoId };
           setRatingsAndComments((prevReviews) => [...prevReviews, newReview]);
           console.log('Nueva revisión agregada:', newReview);
 
@@ -79,9 +88,17 @@ const ReviewyComentarios = ({ login, productoId }) => {
     console.log('ratingsAndComments actualizado:', ratingsAndComments);
     setClearCommentyReview(false);
 
+    const updatedReviews = ratingsAndComments.map(review => {
+      if (!review.userId) {
+        // Si no hay un userId en la revisión, asigna el nombre del usuario
+        return { ...review, userId: userName };
+      }
+      return review;
+    });
+
     localStorage.setItem(`ratingsAndComments-${productoId}`, JSON.stringify(ratingsAndComments));
     console.log('LocalStorage actualizado para productoId:', productoId);
-  }, [ratingsAndComments.length, productoId]);
+  }, [ratingsAndComments.length, productoId, userName]);
 
   return (
     <div>
@@ -99,27 +116,30 @@ const ReviewyComentarios = ({ login, productoId }) => {
         )}
       </section>
 
+      {isLoggedIn && hasPurchased ? (
       <section>
         <Comentarios
           ratingsAndComments={ratingsAndComments.filter(review => review.productoId === productoId)}
           onCommentChange={handleCommentChange}
           shouldClearCommentyReview={clearCommentyReview}
         />
-      </section>
-
-      {isLoggedIn && hasPurchased && (
         <button onClick={() => { handleClearCommentyReview(); handleSubmitReview(); }}>
           Enviar Reseña
         </button>
-      )}
+      </section>
+    ) : (
+      null
+    )}
+
 
       <section>
         <h2>Calificaciones y comentarios</h2>
       {ratingsAndComments.length > 0 && (
         <div>
           <p>Últimas reseñas:</p>
-          <Review score={ratingsAndComments[ratingsAndComments.length - 1].rating} />
-          <p>Comentario: {ratingsAndComments[ratingsAndComments.length - 1].comment}</p>
+          <p>Usuario: {ratingsAndComments[ratingsAndComments.length - 1].userId}</p>
+           <Review score={ratingsAndComments[ratingsAndComments.length - 1].rating} />
+           <p>Comentario: {ratingsAndComments[ratingsAndComments.length - 1].comment}</p>
         </div>
       )}
       </section>
