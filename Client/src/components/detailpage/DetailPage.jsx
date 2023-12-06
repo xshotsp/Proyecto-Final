@@ -61,7 +61,7 @@ import ReviewyComentarios from '../Review y comentarios/ReviewyComentarios'
         <h2>
         <button className={s.addBtn} 
         onClick={() => handleAddProduct(product)}>
-          <FontAwesomeIcon  /> Añadir Al Carrito
+          <FontAwesomeIcon icon={faCartFlatbed} /> Añadir Al Carrito
         </button>
         <button onClick={changeIcon}>
           <FontAwesomeIcon icon={showHeart ? faHeart : faHeartCircleCheck} />
@@ -69,7 +69,7 @@ import ReviewyComentarios from '../Review y comentarios/ReviewyComentarios'
         <br />
         <span>
           <p>
-            <FontAwesomeIcon  /> Envios gratis en tus ordenes a partir de $3000
+            <FontAwesomeIcon icon={faTruck} /> Envios gratis en tus ordenes a partir de $3000
           </p>
         </span>
         </h2>
