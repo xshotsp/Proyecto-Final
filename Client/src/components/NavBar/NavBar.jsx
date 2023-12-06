@@ -126,6 +126,12 @@ const NavBar = ({ login, setLogin }) => {
         {showOptions && (
           <div className={styles.user__options}>
             <p>{login.email}</p>
+            <Link to="/">
+              <button>Editar Perfil</button>
+            </Link>
+            <Link to="/">
+              <button>Mis Compras</button>
+            </Link>
             <button onClick={handleLogout}>Logout</button>
           </div>
         )}
