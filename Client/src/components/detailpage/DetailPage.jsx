@@ -1,11 +1,12 @@
 import React from 'react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { connect, useDispatch, useSelector } from 'react-redux';
 import { cleanProductDetail, fetchProductById } from '../../redux/actions/actions';
 import s from './detail.module.css';
 import { Link, useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCartFlatbed, faHeart, faTruck } from '@fortawesome/free-solid-svg-icons';
+import { faHeart } from '@fortawesome/free-regular-svg-icons';
+import { faHeartCircleCheck } from '@fortawesome/free-solid-svg-icons';
 
   const DetailPage = ({ handleAddProduct }) => {
   const dispatch = useDispatch()
@@ -18,7 +19,12 @@ import { faCartFlatbed, faHeart, faTruck } from '@fortawesome/free-solid-svg-ico
   } else {
     brandName = 'No posee marca'
   }
-  console.log(product);
+
+  const [showHeart, setShowHeart] = useState(true);
+
+  const changeIcon = () => {
+    setShowHeart((actualHeart) => !actualHeart);
+  };
   
   useEffect(() => {
     // Llama a la acción para obtener los detalles del producto al montar el componente
@@ -54,14 +60,15 @@ import { faCartFlatbed, faHeart, faTruck } from '@fortawesome/free-solid-svg-ico
         <h2>
         <button className={s.addBtn} 
         onClick={() => handleAddProduct(product)}>
-          <FontAwesomeIcon icon={faCartFlatbed} /> Añadir Al Carrito
+          <FontAwesomeIcon  /> Añadir Al Carrito
         </button>
-        <button><FontAwesomeIcon icon={faHeart} />
+        <button onClick={changeIcon}>
+          <FontAwesomeIcon icon={showHeart ? faHeart : faHeartCircleCheck} />
         </button>
         <br />
         <span>
           <p>
-            <FontAwesomeIcon icon={faTruck} /> Envios gratis en tus ordenes a partir de $3000
+            <FontAwesomeIcon  /> Envios gratis en tus ordenes a partir de $3000
           </p>
         </span>
         </h2>
