@@ -96,7 +96,7 @@ const Cart = ({ cartItems , handleAddProduct, handleRemoveProduct, handleClearCa
         <div>
           <br />
           <button
-          disabled={totalPrice ? false : true}
+          disabled={cartItems.length === 0 ? true : false}
           onClick = {mercadoPago}
           >
             Completar compra
