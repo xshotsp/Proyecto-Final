@@ -1,4 +1,4 @@
-const { getUser, getOneUser } = require("../controllers/userController");
+const { getUser, updateUser } = require("../controllers/userController");
 const { User } = require("../db");
 const transporter = require("../functions/sendMails");
 const cloudinary = require("cloudinary").v2;
@@ -8,8 +8,9 @@ const bcrypt = require("bcrypt");
 
 const getUserHandler = async (req, res) => {
   try {
-    const {id} = req.params
-    const results = await getUser(id);
+    
+    const {email} = req.params
+    const results = await getUser(email);
     res.status(200).json(results);
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -18,21 +19,9 @@ const getUserHandler = async (req, res) => {
 
 const putUserHandler = async (req, res) => {
   try {
-    const { profile_picture } = req.body;
-    const { id } = req.params;
-
-    if (!profile_picture) {
-      res.status(400).json("Profile picture is required");
-    }
-
-    const newUser = await getOneUser(id);
-
-    if (!newUser) {
-      res.status(404).json("User does not exist");
-    }
-    newUser.profile_picture = profile_picture;
-    await newUser.save();
-
+    
+    const { email } = req.params;
+    const newUser = await updateUser(email, req.body);
     return res.status(200).json(newUser);
   } catch (error) {
    return res.status(400).json({ error: error.message });
@@ -42,36 +31,26 @@ const putUserHandler = async (req, res) => {
 const createUserHandler = async (req, res) => {
   try {
 
-    //let { username, password, email, profile_picture, member } = req.body;
+    const { username, password, email, profile_picture, phone } = req.body;
 
-    const { username, password, email, profile_picture, member } = req.body;
-
-   // if (!username || !password || !email) {
+   
     if (!password || !email) {
       return res.status(400).json("Campos obligatorios incompletos.");
     }
 
-    // const searchUser = await User.findAll({
-    //   where: {
-    //     username: username,
-    //   },
-    // });
+  
     const searchEmail = await User.findAll({
       where: {
         email: email,
       },
     });
 
-    //if (searchUser.length || searchEmail.length) {
+    
     if (searchEmail.length) {
        return res.status(404).json("El correo electrónico ya existe.");
     } else {
 
-       // CLOUDINARY
-      // if (profile_picture){
-      //   const cloudinaryUpload = await cloudinary.uploader.upload(`${profile_picture}`);
-      //   profile_picture = cloudinaryUpload.secure_url;
-      // }
+   
 
       // para encriptar el password
 /*       const hashedPassword = await bcrypt.hash(password, 10);
@@ -82,7 +61,7 @@ const createUserHandler = async (req, res) => {
         password,
         email,
         profile_picture,
-        member,
+        phone,
       });
 
 

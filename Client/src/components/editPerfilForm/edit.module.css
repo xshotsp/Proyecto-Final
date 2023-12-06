@@ -1,0 +1,93 @@
+.s-formedit {
+    max-width: 400px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    color: #000;
+  }
+  
+  .s-formedit fieldset {
+    border: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .s-formedit label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .s-formedit h3 {
+    display: block;
+    margin-bottom: 10px;
+  } 
+
+  .s-formedit input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #555;
+    border-radius: 5px;
+    background-color: #fff;
+    /*color: #fff;*/
+    color: black;
+    
+  }
+
+  .s-formedit .inputfile {
+    display: none;
+  }
+  
+  .s-formedit .buttonfile {
+    margin: 0 auto;
+    width: 50%;
+    border: 1px solid var(--second-color);
+    border-radius: 5px;
+    text-align: center;
+    margin-bottom: 8px; /* Ajusta el espacio entre el campo de archivo y los demás elementos */
+  }
+
+  .s-formedit button {
+    width: 100%;
+    padding: 10px;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .s-formedit button:hover {
+    background-color: #27ae60;
+  }
+  
+  .s-formedit p {
+    margin-top: -10px;
+    font-size: 12px;
+    color: red;
+  }
+  
+  .s-formedit .notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #e74c3c;
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    display: none;
+  }
+  
+  .s-formedit .notification.show {
+    display: block;
+  }
+
+ 
+  .s-formedit img {
+    max-width: 100px;
+    max-height: 100px;
+    border-radius: 50%;
+    text-align: center;
+  }
