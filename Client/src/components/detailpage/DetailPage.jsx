@@ -6,6 +6,8 @@ import s from './detail.module.css';
 import { Link, useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartFlatbed, faHeart, faTruck } from '@fortawesome/free-solid-svg-icons';
+import ReviewyComentarios from '../Review y comentarios/ReviewyComentarios'
+
 
   const DetailPage = ({ handleAddProduct }) => {
   const dispatch = useDispatch()
@@ -79,6 +81,7 @@ import { faCartFlatbed, faHeart, faTruck } from '@fortawesome/free-solid-svg-ico
         <h2>Productos Que Tambien Te Pueden Interesar</h2>
       </div>
       <div>{productDetails[0]}</div>
+      <ReviewyComentarios/>
     </div>
   );
 };
