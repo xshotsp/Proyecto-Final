@@ -5,8 +5,9 @@ import { cleanProductDetail, fetchProductById } from '../../redux/actions/action
 import s from './detail.module.css';
 import { Link, useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart } from '@fortawesome/free-regular-svg-icons';
-import { faHeartCircleCheck } from '@fortawesome/free-solid-svg-icons';
+import { faCartFlatbed, faHeart, faTruck, faHeartCircleCheck } from '@fortawesome/free-solid-svg-icons';
+import ReviewyComentarios from '../Review y comentarios/ReviewyComentarios'
+
 
   const DetailPage = ({ handleAddProduct }) => {
   const dispatch = useDispatch()
@@ -86,6 +87,7 @@ import { faHeartCircleCheck } from '@fortawesome/free-solid-svg-icons';
         <h2>Productos Que Tambien Te Pueden Interesar</h2>
       </div>
       <div>{productDetails[0]}</div>
+      <ReviewyComentarios/>
     </div>
   );
 };
