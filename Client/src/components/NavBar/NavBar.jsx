@@ -116,20 +116,20 @@ const NavBar = () => {
         </div>
         {access && (
           <div
-            className={styles.user__photo}
+            className={styles.photo__container}
             onClick={() => setShowOptions(!showOptions)}
           >
-            {/*             <img
-              src={login.photo}
+            <img
+              src={activeUser.profile_picture}
               alt=""
-              
-            /> */}
+              className={styles.user__photo}
+            />
           </div>
         )}
 
         {showOptions && (
           <div className={styles.user__options}>
-            <p>{activeUser}</p>
+            <p>{activeUser.email}</p>
             <Link to="/">
               <button>Editar Perfil</button>
             </Link>

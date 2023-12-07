@@ -1,34 +1,35 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import Swal from 'sweetalert2';
-import validate from './validate';
-import LabelAndInput from '../labelAndInput/LabelAndInput';
-import s from './create.module.css';
+import React, { useState } from "react";
+import axios from "axios";
+import Swal from "sweetalert2";
+import validate from "./validate";
+import LabelAndInput from "../labelAndInput/LabelAndInput";
+import s from "./create.module.css";
 
 /* const URL = 'https://quirkz.up.railway.app'; */
 
-const URL = "http://localhost:3001"
+const URL = "http://localhost:3001";
 
 const CreateUserForm = () => {
   const [input, setInput] = useState({
-    username: '',
-    password: '',
-    passwordRep: '',
-    email: '',
-    profile_picture: 'https://t3.ftcdn.net/jpg/01/09/00/64/360_F_109006426_388PagqielgjFTAMgW59jRaDmPJvSBUL.jpg',
-    member: '',
+    username: "",
+    password: "",
+    passwordRep: "",
+    email: "",
+    profile_picture:
+      "https://t3.ftcdn.net/jpg/01/09/00/64/360_F_109006426_388PagqielgjFTAMgW59jRaDmPJvSBUL.jpg",
+    member: "",
   });
 
   const [errors, setErrors] = useState({
-    password: '',
-    passwordRep: '',
-    email: '',
+    password: "",
+    passwordRep: "",
+    email: "",
   });
 
   const mostrarAlerta = (iconType, msjText) => {
     Swal.fire({
       icon: iconType,
-      title: '',
+      title: "",
       text: msjText,
     });
   };
@@ -52,25 +53,25 @@ const CreateUserForm = () => {
       const long = Object.values(errors);
       if (long.length === 0) {
         await axios.post(`${URL}/user`, input);
-        mostrarAlerta('success', 'El usuario se creó de manera exitosa');
+        mostrarAlerta("success", "El usuario se creó de manera exitosa");
         setInput({
-          username: '',
-          password: '',
-          passwordRep: '',
-          email: '',
-          profile_picture: '',
-          member: '',
+          username: "",
+          password: "",
+          passwordRep: "",
+          email: "",
+          profile_picture: "",
+          member: "",
         });
-      } else mostrarAlerta('error', 'Debe llenar todos los campos sin errores');
+      } else mostrarAlerta("error", "Debe llenar todos los campos sin errores");
     } catch (error) {
       console.log(error);
-      mostrarAlerta('error', error.response.data);
+      mostrarAlerta("error", error.response.data);
     }
   };
 
   return (
     <div className={s.form__container}>
-      <form className={`${s.form} ${s['s-form']}`} onSubmit={submitHandler}>
+      <form className={`${s.form} ${s["s-form"]}`} onSubmit={submitHandler}>
         <fieldset>
           <legend>Crear Usuario</legend>
 

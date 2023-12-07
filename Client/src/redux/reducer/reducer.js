@@ -26,7 +26,7 @@ const initialState = {
   darkMode: false,
   allUsers:[],
   access:false,
-  activeUser:''
+  activeUser:{}
 };
 
 export default function reducer(state = initialState, action) {

@@ -200,13 +200,14 @@ export const toggleDarkMode = () => ({
 
 export const getAllUsersAction = () => {
   return async (dispatch) => {
-    const { data } = await axios(`${URL}/user/all`);
-    const withoutPass = data.map((user)=> {
-      const {email,username,profile_picture} = user;
-      return {email,username,profile_picture}
-    })
     try {
-      return dispatch({
+      const { data } = await axios(`${URL}/user/all`);
+      const withoutPass = data.map((user) => {
+        const { email, username, profile_picture, phone } = user;
+        return { email, username, profile_picture, phone };
+      });
+
+      dispatch({
         type: GET_ALL_USERS,
         payload: withoutPass,
       });
@@ -216,15 +217,24 @@ export const getAllUsersAction = () => {
   };
 };
 
-export const setAccess = (boolean) =>{
+export const setAccess = (boolean) => {
   return {
-    type:SET_ACCESS,
-    payload:boolean
-  }
-}
-export const userLoggedIn = (user) =>{
-  return{
-    type:USER_LOGGED_IN,
-    payload:user
-  }
-}
+    type: SET_ACCESS,
+    payload: boolean,
+  };
+};
+
+export const userLoggedIn = (user) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios(`${URL}/user/${user}`);
+
+      return dispatch({
+        type: USER_LOGGED_IN,
+        payload: data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};

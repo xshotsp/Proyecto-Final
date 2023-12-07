@@ -8,6 +8,7 @@ import FormPage from "./components/formpage/FormPage";
 import Login from "./components/Login/Login";
 import DetailPage from "./components/detailpage/DetailPage";
 import Cart from "./components/Cart/Cart";
+import EditPerfilForm from "./components/editPerfilForm/EditPerfilForm";
 import { useSelector, useDispatch } from "react-redux";
 import {
   setAccess,
@@ -19,6 +20,7 @@ import Contact from "./components/Contact/Contact";
 import Error404 from "./components/Error/Error404";
 import { auth } from "./firebase/firebase.config";
 import { onAuthStateChanged } from "firebase/auth";
+import Swal from 'sweetalert2';
 import Dashboard from "./components/Dashboard/Dashboard";
 
 function App() {
@@ -44,6 +46,13 @@ function App() {
     } else {
       setCartItems([...cartItems, { ...product, quantity: 1 }]);
     }
+    Swal.fire({
+      icon: 'success',
+      title: '',
+      text: 'sumado al carrito ',
+      showConfirmButton: false,
+      timer: 1500
+    })
   };
 
   const handleRemoveProduct = (product) => {
@@ -97,6 +106,7 @@ function App() {
         <Route path="/form" element={<FormPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/createuser" element={<CreateUserForm />} />
+        <Route path="/editperfil/:email" element= {<EditPerfilForm />} />
         <Route path="*" element={<Error404 />} />
         <Route
           path="/cart"
@@ -109,7 +119,7 @@ function App() {
             />
           }
         />
-        <Route path="dashboard" element={<Dashboard />} />
+        <Route path="/dashboard" element={<Dashboard/>} />
       </Routes>
       <Footer />
     </div>
