@@ -13,16 +13,17 @@ const URL = "http://localhost:3001";
 const SocialLogin = () => {
   const dispatch = useDispatch();
 
-  
   const handleClickGoogle = async () => {
     const user = await googleSignInFunction();
     dispatch(userLoggedIn(user.email));
     const { data } = await axios(`${URL}/user/${user.email}`);
     if (data === null) {
+      const provider = user.providerData[0].providerId.split(".")[0];
       const userObject = {
         email: user.email,
         username: user.displayName,
         profile_picture: user.photoURL,
+        provider 
       };
       await axios.post(`${URL}/user`, userObject);
     }

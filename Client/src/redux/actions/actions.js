@@ -136,7 +136,6 @@ export const getProductName = (name) => {
 };
 
 export const fetchProductById = (id) => async (dispatch) => {
-  console.log(id);
   try {
     const response = await fetch(`${URL}/product/${id}`);
     if (!response.ok) {
@@ -180,7 +179,6 @@ export const getFilters = (filtros) => {
       const url = `${URL}/product/?${queryString}`;
       const response = await axios.get(url);
 
-      console.log(response.data);
       dispatch({
         type: GET_FILTROS,
         payload: response.data,
@@ -203,11 +201,14 @@ export const toggleDarkMode = () => ({
 export const getAllUsersAction = () => {
   return async (dispatch) => {
     const { data } = await axios(`${URL}/user/all`);
-    console.log(data)
+    const withoutPass = data.map((user)=> {
+      const {email,username,profile_picture} = user;
+      return {email,username,profile_picture}
+    })
     try {
       return dispatch({
         type: GET_ALL_USERS,
-        payload: data,
+        payload: withoutPass,
       });
     } catch (error) {
       console.log(error.message);

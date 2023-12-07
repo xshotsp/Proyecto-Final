@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import SocialLogin from "../SocialLogin/SocialLogin";
 import { useDispatch, useSelector } from "react-redux";
 import { setAccess, userLoggedIn } from "../../redux/actions/actions";
+import Swal from "sweetalert2";
 
 /* const URL = "https://quirkz.up.railway.app"; */
 const URL = "http://localhost:3001";
@@ -14,10 +15,18 @@ const URL = "http://localhost:3001";
 const Login = () => {
   const [usuario, setUsuario] = useState("");
   const [contraseña, setContraseña] = useState("");
-  const [error, setError] = useState();
+
   const navigate = useNavigate();
   const access = useSelector((state) => state.access);
   const dispatch = useDispatch();
+
+  const mostrarAlerta = (iconType, msjText) => {
+    Swal.fire({
+      icon: iconType,
+      title: "",
+      text: msjText,
+    });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,10 +35,9 @@ const Login = () => {
         `${URL}/user/login/?email=${usuario}&password=${contraseña}`
       );
       dispatch(setAccess(data.access));
-      dispatch(userLoggedIn(usuario))
+      dispatch(userLoggedIn(usuario));
     } catch (error) {
-      console.error("Error al iniciar sesión:", error.message);
-      setError("Credenciales incorrectas");
+      mostrarAlerta("error", error.response.data.error);
     }
   };
 
@@ -65,7 +73,6 @@ const Login = () => {
         <br />
         <button type="submit">Acceder</button>
       </form>
-      {error && <p>{error}</p>}
       <br />
       <br />
       <h3 className={s.or__h3}> O </h3>

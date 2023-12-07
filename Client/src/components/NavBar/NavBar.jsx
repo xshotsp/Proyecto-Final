@@ -1,6 +1,10 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
-import { setAccess, toggleDarkMode, userLoggedIn } from "../../redux/actions/actions";
+import {
+  setAccess,
+  toggleDarkMode,
+  userLoggedIn,
+} from "../../redux/actions/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -20,7 +24,7 @@ import { signOutFunction } from "../../firebase/firebase.config";
 const NavBar = () => {
   const [activePage, setActivePage] = useState("");
   const dispatch = useDispatch();
-  const {darkMode,access, activeUser} = useSelector((state) => state);
+  const { darkMode, access, activeUser } = useSelector((state) => state);
   const [showOptions, setShowOptions] = useState(false);
   const navigate = useNavigate();
 
@@ -38,7 +42,7 @@ const NavBar = () => {
 
   const handleLogout = () => {
     dispatch(setAccess(false));
-    dispatch(userLoggedIn(""))
+    dispatch(userLoggedIn(""));
 
     signOutFunction();
 

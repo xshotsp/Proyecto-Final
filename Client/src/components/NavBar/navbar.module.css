@@ -114,11 +114,12 @@
 }
 
 .user__photo {
-  width: 40px;
-  height: 40px;
+  min-width: 40px;
+  min-height: 40px;
   background-color: blue;
   border-radius: 50%;
   cursor: pointer;
+  margin-left: 10px;
 }
 
 .user__photo img {
