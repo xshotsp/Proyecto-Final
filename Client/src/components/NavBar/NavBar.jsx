@@ -1,6 +1,10 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
-import { toggleDarkMode } from "../../redux/actions/actions";
+import {
+  setAccess,
+  toggleDarkMode,
+  userLoggedIn,
+} from "../../redux/actions/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -17,10 +21,10 @@ import styles from "./navbar.module.css";
 
 import { signOutFunction } from "../../firebase/firebase.config";
 
-const NavBar = ({ login, setLogin }) => {
+const NavBar = () => {
   const [activePage, setActivePage] = useState("");
   const dispatch = useDispatch();
-  const darkMode = useSelector((state) => state.darkMode);
+  const { darkMode, access, activeUser } = useSelector((state) => state);
   const [showOptions, setShowOptions] = useState(false);
   const navigate = useNavigate();
 
@@ -37,11 +41,8 @@ const NavBar = ({ login, setLogin }) => {
   };
 
   const handleLogout = () => {
-    setLogin({
-      access: false,
-      email: "",
-      photo: "",
-    });
+    dispatch(setAccess(false));
+    dispatch(userLoggedIn(""));
 
     signOutFunction();
 
@@ -73,7 +74,7 @@ const NavBar = ({ login, setLogin }) => {
               {activePage === "contacto" && <span>Contacto</span>}
             </li>
           </Link>
-          {!login.access && (
+          {!access && (
             <Link
               to="/createuser"
               onMouseEnter={() => handleMouseEnter("createuser")}
@@ -85,7 +86,7 @@ const NavBar = ({ login, setLogin }) => {
               </li>
             </Link>
           )}
-          {!login.access && (
+          {!access && (
             <Link
               to="/login"
               onMouseEnter={() => handleMouseEnter("login")}
@@ -113,19 +114,28 @@ const NavBar = ({ login, setLogin }) => {
             className={styles.darkModeIcon}
           />
         </div>
-        {login.access && (
-          <div className={styles.user__photo}>
+        {access && (
+          <div
+            className={styles.photo__container}
+            onClick={() => setShowOptions(!showOptions)}
+          >
             <img
-              src={login.photo}
+              src={activeUser.profile_picture}
               alt=""
-              onClick={() => setShowOptions(!showOptions)}
+              className={styles.user__photo}
             />
           </div>
         )}
 
         {showOptions && (
           <div className={styles.user__options}>
-            <p>{login.email}</p>
+            <p>{activeUser.email}</p>
+            <Link to="/">
+              <button>Editar Perfil</button>
+            </Link>
+            <Link to="/">
+              <button>Mis Compras</button>
+            </Link>
             <button onClick={handleLogout}>Logout</button>
           </div>
         )}
