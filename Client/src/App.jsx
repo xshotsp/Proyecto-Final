@@ -8,6 +8,7 @@ import FormPage from "./components/formpage/FormPage";
 import Login from "./components/Login/Login";
 import DetailPage from "./components/detailpage/DetailPage";
 import Cart from "./components/Cart/Cart";
+import RenderizarTable from "./components/Tables/Tables"
 import { useSelector, useDispatch } from "react-redux";
 import { toggleDarkMode } from "./redux/actions/actions";
 import { useEffect, useState } from "react";
@@ -119,6 +120,7 @@ function App() {
           element={<Login login={login} setLogin={setLogin} />}
         />
         <Route path="/createuser" element={<CreateUserForm />} />
+        <Route path="/admin" element={<RenderizarTable />} />
         <Route path="*" element={<Error404 />} />
         <Route
           path="/cart"
