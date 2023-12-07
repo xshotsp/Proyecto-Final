@@ -4,12 +4,14 @@ import { useNavigate } from 'react-router-dom';
 //import { useState } from 'react';
 import Swal from 'sweetalert2';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 
 //const URL = 'http://localhost:3001'
 const URL = "https://quirkz.up.railway.app"
 
-const Cart = ({ login, cartItems , handleAddProduct, handleRemoveProduct, handleClearCart }) => {
+const Cart = ({  cartItems , handleAddProduct, handleRemoveProduct, handleClearCart }) => {
+  const access = useSelector((state) => state.access)
 
   const totalPrice = cartItems.reduce((price, item) => price + item.quantity * item.price, 0)
 
@@ -18,7 +20,7 @@ const Cart = ({ login, cartItems , handleAddProduct, handleRemoveProduct, handle
 
   const mercadoPago = async () => {
     console.log('entre al finishPurchase');
-    if (login.access === false) {
+    if (access === false) {
       const Toast = Swal.mixin({
         toast: 'true',
         showConfirmButton: false,

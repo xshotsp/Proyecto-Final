@@ -10,43 +10,27 @@ import DetailPage from "./components/detailpage/DetailPage";
 import Cart from "./components/Cart/Cart";
 import EditPerfilForm from "./components/editPerfilForm/EditPerfilForm";
 import { useSelector, useDispatch } from "react-redux";
-import { toggleDarkMode } from "./redux/actions/actions";
+import {
+  setAccess,
+  toggleDarkMode,
+  userLoggedIn,
+} from "./redux/actions/actions";
 import { useEffect, useState } from "react";
 import Contact from "./components/Contact/Contact";
 import Error404 from "./components/Error/Error404";
-import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase/firebase.config";
+import { onAuthStateChanged } from "firebase/auth";
 import Swal from 'sweetalert2';
+import Dashboard from "./components/Dashboard/Dashboard";
 
 function App() {
   const darkMode = useSelector((state) => state.darkMode);
   const cartFromLocalStorage = JSON.parse(localStorage.getItem("cart") || "[]");
   const [cartItems, setCartItems] = useState(cartFromLocalStorage);
   const dispatch = useDispatch();
-  const [login, setLogin] = useState({
-    access: false,
-    email: "",
-    photo: "",
-  });
 
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cartItems));
-    onAuthStateChanged(auth, async (user) => {
-      if (user === null) {
-        setLogin({
-          access: false,
-          email: "",
-          photo: "",
-        });
-      } else {
-        const userObject = {
-          access: true,
-          email: user.email,
-          photo: user.photoURL,
-        };
-        setLogin(userObject);
-      }
-    });
   }, [cartItems]);
 
   const handleAddProduct = (product) => {
@@ -90,13 +74,18 @@ function App() {
     setCartItems([]);
   };
 
+  onAuthStateChanged(auth, async (user) => {
+    if (user !== null) {
+      dispatch(setAccess(true));
+      dispatch(userLoggedIn(user.email));
+    }
+  });
+
   return (
-    <div className={darkMode && "div__darkMode"}>
+    <div className={darkMode ? "div__darkMode" : ""}>
       <NavBar
         darkMode={darkMode}
         setDarkMode={() => dispatch(toggleDarkMode())}
-        login={login}
-        setLogin={setLogin}
         cartItems={cartItems}
       />
       <Routes>
@@ -115,10 +104,7 @@ function App() {
         />
         <Route path="/contacto" element={<Contact />} />
         <Route path="/form" element={<FormPage />} />
-        <Route
-          path="/login"
-          element={<Login login={login} setLogin={setLogin} />}
-        />
+        <Route path="/login" element={<Login />} />
         <Route path="/createuser" element={<CreateUserForm />} />
         <Route path="/editperfil/:email" element= {<EditPerfilForm />} />
         <Route path="*" element={<Error404 />} />
@@ -126,7 +112,6 @@ function App() {
           path="/cart"
           element={
             <Cart
-              login = {login}
               cartItems={cartItems}
               handleRemoveProduct={handleRemoveProduct}
               handleClearCart={handleClearCart}
@@ -134,6 +119,7 @@ function App() {
             />
           }
         />
+        <Route path="/dashboard" element={<Dashboard/>} />
       </Routes>
       <Footer />
     </div>

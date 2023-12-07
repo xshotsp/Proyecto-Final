@@ -1,9 +1,8 @@
 /* En tu archivo navbar.module.css */
 :root {
-  --main-color:#fff;
-  --second-color: #696D7D;
-  --dark-mode: #E58C8A;
-
+  --main-color: #fff;
+  --second-color: #696d7d;
+  --dark-mode: #e58c8a;
 }
 
 .container {
@@ -30,7 +29,7 @@
 }
 
 .nav__h1 {
-  margin: 0 20px 0 0 ;
+  margin: 0 20px 0 0;
   font-size: 3rem;
   font-weight: bolder;
   color: var(--second-color); /* Color del texto del título */
@@ -112,15 +111,28 @@
 .darkModeToggle:hover .darkModeIcon {
   color: #f39c12;
 }
-
-.user__photo {
-  cursor: pointer;
-}
-
-.user__photo img {
+.photo__container {
   width: 40px;
   height: 40px;
+  min-width: 40px;
   border-radius: 50%;
+  overflow: hidden;
+  margin-left: 10px;
+  cursor: pointer;
+  border: 2px solid var(--second-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.1s ease-out;
+}
+.photo__container:hover {
+  transform: scale(1.1);
+}
+
+.photo__container img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain; /* Esto asegura que la imagen se ajuste manteniendo su relación de aspecto */
   cursor: pointer;
 }
 
@@ -156,4 +168,3 @@
 .user__options button:hover {
   background-color: #c0392b;
 }
-
