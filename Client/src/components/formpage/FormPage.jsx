@@ -7,6 +7,7 @@ import {
   getProducts,
   getBrands,
 } from "../../redux/actions/actions";
+import validate from "./validate"
 import axios from "axios";
 import s from "./productForm.module.css"
 import Swal from 'sweetalert2';
@@ -39,7 +40,7 @@ const ProductForm = () => {
     });
   };
 
-  const color_select = ["Black", "White", "Red", "Yellow", "Blue", "Brown", "Gray", "Green", "Beige", "Khaki"]
+  const color_select = ["Negro", "Blanco", "Rojo", "Amarillo", "Azul", "Café", "Gris", "Verde", "Habano", "Caqui"]
   const [productData, setProductData] = useState({
     name: "",
     image: "",
@@ -50,44 +51,14 @@ const ProductForm = () => {
   });
 
   const [errors, setErrors] = useState({
-    name: "Campo requerido",
-    image: "Debe incluir una imagen del producto",
-    price: "Campo requerido",
-    colour: "Campo requerido",
-    brands: "Campo requerido"
+    name: "",
+    image: "",
+    price: "",
+    colour: "",
+    brands: ""
   });
 
-  const validate = (productData, name) => {
   
-    if (name === "name") {
-        if (productData.name === "") setErrors({ ...errors, name: "El nombre es requerido" });
-      else if (productData.name.length >= 50) setErrors({ ...errors, name: "El nombre debe ser menor a 50 caracteres" })
-      else setErrors({...errors, name: ""})
-    }
-
-    if (name === "image") {
-       if (productData.image) setErrors({ ...errors, image: "" })
-       else setErrors({ ...errors, image: "Debe incluir una imagen del producto" })
-     }
-
-    if (name === "price") {
-       if (isNaN(parseInt(productData.price))) setErrors({ ...errors, price: "El dato debe ser un numero" });
-      else if (productData.price < 0) {errors.price = "El valor debe ser mayor a 0"} 
-      else setErrors({ ...errors, price: "" });
-    }
-
-    if (name === "colour") {
-      if (!productData.colour.length) setErrors({ ...errors, colour: "El color es requerido" });
-      else setErrors({ ...errors, colour: "" });
-    }
-
-
-
-    if (name === "brands") {
-      if (!productData.brands.length) setErrors({ ...errors, brands: "La marca es requerida" });
-      else setErrors({ ...errors, brands: "" });
-    }
-  };
 
   const handleChange = (e) => {
     setProductData({
@@ -95,12 +66,12 @@ const ProductForm = () => {
       [e.target.name] : e.target.value
     })
     setErrorSubmit("")
-  
-    validate({
+    setErrors(
+      validate({
         ...productData,
         [e.target.name]: e.target.value},
-        e.target.name);
-    return;
+        e.target.name)
+    )
   };
  
   const handleChangeImage = (event) => {
@@ -115,54 +86,58 @@ const ProductForm = () => {
           ...productData,
           [event.target.name]:reader.result,
         }) 
+        setErrors(
         validate({
           ...productData,
           [event.target.name]: reader.result},
-          event.target.name);
+          event.target.name)
+        )
       }     
            
     } else {
       setProductData({...productData, [event.target.name]: ""})
+      
     } 
 
     return
   }
 
-  const handleChangeAdditional = (event) => {
-    console.log(event.target.name)
-    const file = event.target.files[0]
-    if(file) {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = function charge () {
+  // const handleChangeAdditional = (event) => {
+  //   console.log(event.target.name)
+  //   const file = event.target.files[0]
+  //   if(file) {
+  //     const reader = new FileReader();
+  //     reader.readAsDataURL(file);
+  //     reader.onload = function charge () {
         
-        setProductData({
-          ...productData,
-          [event.target.name] : [...productData[event.target.name], reader.result]
-        }) 
-        validate({
-           ...productData,
-        [event.target.name] : [...productData[event.target.name], reader.result]}, event.target.name)
-      }     
+  //       setProductData({
+  //         ...productData,
+  //         [event.target.name] : [...productData[event.target.name], reader.result]
+  //       }) 
+  //       validate({
+  //          ...productData,
+  //       [event.target.name] : [...productData[event.target.name], reader.result]}, event.target.name)
+  //     }     
          
-    } else {
-      setProductData({...productData, [event.target.name]: ""})
+  //   } else {
+  //     setProductData({...productData, [event.target.name]: ""})
       
-    } 
+  //   } 
     
-    return 
-  }
- 
+  //   return 
+  // }
+    const esVacio= (elemento) => {
+    return elemento === "";
+  } 
  
     const buttonDisabled= ()=>{
       let disabledAux = true;
-      for(let error in errors){
-        if(errors[error]=== "") disabledAux = false;
-        else{
+      let long = Object.values(errors)
+      if (long.every(esVacio)) disabledAux = false;
+      else{
           disabledAux = true;
-          break;
         }
-      }
+    
       return disabledAux
     }
   
@@ -171,18 +146,17 @@ const ProductForm = () => {
         ...productData,
         [e.target.name] : "",
       })
+      setErrors(
       validate({
         ...productData,
         [e.target.name]: ""},
-        e.target.name);
-      
+        e.target.name)
+      )
     }
 
    
   
-    const esVacio= (elemento) => {
-      return elemento === "";
-    } 
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -199,8 +173,6 @@ const ProductForm = () => {
           dispatch(createProductSuccess(newProduct));
       
           setProductData({ name: "", image: "", price: "", colour: "", additionalImage: [], brands: ""});
-          setErrors ({name: "Campo requerido", image: "Debe incluir una imagen del producto", price: "Campo requerido", colour: "Campo requerido",
-          brands: "Campo requerido"});
           setControl("");
 
         }else {
@@ -285,7 +257,7 @@ const ProductForm = () => {
         </select>
         <span>{errors.brands}</span>
         
-        <button type="submit" id="submit" disabled={buttonDisabled()}>
+        <button type="submit" id="submit" disabled={buttonDisabled() || productData.price.length === 0}>
           Crear Producto
         </button>
         {errorSubmit && <span>{errorSubmit}</span>}

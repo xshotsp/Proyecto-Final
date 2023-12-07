@@ -25,7 +25,7 @@ const ProductList = ({ handleAddProduct }) => {
 
   return (
     <div>
-      {products[0]?.message && <h2>{products[0].message}</h2>}
+      {products[0]?.message && <h2 className={`${s.titulo} ${darkMode && s.darkMode} `}>{products[0].message}</h2>}
 
       {products[0]?.name && (
         <h1 className={`${s.titulo} ${darkMode && s.darkMode} `}>
