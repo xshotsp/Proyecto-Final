@@ -40,23 +40,27 @@ const apiLoaderProducts = async () => {
   try {
     const { data } = await axios.request(URL, { params, headers });
 
-    // Utiliza map para crear un array de promesas
+    console.log(typeof data.products); 
+ 
     const productPromises = data.products.map(
       async ({
+        productCode,
         name,
         imageUrl,
         price,
         colour,
-        //additionalImageUrls,
+        additionalImageUrls,
         brandName,
+
       }) => {
         const [product] = await Product.findOrCreate({
           where: {
+            idapi:productCode,
             name,
             image: `https://${imageUrl}`,
             price: price.current.value,
             colour,
-            //additionalImage: additionalImageUrls,
+            additionalImage: additionalImageUrls.map(url => `https://${url}`),
           },
         });
 

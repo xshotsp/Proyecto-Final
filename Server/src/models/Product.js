@@ -5,8 +5,11 @@ module.exports = (sequelize) => {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
-      allowNull: false,
       autoIncrement: true,
+    },
+    idapi: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
     },
     name: {
       type: DataTypes.STRING,
@@ -25,11 +28,15 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    // additionalImage: {
-    //     type: DataTypes.ARRAY(DataTypes.STRING),
-    //     allowNull: false    
-    // }
-  },{
+    additionalImage: {
+      type: DataTypes.ARRAY(DataTypes.STRING),
+      allowNull: false,
+    },
+    url:{
+      type:DataTypes.STRING,
+      allowNull:true,
+    }
+  }, {
     timestamps: false
   });
 };

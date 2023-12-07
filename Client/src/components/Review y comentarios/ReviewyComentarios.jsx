@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Review from './Review';
 import Comentarios from './Comentarios';
+import Response from './Response';
 
 const ReviewyComentarios = ({ login, productoId }) => {
   const [userRating, setUserRating] = useState(0);
@@ -9,6 +10,9 @@ const ReviewyComentarios = ({ login, productoId }) => {
   const [clearCommentyReview, setClearCommentyReview] = useState(false);
   const [hasUserReviewed, setHasUserReviewed] = useState(false);
   const [userName, setUserName] = useState('');
+  const [responses, setResponses] = useState([]);
+  const [showResponseSection, setShowResponseSection] = useState(false);
+
 
 
   console.log('login',login);
@@ -23,16 +27,35 @@ const ReviewyComentarios = ({ login, productoId }) => {
   }, [isLoggedIn, login.email]);
   
 
+  const handleAddResponse = (responseText) => {
+    const newResponse = { text: responseText, userId: userName, productoId: productoId };
+    setResponses((prevResponses) => [...prevResponses, newResponse]);
+    console.log('Nueva respuesta agregada:', newResponse);
+
+    // Actualiza localStorage para incluir la nueva respuesta
+    localStorage.setItem(`responses-${productoId}`, JSON.stringify([...responses, newResponse]));
+    console.log('LocalStorage actualizado para productoId:', productoId);
+  };
+
   const handleClearLocalStorage = () => {
+    // Limpiar el local storage para respuestas
+    localStorage.removeItem(`responses-${productoId}`);
+    setResponses([]);
+    console.log('LocalStorage limpiado para respuestas de productoId:', productoId);
+
+    // Limpiar el local storage para comentarios y reseñas
     localStorage.removeItem(`ratingsAndComments-${productoId}`);
     setRatingsAndComments([]);
-    console.log('LocalStorage limpiado para productoId:', productoId);
+    console.log('LocalStorage limpiado para comentarios y reseñas de productoId:', productoId);
   };
 
   useEffect(() => {
     const storedReviews = JSON.parse(localStorage.getItem(`ratingsAndComments-${productoId}`)) || [];
     setRatingsAndComments(storedReviews);
     console.log('Obtenidas revisiones del LocalStorage para productoId:', productoId);
+    const storedResponses = JSON.parse(localStorage.getItem(`responses-${productoId}`)) || [];
+    setResponses(storedResponses);
+    console.log('Obtenidas respuestas del LocalStorage para productoId:', productoId);
   }, [productoId]);
 
   const handleClearCommentyReview = () => {
@@ -102,7 +125,7 @@ const ReviewyComentarios = ({ login, productoId }) => {
 
   return (
     <div>
-      <button onClick={handleClearLocalStorage}>
+    <button onClick={handleClearLocalStorage}>
         Limpiar localStorage
       </button>
       <section>
@@ -131,7 +154,6 @@ const ReviewyComentarios = ({ login, productoId }) => {
       null
     )}
 
-
       <section>
         <h2>Calificaciones y comentarios</h2>
       {ratingsAndComments.length > 0 && (
@@ -140,9 +162,36 @@ const ReviewyComentarios = ({ login, productoId }) => {
           <p>Usuario: {ratingsAndComments[ratingsAndComments.length - 1].userId}</p>
            <Review score={ratingsAndComments[ratingsAndComments.length - 1].rating} />
            <p>Comentario: {ratingsAndComments[ratingsAndComments.length - 1].comment}</p>
+           
+          <button onClick={() => setShowResponseSection(!showResponseSection)}>
+            {showResponseSection ? 'Ocultar Respuestas' : 'Responder'}
+          </button>
+          {isLoggedIn && hasPurchased && (
+                  <Response onAddResponse={handleAddResponse} />
+                )}
         </div>
       )}
-      </section>
+        <div>
+        <section>
+            {showResponseSection && (
+              <div>
+                {responses.map((response, index) => (
+                  <div key={index}>
+                    <p>Usuario: {response.userId}</p>
+                    <p>Respuesta: {response.text}</p>
+                  </div>
+                ))}
+                <button onClick={() => setShowResponseSection(!showResponseSection)}>
+                  {showResponseSection ? 'Ocultar Respuestas' : 'Responder'}
+                </button>
+                {isLoggedIn && hasPurchased && (
+                  <Response onAddResponse={handleAddResponse} />
+                )}
+              </div>
+            )}
+          </section>
+        </div>
+      </section> 
     </div>
   );
 };
