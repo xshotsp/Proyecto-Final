@@ -27,7 +27,7 @@ const Comentarios = ({ onCommentChange, shouldClearCommentyReview }) => {
           />
         </div>
       ) : (
-        <p>Debes iniciar sesión para dejar un comentario.</p>
+        null
       )}
     </div>
   );

@@ -4,7 +4,6 @@ import { AiOutlineStar, AiFillStar } from 'react-icons/ai';
 const Review = ({ score, onRatingChange, onReviewChange, shouldClearCommentyReview }) => {
 
   const [review, setReview] = useState(0);
-  const isLoggedIn = true;
 
   const handleStarClick = (rating) => {
     if (onRatingChange) {
