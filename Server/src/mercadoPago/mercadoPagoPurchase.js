@@ -1,5 +1,8 @@
 require ("dotenv").config()
 const {MercadoPagoConfig, Preference} = require("mercadopago")
+const { createClient } = require("./clients")
+const { createPayment } = require("./payment")
+const { createMerchantOrder } = require("./merchantOrder")
 const {ACCESS_TOKEN}=  process.env;
 
 const client = new MercadoPagoConfig({
@@ -25,6 +28,7 @@ const createOrder = async (req, res) => {
 
         let preference = {
             body:{
+                "external_reference": payer.email,
                 items: items,
                 "back_urls": {
                     "success": "http://localhost:5173/",
@@ -32,6 +36,19 @@ const createOrder = async (req, res) => {
                     "pending": ""
                 },
                 auto_return: "approved",
+                marketplace: "QUIRKZ",
+                statement_descriptor: "QUIRKZ",
+                payment_methods: {
+                excluded_payment_types: [
+                    {
+                    id: 'ticket',
+                    },
+                ],
+            },
+                binary_mode: true,
+                createClient,
+                createPayment,
+                createMerchantOrder
             }
         }
 
