@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import SocialLogin from "../SocialLogin/SocialLogin";
 
 const URL = "https://quirkz.up.railway.app";
+// const URL = "http://localhost:3001"
 
 const Login = ({ setLogin, login }) => {
   const [usuario, setUsuario] = useState("");

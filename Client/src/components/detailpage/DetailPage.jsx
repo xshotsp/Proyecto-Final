@@ -1,24 +1,32 @@
-import React from 'react';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { connect, useDispatch, useSelector } from 'react-redux';
 import { cleanProductDetail, fetchProductById } from '../../redux/actions/actions';
+import ReviewyComentarios from '../Review y comentarios/ReviewyComentarios';
 import s from './detail.module.css';
+import Card from '../card/Card';
 import { Link, useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCartFlatbed, faHeart, faTruck, faHeartCircleCheck } from '@fortawesome/free-solid-svg-icons';
-import ReviewyComentarios from '../Review y comentarios/ReviewyComentarios'
+import { faCartFlatbed, faHeart, faTruck, faHeartCircleCheck, faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
-
-  const DetailPage = ({ login, handleAddProduct }) => {
-  const dispatch = useDispatch()
+const DetailPage = ({ login, handleAddProduct }) => {
+  const dispatch = useDispatch();
   const { id } = useParams();
-  const productDetails = useSelector((state) => state.productDetails)
-  const product = productDetails
-
+  const allProducts = useSelector((state) => state.allproducts);
+  const product = useSelector((state) => state.productDetails);
+  const sliderRef = useRef(null);
+  const mixedProducts = allProducts
+  .filter(prod => prod.id !== product.id)
+  .sort(() => Math.random() - 0.5)
+  .filter((value, index, self) => self.indexOf(value) === index)
+  .slice(0, 5)
+  .map((product) => <Card key={product.id} product={product} />);
   if (product.brands && product.brands.length > 0) {
-    var brandName = product.brands[0].name;
+    var brandName = product.brands[0].name; 
   } else {
-    brandName = 'No posee marca'
+    brandName = 'Cargando...'
   }
 
   const [showHeart, setShowHeart] = useState(true);
@@ -26,19 +34,51 @@ import ReviewyComentarios from '../Review y comentarios/ReviewyComentarios'
   const changeIcon = () => {
     setShowHeart((actualHeart) => !actualHeart);
   };
+
+  const PrevArrow = (props) => (
+    <div {...props} className={`${s.customArrow} ${s.customArrowLeft}`} onClick={prevSlide}>
+      <FontAwesomeIcon icon={faChevronLeft} />
+    </div>
+  );
+
+  const NextArrow = (props) => (
+    <div {...props} className={`${s.customArrow} ${s.customArrowRight}`} onClick={nextSlide}>
+      <FontAwesomeIcon icon={faChevronRight} />
+    </div>
+  );
   
+  const sliderSettings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    prevArrow: <PrevArrow />,
+    nextArrow: <NextArrow />
+  };
+  
+  const nextSlide = () => {
+    if (sliderRef.current) {
+      sliderRef.current.slickNext();
+    }
+  };
+
+  const prevSlide = () => {
+    if (sliderRef.current) {
+      sliderRef.current.slickPrev();
+    }
+  };
+
   useEffect(() => {
-    // Llama a la acción para obtener los detalles del producto al montar el componente
-    dispatch(fetchProductById(id));
+    if(id && !product.id) {
+      dispatch(fetchProductById(id));
+    }
     return () => {
       dispatch(cleanProductDetail());
     };
   }, [dispatch, id]);
-  
-
 
   if (!product) {
-    
         return <p className={s.error}>Cargando...</p>;
   }
 
@@ -75,18 +115,20 @@ import ReviewyComentarios from '../Review y comentarios/ReviewyComentarios'
         </h2>
       </div>
       <div className={s.productInfo}>
-        <h2 className={s.price}>Precio: ${product.price}</h2>
-        <h2 className={s.colour}>Color: {product.colour}</h2>
+        <h2 className={s.price}>Precio: ${product.price || 'Cargando...'}</h2>
+        <h2 className={s.colour}>Color: {product.colour || 'Cargando...'}</h2>
         <h2 className={s.brand}>Marca: {brandName}</h2>
       </div>
 
       <div className={s.descriptionTextBox}>
-        {/* <h2 className={s.descriptionText}>Descripción del producto: </h2> */}
-        {/* <p className={s.description}>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ipsam dolorum tempore saepe cupiditate iure modi vel minima temporibus, vitae incidunt iste dicta aliquid velit natus omnis architecto provident autem quidem blanditiis quos totam accusamus? Voluptatem minima nihil illo, culpa suscipit distinctio, ut vel labore voluptatibus deleniti exercitationem odit repudiandae reprehenderit. Dolor voluptatem itaque, eius officiis tempora ea nisi reprehenderit perferendis voluptate fuga ratione enim unde odit eligendi ipsam, voluptatibus soluta similique et magni. Similique, ut reprehenderit vero dolorum temporibus quo sunt enim quod optio voluptatum minima earum veniam necessitatibus nemo. Officia deleniti recusandae a ratione, assumenda, placeat deserunt et delectus obcaecati quaerat facilis excepturi eius animi incidunt ipsa veritatis laborum fugit illum aut ipsum alias veniam necessitatibus? Laboriosam aliquam eius unde nostrum fuga vero inventore hic sit voluptatem modi veniam, accusamus itaque, ipsum delectus quibusdam sapiente vitae voluptate impedit alias laudantium officia facere excepturi? Quod eligendi recusandae quibusdam! Nobis vitae quos temporibus unde doloribus impedit? Voluptates, ipsum. Laboriosam mollitia nesciunt nam aperiam aliquid quidem laudantium id quo, accusantium explicabo ducimus autem deleniti accusamus ipsum ab modi aut tempora beatae dignissimos.</p> */}
         <br />
         <h2>Productos Que Tambien Te Pueden Interesar</h2>
+        <div>
+        <Slider ref={sliderRef} {...sliderSettings}>
+          {mixedProducts}
+        </Slider>
+        </div>
       </div>
-      <div>{productDetails[0]}</div>
       <ReviewyComentarios login={login} productoId={id}/>
     </div>
   );

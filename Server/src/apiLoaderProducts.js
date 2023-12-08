@@ -41,7 +41,7 @@ const apiLoaderProducts = async () => {
     const { data } = await axios.request(URL, { params, headers });
 
     console.log(typeof data.products); 
- 
+    console.log('holaaaaaaaa');
     const productPromises = data.products.map(
       async ({
         productCode,

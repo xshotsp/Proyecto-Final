@@ -23,6 +23,7 @@ const NavBar = ({ login, setLogin, cartItems }) => {
   const darkMode = useSelector((state) => state.darkMode);
   const [showOptions, setShowOptions] = useState(false);
   const navigate = useNavigate();
+  const totalItemsCart = cartItems.length ? cartItems.reduce((total, item) => total + item.quantity, 0) : 0
 
   const handleMouseEnter = (page) => {
     setActivePage(page);
@@ -106,7 +107,7 @@ const NavBar = ({ login, setLogin, cartItems }) => {
               {activePage === "cart" && <span>Carrito</span>}
               
             </li>
-        <span className={styles.cart__items}>{cartItems.length ? cartItems.length : 0}</span>
+        <span className={styles.cart__items}>{totalItemsCart}</span>
           </Link>
         </ul>
         <div className={styles.darkModeToggle} onClick={handleDarkModeToggle}>
