@@ -15,7 +15,6 @@ const SocialLogin = () => {
 
   const handleClickGoogle = async () => {
     const user = await googleSignInFunction();
-    dispatch(userLoggedIn(user.email));
     const { data } = await axios(`${URL}/user/${user.email}`);
     if (data === null) {
       const provider = user.providerData[0].providerId.split(".")[0];
@@ -26,8 +25,8 @@ const SocialLogin = () => {
         provider 
       };
       const userResponse = await axios.post(`${URL}/user`, userObject);
-      dispatch(userLoggedIn(userResponse.data))
     }
+    dispatch(userLoggedIn(user.email));
   };
 
   /*   const handleClickFacebook = async () => {

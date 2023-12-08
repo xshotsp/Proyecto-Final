@@ -1,5 +1,5 @@
 import "./App.css";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import NavBar from "./components/NavBar/NavBar";
 import Footer from "./components/Footer/Footer";
 import CreateUserForm from "./components/createUserForm/CreateUserForm";
@@ -20,7 +20,7 @@ import Contact from "./components/Contact/Contact";
 import Error404 from "./components/Error/Error404";
 import { auth } from "./firebase/firebase.config";
 import { onAuthStateChanged } from "firebase/auth";
-import Swal from 'sweetalert2';
+import Swal from "sweetalert2";
 import Dashboard from "./components/Dashboard/Dashboard";
 import axios from "axios";
 
@@ -29,45 +29,58 @@ const URL = "http://localhost:3001";
 function App() {
   const darkMode = useSelector((state) => state.darkMode);
   const access = useSelector((state) => state.access);
-  const activeUser = useSelector((state)=>state.activeUser)
+  const activeUser = useSelector((state) => state.activeUser);
   const cartFromLocalStorage = JSON.parse(localStorage.getItem("cart") || "[]");
   const [cartItems, setCartItems] = useState(cartFromLocalStorage);
   const dispatch = useDispatch();
+  const { pathname } = useLocation();
+  console.log(pathname);
 
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cartItems));
   }, [cartItems]);
 
-  const handleAddProduct =async (product) => {
-    const ProductExist = cartItems.find((item) => item.id === product.id);
-    if (ProductExist) {
-      setCartItems(
-        cartItems.map((item) =>
-          item.id === product.id
-            ? { ...ProductExist, quantity: ProductExist.quantity + 1 }
-            : item
-        )
-      );
-       if(access){
-        const objProduct = {
-          userEmail:activeUser.email,
-          productId:product.id,
-          quantity: 1
-        }
-/*         const response = await axios.post(`${URL}/add-to-cart`,objProduct) */
-        console.log(objProduct)
-
-      } 
+  const handleAddProduct = async (product) => {
+    if (access) {
+      const objProduct = {
+        email: activeUser.email,
+        productId: product.id,
+        quantity: 1,
+      };
+      const response = await axios.post(`${URL}/add-to-cart`, objProduct);
+      console.log(response);
+      if (pathname === "/") {
+        Swal.fire({
+          icon: "success",
+          title: "",
+          text: "sumado al carrito ",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
     } else {
-      setCartItems([...cartItems, { ...product, quantity: 1 }]);
+      const ProductExist = cartItems.find((item) => item.id === product.id);
+      if (ProductExist) {
+        setCartItems(
+          cartItems.map((item) =>
+            item.id === product.id
+              ? { ...ProductExist, quantity: ProductExist.quantity + 1 }
+              : item
+          )
+        );
+      } else {
+        setCartItems([...cartItems, { ...product, quantity: 1 }]);
+      }
+      if (pathname === "/") {
+        Swal.fire({
+          icon: "success",
+          title: "",
+          text: "sumado al carrito ",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
     }
-    Swal.fire({
-      icon: 'success',
-      title: '',
-      text: 'sumado al carrito ',
-      showConfirmButton: false,
-      timer: 1500
-    })
   };
 
   const handleRemoveProduct = (product) => {
@@ -96,12 +109,11 @@ function App() {
         dispatch(userLoggedIn(user.email));
       }
     });
-  
+
     return () => {
       unsubscribe();
     };
   }, []);
-  
 
   return (
     <div className={darkMode ? "div__darkMode" : ""}>
@@ -128,7 +140,7 @@ function App() {
         <Route path="/form" element={<FormPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/createuser" element={<CreateUserForm />} />
-        <Route path="/editperfil/:email" element= {<EditPerfilForm />} />
+        <Route path="/editperfil/:email" element={<EditPerfilForm />} />
         <Route path="*" element={<Error404 />} />
         <Route
           path="/cart"
@@ -141,7 +153,7 @@ function App() {
             />
           }
         />
-        <Route path="/dashboard" element={<Dashboard/>} />
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
       <Footer />
     </div>
