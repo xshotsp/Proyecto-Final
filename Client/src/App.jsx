@@ -9,6 +9,8 @@ import Login from "./components/Login/Login";
 import DetailPage from "./components/detailpage/DetailPage";
 import Cart from "./components/Cart/Cart";
 import EditPerfilForm from "./components/editPerfilForm/EditPerfilForm";
+import EditProductForm from "./components/editProduct/EditProduct";
+import MyShopping from "./components/myShooping/MyShooping";
 import { useSelector, useDispatch } from "react-redux";
 import {
   setAccess,
@@ -34,9 +36,9 @@ function App() {
   const [cartItems, setCartItems] = useState(cartFromLocalStorage);
   const dispatch = useDispatch();
   const { pathname } = useLocation();
-  console.log(cartFromLocalStorage);
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cartItems));
+
   }, [cartItems]);
 
   const handleAddProduct = async (product) => {
@@ -48,9 +50,7 @@ function App() {
           quantity: 1,
         },
       };
-      console.log(objProduct)
-      const response = await axios.post(`${URL}/cart`, objProduct);
-      console.log(response);
+      await axios.post(`${URL}/cart`, objProduct);
       if (pathname === "/") {
         Swal.fire({
           icon: "success",
@@ -133,6 +133,7 @@ function App() {
       }
     });
 
+
     return () => {
       unsubscribe();
     };
@@ -163,7 +164,9 @@ function App() {
         <Route path="/form" element={<FormPage />} />
         <Route path="/login" element={<Login cartItems={cartItems} />} />
         <Route path="/createuser" element={<CreateUserForm />} />
-        <Route path="/editperfil/:email" element={<EditPerfilForm />} />
+        <Route path="/editperfil/:email" element= {<EditPerfilForm />} />
+        <Route path="/editproduct/:id" element= {<EditProductForm />} />
+        <Route path="/shopping" element = {<MyShopping />} />
         <Route path="*" element={<Error404 />} />
         <Route
           path="/cart"
