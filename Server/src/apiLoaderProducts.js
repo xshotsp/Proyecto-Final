@@ -51,6 +51,7 @@ const apiLoaderProducts = async () => {
         colour,
         additionalImageUrls,
         brandName,
+        url
 
       }) => {
         const [product] = await Product.findOrCreate({
@@ -61,6 +62,7 @@ const apiLoaderProducts = async () => {
             price: price.current.value,
             colour,
             additionalImage: additionalImageUrls.map(url => `https://${url}`),
+            url: `https://www.asos.com/us/${url}`, 
           },
         });
 
