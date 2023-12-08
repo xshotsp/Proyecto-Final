@@ -5,7 +5,7 @@ const validate = (state, campo) => {
     
     if (campo === "name") {
         if (!state.name)  errors.name = "Name is required";
-        if (state.name.length >= 50) errors.name = "The name must be less than 50 characters"
+        if (state.name.length >= 100) errors.name = "The name must be less than 50 characters"
     }
     
     
@@ -26,8 +26,7 @@ const validate = (state, campo) => {
 
     if (!state.colour.length) errors.colour = "Color is required"
    
-    
-    if (!state.brands.length) errors.brands = "Brand is required";
+
 
     
     return errors;

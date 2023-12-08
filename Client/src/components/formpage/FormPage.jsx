@@ -40,14 +40,16 @@ const ProductForm = () => {
     });
   };
 
-  const color_select = ["Negro", "Blanco", "Rojo", "Amarillo", "Azul", "Café", "Gris", "Verde", "Habano", "Caqui"]
+  const color_select = ["Beige","Black", "Blue", "Brown", "Gray", "Green", "Kaqui", "Red", "White", "Yellow"]
   const [productData, setProductData] = useState({
     name: "",
     image: "",
     price: "",
     colour: "",
+    quantity: 0,
     additionalImage: [],
     brands: "",
+    active: true
   });
 
   const [errors, setErrors] = useState({
@@ -55,10 +57,15 @@ const ProductForm = () => {
     image: "",
     price: "",
     colour: "",
+    quantity: "",
     brands: ""
   });
 
-  
+  const validateAd = (productData) => {
+    if (productData.additionalImage.length === 3){
+      setControl("Maximo tres imagenes" );
+    } 
+  }
 
   const handleChange = (e) => {
     setProductData({
@@ -102,30 +109,29 @@ const ProductForm = () => {
     return
   }
 
-  // const handleChangeAdditional = (event) => {
-  //   console.log(event.target.name)
-  //   const file = event.target.files[0]
-  //   if(file) {
-  //     const reader = new FileReader();
-  //     reader.readAsDataURL(file);
-  //     reader.onload = function charge () {
+  const handleChangeAdditional = (event) => {
+    const file = event.target.files[0]
+    if(file) {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = function charge () {
         
-  //       setProductData({
-  //         ...productData,
-  //         [event.target.name] : [...productData[event.target.name], reader.result]
-  //       }) 
-  //       validate({
-  //          ...productData,
-  //       [event.target.name] : [...productData[event.target.name], reader.result]}, event.target.name)
-  //     }     
+        setProductData({
+          ...productData,
+          [event.target.name] : [...productData[event.target.name], reader.result]
+        }) 
+        validateAd({
+           ...productData,
+        [event.target.name] : [...productData[event.target.name], reader.result]}, event.target.name)
+      }     
          
-  //   } else {
-  //     setProductData({...productData, [event.target.name]: ""})
+    } else {
+      setProductData({...productData, [event.target.name]: ""})
       
-  //   } 
-    
-  //   return 
-  // }
+    } 
+    return 
+  }
+
     const esVacio= (elemento) => {
     return elemento === "";
   } 
@@ -154,7 +160,28 @@ const ProductForm = () => {
       )
     }
 
-   
+    const removeImageAd = (e) =>{
+      setControl("")
+      setErrorSubmit("")
+      if (e.target.name === "additionalImage0"){
+        setProductData({
+          ...productData, 
+          additionalImage : [...productData.additionalImage.filter(X=>X !== productData.additionalImage[0])]
+        })
+      }
+      if (e.target.name === "additionalImage1"){
+        setProductData({
+          ...productData,
+          additionalImage : [...productData.additionalImage.filter(X=>X !== productData.additionalImage[1])]
+         })
+        }
+      else if (e.target.name === "additionalImage2"){
+        setProductData({
+          ...productData,
+          additionalImage : [...productData.additionalImage.filter(X=>X !== productData.additionalImage[2])]
+         })
+        }
+    }
   
   
 
@@ -166,17 +193,19 @@ const ProductForm = () => {
       
       if (long.every(esVacio)) {
           dispatch(createProductRequest());
+          productData.active=true
+          console.log(productData)
           const response = await axios.post(`${URL}/product`, productData);
           const newProduct = response.data;
           if (newProduct) mostrarAlerta('success' , 'El producto se creó de manera exitosa' );
   
           dispatch(createProductSuccess(newProduct));
       
-          setProductData({ name: "", image: "", price: "", colour: "", additionalImage: [], brands: ""});
+          setProductData({ name: "", image: "", price: "", quantity: "", colour: "", additionalImage: [], brands: ""});
           setControl("");
 
         }else {
-          setErrorSubmit('Debe llenar todos los campos sin errores')
+          mostrarAlerta('error', 'Debe llenar todos los campos sin errores')
         }
     } catch (error) {
       console.log(error)
@@ -189,10 +218,10 @@ const ProductForm = () => {
 
   return (
     <div>
-      <h2 className={s.h2}>Crear Producto</h2>
+      <h2 className={s.h2}>Create Product</h2>
       <form className={`${s.form} ${s["product-form"]}  ${darkMode && s.darkMode}`} onSubmit={handleSubmit}>
         <label>
-          Nombre:
+          Name:
           <input
             type="text"
             id="name"
@@ -205,7 +234,7 @@ const ProductForm = () => {
         
         <label
         className={s.buttonfile}
-          htmlFor = "image"> Subir Imagen
+          htmlFor = "image"> Load Image
           <input
           className={s.inputfile}
             type="file"
@@ -224,8 +253,9 @@ const ProductForm = () => {
         }
         
         </div>
+        <div className={s.pricequantity}>
         <label className={s.precio}>
-          Precio:
+          Price:
           <input
             type="text"
             name="price"
@@ -235,30 +265,68 @@ const ProductForm = () => {
           />
           <span>{errors.price}</span>
         </label>
-        
+        <label className={s.precio}>
+          Quantity:
+          <input
+            type="number"
+            min="1"
+            name="quantity"
+            id="quantity"
+            value={productData.quantity}
+            onChange={handleChange}
+          />
+          <span>{errors.quantity}</span>
+        </label>
+        </div>
         <label className="label-form" htmlFor="colour">Color</label>
             <select  name="colour" onChange={handleChange} value={productData.colour} >
-            <option  hidden>seleccionar color</option>
+            <option  hidden>select color</option>
               {color_select?.map((option, index) => (
               <option key={index} value={option}>{option}</option>))}
             </select>
           <span>{errors.colour}</span>
         
-        
-       
-        <img src={productData.additionalImage[0]} alt="" />
-        
+          <label className={s.buttonfile}
+          htmlFor = "additionalImage">Load Additional Image (3 max)
+          <input
+            className={s.inputfile}
+            disabled={control}
+            type="file"
+            name="additionalImage"
+            id = "additionalImage"
+            onChange={handleChangeAdditional}
+          />
+          </label>
+        <img src={productData.additionalImage[0]} alt="" className={s.img} />
+        <div className={s.div__remove__btn}>
+          {
+            productData.additionalImage[0] && <button type="button" id="button" name="additionalImage0" onClick={removeImageAd}className={s.remove__btn}>X</button>
+          }
+        </div>
+        <img src={productData.additionalImage[1]} alt="" className={s.img}/>
+        <div className={s.div__remove__btn}>
+          {
+            productData.additionalImage[1] && <button type="button" id="button" name="additionalImage1" onClick={removeImageAd}className={s.remove__btn}>X</button>
+          }
+        </div> 
+        <img src={productData.additionalImage[2]} alt="" className={s.img}/>
+        <div className={s.div__remove__btn}>
+          {
+            productData.additionalImage[2] && <button type="button" id="button" name="additionalImage2" onClick={removeImageAd}className={s.remove__btn}>X</button>
+          }
+        </div>
         <span>{control}</span>
-         <label>Marcas: </label>
+
+         <label>Brands: </label>
         <select onChange={handleChange} name="brands" id="brands" value={productData.brands}>
-          <option hidden>seleccionar marca</option>{
+          <option hidden>select brand</option>{
             allBrands?.map((b)=><option key={b} value={b.id}>{b.name}</option>)
           }
         </select>
         <span>{errors.brands}</span>
         
-        <button type="submit" id="submit" disabled={buttonDisabled() || productData.price.length === 0}>
-          Crear Producto
+        <button type="submit" id="submit" disabled={buttonDisabled() || !productData.price || !productData.name || !productData.quantity}>
+          Create Product
         </button>
         {errorSubmit && <span>{errorSubmit}</span>}
       </form>
