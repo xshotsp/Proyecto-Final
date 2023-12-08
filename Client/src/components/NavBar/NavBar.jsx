@@ -3,7 +3,7 @@ import { useState } from "react";
 import {
   setAccess,
   toggleDarkMode,
-  userLoggedIn,
+  userLogOut,
 } from "../../redux/actions/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
@@ -42,7 +42,7 @@ const NavBar = () => {
 
   const handleLogout = () => {
     dispatch(setAccess(false));
-    dispatch(userLoggedIn(""));
+    dispatch(userLogOut())
 
     signOutFunction();
 

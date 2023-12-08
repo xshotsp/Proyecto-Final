@@ -35,7 +35,7 @@ const Login = () => {
         `${URL}/user/login/?email=${usuario}&password=${contraseña}`
       );
       dispatch(setAccess(data.access));
-      dispatch(userLoggedIn(usuario));
+       dispatch(userLoggedIn(usuario)); 
     } catch (error) {
       mostrarAlerta("error", error.response.data.error);
     }

@@ -22,9 +22,14 @@ import { auth } from "./firebase/firebase.config";
 import { onAuthStateChanged } from "firebase/auth";
 import Swal from 'sweetalert2';
 import Dashboard from "./components/Dashboard/Dashboard";
+import axios from "axios";
+
+const URL = "http://localhost:3001";
 
 function App() {
   const darkMode = useSelector((state) => state.darkMode);
+  const access = useSelector((state) => state.access);
+  const activeUser = useSelector((state)=>state.activeUser)
   const cartFromLocalStorage = JSON.parse(localStorage.getItem("cart") || "[]");
   const [cartItems, setCartItems] = useState(cartFromLocalStorage);
   const dispatch = useDispatch();
@@ -33,7 +38,7 @@ function App() {
     localStorage.setItem("cart", JSON.stringify(cartItems));
   }, [cartItems]);
 
-  const handleAddProduct = (product) => {
+  const handleAddProduct =async (product) => {
     const ProductExist = cartItems.find((item) => item.id === product.id);
     if (ProductExist) {
       setCartItems(
@@ -43,6 +48,16 @@ function App() {
             : item
         )
       );
+       if(access){
+        const objProduct = {
+          userEmail:activeUser.email,
+          productId:product.id,
+          quantity: 1
+        }
+/*         const response = await axios.post(`${URL}/add-to-cart`,objProduct) */
+        console.log(objProduct)
+
+      } 
     } else {
       setCartItems([...cartItems, { ...product, quantity: 1 }]);
     }
@@ -74,12 +89,19 @@ function App() {
     setCartItems([]);
   };
 
-  onAuthStateChanged(auth, async (user) => {
-    if (user !== null) {
-      dispatch(setAccess(true));
-      dispatch(userLoggedIn(user.email));
-    }
-  });
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (user !== null) {
+        dispatch(setAccess(true));
+        dispatch(userLoggedIn(user.email));
+      }
+    });
+  
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+  
 
   return (
     <div className={darkMode ? "div__darkMode" : ""}>

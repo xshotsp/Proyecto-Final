@@ -25,7 +25,8 @@ const SocialLogin = () => {
         profile_picture: user.photoURL,
         provider 
       };
-      await axios.post(`${URL}/user`, userObject);
+      const userResponse = await axios.post(`${URL}/user`, userObject);
+      dispatch(userLoggedIn(userResponse.data))
     }
   };
 

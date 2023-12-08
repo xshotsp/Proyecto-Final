@@ -17,6 +17,7 @@ import {
   GET_ALL_USERS,
   SET_ACCESS,
   USER_LOGGED_IN,
+  USER_LOG_OUT,
 } from "./actionTypes";
 
 /* const URL = "https://quirkz.up.railway.app"; */
@@ -236,5 +237,11 @@ export const userLoggedIn = (user) => {
     } catch (error) {
       console.log(error);
     }
+  };
+};
+
+export const userLogOut = () => {
+  return {
+    type: USER_LOG_OUT,
   };
 };
