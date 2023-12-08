@@ -91,3 +91,9 @@
     border-radius: 50%;
     text-align: center;
   }
+
+
+  .s-formedit .close {
+    margin-left: 340px;
+    cursor: pointer;
+  }

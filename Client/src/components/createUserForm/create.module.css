@@ -13,6 +13,11 @@
   flex-direction: column;
 }
 
+.form .close {
+  margin-left: 340px;
+  cursor: pointer;
+}
+
 .s-form {
   margin-top: 20px;
 }
