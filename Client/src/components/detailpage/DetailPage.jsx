@@ -19,10 +19,9 @@ const DetailPage = ({ login, handleAddProduct }) => {
   const sliderRef = useRef(null);
   const mixedProducts = allProducts
   .filter(prod => prod.id !== product.id)
-  .sort(() => Math.random() - 0.5)
+  .sort(() => 1 - 0.5)
   .filter((value, index, self) => self.indexOf(value) === index)
-  .slice(0, 5)
-  .map((product) => <Card key={product.id} product={product} />);
+  .slice(0, 5);
   if (product.brands && product.brands.length > 0) {
     var brandName = product.brands[0].name; 
   } else {
@@ -125,7 +124,7 @@ const DetailPage = ({ login, handleAddProduct }) => {
         <h2>Productos Que Tambien Te Pueden Interesar</h2>
         <div>
         <Slider ref={sliderRef} {...sliderSettings}>
-          {mixedProducts}
+          {mixedProducts.map((product) => <Card key={product.id} product={product} />)}
         </Slider>
         </div>
       </div>
