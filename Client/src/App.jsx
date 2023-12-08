@@ -48,6 +48,7 @@ function App() {
           quantity: 1,
         },
       };
+      console.log(objProduct)
       const response = await axios.post(`${URL}/cart`, objProduct);
       console.log(response);
       if (pathname === "/") {

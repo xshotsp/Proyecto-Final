@@ -80,7 +80,7 @@ const Cart = ({
 
       <div>
         {(access ? cartReduxMap : cartItems).map((product) => (
-          <div key={product.name} className={s["cart-items-list"]}>
+          <div key={product.id} className={s["cart-items-list"]}>
             <img
               className={s["cart-items-img"]}
               src={product.image}
