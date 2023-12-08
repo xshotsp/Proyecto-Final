@@ -16,17 +16,17 @@ const Cart = ({
   handleClearCart,
 }) => {
   const access = useSelector((state) => state.access);
-  const cartRedux = useSelector((state) => state.activeUser.cartItems);
+  const cartRedux = useSelector((state) => state.activeUser.products);
 
   const cartReduxMap = cartRedux
-    ? cartRedux.map((item) => {
+    ? [...cartRedux].map((item) => {
         return {
-          quantity: item.quantity,
-          id: item.product.id,
-          name: item.product.name,
-          image: item.product.image,
-          price: item.product.price,
-          colour: item.product.colour,
+          id: item.id,
+          name: item.name,
+          colour: item.colour,
+          image: item.image,
+          price: item.price,
+          quantity: item.userProduct.quantity,
         };
       })
     : [];
@@ -67,29 +67,20 @@ const Cart = ({
     <div className={s["cart-items"]}>
       <h2 className={s["cart-items-header"]}>Productos en el carrito: </h2>
       <div className={s["clear-cart"]}>
-        {(access
-          ? cartReduxMap.length
-          : cartItems.length) >= 1 && (
-              <button
-                className={s["clear-cart-button"]}
-                onClick={handleClearCart}
-              >
-                Limpiar carrito
-              </button>
-            )}
+        {(access ? cartReduxMap.length : cartItems.length) >= 1 && (
+          <button className={s["clear-cart-button"]} onClick={handleClearCart}>
+            Limpiar carrito
+          </button>
+        )}
       </div>
 
-      {(access
-        ? cartReduxMap.length
-        : cartItems.length) === 0 && (
-            <div className={s["cart-items-empty"]}>
-              Tu carrito esta vacio! ??{" "}
-            </div>
-          )}
+      {(access ? cartReduxMap.length : cartItems.length) === 0 && (
+        <div className={s["cart-items-empty"]}>Tu carrito esta vacio! ?? </div>
+      )}
 
       <div>
         {(access ? cartReduxMap : cartItems).map((product) => (
-          <div key={product.id} className={s["cart-items-list"]}>
+          <div key={product.name} className={s["cart-items-list"]}>
             <img
               className={s["cart-items-img"]}
               src={product.image}

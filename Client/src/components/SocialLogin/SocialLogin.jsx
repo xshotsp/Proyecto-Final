@@ -7,11 +7,19 @@ import {
 import s from "./SocialLogin.module.css";
 import { useDispatch } from "react-redux";
 import { userLoggedIn } from "../../redux/actions/actions";
+import Swal from "sweetalert2";
 
 const URL = "http://localhost:3001";
 
-const SocialLogin = () => {
+const SocialLogin = ({ cartItems }) => {
   const dispatch = useDispatch();
+
+  const productsId = cartItems?.map((product) => {
+    return {
+      productId: product.id,
+      quantity: product.quantity,
+    };
+  });
 
   const handleClickGoogle = async () => {
     const user = await googleSignInFunction();
@@ -22,10 +30,24 @@ const SocialLogin = () => {
         email: user.email,
         username: user.displayName,
         profile_picture: user.photoURL,
-        provider 
+        provider,
       };
-      const userResponse = await axios.post(`${URL}/user`, userObject);
+      await axios.post(`${URL}/user`, userObject);
     }
+
+    const itemsArr = {
+      email: user.email,
+      products: productsId,
+    };
+    await axios.post(`${URL}/cart`, itemsArr);
+
+    Swal.fire({
+      icon: "success",
+      title: "",
+      text: "Carrito actualizado.",
+      showConfirmButton: false,
+      timer: 1500,
+    });
     dispatch(userLoggedIn(user.email));
   };
 

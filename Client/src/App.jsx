@@ -34,8 +34,7 @@ function App() {
   const [cartItems, setCartItems] = useState(cartFromLocalStorage);
   const dispatch = useDispatch();
   const { pathname } = useLocation();
-  console.log(pathname);
-
+  console.log(cartFromLocalStorage);
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cartItems));
   }, [cartItems]);
@@ -44,10 +43,12 @@ function App() {
     if (access) {
       const objProduct = {
         email: activeUser.email,
-        productId: product.id,
-        quantity: 1,
+        products: {
+          productId: product.id,
+          quantity: 1,
+        },
       };
-      const response = await axios.post(`${URL}/add-to-cart`, objProduct);
+      const response = await axios.post(`${URL}/cart`, objProduct);
       console.log(response);
       if (pathname === "/") {
         Swal.fire({
@@ -58,6 +59,7 @@ function App() {
           timer: 1500,
         });
       }
+      dispatch(userLoggedIn(activeUser.email));
     } else {
       const ProductExist = cartItems.find((item) => item.id === product.id);
       if (ProductExist) {
@@ -83,23 +85,43 @@ function App() {
     }
   };
 
-  const handleRemoveProduct = (product) => {
-    const ProductExist = cartItems.find((item) => item.id === product.id);
-    if (ProductExist.quantity === 1) {
-      setCartItems(cartItems.filter((item) => item.id !== product.id));
+  const handleRemoveProduct = async (product) => {
+    if (access) {
+      const objProduct = {
+        email: activeUser.email,
+        productId: product.id,
+      };
+      await axios.put(`${URL}/cart`, objProduct);
+      dispatch(userLoggedIn(activeUser.email));
     } else {
-      setCartItems(
-        cartItems.map((item) =>
-          item.id === product.id
-            ? { ...ProductExist, quantity: ProductExist.quantity - 1 }
-            : item
-        )
-      );
+      const ProductExist = cartItems.find((item) => item.id === product.id);
+      if (ProductExist.quantity === 1) {
+        setCartItems(cartItems.filter((item) => item.id !== product.id));
+      } else {
+        setCartItems(
+          cartItems.map((item) =>
+            item.id === product.id
+              ? { ...ProductExist, quantity: ProductExist.quantity - 1 }
+              : item
+          )
+        );
+      }
     }
   };
 
-  const handleClearCart = () => {
+  const handleClearCart = async () => {
+    if (access) {
+      await axios.delete(`${URL}/cart/${activeUser.email}`);
+      dispatch(userLoggedIn(activeUser.email));
+    }
     setCartItems([]);
+    Swal.fire({
+      icon: "success",
+      title: "",
+      text: "Carrito Borrado.",
+      showConfirmButton: false,
+      timer: 1500,
+    });
   };
 
   useEffect(() => {
@@ -138,7 +160,7 @@ function App() {
         />
         <Route path="/contacto" element={<Contact />} />
         <Route path="/form" element={<FormPage />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<Login cartItems={cartItems} />} />
         <Route path="/createuser" element={<CreateUserForm />} />
         <Route path="/editperfil/:email" element={<EditPerfilForm />} />
         <Route path="*" element={<Error404 />} />

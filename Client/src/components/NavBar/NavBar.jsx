@@ -42,10 +42,10 @@ const NavBar = () => {
 
   const handleLogout = () => {
     dispatch(setAccess(false));
-    dispatch(userLogOut())
+    dispatch(userLogOut());
 
     signOutFunction();
-
+    localStorage.clear();
     setShowOptions(false);
     navigate("/");
   };
