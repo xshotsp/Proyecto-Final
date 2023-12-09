@@ -17,7 +17,7 @@ const createClient = async (req, res) => {
             first_name: user.name,
             surname: user.last_name,
             phone: user.phone_number,
-            adress: user.adress
+            address: user.address
         }))
 
         let buyer = {

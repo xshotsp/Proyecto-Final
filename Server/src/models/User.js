@@ -23,22 +23,22 @@ module.exports = (sequelize) => {
         defaultValue:
           "https://t3.ftcdn.net/jpg/01/09/00/64/360_F_109006426_388PagqielgjFTAMgW59jRaDmPJvSBUL.jpg",
       },
-      name:{
-        type: DataTypes.STRING,
-        allowNull: true,
-      },
-      last_name:{
-        type: DataTypes.STRING,
-        allowNull: true,
-      },
+      // name:{
+      //   type: DataTypes.STRING,
+      //   allowNull: true,
+      // },
+      // last_name:{
+      //   type: DataTypes.STRING,
+      //   allowNull: true,
+      // },
       phone_number:{
         type: DataTypes.DECIMAL,
         allowNull: true,
       },
-      address:{
-        type: DataTypes.STRING,
-        allowNull: true,
-      },
+      // address:{
+      //   type: DataTypes.STRING,
+      //   allowNull: true,
+      // },
     },
     {
       timestamps: false,
