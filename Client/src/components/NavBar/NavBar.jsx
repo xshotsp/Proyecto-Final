@@ -130,10 +130,10 @@ const NavBar = () => {
         {showOptions && (
           <div className={styles.user__options}>
             <p>{activeUser?.email}</p>
-            <Link to="/">
+            <Link to={`/editperfil/${activeUser?.email}`}>
               <button>Editar Perfil</button>
             </Link>
-            <Link to="/">
+            <Link to="/shopping">
               <button>Mis Compras</button>
             </Link>
             <button onClick={handleLogout}>Logout</button>

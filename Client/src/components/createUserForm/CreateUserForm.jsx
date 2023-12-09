@@ -2,22 +2,35 @@ import React, { useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import validate from "./validate";
+import { useNavigate } from "react-router-dom";
 import LabelAndInput from "../labelAndInput/LabelAndInput";
 import s from "./create.module.css";
 
+<<<<<<< HEAD
 const URL = 'https://quirkz.up.railway.app'; 
 
 // const URL = "http://localhost:3001";
+=======
+const URL = 'https://quirkz.up.railway.app'
+
+//const URL = "http://localhost:3001";
+>>>>>>> 545331b182950c58d228fe360e918f5a65134572
 
 const CreateUserForm = () => {
+
+  const navigate = useNavigate()
   const [input, setInput] = useState({
-    username: "",
+    name: "",
+    lastname: "",
     password: "",
     passwordRep: "",
     email: "",
     profile_picture:
       "https://t3.ftcdn.net/jpg/01/09/00/64/360_F_109006426_388PagqielgjFTAMgW59jRaDmPJvSBUL.jpg",
-    member: "",
+    phone: "",
+    provider: "",
+    active: true,
+    admin: false
   });
 
   const [errors, setErrors] = useState({
@@ -47,22 +60,23 @@ const CreateUserForm = () => {
     );
   };
 
+  const comeback = () => {
+    navigate('/');
+  }
+
   const submitHandler = async (event) => {
     event.preventDefault();
     try {
       const long = Object.values(errors);
-      if (long.length === 0) {
+      if (long.length === 0 && input.passwordRep) {
         await axios.post(`${URL}/user`, input);
         mostrarAlerta("success", "El usuario se creó de manera exitosa");
         setInput({
-          username: "",
           password: "",
           passwordRep: "",
           email: "",
-          profile_picture: "",
-          member: "",
         });
-      } else mostrarAlerta("error", "Debe llenar todos los campos sin errores");
+      } else if (long.length !==0 || !input.passwordRep) mostrarAlerta("error", "Debe llenar todos los campos sin errores");
     } catch (error) {
       console.log(error);
       mostrarAlerta("error", error.response.data);
@@ -72,8 +86,9 @@ const CreateUserForm = () => {
   return (
     <div className={s.form__container}>
       <form className={`${s.form} ${s["s-form"]}`} onSubmit={submitHandler}>
+      <label onClick={comeback} className ={s.close}>X</label>
         <fieldset>
-          <legend>Crear Usuario</legend>
+          <legend>Create User</legend>
 
           <LabelAndInput
             label="Email*"
@@ -85,7 +100,7 @@ const CreateUserForm = () => {
           {errors.email && <p>{errors.email}</p>}
 
           <LabelAndInput
-            label="Contraseña*"
+            label="Password*"
             type="password"
             name="password"
             value={input.password}
@@ -93,15 +108,21 @@ const CreateUserForm = () => {
           />
           {errors.password && <p>{errors.password}</p>}
           <LabelAndInput
-            label="Confirmación Contraseña*"
+            label="Confirmation*"
             type="password"
             name="passwordRep"
             value={input.passwordRep}
             handler={formHandler}
           />
           {errors.passwordRep && <p>{errors.passwordRep}</p>}
+<<<<<<< HEAD
           <span>*Obligatorios</span>
           <button type="submit" className={s.btnC}>Crear</button>
+=======
+          <span>*Mandatory</span>
+          <br></br>
+          <button type="submit">Create</button>
+>>>>>>> 545331b182950c58d228fe360e918f5a65134572
         </fieldset>
       </form>
     </div>

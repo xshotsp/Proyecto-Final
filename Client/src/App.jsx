@@ -9,6 +9,8 @@ import Login from "./components/Login/Login";
 import DetailPage from "./components/detailpage/DetailPage";
 import Cart from "./components/Cart/Cart";
 import EditPerfilForm from "./components/editPerfilForm/EditPerfilForm";
+import EditProductForm from "./components/editProduct/EditProduct";
+import MyShopping from "./components/myShooping/MyShooping";
 import { useSelector, useDispatch } from "react-redux";
 import {
   setAccess,
@@ -113,6 +115,8 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/createuser" element={<CreateUserForm />} />
         <Route path="/editperfil/:email" element= {<EditPerfilForm />} />
+        <Route path="/editproduct/:id" element= {<EditProductForm />} />
+        <Route path="/shopping" element = {<MyShopping />} />
         <Route path="*" element={<Error404 />} />
         <Route
           path="/cart"
