@@ -16,10 +16,11 @@ const DetailPage = ({ login, handleAddProduct }) => {
   const { id } = useParams();
   const allProducts = useSelector((state) => state.allproducts);
   const product = useSelector((state) => state.productDetails);
+  console.log(product);
   const sliderRef = useRef(null);
   const mixedProducts = allProducts
   .filter(prod => prod.id !== product.id)
-  .sort(() => 1 - 0.5)
+  .toSorted((a, b) => a - b)
   .filter((value, index, self) => self.indexOf(value) === index)
   .slice(0, 5);
   if (product.brands && product.brands.length > 0) {
