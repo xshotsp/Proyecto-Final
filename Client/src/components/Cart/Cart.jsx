@@ -97,7 +97,7 @@ const Cart = ({  cartItems , handleAddProduct, handleRemoveProduct, handleClearC
         </div>
         <div>
           <br />
-          <button
+          <button className={s.btncart}
           disabled={totalPrice ? false : true}
           onClick = {mercadoPago}
           >

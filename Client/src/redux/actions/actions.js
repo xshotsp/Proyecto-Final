@@ -17,10 +17,11 @@ import {
   GET_ALL_USERS,
   SET_ACCESS,
   USER_LOGGED_IN,
+  USER_LOG_OUT
 } from "./actionTypes";
 
-/* const URL = "https://quirkz.up.railway.app"; */
-const URL = "http://localhost:3001";
+const URL = "https://quirkz.up.railway.app"; 
+// const URL = "http://localhost:3001";
 
 // export const getAllProducts = async () => {
 //     try {
@@ -217,6 +218,8 @@ export const getAllUsersAction = () => {
   };
 };
 
+
+
 export const setAccess = (boolean) => {
   return {
     type: SET_ACCESS,
@@ -236,5 +239,11 @@ export const userLoggedIn = (user) => {
     } catch (error) {
       console.log(error);
     }
+  };
+};
+
+export const userLogOut = () => {
+  return {
+    type: USER_LOG_OUT,
   };
 };

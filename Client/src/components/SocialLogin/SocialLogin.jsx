@@ -8,7 +8,7 @@ import s from "./SocialLogin.module.css";
 import { useDispatch } from "react-redux";
 import { userLoggedIn } from "../../redux/actions/actions";
 
-const URL = "http://localhost:3001";
+const URL = "quirkz.up.railway.app";
 
 const SocialLogin = () => {
   const dispatch = useDispatch();
@@ -25,7 +25,8 @@ const SocialLogin = () => {
         profile_picture: user.photoURL,
         provider 
       };
-      await axios.post(`${URL}/user`, userObject);
+      const userResponse = await axios.post(`${URL}/user`, userObject);
+      dispatch(userLoggedIn(userResponse.data))
     }
   };
 

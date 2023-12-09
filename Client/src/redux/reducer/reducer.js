@@ -14,6 +14,8 @@ import {
   SET_ACCESS,
   USER_LOGGED_IN,
   GET_ALL_USERS,
+  USER_LOG_OUT
+  
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -128,6 +130,13 @@ export default function reducer(state = initialState, action) {
             case GET_ALL_USERS :{
               return {...state,
                 allUsers : action.payload}
+            }
+
+            case USER_LOG_OUT:{
+              return{
+                ...state,
+                activeUser:{}
+              }
             }
 
     default:

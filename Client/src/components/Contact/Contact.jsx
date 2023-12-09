@@ -26,7 +26,7 @@ const Contact = () => {
         placeholder='Escribenos tu mensaje aqui!'
         />
         <br />
-        <button>Enviar</button>
+        <button className={s.btnE}>Enviar</button>
         <br />
         <h2>Nuestros datos</h2>
         <br />

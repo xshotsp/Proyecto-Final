@@ -74,12 +74,18 @@ function App() {
     setCartItems([]);
   };
 
-  onAuthStateChanged(auth, async (user) => {
-    if (user !== null) {
-      dispatch(setAccess(true));
-      dispatch(userLoggedIn(user.email));
-    }
-  });
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (user !== null) {
+        dispatch(setAccess(true));
+        dispatch(userLoggedIn(user.email));
+      }
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, []);
 
   return (
     <div className={darkMode ? "div__darkMode" : ""}>
