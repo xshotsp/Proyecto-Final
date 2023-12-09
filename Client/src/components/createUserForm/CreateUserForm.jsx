@@ -6,15 +6,9 @@ import { useNavigate } from "react-router-dom";
 import LabelAndInput from "../labelAndInput/LabelAndInput";
 import s from "./create.module.css";
 
-<<<<<<< HEAD
-const URL = 'https://quirkz.up.railway.app'; 
-
-// const URL = "http://localhost:3001";
-=======
 const URL = 'https://quirkz.up.railway.app'
 
 //const URL = "http://localhost:3001";
->>>>>>> 545331b182950c58d228fe360e918f5a65134572
 
 const CreateUserForm = () => {
 
@@ -115,14 +109,9 @@ const CreateUserForm = () => {
             handler={formHandler}
           />
           {errors.passwordRep && <p>{errors.passwordRep}</p>}
-<<<<<<< HEAD
-          <span>*Obligatorios</span>
-          <button type="submit" className={s.btnC}>Crear</button>
-=======
           <span>*Mandatory</span>
           <br></br>
           <button type="submit">Create</button>
->>>>>>> 545331b182950c58d228fe360e918f5a65134572
         </fieldset>
       </form>
     </div>
