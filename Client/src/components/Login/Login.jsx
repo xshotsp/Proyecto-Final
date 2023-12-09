@@ -6,7 +6,7 @@ import s from "./login.module.css";
 import { useNavigate } from "react-router-dom";
 import SocialLogin from "../SocialLogin/SocialLogin";
 import { useDispatch, useSelector } from "react-redux";
-import { setAccess, userLoggedIn } from "../../redux/actions/actions";
+import { setAccess, userCart, userLoggedIn } from "../../redux/actions/actions";
 import Swal from "sweetalert2";
 
 /* const URL = "https://quirkz.up.railway.app"; */
@@ -57,6 +57,7 @@ const Login = ({ cartItems }) => {
 
       dispatch(setAccess(data.access));
       dispatch(userLoggedIn(usuario));
+      dispatch(userCart(usuario))
     } catch (error) {
       mostrarAlerta("error", error.response.data.error);
     }

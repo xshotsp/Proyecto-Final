@@ -6,7 +6,7 @@ import {
 } from "../../firebase/firebase.config";
 import s from "./SocialLogin.module.css";
 import { useDispatch } from "react-redux";
-import { userLoggedIn } from "../../redux/actions/actions";
+import { userCart, userLoggedIn } from "../../redux/actions/actions";
 import Swal from "sweetalert2";
 
 const URL = "http://localhost:3001";
@@ -25,7 +25,7 @@ const SocialLogin = ({ cartItems }) => {
     const user = await googleSignInFunction();
     const { data } = await axios(`${URL}/user/${user.email}`);
     if (data === null) {
-      const provider = user.providerData[0].providerId.split(".")[0];
+      const provider =  await user.providerData[0].providerId.split(".")[0];
       const userObject = {
         email: user.email,
         username: user.displayName,
@@ -40,6 +40,7 @@ const SocialLogin = ({ cartItems }) => {
       products: productsId,
     };
     await axios.post(`${URL}/cart`, itemsArr);
+    dispatch(userCart(user.email))
 
     Swal.fire({
       icon: "success",

@@ -15,6 +15,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   setAccess,
   toggleDarkMode,
+  userCart,
   userLoggedIn,
 } from "./redux/actions/actions";
 import { useEffect, useState } from "react";
@@ -36,8 +37,10 @@ function App() {
   const [cartItems, setCartItems] = useState(cartFromLocalStorage);
   const dispatch = useDispatch();
   const { pathname } = useLocation();
+
+
   useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(cartItems));
+    if (!access)localStorage.setItem("cart", JSON.stringify(cartItems));
 
   }, [cartItems]);
 
@@ -50,7 +53,8 @@ function App() {
           quantity: 1,
         },
       };
-      await axios.post(`${URL}/cart`, objProduct);
+      const response = await axios.post(`${URL}/cart`, objProduct);
+      console.log(response)
       if (pathname === "/") {
         Swal.fire({
           icon: "success",
@@ -60,7 +64,7 @@ function App() {
           timer: 1500,
         });
       }
-      dispatch(userLoggedIn(activeUser.email));
+      dispatch(userCart(activeUser.email));
     } else {
       const ProductExist = cartItems.find((item) => item.id === product.id);
       if (ProductExist) {
@@ -93,7 +97,7 @@ function App() {
         productId: product.id,
       };
       await axios.put(`${URL}/cart`, objProduct);
-      dispatch(userLoggedIn(activeUser.email));
+      dispatch(userCart(activeUser.email));
     } else {
       const ProductExist = cartItems.find((item) => item.id === product.id);
       if (ProductExist.quantity === 1) {
@@ -113,7 +117,7 @@ function App() {
   const handleClearCart = async () => {
     if (access) {
       await axios.delete(`${URL}/cart/${activeUser.email}`);
-      dispatch(userLoggedIn(activeUser.email));
+      dispatch(userCart(activeUser.email));
     }
     setCartItems([]);
     Swal.fire({
@@ -130,6 +134,7 @@ function App() {
       if (user !== null) {
         dispatch(setAccess(true));
         dispatch(userLoggedIn(user.email));
+        dispatch(userCart(user.email))
       }
     });
 
@@ -138,6 +143,7 @@ function App() {
       unsubscribe();
     };
   }, []);
+
 
   return (
     <div className={darkMode ? "div__darkMode" : ""}>

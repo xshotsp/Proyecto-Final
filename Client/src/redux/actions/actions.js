@@ -18,6 +18,8 @@ import {
   SET_ACCESS,
   USER_LOGGED_IN,
   USER_LOG_OUT,
+  GET_USER_CART,
+  CLEAN_USER_CART,
 } from "./actionTypes";
 
 /* const URL = "https://quirkz.up.railway.app"; */
@@ -245,4 +247,26 @@ export const userLogOut = () => {
     type: USER_LOG_OUT,
   };
 };
+
+
+export const userCart = (email) =>{
+return async (dispatch) => {
+    try {
+      const { data } = await axios(`${URL}/cart/${email}`);
+
+      return dispatch({
+        type: GET_USER_CART,
+        payload: data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
+
+export const cleanUserCart =()=>{
+  return {
+    type: CLEAN_USER_CART,
+  }
+}
 

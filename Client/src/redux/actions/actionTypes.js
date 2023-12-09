@@ -15,5 +15,7 @@ export const GET_ALL_USERS = "GET_ALL_USERS";
 export const SET_ACCESS = "SET_ACCESS"
 export const USER_LOGGED_IN = 'USER_LOGGED_IN'
 export const USER_LOG_OUT = 'USER_LOG_OUT'
+export const GET_USER_CART = 'GET_USER_CART'
+export const CLEAN_USER_CART = 'CLEAN_USER_CART'
 
 

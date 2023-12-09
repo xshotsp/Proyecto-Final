@@ -15,6 +15,8 @@ import {
   USER_LOGGED_IN,
   GET_ALL_USERS,
   USER_LOG_OUT,
+  GET_USER_CART,
+  CLEAN_USER_CART,
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -28,6 +30,7 @@ const initialState = {
   allUsers: [],
   access: false,
   activeUser: {},
+  userCart: [],
 };
 
 export default function reducer(state = initialState, action) {
@@ -130,6 +133,19 @@ export default function reducer(state = initialState, action) {
 
     case GET_ALL_USERS: {
       return { ...state, allUsers: action.payload };
+    }
+    case GET_USER_CART: {
+      return {
+        ...state,
+        userCart: action.payload,
+      };
+    }
+    case CLEAN_USER_CART:{
+      const emptyArr = []
+      return{
+        ...state,
+        userCart: emptyArr
+      }
     }
 
     default:

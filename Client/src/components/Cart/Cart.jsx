@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
 //const URL = 'http://localhost:3001'
 const URL = "https://quirkz.up.railway.app";
@@ -16,22 +17,9 @@ const Cart = ({
   handleClearCart,
 }) => {
   const access = useSelector((state) => state.access);
-  const cartRedux = useSelector((state) => state.activeUser.products);
+  const userCart = useSelector((state) => state.userCart);
 
-  const cartReduxMap = cartRedux
-    ? [...cartRedux].map((item) => {
-        return {
-          id: item.id,
-          name: item.name,
-          colour: item.colour,
-          image: item.image,
-          price: item.price,
-          quantity: item.userProduct.quantity,
-        };
-      })
-    : [];
-
-  const totalPrice = (access ? cartReduxMap : cartItems).reduce(
+  const totalPrice = (access ? userCart : cartItems).reduce(
     (price, item) => price + item.quantity * item.price,
     0
   );
@@ -63,23 +51,25 @@ const Cart = ({
     }
   };
 
+  useEffect(() => {}, [userCart]);
+
   return (
     <div className={s["cart-items"]}>
       <h2 className={s["cart-items-header"]}>Productos en el carrito: </h2>
       <div className={s["clear-cart"]}>
-        {(access ? cartReduxMap.length : cartItems.length) >= 1 && (
+        {(access ? userCart.length : cartItems.length) >= 1 && (
           <button className={s["clear-cart-button"]} onClick={handleClearCart}>
             Limpiar carrito
           </button>
         )}
       </div>
 
-      {(access ? cartReduxMap.length : cartItems.length) === 0 && (
+      {(access ? userCart.length : cartItems.length) === 0 && (
         <div className={s["cart-items-empty"]}>Tu carrito esta vacio! ?? </div>
       )}
 
       <div>
-        {(access ? cartReduxMap : cartItems).map((product) => (
+        {(access ? userCart : cartItems).map((product) => (
           <div key={product.id} className={s["cart-items-list"]}>
             <img
               className={s["cart-items-img"]}

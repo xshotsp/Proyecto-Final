@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 import {
+  cleanUserCart,
   setAccess,
   toggleDarkMode,
   userLogOut,
@@ -43,6 +44,7 @@ const NavBar = () => {
   const handleLogout = () => {
     dispatch(setAccess(false));
     dispatch(userLogOut());
+    dispatch(cleanUserCart())
 
     signOutFunction();
     localStorage.clear();
