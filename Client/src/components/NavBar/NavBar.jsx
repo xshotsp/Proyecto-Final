@@ -120,7 +120,7 @@ const NavBar = () => {
             onClick={() => setShowOptions(!showOptions)}
           >
             <img
-              src={activeUser.profile_picture}
+              src={activeUser?.profile_picture}
               alt=""
               className={styles.user__photo}
             />
@@ -129,11 +129,11 @@ const NavBar = () => {
 
         {showOptions && (
           <div className={styles.user__options}>
-            <p>{activeUser.email}</p>
-            <Link to="/">
+            <p>{activeUser?.email}</p>
+            <Link to={`/editperfil/${activeUser?.email}`}>
               <button>Editar Perfil</button>
             </Link>
-            <Link to="/">
+            <Link to="/shopping">
               <button>Mis Compras</button>
             </Link>
             <button onClick={handleLogout}>Logout</button>

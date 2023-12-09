@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import LabelAndInput from "../labelAndInput/LabelAndInput";
 import axios from "axios";
 import validate from './validate';
@@ -14,6 +15,7 @@ const URL = 'https://quirkz.up.railway.app';
 
 const EditPerfilForm = () => {
 
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { email } = useParams();
 
@@ -21,20 +23,22 @@ const EditPerfilForm = () => {
 
   const [photoUser, setPhotoUser] = useState(placeHolderPhoto);
   const [input, setInput] = useState({
-    username: "",
+    name: "",
+    lastname: "",
     email: "",
     profile_picture: "",
     phone: "",
   });
   const [errors, setErrors] = useState({
-    username: '',
-    phone:''
-})
+    // name: "",
+    // lastname: "",
+    // phone: "",
+  })
 
 useEffect (() => {
   async  function getByID()  {
     const { data } = await axios.get(`${URL}/user/${email}`)
-    setInput({username: data.username, email: data.email, 
+    setInput({name: data.name, lastname: data.lastname, email: data.email, 
       phone: data.phone, profile_picture: data.profile_picture})
   }
   getByID()
@@ -65,6 +69,10 @@ useEffect (() => {
     
   };
 
+  const volver = () => {
+    navigate('/');
+  }
+
   const handleChangeImage = (event) => {  
     const file = event.target.files[0]
     if(file) {
@@ -89,10 +97,12 @@ useEffect (() => {
   const submitHandler = async (event) => {
     event.preventDefault();
     try {
+      console.log(errors)
       const long = Object.values(errors);
           if (long.length === 0) {
               await axios.put(`${URL}/user/${email}`, input);
               mostrarAlerta('success' , 'El usuario se actualizó de manera exitosa' );
+              navigate('/');
              
           } else mostrarAlerta('error', 'Debe llenar todos los campos sin errores')
 
@@ -106,16 +116,17 @@ useEffect (() => {
   return (
     <div>
       <form className={`${s.form} ${s["s-formedit"]}`} onSubmit={submitHandler}>
+      <label onClick={volver} className ={s.close}>X</label>
         <fieldset>
         
-        <legend>Editar Perfil</legend>
+        <legend>Edit Profile</legend>
         <h3>{input.email}</h3>
 
         <img src={input.profile_picture? input.profile_picture: photoUser} alt="" />
         
         <label
           className={s.buttonfile}
-          htmlFor = "profile_picture"> Subir Imagen
+          htmlFor = "profile_picture"> Load Image
           <input
           className={s.inputfile}
             type="file"
@@ -123,19 +134,25 @@ useEffect (() => {
             id="profile_picture"
             onChange={handleChangeImage}
           />
-          </label>
-          
+          </label>         
           <LabelAndInput
-            label="Nombre*"
+            label="Name"
             type="text"
-            name="username"
-            value={input.username}
+            name="name"
+            value={input.name}
             handler={formHandler}
           />
-          {errors.username && <p>{errors.username}</p>}
-          
+          {errors.name && <p>{errors.name}</p>}
           <LabelAndInput
-            label="Teléfono"
+            label="Lastname"
+            type="text"
+            name="lastname"
+            value={input.lastname}
+            handler={formHandler}
+          />
+          {errors.lastname && <p>{errors.lastname}</p>}
+          <LabelAndInput
+            label="Phone"
             type="text"
             name="phone"
             value={input.phone}
@@ -143,8 +160,8 @@ useEffect (() => {
           />
           {errors.phone && <p>{errors.phone}</p>}
          
-          <span>*Obligatorios</span>
-          <button type="submit">Editar</button>
+          
+          <button type="submit">Edit</button>
         </fieldset>
       </form>
       {/*<Notification notification={notification} />*/ }
