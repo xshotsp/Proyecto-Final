@@ -8,15 +8,18 @@ const transporter = nodemailer.createTransport({
         user: "quirkz41@gmail.com",
         pass: "wzal qhnl lidu wffl"
     },
+    tls: {
+        rejectUnauthorized: false
+    }
 });
 
 
 transporter.verify()
 .then(() => {
-    console.log("mensaje enviado con exito!");
+    console.log("Message sent succesfully!");
 })
 .catch((error) => {
-    console.error("Error al enviar correo:", error);
+    console.error("Error sending email:", error);
 });
 
             

@@ -64,7 +64,7 @@ const {
       if (product) {
         res.status(200).json(product);
       } else {
-        res.status(404).json({ error: 'El producto no se encontró' });
+        res.status(404).json({ error: 'Product not found' });
       }
     } catch (error) {
       res.status(500).json({ error: error.message });

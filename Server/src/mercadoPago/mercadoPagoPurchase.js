@@ -29,7 +29,7 @@ const createOrder = async (req, res) => {
 
         let preference = {
             body:{
-                "external_reference": payer.email,
+               // "external_reference": payer.email,
                 items: items,
                 "back_urls": {
                     "success": "http://localhost:5173/success",

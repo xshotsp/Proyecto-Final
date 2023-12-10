@@ -73,7 +73,7 @@ const HomePage = ({ handleAddProduct }) => {
               setInitialFilters({});
             }}
           >
-            Reinicio
+            Restart
           </button>
         </div>
         <div>

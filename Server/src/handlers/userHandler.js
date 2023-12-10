@@ -1,4 +1,4 @@
-const { getUser, getOneUser } = require("../controllers/userController");
+const { getUser, updateUser } = require("../controllers/userController");
 const { User } = require("../db");
 const transporter = require("../functions/sendMails");
 const cloudinary = require("cloudinary").v2;
@@ -8,8 +8,9 @@ const bcrypt = require("bcrypt");
 
 const getUserHandler = async (req, res) => {
   try {
-    const {id} = req.params
-    const results = await getUser(id);
+    
+    const {email} = req.params
+    const results = await getUser(email);
     res.status(200).json(results);
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -18,21 +19,9 @@ const getUserHandler = async (req, res) => {
 
 const putUserHandler = async (req, res) => {
   try {
-    const { profile_picture } = req.body;
-    const { id } = req.params;
-
-    if (!profile_picture) {
-      res.status(400).json("Profile picture is required");
-    }
-
-    const newUser = await getOneUser(id);
-
-    if (!newUser) {
-      res.status(404).json("User does not exist");
-    }
-    newUser.profile_picture = profile_picture;
-    await newUser.save();
-
+    
+    const { email } = req.params;
+    const newUser = await updateUser(email, req.body);
     return res.status(200).json(newUser);
   } catch (error) {
    return res.status(400).json({ error: error.message });
@@ -42,36 +31,26 @@ const putUserHandler = async (req, res) => {
 const createUserHandler = async (req, res) => {
   try {
 
-    //let { username, password, email, profile_picture, member } = req.body;
+    const { username, password, email, profile_picture, phone } = req.body;
 
-    const { username, password, email, profile_picture, member } = req.body;
-
-   // if (!username || !password || !email) {
+   
     if (!password || !email) {
-      return res.status(400).json("Campos obligatorios incompletos.");
+      return res.status(400).json("Incomplete required fields.");
     }
 
-    // const searchUser = await User.findAll({
-    //   where: {
-    //     username: username,
-    //   },
-    // });
+  
     const searchEmail = await User.findAll({
       where: {
         email: email,
       },
     });
 
-    //if (searchUser.length || searchEmail.length) {
+    
     if (searchEmail.length) {
-       return res.status(404).json("El correo electrónico ya existe.");
+       return res.status(404).json("The email already exists.");
     } else {
 
-       // CLOUDINARY
-      // if (profile_picture){
-      //   const cloudinaryUpload = await cloudinary.uploader.upload(`${profile_picture}`);
-      //   profile_picture = cloudinaryUpload.secure_url;
-      // }
+   
 
       // para encriptar el password
 /*       const hashedPassword = await bcrypt.hash(password, 10);
@@ -82,19 +61,19 @@ const createUserHandler = async (req, res) => {
         password,
         email,
         profile_picture,
-        member,
+        phone,
       });
 
 
       await transporter.sendMail({
-        from: "mensaje enviado por <quirkz41@gmail.com>",
+        from: "message sent by <quirkz41@gmail.com>",
         to: email,
-        subject: "Bienvenid@ a QUIRKZ",
+        subject: "Welcome to QUIRKZ",
         html:` 
         <h2>${username}</h2>
-        <p>Gracias por preferir nuestra tienda online QUIRKZ</p>
+        <p>Thank you for choosing our online store QUIRKZ</p>
         <p style="font-size: 16px; color: #0074d9;">
-      Para ir a la pagina, haz clic <a href="http://localhost:5173" style="text-decoration: none; color: #ff4136; font-weight: bold;">aquí</a>.
+        To go to the page, click <a href="http://localhost:5173" style="text-decoration: none; color: #ff4136; font-weight: bold;">here</a>.
     </p>` ,
       })
       
@@ -113,16 +92,16 @@ const login = async (req, res) => {
   try {
     const { email, password } = req.query;  
     if (!email || !password) {
-      return res.status(400).send("Faltan datos");
+      return res.status(400).send("Missing data");
     }
 
     const user = await User.findOne({ where: { email: email } });
     if (!user) {
-      return res.status(404).send("Usuario no encontrado");
+      return res.status(404).send("User not found");
     }
 
     if (user.password !== password) {
-      return res.status(403).send("Contraseña incorrecta");
+      return res.status(403).send("Incorrect password");
     }
     return res.json({
       access: true,

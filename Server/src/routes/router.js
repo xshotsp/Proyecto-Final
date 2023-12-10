@@ -24,8 +24,8 @@ router.delete("/product/delete/:id", deleteProductsHandler);
 router.put("/product/put/:id", updateProductsHandler);
 router.get("/brands", getBrandHandler)
 router.get("/user/login" ,login)
-router.get("/user/:id", getUserHandler)
-router.put("/user/:id", putUserHandler)
+router.get("/user/:email", getUserHandler)
+router.put("/user/:email", putUserHandler)
 router.post("/user", createUserHandler)
 router.get("/success", successfulPurchase)
 router.post("/purchase", createOrder)

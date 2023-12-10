@@ -4,41 +4,45 @@ module.exports = (sequelize) => {
   sequelize.define(
     "user",
     {
-      email: { 
-        primaryKey: true, 
-        type: DataTypes.STRING, 
-        allowNull: false 
-      },
-      username: {
+      email: {
+        primaryKey: true,
         type: DataTypes.STRING,
         allowNull: false,
+      },
+      name: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      lastname: {
+        type: DataTypes.STRING,
+        allowNull: true,
       },
       password: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       profile_picture: {
-        type: DataTypes.TEXT,
+        type: DataTypes.STRING,
         allowNull: false,
         defaultValue:
           "https://t3.ftcdn.net/jpg/01/09/00/64/360_F_109006426_388PagqielgjFTAMgW59jRaDmPJvSBUL.jpg",
       },
-      // name:{
-      //   type: DataTypes.STRING,
-      //   allowNull: true,
-      // },
-      // last_name:{
-      //   type: DataTypes.STRING,
-      //   allowNull: true,
-      // },
-      phone_number:{
-        type: DataTypes.DECIMAL,
+      phone: {
+        type: DataTypes.STRING,
         allowNull: true,
       },
-      // address:{
-      //   type: DataTypes.STRING,
-      //   allowNull: true,
-      // },
+      provider: {
+        type: DataTypes.STRING,
+        defaultValue: "form",
+      },
+      active:{
+        type: DataTypes.BOOLEAN,
+        allowNull: true,
+      },
+      admin:{
+        type: DataTypes.BOOLEAN,
+            allowNull: true,
+      },
     },
     {
       timestamps: false,
