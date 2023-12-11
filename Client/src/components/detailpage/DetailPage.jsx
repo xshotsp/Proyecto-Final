@@ -25,7 +25,7 @@ import { Link, useParams } from 'react-router-dom';
 
   if (!product) {
     
-        return <p className={s.error}>Cargando...</p>;
+        return <p className={s.error}>Loading...</p>;
   }
 
   return (
@@ -33,7 +33,7 @@ import { Link, useParams } from 'react-router-dom';
       <h2>{product.id}</h2>
       <div className={s.backBtn}>
       <Link to='/'>
-        <button>Volver</button>
+        <button>Back</button>
       </Link>
       </div>
       <br />
@@ -48,17 +48,17 @@ import { Link, useParams } from 'react-router-dom';
         <h2>
         <button className={s.addBtn} 
         onClick={() => handleAddProduct(product)}>
-          Añadir Al Carrito
+          Add shopping cart
         </button>
         </h2>
       </div>
       <div className={s.productInfo}>
-        <h2 className={s.price}>Precio: ${product.price}</h2>
-        <h2 className={s.colour}>Color: {product.colour}</h2>
+        <h2 className={s.price}>Price: ${product.price}</h2>
+        <h2 className={s.colour}>Colour: {product.colour}</h2>
       </div>
 
       <div className={s.descriptionTextBox}>
-        <h2 className={s.descriptionText}>Descripción del producto: </h2>
+        <h2 className={s.descriptionText}>Product description: </h2>
         <p className={s.description}>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ipsam dolorum tempore saepe cupiditate iure modi vel minima temporibus, vitae incidunt iste dicta aliquid velit natus omnis architecto provident autem quidem blanditiis quos totam accusamus? Voluptatem minima nihil illo, culpa suscipit distinctio, ut vel labore voluptatibus deleniti exercitationem odit repudiandae reprehenderit. Dolor voluptatem itaque, eius officiis tempora ea nisi reprehenderit perferendis voluptate fuga ratione enim unde odit eligendi ipsam, voluptatibus soluta similique et magni. Similique, ut reprehenderit vero dolorum temporibus quo sunt enim quod optio voluptatum minima earum veniam necessitatibus nemo. Officia deleniti recusandae a ratione, assumenda, placeat deserunt et delectus obcaecati quaerat facilis excepturi eius animi incidunt ipsa veritatis laborum fugit illum aut ipsum alias veniam necessitatibus? Laboriosam aliquam eius unde nostrum fuga vero inventore hic sit voluptatem modi veniam, accusamus itaque, ipsum delectus quibusdam sapiente vitae voluptate impedit alias laudantium officia facere excepturi? Quod eligendi recusandae quibusdam! Nobis vitae quos temporibus unde doloribus impedit? Voluptates, ipsum. Laboriosam mollitia nesciunt nam aperiam aliquid quidem laudantium id quo, accusantium explicabo ducimus autem deleniti accusamus ipsum ab modi aut tempora beatae dignissimos.</p>
         <br />
       </div>

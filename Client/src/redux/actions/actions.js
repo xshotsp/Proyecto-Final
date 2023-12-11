@@ -14,18 +14,22 @@ import {
   GET_FILTROS,
   GET_ALL_PRODUCTS,
   TOGGLE_DARK_MODE,
+  GET_ALL_USERS,
+  SET_ACCESS,
+  USER_LOGGED_IN,
+  USER_LOG_OUT
+} from "./actionTypes";
 
-} from './actionTypes';
-
-const URL = "https://quirkz.up.railway.app"
+const URL = "https://quirkz.up.railway.app"; 
+// const URL = "http://localhost:3001";
 
 // export const getAllProducts = async () => {
 //     try {
-//       const response = await fetch('http://localhost:3001/product'); 
+//       const response = await fetch('http://localhost:3001/product');
 //       if (!response.ok) {
 //         throw new Error('No se pudo obtener la lista de productos');
 //       }
-  
+
 //       const products = await response.json();
 //       return products;
 //     } catch (error) {
@@ -33,7 +37,7 @@ const URL = "https://quirkz.up.railway.app"
 //       throw error;
 //     }
 //   };
-  
+
 //   getAllProducts()
 //     .then(products => {
 //       console.log('Productos obtenidos:', products);
@@ -43,58 +47,59 @@ const URL = "https://quirkz.up.railway.app"
 //     });
 
 export function getProducts() {
-  return async function(dispatch) {
+  return async function (dispatch) {
     try {
       const response = await axios.get(`${URL}/product/`);
       dispatch({
         type: GET_PRODUCTS,
-        payload: response.data
+        payload: response.data,
       });
     } catch (error) {
       console.log(error);
     }
   };
 }
-  
-// Acción para traer todos los productos
-    export const getAllProducts = () => {
-      return async (dispatch) => {
-          try{
-            const productsname = (await axios.get(`${URL}/product/all-products`)).data;
-              return dispatch({
-                  type: GET_ALL_PRODUCTS, 
-                  payload: productsname
-              });
-          }catch (error) {
-              throw error.response.data
-          }
-      };
-    };
 
-  export function getBrands(){
-    return async function(dispatch){
-      try {
-        const response = await axios.get(`${URL}/brands/`)
-        dispatch({
-          type: GET_BRANDS,
-          payload: response.data
-        })
-      } catch (error) {
-        console.log(error);
-      }
-    }
-  }
-  
-  //Funcion Post Independiente
-export function postProduct(state){
-  return async function(dispatch){
+// Acción para traer todos los productos
+export const getAllProducts = () => {
+  return async (dispatch) => {
     try {
-      await axios.post(`${URL}/product`, state)
-      alert("Producto creado con exito")
+      const productsname = (await axios.get(`${URL}/product/all-products`))
+        .data;
+      return dispatch({
+        type: GET_ALL_PRODUCTS,
+        payload: productsname,
+      });
+    } catch (error) {
+      throw error.response.data;
+    }
+  };
+};
+
+export function getBrands() {
+  return async function (dispatch) {
+    try {
+      const response = await axios.get(`${URL}/brands/`);
+      dispatch({
+        type: GET_BRANDS,
+        payload: response.data,
+      });
     } catch (error) {
       console.log(error);
     }
-  }
+  };
+}
+
+//Funcion Post Independiente
+export function postProduct(state) {
+  return async function (dispatch) {
+    try {
+      await axios.post(`${URL}/product`, state);
+      alert("Product created successfully");
+    } catch (error) {
+      console.log(error);
+    }
+  };
 }
 
 // Acción para iniciar la creación del producto
@@ -117,27 +122,27 @@ export const createProductFailure = (error) => ({
 // Trae el producto por Nombre
 export const getProductName = (name) => {
   return async (dispatch) => {
-      try{
-        const productsname = (await fetch(`${URL}/product/name/${name}`)).data;
-    
-        //if (!productsname) throw new Error ('No se encuentra un producto que coincida con ese nombre')
-          return dispatch({
-              type: GET_PRODUCT_NAME, 
-              payload: productsname
-          });
-      }catch (error) {
-          throw error.response.data
-      }
+    try {
+      const productsname = (await fetch(`${URL}/product/name/${name}`)).data;
+
+      //if (!productsname) throw new Error ('No se encuentra un producto que coincida con ese nombre')
+      return dispatch({
+        type: GET_PRODUCT_NAME,
+        payload: productsname,
+      });
+    } catch (error) {
+      throw error.response.data;
+    }
   };
 };
 
-
 export const fetchProductById = (id) => async (dispatch) => {
-  console.log(id)
   try {
     const response = await fetch(`${URL}/product/${id}`);
     if (!response.ok) {
-      throw new Error(`Error al obtener el producto. Código de estado: ${response.status}`);
+      throw new Error(
+        `Error al obtener el producto. Código de estado: ${response.status}`
+      );
     }
 
     const productDetails = await response.json();
@@ -175,22 +180,89 @@ export const getFilters = (filtros) => {
       const url = `${URL}/product/?${queryString}`;
       const response = await axios.get(url);
 
-      console.log(response.data)
       dispatch({
         type: GET_FILTROS,
         payload: response.data,
       });
     } catch (error) {
-      console.error('Error en la solicitud con filtros:', error);
+      console.error("Error en la solicitud con filtros:", error);
     }
   };
 };
 export function cleanProductDetail() {
-  return{
-    type: CLEAN_PRODUCT_DETAIL
-  }
+  return {
+    type: CLEAN_PRODUCT_DETAIL,
+  };
 }
 
 export const toggleDarkMode = () => ({
   type: TOGGLE_DARK_MODE,
 });
+
+export const getAllUsersAction = () => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.get(`${URL}/user/all`);
+      const withoutPass = data.map((user) => {
+        const { email, name, lastname, profile_picture, phone, active } = user;
+        return { email, name, lastname, profile_picture, phone, active };
+      });
+
+      dispatch({
+        type: GET_ALL_USERS,
+        payload: withoutPass,
+      });
+    } catch (error) {
+      console.error("Error al obtener usuarios:", error.message);
+    }
+  };
+};
+
+
+export const setAccess = (boolean) => {
+  return {
+    type: SET_ACCESS,
+    payload: boolean,
+  };
+};
+
+export const userLoggedIn = (user) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios(`${URL}/user/${user}`);
+
+      return dispatch({
+        type: USER_LOGGED_IN,
+        payload: data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const userLogOut = () => {
+  return {
+    type: USER_LOG_OUT,
+  };
+};
+export const blockUserAction = (email) => {
+  return async (dispatch, getState) => {
+    try {
+      // Actualizar el estado local
+      const { users } = getState();
+      const updatedUsers = users.map((user) =>
+        user.email === email ? { ...user, active: !user.active } : user
+      );
+      dispatch({ type: GET_ALL_USERS, payload: updatedUsers });
+
+      // Realizar una solicitud al servidor para bloquear/desbloquear al usuario
+      await axios.post(`${URL}/user/block`, { email });
+
+      // Despachar acción de bloqueo local
+      dispatch({ type: BLOCK_USER, payload: email });
+    } catch (error) {
+      console.error("Error al bloquear usuario:", error.message);
+    }
+  };
+};

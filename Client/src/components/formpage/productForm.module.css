@@ -12,12 +12,13 @@
 .form {
   display: flex;
   flex-direction: column;
-  max-width: 300px; /* Ajusta el ancho según tus necesidades */
+  max-width: 400px; /* Ajusta el ancho según tus necesidades */
   margin: 10px auto;
   border: 1px solid var(--second-color);
   padding: 20px;
   border-radius: 5px;
   box-shadow: 2px 2px 2px rgba(128, 128, 128, 0.361);
+  margin: 50px auto;
 }
 
 .darkMode .form{
@@ -30,8 +31,9 @@
 
 .img{
   margin: 0 auto;
-  width: 200px;
+  width: 100px;
   border-radius: 20px;
+  align-items: center;
 }
 
 .div__remove__btn{
@@ -141,4 +143,18 @@
   top: 0;
   opacity: 0;
   cursor: pointer;
+}
+
+.pricequantity {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pricequantity input{
+  width: 50%;
+  padding: 6px; /* Reduce el relleno de los campos de entrada */
+  margin-bottom: 8px; /* Ajusta el espacio entre campos de entrada */
+  box-sizing: border-box;
+
 }

@@ -31,8 +31,8 @@ export const signOutFunction = async () => {
 export const googleSignInFunction = async () => {
 
   try {
-    await signInWithPopup(auth, new GoogleAuthProvider());
-    return "Login correcto"
+    const {user} = await signInWithPopup(auth, new GoogleAuthProvider());
+    return user
   } catch (error) {
     return error.message
   }

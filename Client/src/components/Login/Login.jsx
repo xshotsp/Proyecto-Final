@@ -5,44 +5,57 @@ import axios from "axios";
 import s from "./login.module.css";
 import { useNavigate } from "react-router-dom";
 import SocialLogin from "../SocialLogin/SocialLogin";
+import { useDispatch, useSelector } from "react-redux";
+import { setAccess, userLoggedIn } from "../../redux/actions/actions";
+import Swal from "sweetalert2";
 
-const URL = "https://quirkz.up.railway.app";
+ const URL = "https://quirkz.up.railway.app"; 
+// const URL = "http://localhost:3001";
 
-const Login = ({ setLogin, login }) => {
+const Login = () => {
   const [usuario, setUsuario] = useState("");
   const [contraseña, setContraseña] = useState("");
-  const [error, setError] = useState();
+
   const navigate = useNavigate();
+  const access = useSelector((state) => state.access);
+  const dispatch = useDispatch();
+
+  const mostrarAlerta = (iconType, msjText) => {
+    Swal.fire({
+      icon: iconType,
+      title: "",
+      text: msjText,
+    });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(usuario, contraseña);
     try {
-      const response = await axios(
+      const { data } = await axios(
         `${URL}/user/login/?email=${usuario}&password=${contraseña}`
       );
-      setLogin(response.data);
+      dispatch(setAccess(data.access));
+      dispatch(userLoggedIn(usuario));
     } catch (error) {
-      console.error("Error al iniciar sesión:", error.message);
-      setError("Credenciales incorrectas");
+      mostrarAlerta("error", error.response.data.error);
     }
   };
 
   useEffect(() => {
-    if (login.access) navigate("/");
-  }, [login.access]);
+    if (access) navigate("/");
+  }, [access]);
 
   return (
     <section className={s["login-container"]}>
       <hr />
-      <h2>Mi Cuenta</h2>
+      <h2>My account</h2>
       <hr />
-      <h2>Acceder</h2>
+      <h2>Access</h2>
       <form className={s["login-form"]} onSubmit={handleSubmit}>
         <label>
           <input
             type="text"
-            placeholder="Nombre de usuario o correo electrónico"
+            placeholder="User or email"
             value={usuario}
             onChange={(e) => setUsuario(e.target.value)}
           />
@@ -51,16 +64,15 @@ const Login = ({ setLogin, login }) => {
         <label>
           <input
             type="password"
-            placeholder="Ingrese su contraseña"
+            placeholder="Password"
             value={contraseña}
             onChange={(e) => setContraseña(e.target.value)}
           />
         </label>
         <br />
         <br />
-        <button type="submit">Acceder</button>
+        <button type="submit">Access</button>
       </form>
-      {error && <p>{error}</p>}
       <br />
       <br />
       <h3 className={s.or__h3}> O </h3>

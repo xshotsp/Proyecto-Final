@@ -1,20 +1,23 @@
 /* En tu archivo navbar.module.css */
 :root {
-  --main-color:#fff;
-  --second-color: #696D7D;
-  --dark-mode: #E58C8A;
-
+  --main-color: #fff;
+  --second-color: #696d7d;
+  --dark-mode: #e58c8a;
 }
 
 .container {
-  background-color: #fff; /* Color de fondo del contenedor */
+  background-color: #fff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   padding: 5px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: sticky;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1001; 
 }
-
 .darkMode {
   background-color: black;
 }
@@ -26,11 +29,11 @@
 .nav {
   display: flex;
   align-items: center;
-  flex-grow: 1; /* Nuevo estilo para que los enlaces ocupen todo el espacio disponible */
+  flex-grow: 1; 
 }
 
 .nav__h1 {
-  margin: 0 20px 0 0 ;
+  margin: 0 20px 0 0;
   font-size: 3rem;
   font-weight: bolder;
   color: var(--second-color); /* Color del texto del título */
@@ -112,20 +115,35 @@
 .darkModeToggle:hover .darkModeIcon {
   color: #f39c12;
 }
-
-.user__photo {
-  cursor: pointer;
-}
-
-.user__photo img {
+.photo__container {
   width: 40px;
   height: 40px;
+  min-width: 40px;
   border-radius: 50%;
+  overflow: hidden;
+  margin-left: 10px;
+  cursor: pointer;
+  border: 2px solid var(--second-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.1s ease-out;
+}
+.photo__container:hover {
+  transform: scale(1.1);
+}
+
+.photo__container img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain; /* Esto asegura que la imagen se ajuste manteniendo su relación de aspecto */
   cursor: pointer;
 }
 
 .user__options {
   position: absolute;
+  display: flex;
+  flex-direction: column;
   top: 60px;
   right: 0;
   background-color: #fff;
@@ -154,4 +172,3 @@
 .user__options button:hover {
   background-color: #c0392b;
 }
-

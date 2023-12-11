@@ -7,6 +7,7 @@ import {
   getProducts,
   getBrands,
 } from "../../redux/actions/actions";
+import validate from "./validate"
 import axios from "axios";
 import s from "./productForm.module.css"
 import Swal from 'sweetalert2';
@@ -39,55 +40,32 @@ const ProductForm = () => {
     });
   };
 
-  const color_select = ["Black", "White", "Red", "Yellow", "Blue", "Brown", "Gray", "Green", "Beige", "Khaki"]
+  const color_select = ["Beige","Black", "Blue", "Brown", "Gray", "Green", "Kaqui", "Red", "White", "Yellow"]
   const [productData, setProductData] = useState({
     name: "",
     image: "",
     price: "",
     colour: "",
+    quantity: 0,
     additionalImage: [],
     brands: "",
+    active: true
   });
 
   const [errors, setErrors] = useState({
-    name: "Campo requerido",
-    image: "Debe incluir una imagen del producto",
-    price: "Campo requerido",
-    colour: "Campo requerido",
-    brands: "Campo requerido"
+    name: "",
+    image: "",
+    price: "",
+    colour: "",
+    quantity: "",
+    brands: ""
   });
 
-  const validate = (productData, name) => {
-  
-    if (name === "name") {
-        if (productData.name === "") setErrors({ ...errors, name: "El nombre es requerido" });
-      else if (productData.name.length >= 50) setErrors({ ...errors, name: "El nombre debe ser menor a 50 caracteres" })
-      else setErrors({...errors, name: ""})
-    }
-
-    if (name === "image") {
-       if (productData.image) setErrors({ ...errors, image: "" })
-       else setErrors({ ...errors, image: "Debe incluir una imagen del producto" })
-     }
-
-    if (name === "price") {
-       if (isNaN(parseInt(productData.price))) setErrors({ ...errors, price: "El dato debe ser un numero" });
-      else if (productData.price < 0) {errors.price = "El valor debe ser mayor a 0"} 
-      else setErrors({ ...errors, price: "" });
-    }
-
-    if (name === "colour") {
-      if (!productData.colour.length) setErrors({ ...errors, colour: "El color es requerido" });
-      else setErrors({ ...errors, colour: "" });
-    }
-
-
-
-    if (name === "brands") {
-      if (!productData.brands.length) setErrors({ ...errors, brands: "La marca es requerida" });
-      else setErrors({ ...errors, brands: "" });
-    }
-  };
+  const validateAd = (productData) => {
+    if (productData.additionalImage.length === 3){
+      setControl("Maximo tres imagenes" );
+    } 
+  }
 
   const handleChange = (e) => {
     setProductData({
@@ -95,12 +73,12 @@ const ProductForm = () => {
       [e.target.name] : e.target.value
     })
     setErrorSubmit("")
-  
-    validate({
+    setErrors(
+      validate({
         ...productData,
         [e.target.name]: e.target.value},
-        e.target.name);
-    return;
+        e.target.name)
+    )
   };
  
   const handleChangeImage = (event) => {
@@ -115,21 +93,23 @@ const ProductForm = () => {
           ...productData,
           [event.target.name]:reader.result,
         }) 
+        setErrors(
         validate({
           ...productData,
           [event.target.name]: reader.result},
-          event.target.name);
+          event.target.name)
+        )
       }     
            
     } else {
       setProductData({...productData, [event.target.name]: ""})
+      
     } 
 
     return
   }
 
   const handleChangeAdditional = (event) => {
-    console.log(event.target.name)
     const file = event.target.files[0]
     if(file) {
       const reader = new FileReader();
@@ -140,7 +120,7 @@ const ProductForm = () => {
           ...productData,
           [event.target.name] : [...productData[event.target.name], reader.result]
         }) 
-        validate({
+        validateAd({
            ...productData,
         [event.target.name] : [...productData[event.target.name], reader.result]}, event.target.name)
       }     
@@ -149,20 +129,21 @@ const ProductForm = () => {
       setProductData({...productData, [event.target.name]: ""})
       
     } 
-    
     return 
   }
- 
+
+    const esVacio= (elemento) => {
+    return elemento === "";
+  } 
  
     const buttonDisabled= ()=>{
       let disabledAux = true;
-      for(let error in errors){
-        if(errors[error]=== "") disabledAux = false;
-        else{
+      let long = Object.values(errors)
+      if (long.every(esVacio)) disabledAux = false;
+      else{
           disabledAux = true;
-          break;
         }
-      }
+    
       return disabledAux
     }
   
@@ -171,18 +152,38 @@ const ProductForm = () => {
         ...productData,
         [e.target.name] : "",
       })
+      setErrors(
       validate({
         ...productData,
         [e.target.name]: ""},
-        e.target.name);
-      
+        e.target.name)
+      )
     }
 
-   
+    const removeImageAd = (e) =>{
+      setControl("")
+      setErrorSubmit("")
+      if (e.target.name === "additionalImage0"){
+        setProductData({
+          ...productData, 
+          additionalImage : [...productData.additionalImage.filter(X=>X !== productData.additionalImage[0])]
+        })
+      }
+      if (e.target.name === "additionalImage1"){
+        setProductData({
+          ...productData,
+          additionalImage : [...productData.additionalImage.filter(X=>X !== productData.additionalImage[1])]
+         })
+        }
+      else if (e.target.name === "additionalImage2"){
+        setProductData({
+          ...productData,
+          additionalImage : [...productData.additionalImage.filter(X=>X !== productData.additionalImage[2])]
+         })
+        }
+    }
   
-    const esVacio= (elemento) => {
-      return elemento === "";
-    } 
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -192,19 +193,19 @@ const ProductForm = () => {
       
       if (long.every(esVacio)) {
           dispatch(createProductRequest());
+          productData.active=true
+          console.log(productData)
           const response = await axios.post(`${URL}/product`, productData);
           const newProduct = response.data;
-          if (newProduct) mostrarAlerta('success' , 'El producto se creó de manera exitosa' );
+          if (newProduct) mostrarAlerta('success' , 'The product was created successfully' );
   
           dispatch(createProductSuccess(newProduct));
       
-          setProductData({ name: "", image: "", price: "", colour: "", additionalImage: [], brands: ""});
-          setErrors ({name: "Campo requerido", image: "Debe incluir una imagen del producto", price: "Campo requerido", colour: "Campo requerido",
-          brands: "Campo requerido"});
+          setProductData({ name: "", image: "", price: "", quantity: "", colour: "", additionalImage: [], brands: ""});
           setControl("");
 
         }else {
-          setErrorSubmit('Debe llenar todos los campos sin errores')
+          mostrarAlerta('error', 'You must complete all fields without errors')
         }
     } catch (error) {
       console.log(error)
@@ -217,10 +218,10 @@ const ProductForm = () => {
 
   return (
     <div>
-      <h2 className={s.h2}>Crear Producto</h2>
+      <h2 className={s.h2}>Create Product</h2>
       <form className={`${s.form} ${s["product-form"]}  ${darkMode && s.darkMode}`} onSubmit={handleSubmit}>
         <label>
-          Nombre:
+          Name:
           <input
             type="text"
             id="name"
@@ -233,7 +234,7 @@ const ProductForm = () => {
         
         <label
         className={s.buttonfile}
-          htmlFor = "image"> Subir Imagen
+          htmlFor = "image"> Load Image
           <input
           className={s.inputfile}
             type="file"
@@ -252,8 +253,9 @@ const ProductForm = () => {
         }
         
         </div>
+        <div className={s.pricequantity}>
         <label className={s.precio}>
-          Precio:
+          Price:
           <input
             type="text"
             name="price"
@@ -263,30 +265,68 @@ const ProductForm = () => {
           />
           <span>{errors.price}</span>
         </label>
-        
-        <label className="label-form" htmlFor="colour">Color</label>
+        <label className={s.precio}>
+          Quantity:
+          <input
+            type="number"
+            min="1"
+            name="quantity"
+            id="quantity"
+            value={productData.quantity}
+            onChange={handleChange}
+          />
+          <span>{errors.quantity}</span>
+        </label>
+        </div>
+        <label className="label-form" htmlFor="colour">Colour</label>
             <select  name="colour" onChange={handleChange} value={productData.colour} >
-            <option  hidden>seleccionar color</option>
+            <option  hidden>select colour</option>
               {color_select?.map((option, index) => (
               <option key={index} value={option}>{option}</option>))}
             </select>
           <span>{errors.colour}</span>
         
-        
-       
-        <img src={productData.additionalImage[0]} alt="" />
-        
+          <label className={s.buttonfile}
+          htmlFor = "additionalImage">Load Additional Image (3 max)
+          <input
+            className={s.inputfile}
+            disabled={control}
+            type="file"
+            name="additionalImage"
+            id = "additionalImage"
+            onChange={handleChangeAdditional}
+          />
+          </label>
+        <img src={productData.additionalImage[0]} alt="" className={s.img} />
+        <div className={s.div__remove__btn}>
+          {
+            productData.additionalImage[0] && <button type="button" id="button" name="additionalImage0" onClick={removeImageAd}className={s.remove__btn}>X</button>
+          }
+        </div>
+        <img src={productData.additionalImage[1]} alt="" className={s.img}/>
+        <div className={s.div__remove__btn}>
+          {
+            productData.additionalImage[1] && <button type="button" id="button" name="additionalImage1" onClick={removeImageAd}className={s.remove__btn}>X</button>
+          }
+        </div> 
+        <img src={productData.additionalImage[2]} alt="" className={s.img}/>
+        <div className={s.div__remove__btn}>
+          {
+            productData.additionalImage[2] && <button type="button" id="button" name="additionalImage2" onClick={removeImageAd}className={s.remove__btn}>X</button>
+          }
+        </div>
         <span>{control}</span>
-         <label>Marcas: </label>
+
+         <label>Brands: </label>
         <select onChange={handleChange} name="brands" id="brands" value={productData.brands}>
-          <option hidden>seleccionar marca</option>{
+          <option hidden>select brand</option>{
             allBrands?.map((b)=><option key={b} value={b.id}>{b.name}</option>)
           }
         </select>
         <span>{errors.brands}</span>
         
-        <button type="submit" id="submit" disabled={buttonDisabled()}>
-          Crear Producto
+        <button type="submit" id="submit" disabled={buttonDisabled() || !productData.price || !productData.name || !productData.quantity}>
+          Create Product
         </button>
         {errorSubmit && <span>{errorSubmit}</span>}
       </form>

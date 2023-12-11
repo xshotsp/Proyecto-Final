@@ -11,6 +11,11 @@ import {
   GET_BRANDS,
   CLEAN_PRODUCT_DETAIL,
   TOGGLE_DARK_MODE,
+  SET_ACCESS,
+  USER_LOGGED_IN,
+  GET_ALL_USERS,
+  USER_LOG_OUT
+  
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -21,7 +26,9 @@ const initialState = {
   allBrands: [],
   productDetails: {},
   darkMode: false,
-  
+  allUsers:[],
+  access:false,
+  activeUser:{}
 };
 
 export default function reducer(state = initialState, action) {
@@ -107,6 +114,30 @@ export default function reducer(state = initialState, action) {
               ...state,
               darkMode: !state.darkMode,
             };
+            case SET_ACCESS:{
+              return {
+                ...state,
+                access:action.payload
+              }
+            }
+            case USER_LOGGED_IN:{
+              return{
+                ...state,
+                activeUser:action.payload
+              }
+            }
+
+            case GET_ALL_USERS :{
+              return {...state,
+                allUsers : action.payload}
+            }
+
+            case USER_LOG_OUT:{
+              return{
+                ...state,
+                activeUser:{}
+              }
+            }
 
     default:
       return state;

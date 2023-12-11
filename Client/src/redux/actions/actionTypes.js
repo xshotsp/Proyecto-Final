@@ -11,5 +11,8 @@ export const GET_PRODUCTS = "GET_PRODUCTS";
 export const GET_BRANDS = "GET_BRANDS";
 export const GET_FILTROS = "GET_FILTROS";
 export const TOGGLE_DARK_MODE = "TOGGLE_DARK_MODE";
-
+export const GET_ALL_USERS = "GET_ALL_USERS";
+export const SET_ACCESS = "SET_ACCESS"
+export const USER_LOGGED_IN = 'USER_LOGGED_IN'
+export const USER_LOG_OUT = 'USER_LOG_OUT'
 
