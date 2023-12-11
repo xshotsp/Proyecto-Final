@@ -5,7 +5,7 @@ import axios from "axios";
 import { GET_ALL_USERS } from "../../redux/actions/actionTypes";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBan } from '@fortawesome/free-solid-svg-icons';
-import { blockUserAction } from "../../redux/actions/actions"; // Importa la nueva acción
+//import { blockUserAction } from "../../redux/actions/actions"; // Importa la nueva acción
 
 const UsersTable = () => {
   const dispatch = useDispatch();

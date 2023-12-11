@@ -105,7 +105,7 @@ export default function reducer(state = initialState, action) {
         selectFilter: action.payload,
       };
 
-    case GET_FILTROS:
+    case GET_FILTERS:
       return {
         ...state,
         allproducts: action.payload,

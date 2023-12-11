@@ -102,12 +102,9 @@ useEffect (() => {
       const long = Object.values(errors);
           if (long.length === 0) {
               await axios.put(`${URL}/user/${email}`, input);
-<<<<<<< HEAD
               mostrarAlerta('success' , 'User was successfully updated' );
-=======
-              mostrarAlerta('success' , 'El usuario se actualizó de manera exitosa' );
               dispatch(userLoggedIn(email));
->>>>>>> aac19179f77d09bcc58fa43b775600a05ea36160
+
               navigate('/');
              
           } else mostrarAlerta('error', 'You must complete all fields without errors')

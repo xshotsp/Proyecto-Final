@@ -64,7 +64,6 @@ const Cart = ({
     <div className={s["cart-items"]}>
       <h2 className={s["cart-items-header"]}>Products in the shopping cart: </h2>
       <div className={s["clear-cart"]}>
-<<<<<<< HEAD
         {cartItems.length >= 1 && (
           <button className={s["clear-cart-button"]} onClick={handleClearCart}>Clear shopping cart</button>
         )}
@@ -72,17 +71,6 @@ const Cart = ({
 
       {cartItems.length === 0 && (
         <div className={s["cart-items-empty"]}>Empty shopping cart! ?? </div>
-=======
-        {(access ? userCart.length : cartItems.length) >= 1 && (
-          <button className={s["clear-cart-button"]} onClick={handleClearCart}>
-            Limpiar carrito
-          </button>
-        )}
-      </div>
-
-      {(access ? userCart.length : cartItems.length) === 0 && (
-        <div className={s["cart-items-empty"]}>Tu carrito esta vacio! ?? </div>
->>>>>>> aac19179f77d09bcc58fa43b775600a05ea36160
       )}
 
       <div>
@@ -121,7 +109,6 @@ const Cart = ({
 
       <div className={s["cart-items-total-price-name"]}>
         <br />
-<<<<<<< HEAD
         <div className={s["cart-items-total-price"]}> 
         <h2>
         Total price: ${totalPrice}
@@ -134,15 +121,6 @@ const Cart = ({
           onClick = {mercadoPago}
           >
             Complete purchase
-=======
-        <div className={s["cart-items-total-price"]}>
-          <h2>Precio total: ${totalPrice}</h2>
-        </div>
-        <div>
-          <br />
-          <button disabled={totalPrice ? false : true} onClick={mercadoPago}>
-            Completar compra
->>>>>>> aac19179f77d09bcc58fa43b775600a05ea36160
           </button>
         </div>
         <br />

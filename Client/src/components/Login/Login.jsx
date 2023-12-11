@@ -10,13 +10,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { setAccess, userCart, userLoggedIn } from "../../redux/actions/actions";
 import Swal from "sweetalert2";
 
-<<<<<<< HEAD
  const URL = "https://quirkz.up.railway.app"; 
 // const URL = "http://localhost:3001";
-=======
-//const URL = "https://quirkz.up.railway.app"; 
-const URL = "http://localhost:3001";
->>>>>>> aac19179f77d09bcc58fa43b775600a05ea36160
 
 const Login = ({ cartItems }) => {
   const [usuario, setUsuario] = useState("");

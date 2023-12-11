@@ -27,14 +27,14 @@ sequelize
   });
 
 // Opcional: Manejo de eventos para errores durante la sincronización de modelos
-sequelize
-  .sync({ force: false }) // Set force to true to drop and re-create tables on every app start
-  .then(() => {
-    console.log('Tablas sincronizadas');
-  })
-  .catch((err) => {
-    console.error('Error al sincronizar tablas:', err);
-  });
+// sequelize
+//   .sync({ force: false }) // Set force to true to drop and re-create tables on every app start
+//   .then(() => {
+//     console.log('Tablas sincronizadas');
+//   })
+//   .catch((err) => {
+//     console.error('Error al sincronizar tablas:', err);
+//   });
 
 const basename = path.basename(__filename);
 
