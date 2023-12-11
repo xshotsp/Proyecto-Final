@@ -84,7 +84,6 @@ const DetailPage = ({ login, handleAddProduct }) => {
 
   return (
     <div className={s.productDetailsContainer}>
-      <h2>{product.id}</h2>
       <div className={s.backBtn}>
       <Link to='/'>
         <button>Volver</button>
@@ -125,7 +124,7 @@ const DetailPage = ({ login, handleAddProduct }) => {
         <h2>Productos Que Tambien Te Pueden Interesar</h2>
         <div>
         <Slider ref={sliderRef} {...sliderSettings}>
-          {mixedProducts.map((product) => <Card key={product.id} product={product} />)}
+          {mixedProducts.map((product) => <Card key={product.id} product={product} handleAddProduct={handleAddProduct}/>)}
         </Slider>
         </div>
       </div>

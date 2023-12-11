@@ -53,7 +53,7 @@ const Cart = ({
     } else {
       // const response = await axios.post(`${URL}/purchase`, cartItems);
       // window.location.href = response.data.init_point;
-      dispatch(finishPurchase(cartItems));
+      dispatch(finishPurchase(userCart));
     
     }
   };
@@ -119,7 +119,7 @@ const Cart = ({
         <div>
           <br />
           <button
-          disabled={cartItems.length === 0 ? true : false}
+          disabled={totalPrice ? false : true}
           onClick = {mercadoPago}
           >
             Completar compra

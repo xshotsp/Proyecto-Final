@@ -57,7 +57,7 @@ function App() {
       };
       const response = await axios.post(`${URL}/cart`, objProduct);
       console.log(response)
-      if (pathname === "/") {
+      if (pathname === "/" || pathname === `/product/${product.id}`) {
         Swal.fire({
           icon: "success",
           title: "",
@@ -80,7 +80,7 @@ function App() {
       } else {
         setCartItems([...cartItems, { ...product, quantity: 1 }]);
       }
-      if (pathname === "/") {
+      if (pathname === "/" || "/product/:id") {
         Swal.fire({
           icon: "success",
           title: "",
