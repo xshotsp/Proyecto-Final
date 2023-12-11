@@ -28,6 +28,8 @@ const Cart = ({
     0
   );
 
+  const priceToFixed = totalPrice.toFixed(2)
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -53,6 +55,7 @@ const Cart = ({
     } else {
       // const response = await axios.post(`${URL}/purchase`, cartItems);
       // window.location.href = response.data.init_point;
+      console.log(userCart)
       dispatch(finishPurchase(userCart));
     
     }
@@ -111,17 +114,12 @@ const Cart = ({
 
       <div className={s["cart-items-total-price-name"]}>
         <br />
-        <div className={s["cart-items-total-price"]}> 
-        <h2>
-        Precio total: ${totalPrice.toFixed(2)}
-        </h2>
+        <div className={s["cart-items-total-price"]}>
+          <h2>Precio total: ${priceToFixed}</h2>
         </div>
         <div>
           <br />
-          <button
-          disabled={totalPrice ? false : true}
-          onClick = {mercadoPago}
-          >
+          <button disabled={priceToFixed ? false : true} onClick={mercadoPago}>
             Completar compra
           </button>
         </div>
