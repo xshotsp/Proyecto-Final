@@ -1,9 +1,11 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import s from './MyShopping.module.css'
 import { useParams, useNavigate} from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import axios from 'axios';
+//import axios from 'axios';
 import { useSelector } from 'react-redux';
+import { getPurchaseByUser } from '../../redux/actions/actions';
 
 
 //const URL = 'http://localhost:3001'
@@ -11,20 +13,20 @@ import { useSelector } from 'react-redux';
 
 const MyShopping = () => {
 
-  //const {email} = useParams();
-  //const dispatch = useDispatch();
-  //const purchaseItems = useSelector((state) => state.purchaseByUser)
+  const {email} = useParams();
+  const dispatch = useDispatch();
+  const purchaseItems = useSelector((state) => state.purchaseByUser)
   const navigate = useNavigate();
 
-  const purchaseItems = [{id: 1, image: "https://images.asos-media.com/products/hugo-match-it-logo-sliders-in-black/204318769-1-black",
-                          name: "HUGO Match It logo sliders in black", order: "25034", date: "12-11-2023", total: "$78.00"},
-                        {id: 2, image: "https://images.asos-media.com/products/nike-initiator-sneakers-in-white-and-gray/204917959-1-grey",
-                          name: "Nike Initiator sneakers in white and gray", order: "32001",date: "20-10-2023", total: "$75.00"}]
+  //const purchaseItems = [{id: 1, image: "https://images.asos-media.com/products/hugo-match-it-logo-sliders-in-black/204318769-1-black",
+                        //   name: "HUGO Match It logo sliders in black", order: "25034", date: "12-11-2023", total: "$78.00"},
+                        // {id: 2, image: "https://images.asos-media.com/products/nike-initiator-sneakers-in-white-and-gray/204917959-1-grey",
+                        //   name: "Nike Initiator sneakers in white and gray", order: "32001",date: "20-10-2023", total: "$75.00"}]
 
   // useEffect 
-  // useEffect (() => {
-  //   dispatch(getPurchaseByUser(email))
-  //   }, [email])
+   useEffect (() => {
+     dispatch(getPurchaseByUser(email))
+    }, [email])
 
   const handleReview = (id) => {
     navigate(`/product/${id}`);
@@ -41,11 +43,7 @@ const MyShopping = () => {
       <div>
         {purchaseItems.map((product) => (
           <div key={product.id} className={s["purchase-items-list"]}>
-            <img className={s["purchase-items-img"]}
-              src={product.image}
-              alt={product.name} 
-            />
-            <br />
+            
             <div className={s["purchase-items-name"]}>
               <h2>  
               {product.name}

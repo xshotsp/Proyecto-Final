@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import "./App.css";
 import { Route, Routes, useLocation } from "react-router-dom";
 import NavBar from "./components/NavBar/NavBar";
@@ -11,6 +12,7 @@ import Cart from "./components/Cart/Cart";
 import EditPerfilForm from "./components/editPerfilForm/EditPerfilForm";
 import EditProductForm from "./components/editProduct/EditProduct";
 import MyShopping from "./components/myShooping/MyShooping";
+import SuccessPayment from "./components/purchase/Purchase";
 import { useSelector, useDispatch } from "react-redux";
 import {
   setAccess,
@@ -172,7 +174,8 @@ function App() {
         <Route path="/createuser" element={<CreateUserForm />} />
         <Route path="/editperfil/:email" element= {<EditPerfilForm />} />
         <Route path="/editproduct/:id" element= {<EditProductForm />} />
-        <Route path="/shopping" element = {<MyShopping />} />
+        <Route path="/success" element= {<SuccessPayment cartItems={cartItems} />} />
+        <Route path="/shopping/:email" element = {<MyShopping />} />
         <Route path="*" element={<Error404 />} />
         <Route
           path="/cart"

@@ -2,13 +2,17 @@
 import s from "./Cart.module.css";
 import { useNavigate } from "react-router-dom";
 //import { useState } from 'react';
-import Swal from "sweetalert2";
-import axios from "axios";
-import { useSelector } from "react-redux";
+import Swal from 'sweetalert2';
+//import axios from 'axios';
+import { useSelector, useDispatch} from 'react-redux';
+import { finishPurchase } from '../../redux/actions/actions';
 import { useEffect } from "react";
 
 //const URL = 'http://localhost:3001'
-const URL = "https://quirkz.up.railway.app";
+//const URL = "https://quirkz.up.railway.app"
+
+
+
 
 const Cart = ({
   cartItems,
@@ -24,6 +28,7 @@ const Cart = ({
     0
   );
 
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const mercadoPago = async () => {
@@ -46,8 +51,10 @@ const Cart = ({
 
       navigate("/login");
     } else {
-      const response = await axios.post(`${URL}/purchase`, cartItems);
-      window.location.href = response.data.init_point;
+      // const response = await axios.post(`${URL}/purchase`, cartItems);
+      // window.location.href = response.data.init_point;
+      dispatch(finishPurchase(cartItems));
+    
     }
   };
 

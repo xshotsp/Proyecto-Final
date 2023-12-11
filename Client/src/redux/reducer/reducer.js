@@ -14,6 +14,8 @@ import {
   SET_ACCESS,
   USER_LOGGED_IN,
   GET_ALL_USERS,
+  FINISH_PURCHASE,
+  GET_PURCHASE_USER,
   USER_LOG_OUT,
   GET_USER_CART,
   CLEAN_USER_CART,
@@ -27,9 +29,11 @@ const initialState = {
   allBrands: [],
   productDetails: {},
   darkMode: false,
-  allUsers: [],
-  access: false,
-  activeUser: {},
+  allUsers:[],
+  access:false,
+  activeUser:{},
+  purchase: {},
+  purchaseByUser: [],
   userCart: [],
 };
 
@@ -146,6 +150,20 @@ export default function reducer(state = initialState, action) {
         ...state,
         userCart: emptyArr
       }
+    }
+
+    case FINISH_PURCHASE: {
+        return {
+        ...state,
+        purchase: action.payload
+        }
+    }
+
+    case GET_PURCHASE_USER: {
+          return {
+            ...state,
+            purchaseByUser: action.payload
+          }
     }
 
     default:

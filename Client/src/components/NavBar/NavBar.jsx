@@ -22,13 +22,15 @@ import styles from "./navbar.module.css";
 
 import { signOutFunction } from "../../firebase/firebase.config";
 
-const NavBar = () => {
+const NavBar = ({cartItems}) => {
   const [activePage, setActivePage] = useState("");
   const dispatch = useDispatch();
   const { darkMode, access, activeUser } = useSelector((state) => state);
   const [showOptions, setShowOptions] = useState(false);
   const navigate = useNavigate();
 
+  const totalItemsCart = cartItems.length ? cartItems.reduce((total, item) => total + item.quantity, 0) : 0
+  
   const handleMouseEnter = (page) => {
     setActivePage(page);
   };
@@ -108,6 +110,7 @@ const NavBar = () => {
               <FontAwesomeIcon icon={faShoppingCart} />
               {activePage === "cart" && <span>Carrito</span>}
             </li>
+            <span className={styles.cart__items}>{totalItemsCart}</span>
           </Link>
         </ul>
         <div className={styles.darkModeToggle} onClick={handleDarkModeToggle}>
@@ -135,7 +138,7 @@ const NavBar = () => {
             <Link to={`/editperfil/${activeUser?.email}`}>
               <button>Editar Perfil</button>
             </Link>
-            <Link to="/shopping">
+            <Link to={`/shopping/${activeUser?.email}`}>
               <button>Mis Compras</button>
             </Link>
             <button onClick={handleLogout}>Logout</button>
