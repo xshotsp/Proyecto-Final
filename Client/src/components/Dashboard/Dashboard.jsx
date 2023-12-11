@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { getAllUsersAction, getAllProducts } from "../../redux/actions/actions";
 import UsersTable from "../usersTable/usersTable";
+import UsersBanTable from "../usersBan/usersBan"; // Asegúrate de importar el componente correcto
 import ProductsTable from "../productsTable/productsTable";
 import styles from "./Dashboard.module.css";
 
@@ -14,6 +15,13 @@ const Dashboard = () => {
   useEffect(() => {
     if (botonActivo === "usuarios") {
       dispatch(getAllUsersAction()).then((userData) => setData(userData));
+    } else if (botonActivo === "usuariosBloqueados") {
+      // Modificamos el nombre del botón
+      // Aquí deberías llamar a la acción que obtiene los usuarios bloqueados
+      // algo así como dispatch(getAllBlockedUsersAction())
+      // y establecer la lógica correspondiente en la acción
+      // para obtener solo los usuarios bloqueados.
+      setData([]); // Esto debería ser ajustado con la lógica correcta
     } else if (botonActivo === "productos") {
       dispatch(getAllProducts()).then((productData) => setData(productData));
     }
@@ -55,9 +63,9 @@ const Dashboard = () => {
       </div>
       <div className={styles.content}>
         {botonActivo === "usuarios" && <UsersTable data={data} />}
-        {botonActivo === "usuariosBloqueados" && <UsuariosBloqueadosTable data={data} />}
+        {botonActivo === "usuariosBloqueados" && <UsersBanTable />}
         {botonActivo === "productos" && <ProductsTable data={data} />}
-        {botonActivo === "compras" && <ComprasTable data={data} />}
+        {/* Agrega otras lógicas de renderizado para "compras" u otros botones según sea necesario */}
       </div>
     </div>
   );

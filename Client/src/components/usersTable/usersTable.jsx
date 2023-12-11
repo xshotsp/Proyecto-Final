@@ -5,6 +5,7 @@ import axios from "axios";
 import { GET_ALL_USERS } from "../../redux/actions/actionTypes";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBan } from '@fortawesome/free-solid-svg-icons';
+import { blockUserAction } from "../../redux/actions/actions"; // Importa la nueva acción
 
 const UsersTable = () => {
   const dispatch = useDispatch();
@@ -25,10 +26,9 @@ const UsersTable = () => {
     fetchData();
   }, [dispatch]);
 
-  // Función para bloquear un usuario (puedes modificarla según tus necesidades)
+  // Función para bloquear/desbloquear un usuario
   const handleBlockUser = (email) => {
-    // Lógica para bloquear usuario
-    console.log(`Usuario bloqueado: ${email}`);
+    dispatch(blockUserAction(email)); // Usa la nueva acción
   };
 
   return (
@@ -38,7 +38,9 @@ const UsersTable = () => {
         <thead>
           <tr>
             <th>Email</th>
-            <th>Username</th>
+            <th>Name</th>
+            <th>Lastname</th>
+            <th>Phone</th>
             <th>Bloquear</th>
           </tr>
         </thead>
@@ -46,7 +48,9 @@ const UsersTable = () => {
           {userData.map((user) => (
             <tr key={user.email}>
               <td>{user.email}</td>
-              <td>{user.username}</td>
+              <td>{user.name}</td>
+              <td>{user.lastname}</td>
+              <td>{user.phone}</td>
               <td>
                 <FontAwesomeIcon
                   icon={faBan}

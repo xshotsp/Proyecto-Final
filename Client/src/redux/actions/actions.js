@@ -202,10 +202,10 @@ export const toggleDarkMode = () => ({
 export const getAllUsersAction = () => {
   return async (dispatch) => {
     try {
-      const { data } = await axios(`${URL}/user/all`);
+      const { data } = await axios.get(`${URL}/user/all`);
       const withoutPass = data.map((user) => {
-        const { email, username, profile_picture, phone } = user;
-        return { email, username, profile_picture, phone };
+        const { email, name, lastname, profile_picture, phone, active } = user;
+        return { email, name, lastname, profile_picture, phone, active };
       });
 
       dispatch({
@@ -213,11 +213,10 @@ export const getAllUsersAction = () => {
         payload: withoutPass,
       });
     } catch (error) {
-      console.log(error.message);
+      console.error("Error al obtener usuarios:", error.message);
     }
   };
 };
-
 
 
 export const setAccess = (boolean) => {
@@ -245,5 +244,25 @@ export const userLoggedIn = (user) => {
 export const userLogOut = () => {
   return {
     type: USER_LOG_OUT,
+  };
+};
+export const blockUserAction = (email) => {
+  return async (dispatch, getState) => {
+    try {
+      // Actualizar el estado local
+      const { users } = getState();
+      const updatedUsers = users.map((user) =>
+        user.email === email ? { ...user, active: !user.active } : user
+      );
+      dispatch({ type: GET_ALL_USERS, payload: updatedUsers });
+
+      // Realizar una solicitud al servidor para bloquear/desbloquear al usuario
+      await axios.post(`${URL}/user/block`, { email });
+
+      // Despachar acción de bloqueo local
+      dispatch({ type: BLOCK_USER, payload: email });
+    } catch (error) {
+      console.error("Error al bloquear usuario:", error.message);
+    }
   };
 };
