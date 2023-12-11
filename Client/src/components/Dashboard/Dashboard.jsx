@@ -61,16 +61,7 @@ const Dashboard = () => {
           Purchases
         </button>
       </div>
-<<<<<<< HEAD
-      <div className={styles.content}>
-        {botonActivo === "usuarios" && <UsersTable data={data} />}
-        {botonActivo === "usuariosBloqueados" && <UsersBanTable />}
-        {botonActivo === "productos" && <ProductsTable data={data} />}
-        {/* Agrega otras lógicas de renderizado para "compras" u otros botones según sea necesario */}
-      </div>
-=======
         {botonActivo && <p>Giving information {botonActivo}</p>}
->>>>>>> c7a47cea8368193341959d34c13759293319a1fe
     </div>
   );
 };

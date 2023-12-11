@@ -9,15 +9,9 @@ export const CLEAN_PRODUCT_DETAIL = "CLEAN_PRODUCT_DETAIL";
 export const GET_ALL_SELECTS = 'GET_ALL_SELECTS';
 export const GET_PRODUCTS = "GET_PRODUCTS";
 export const GET_BRANDS = "GET_BRANDS";
-<<<<<<< HEAD
 export const GET_FILTERS = "GET_FILTERS";
-export const TOGGLE_DARK_MODE = "TOGGLE_DARK_MODE";
-=======
-export const GET_FILTROS = "GET_FILTROS";
 export const TOGGLE_DARK_MODE = "TOGGLE_DARK_MODE";
 export const GET_ALL_USERS = "GET_ALL_USERS";
 export const SET_ACCESS = "SET_ACCESS"
 export const USER_LOGGED_IN = 'USER_LOGGED_IN'
 export const USER_LOG_OUT = 'USER_LOG_OUT'
-
->>>>>>> 708a0e1b8f840b03f2f0997ae2009a1041a6151a

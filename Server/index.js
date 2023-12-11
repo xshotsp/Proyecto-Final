@@ -17,7 +17,7 @@ cloudinary.config({
   api_secret: 'EqvrtUWaUDEpg4aAChNztTm8SAU' 
 });
 
-conn.sync({ force: false }).then(() => {
+conn.sync({ force: true }).then(() => {
   // Cambia la llamada a server.listen por app.listen
   server.listen(PORT, '0.0.0.0', async() => {
     await apiLoaderProducts()
