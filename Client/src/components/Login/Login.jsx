@@ -9,8 +9,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { setAccess, userLoggedIn } from "../../redux/actions/actions";
 import Swal from "sweetalert2";
 
-const URL = "https://quirkz.up.railway.app"; 
-//const URL = "http://localhost:3001";
+//const URL = "https://quirkz.up.railway.app"; 
+const URL = "http://localhost:3001";
 
 const Login = () => {
   const [usuario, setUsuario] = useState("");

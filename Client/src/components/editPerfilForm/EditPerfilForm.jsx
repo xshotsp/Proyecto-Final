@@ -9,9 +9,9 @@ import s from "./edit.module.css"
 import Swal from 'sweetalert2';
 import placeHolderPhoto from "../../assets/placeholder foto.jpg"
 
-//const URL = "http://localhost:3001";
+const URL = "http://localhost:3001";
 
-const URL = 'https://quirkz.up.railway.app';
+//const URL = 'https://quirkz.up.railway.app';
 
 const EditPerfilForm = () => {
 

@@ -9,7 +9,6 @@ import Login from "./components/Login/Login";
 import DetailPage from "./components/detailpage/DetailPage";
 import Cart from "./components/Cart/Cart";
 import EditPerfilForm from "./components/editPerfilForm/EditPerfilForm";
-import RenderizarTable from "./components/Tables/Tables"
 import EditProductForm from "./components/editProduct/EditProduct";
 import MyShopping from "./components/myShooping/MyShooping";
 import SuccessPayment from "./components/purchase/Purchase";
@@ -112,7 +111,6 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/createuser" element={<CreateUserForm />} />
         <Route path="/editperfil/:email" element= {<EditPerfilForm />} />
-        <Route path="/admin" element={<RenderizarTable />} />
         <Route path="/editproduct/:id" element= {<EditProductForm />} />
         <Route path="/success" element= {<SuccessPayment cartItems={cartItems} />} />
         <Route path="/shopping/:email" element = {<MyShopping />} />
