@@ -75,7 +75,7 @@ const Login = () => {
       </form>
       <br />
       <br />
-      <h3 className={s.or__h3}> O </h3>
+      <h3 className={s.or__h3}> Or </h3>
       <div>
         <SocialLogin />
       </div>
