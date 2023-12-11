@@ -8,8 +8,10 @@ import { useSelector, useDispatch} from 'react-redux';
 import { finishPurchase } from '../../redux/actions/actions';
 
 
-//const URL = 'http://localhost:3001'
-//const URL = "https://quirkz.up.railway.app"
+// const URL = 'http://localhost:3001'
+const URL = "https://quirkz.up.railway.app"
+
+
 
 const Cart = ({  cartItems , handleAddProduct, handleRemoveProduct, handleClearCart }) => {
   const access = useSelector((state) => state.access)
@@ -94,13 +96,13 @@ const Cart = ({  cartItems , handleAddProduct, handleRemoveProduct, handleClearC
         <br />
         <div className={s["cart-items-total-price"]}> 
         <h2>
-        Total price: ${totalPrice}
+        Total Price: ${totalPrice.toFixed(2)}
         </h2>
         </div>
         <div>
           <br />
-          <button className={s.btncart}
-          disabled={totalPrice ? false : true}
+          <button
+          disabled={cartItems.length === 0 ? true : false}
           onClick = {mercadoPago}
           >
             Complete purchase

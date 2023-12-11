@@ -72,7 +72,6 @@ export default function reducer(state = initialState, action) {
       };
 
     case FETCH_PRODUCT_SUCCESS:
-      console.log(action.payload);
       return {
         ...state,
         productDetails: action.payload,

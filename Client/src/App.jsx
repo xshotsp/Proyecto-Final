@@ -111,7 +111,7 @@ function App() {
         />
         <Route
           path="/product/:id"
-          element={<DetailPage handleAddProduct={handleAddProduct} />}
+          element={<DetailPage login={login} handleAddProduct={handleAddProduct} />}
         />
         <Route path="/contacto" element={<Contact />} />
         <Route path="/form" element={<FormPage />} />
