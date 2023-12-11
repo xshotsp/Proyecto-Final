@@ -12,8 +12,8 @@ import axios from "axios";
 import s from "./productForm.module.css"
 import Swal from 'sweetalert2';
 
-const URL="https://quirkz.up.railway.app"
-//const URL = "http://localhost:3001"
+/* const URL="https://quirkz.up.railway.app" */
+const URL = "http://localhost:3001"
 
 
 
@@ -194,9 +194,9 @@ const ProductForm = () => {
       if (long.every(esVacio)) {
           dispatch(createProductRequest());
           productData.active=true
-          console.log(productData)
           const response = await axios.post(`${URL}/product`, productData);
           const newProduct = response.data;
+          console.log(response)
           if (newProduct) mostrarAlerta('success' , 'El producto se creó de manera exitosa' );
   
           dispatch(createProductSuccess(newProduct));
@@ -282,7 +282,7 @@ const ProductForm = () => {
             <select  name="colour" onChange={handleChange} value={productData.colour} >
             <option  hidden>select color</option>
               {color_select?.map((option, index) => (
-              <option key={index} value={option}>{option}</option>))}
+              <option key={option} value={option}>{option}</option>))}
             </select>
           <span>{errors.colour}</span>
         

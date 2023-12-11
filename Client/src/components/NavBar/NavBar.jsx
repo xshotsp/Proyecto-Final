@@ -1,9 +1,10 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 import {
+  cleanUserCart,
   setAccess,
   toggleDarkMode,
-  userLoggedIn,
+  userLogOut,
 } from "../../redux/actions/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
@@ -42,10 +43,11 @@ const NavBar = () => {
 
   const handleLogout = () => {
     dispatch(setAccess(false));
-    dispatch(userLoggedIn(""));
+    dispatch(userLogOut());
+    dispatch(cleanUserCart())
 
     signOutFunction();
-
+    localStorage.clear();
     setShowOptions(false);
     navigate("/");
   };
