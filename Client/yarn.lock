@@ -53,7 +53,6 @@
     "@babel/helpers" "^7.23.5"
     "@babel/parser" "^7.23.5"
     "@babel/template" "^7.22.15"
-<<<<<<< HEAD
     "@babel/traverse" "^7.23.5"
     "@babel/types" "^7.23.5"
     convert-source-map "^2.0.0"
@@ -66,7 +65,6 @@
   version "7.23.5"
   resolved "https://registry.npmjs.org/@babel/generator/-/generator-7.23.5.tgz"
   integrity sha512-BPssCHrBD+0YrxviOa3QzpqwhNIXKEtOa2jQrm4FlmkC2apYgRnQcmPWiGZDlGxiNtltnUFolMe8497Esry+jA==
-=======
     "@babel/traverse" "^7.23.3"
     "@babel/types" "^7.23.3"
     "convert-source-map" "^2.0.0"
@@ -79,7 +77,6 @@
   "integrity" "sha512-esuS49Cga3HcThFNebGhlgsrVLkvhqvYDTzgjfFFlHJcIfLe5jFmRRfCQ1KuBfc4Jrtn3ndLgKWAKjBE+IraYQ=="
   "resolved" "https://registry.npmjs.org/@babel/generator/-/generator-7.23.4.tgz"
   "version" "7.23.4"
->>>>>>> c7a47cea8368193341959d34c13759293319a1fe
   dependencies:
     "@babel/types" "^7.23.5"
     "@jridgewell/gen-mapping" "^0.3.2"
