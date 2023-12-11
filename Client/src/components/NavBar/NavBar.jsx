@@ -133,7 +133,7 @@ const NavBar = () => {
             <Link to={`/editperfil/${activeUser?.email}`}>
               <button>Editar Perfil</button>
             </Link>
-            <Link to="/shopping">
+            <Link to={`/shopping/${activeUser?.email}`}>
               <button>Mis Compras</button>
             </Link>
             <button onClick={handleLogout}>Logout</button>

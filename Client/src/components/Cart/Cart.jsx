@@ -3,16 +3,17 @@ import s from './Cart.module.css'
 import { useNavigate } from 'react-router-dom';
 //import { useState } from 'react';
 import Swal from 'sweetalert2';
-import axios from 'axios';
-import { useSelector } from 'react-redux';
+//import axios from 'axios';
+import { useSelector, useDispatch} from 'react-redux';
+import { finishPurchase } from '../../redux/actions/actions';
 
 
 //const URL = 'http://localhost:3001'
-const URL = "https://quirkz.up.railway.app"
+//const URL = "https://quirkz.up.railway.app"
 
 const Cart = ({  cartItems , handleAddProduct, handleRemoveProduct, handleClearCart }) => {
   const access = useSelector((state) => state.access)
-
+  const dispatch = useDispatch();
   const totalPrice = cartItems.reduce((price, item) => price + item.quantity * item.price, 0)
 
    
@@ -38,8 +39,9 @@ const Cart = ({  cartItems , handleAddProduct, handleRemoveProduct, handleClearC
 
       navigate('/login');
     } else {
-      const response = await axios.post(`${URL}/purchase`, cartItems);
-      window.location.href = response.data.init_point;
+      // const response = await axios.post(`${URL}/purchase`, cartItems);
+      // window.location.href = response.data.init_point;
+      dispatch(finishPurchase(cartItems));
     
     }
   };

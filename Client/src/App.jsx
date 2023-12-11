@@ -12,6 +12,7 @@ import EditPerfilForm from "./components/editPerfilForm/EditPerfilForm";
 import RenderizarTable from "./components/Tables/Tables"
 import EditProductForm from "./components/editProduct/EditProduct";
 import MyShopping from "./components/myShooping/MyShooping";
+import SuccessPayment from "./components/purchase/Purchase";
 import { useSelector, useDispatch } from "react-redux";
 import {
   setAccess,
@@ -113,7 +114,8 @@ function App() {
         <Route path="/editperfil/:email" element= {<EditPerfilForm />} />
         <Route path="/admin" element={<RenderizarTable />} />
         <Route path="/editproduct/:id" element= {<EditProductForm />} />
-        <Route path="/shopping" element = {<MyShopping />} />
+        <Route path="/success" element= {<SuccessPayment cartItems={cartItems} />} />
+        <Route path="/shopping/:email" element = {<MyShopping />} />
         <Route path="*" element={<Error404 />} />
         <Route
           path="/cart"
