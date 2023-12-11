@@ -43,7 +43,7 @@ const getProductByName = async (name) => {
   });
   if (productDB.length === 0) {
     return [
-      { message: "No se encontraron productos que coincidan con la búsqueda." },
+      { message: "No products found matching your search." },
     ];
   }
 
@@ -62,7 +62,7 @@ const createProducts = async (productData) => {
       where: { name: name },
     });
     if (productCreated) {
-      throw new Error("Un producto ya existe con ese nombre");
+      throw new Error("A product already exists with that name");
     }
 
     // CLOUDINARY
@@ -106,12 +106,12 @@ const deleteProductById = async (id) => {
     const productToDelete = await Product.findByPk(id);
 
     if (!productToDelete) {
-      throw new Error(`Producto con ID ${id} no encontrado.`);
+      throw new Error(`Product with ID ${id} not found.`);
     }
 
     await productToDelete.destroy();
 
-    return `Producto con ID ${id} eliminado exitosamente.`;
+    return `Product with ID ${id} successfully removed.`;
   } catch (error) {
     throw error;
   }
@@ -132,12 +132,12 @@ const restoreProductById = async (id) => {
 // Para editar o actualizar un producto con un id especifico
 const updateProductById = async (id, newData) => {
   try {
-    const { name, image, price, colour } = newData;
     // const { name, image, price, colour, additionalImage } = newData;
+    const { name, image, price, colour } = newData;
     const productToUpdate = await Product.findByPk(id);
 
     if (!productToUpdate) {
-      throw new Error(`Producto con ID ${id} no encontrado.`);
+      throw new Error(`Product with ID ${id} not found.`);
     }
 
     // CLOUDINARY
@@ -187,9 +187,9 @@ const getProductswithFilter = async (req, res, next) => {
 
   try {
     const order = [];
-    if (price === "highest") {
+    if (price === "Highest") {
       order.push(["price", "DESC"]);
-    } else if (price === "lowest") {
+    } else if (price === "Lowest") {
       order.push(["price", "ASC"]);
     }
     
@@ -209,7 +209,7 @@ const getProductswithFilter = async (req, res, next) => {
     }
 
 
-    if (products.length === 0) products = [{message: "No se encontraron productos que coincidan con la búsqueda."}]
+    if (products.length === 0) products = [{message: "No products found matching your search."}]
 
     
     res.paginatedResults = products;
