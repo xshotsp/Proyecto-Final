@@ -17,7 +17,7 @@ const HomePage = ({ handleAddProduct }) => {
   const selects = useSelector((state) => state.selectFilter);
   const colourOpt = selects?.colour;
   const brandOpt = selects?.brand;
-  const PriceOpt = ["mayor a menor", "menor a mayor"];
+  const PriceOpt = ["Mayor a menor", "Menor a mayor"];
 
   useEffect(() => {
     dispatch(getAllSelects());

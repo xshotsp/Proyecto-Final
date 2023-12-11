@@ -14,10 +14,10 @@ const SuccessPayment = ({cartItems}) => {
    
      //const resPurchase = useSelector((state) => state.purchase)
      const resPurchase = {collector_id: "24324", date_created: "2023-12-10"}
-     //const User = useSelector((state) => state.activeUser)
+     const User = useSelector((state) => state.activeUser)
 
      //console.log(User)
-    const User = {name:"Luis", lastname: "Lenis", email: "llenis73@gmail.com"}
+    //const User = {name:"Luis", lastname: "Lenis", email: "llenis73@gmail.com"}
     
      const totalPrice = Math.floor(cartItems.reduce((price, item) => price + item.quantity * item.price, 0))
     

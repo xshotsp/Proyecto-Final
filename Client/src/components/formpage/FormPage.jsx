@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -194,9 +195,9 @@ const ProductForm = () => {
       if (long.every(esVacio)) {
           dispatch(createProductRequest());
           productData.active=true
-          console.log(productData)
           const response = await axios.post(`${URL}/product`, productData);
           const newProduct = response.data;
+          console.log(response)
           if (newProduct) mostrarAlerta('success' , 'El producto se creó de manera exitosa' );
   
           dispatch(createProductSuccess(newProduct));
@@ -281,8 +282,8 @@ const ProductForm = () => {
         <label className="label-form" htmlFor="colour">Color</label>
             <select  name="colour" onChange={handleChange} value={productData.colour} >
             <option  hidden>select color</option>
-              {color_select?.map((option, index) => (
-              <option key={index} value={option}>{option}</option>))}
+              {color_select?.map((option) => (
+              <option key={option} value={option}>{option}</option>))}
             </select>
           <span>{errors.colour}</span>
                 

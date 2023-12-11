@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import s from './MyShopping.module.css'
 import { useParams, useNavigate} from 'react-router-dom';
 import { useEffect } from 'react';
