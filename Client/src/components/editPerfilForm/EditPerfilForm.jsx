@@ -101,10 +101,10 @@ useEffect (() => {
       const long = Object.values(errors);
           if (long.length === 0) {
               await axios.put(`${URL}/user/${email}`, input);
-              mostrarAlerta('success' , 'El usuario se actualizó de manera exitosa' );
+              mostrarAlerta('success' , 'User was successfully updated' );
               navigate('/');
              
-          } else mostrarAlerta('error', 'Debe llenar todos los campos sin errores')
+          } else mostrarAlerta('error', 'You must complete all fields without errors')
 
     } catch (error) {
       console.log(error)

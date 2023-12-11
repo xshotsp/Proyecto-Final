@@ -95,7 +95,7 @@ export function postProduct(state) {
   return async function (dispatch) {
     try {
       await axios.post(`${URL}/product`, state);
-      alert("Producto creado con exito");
+      alert("Product created successfully");
     } catch (error) {
       console.log(error);
     }

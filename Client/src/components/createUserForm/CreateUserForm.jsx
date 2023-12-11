@@ -64,13 +64,13 @@ const CreateUserForm = () => {
       const long = Object.values(errors);
       if (long.length === 0 && input.passwordRep) {
         await axios.post(`${URL}/user`, input);
-        mostrarAlerta("success", "El usuario se creó de manera exitosa");
+        mostrarAlerta("success", "The user was created successfully");
         setInput({
           password: "",
           passwordRep: "",
           email: "",
         });
-      } else if (long.length !==0 || !input.passwordRep) mostrarAlerta("error", "Debe llenar todos los campos sin errores");
+      } else if (long.length !==0 || !input.passwordRep) mostrarAlerta("error", "You must complete all fields without errors");
     } catch (error) {
       console.log(error);
       mostrarAlerta("error", error.response.data);

@@ -15,7 +15,7 @@ const Profile = () => {
 
   return (
     <div className={styles.container}>
-      <h2>Perfil de Usuario</h2>
+      <h2>User Profile</h2>
       <div>
         <img className={styles.profileImage} src={profileImage} alt="Imagen de perfil" />
         <input
@@ -27,11 +27,11 @@ const Profile = () => {
         />
       </div>
       <div className={styles.userDetails}>
-        <p>Nombre de Usuario: {userName}</p>
+        <p>User name: {userName}</p>
         <p>Email: {email}</p>
       </div>
       <div className={styles.linkSection}>
-        <a href="/mis-pedidos">Mis Pedidos</a>
+        <a href="/mis-pedidos">My orders</a>
       </div>
     </div>
   );

@@ -47,15 +47,15 @@ const Cart = ({  cartItems , handleAddProduct, handleRemoveProduct, handleClearC
 
   return (
     <div className={s["cart-items"]}>
-      <h2 className={s["cart-items-header"]}>Productos en el carrito: </h2>
+      <h2 className={s["cart-items-header"]}>Products in the shopping cart: </h2>
       <div className={s["clear-cart"]}>
         {cartItems.length >= 1 && (
-          <button className={s["clear-cart-button"]} onClick={handleClearCart}>Limpiar carrito</button>
+          <button className={s["clear-cart-button"]} onClick={handleClearCart}>Clear shopping cart</button>
         )}
       </div>
 
       {cartItems.length === 0 && (
-        <div className={s["cart-items-empty"]}>Tu carrito esta vacio! ?? </div>
+        <div className={s["cart-items-empty"]}>Empty shopping cart! ?? </div>
       )}
 
       <div>
@@ -92,7 +92,7 @@ const Cart = ({  cartItems , handleAddProduct, handleRemoveProduct, handleClearC
         <br />
         <div className={s["cart-items-total-price"]}> 
         <h2>
-        Precio total: ${totalPrice}
+        Total price: ${totalPrice}
         </h2>
         </div>
         <div>
@@ -101,7 +101,7 @@ const Cart = ({  cartItems , handleAddProduct, handleRemoveProduct, handleClearC
           disabled={totalPrice ? false : true}
           onClick = {mercadoPago}
           >
-            Completar compra
+            Complete purchase
           </button>
         </div>
           <br />
