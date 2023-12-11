@@ -9,12 +9,15 @@ import Login from "./components/Login/Login";
 import DetailPage from "./components/detailpage/DetailPage";
 import Cart from "./components/Cart/Cart";
 import EditPerfilForm from "./components/editPerfilForm/EditPerfilForm";
+import RenderizarTable from "./components/Tables/Tables"
 import EditProductForm from "./components/editProduct/EditProduct";
 import MyShopping from "./components/myShooping/MyShooping";
+import SuccessPayment from "./components/purchase/Purchase";
 import { useSelector, useDispatch } from "react-redux";
 import {
   setAccess,
   toggleDarkMode,
+  
   userLoggedIn,
 } from "./redux/actions/actions";
 import { useEffect, useState } from "react";
@@ -115,8 +118,10 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/createuser" element={<CreateUserForm />} />
         <Route path="/editperfil/:email" element= {<EditPerfilForm />} />
+        <Route path="/admin" element={<RenderizarTable />} />
         <Route path="/editproduct/:id" element= {<EditProductForm />} />
-        <Route path="/shopping" element = {<MyShopping />} />
+        <Route path="/success" element= {<SuccessPayment cartItems={cartItems} />} />
+        <Route path="/shopping/:email" element = {<MyShopping />} />
         <Route path="*" element={<Error404 />} />
         <Route
           path="/cart"

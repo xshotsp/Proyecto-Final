@@ -14,8 +14,9 @@ import {
   SET_ACCESS,
   USER_LOGGED_IN,
   GET_ALL_USERS,
-  USER_LOG_OUT
-  
+  USER_LOG_OUT,
+  FINISH_PURCHASE,
+  GET_PURCHASE_USER
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -28,7 +29,9 @@ const initialState = {
   darkMode: false,
   allUsers:[],
   access:false,
-  activeUser:{}
+  activeUser:{},
+  purchase: {},
+  purchaseByUser: []
 };
 
 export default function reducer(state = initialState, action) {
@@ -131,11 +134,24 @@ export default function reducer(state = initialState, action) {
               return {...state,
                 allUsers : action.payload}
             }
-
+          
             case USER_LOG_OUT:{
               return{
                 ...state,
                 activeUser:{}
+              }
+            }
+            case FINISH_PURCHASE: {
+              return {
+                ...state,
+                purchase: action.payload
+              }
+            }
+
+            case GET_PURCHASE_USER: {
+              return {
+                ...state,
+                purchaseByUser: action.payload
               }
             }
 
