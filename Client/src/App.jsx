@@ -39,6 +39,7 @@ function App() {
   const [cartItems, setCartItems] = useState(cartFromLocalStorage);
   const dispatch = useDispatch();
   const { pathname } = useLocation();
+  console.log(pathname)
 
 
   useEffect(() => {
