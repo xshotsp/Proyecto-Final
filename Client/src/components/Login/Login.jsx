@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
 //Firebase
 import { useState, useEffect } from "react";
@@ -5,33 +6,67 @@ import axios from "axios";
 import s from "./login.module.css";
 import { useNavigate } from "react-router-dom";
 import SocialLogin from "../SocialLogin/SocialLogin";
+import { useDispatch, useSelector } from "react-redux";
+import { setAccess, userCart, userLoggedIn } from "../../redux/actions/actions";
+import Swal from "sweetalert2";
 
-const URL = "https://quirkz.up.railway.app";
-// const URL = "http://localhost:3001"
+//const URL = "https://quirkz.up.railway.app"; 
+const URL = "http://localhost:3001";
 
-const Login = ({ setLogin, login }) => {
+const Login = ({ cartItems }) => {
   const [usuario, setUsuario] = useState("");
   const [contraseña, setContraseña] = useState("");
-  const [error, setError] = useState();
+
   const navigate = useNavigate();
+  const access = useSelector((state) => state.access);
+  const dispatch = useDispatch();
+
+  const mostrarAlerta = (iconType, msjText) => {
+    Swal.fire({
+      icon: iconType,
+      title: "",
+      text: msjText,
+    });
+  };
+
+  const productsId = cartItems?.map((product) => {
+    return {
+      productId: product.id,
+      quantity: product.quantity,
+    };
+  });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(usuario, contraseña);
     try {
-      const response = await axios(
+      const { data } = await axios(
         `${URL}/user/login/?email=${usuario}&password=${contraseña}`
       );
-      setLogin(response.data);
+      const itemsArr = {
+        email: usuario,
+        products: productsId,
+      };
+      await axios.post(`${URL}/cart`, itemsArr);
+
+      Swal.fire({
+        icon: "success",
+        title: "",
+        text: "Carrito actualizado.",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+
+      dispatch(setAccess(data.access));
+      dispatch(userLoggedIn(usuario));
+      dispatch(userCart(usuario))
     } catch (error) {
-      console.error("Error al iniciar sesión:", error.message);
-      setError("Credenciales incorrectas");
+      mostrarAlerta("error", error.response.data.error);
     }
   };
 
   useEffect(() => {
-    if (login.access) navigate("/");
-  }, [login.access]);
+    if (access) navigate("/");
+  }, [access]);
 
   return (
     <section className={s["login-container"]}>
@@ -61,12 +96,11 @@ const Login = ({ setLogin, login }) => {
         <br />
         <button type="submit">Acceder</button>
       </form>
-      {error && <p>{error}</p>}
       <br />
       <br />
       <h3 className={s.or__h3}> O </h3>
       <div>
-        <SocialLogin />
+        <SocialLogin cartItems={cartItems} />
       </div>
     </section>
   );

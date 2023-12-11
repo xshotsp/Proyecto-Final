@@ -187,9 +187,9 @@ const getProductswithFilter = async (req, res, next) => {
 
   try {
     const order = [];
-    if (price === "mayor a menor") {
+    if (price === "Mayor a menor") {
       order.push(["price", "DESC"]);
-    } else if (price === "menor a mayor") {
+    } else if (price === "Menor a mayor") {
       order.push(["price", "ASC"]);
     }
     

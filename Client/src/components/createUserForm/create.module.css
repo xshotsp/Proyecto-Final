@@ -13,6 +13,11 @@
   flex-direction: column;
 }
 
+.form .close {
+  margin-left: 340px;
+  cursor: pointer;
+}
+
 .s-form {
   margin-top: 20px;
 }
@@ -48,8 +53,8 @@ input {
   box-sizing: border-box;
 }
 
-p {
-  font-size: 1rem;
+.form__container p {
+  font-size: 0.8rem;
   color: #d9534f; /* / Color de error / */
   margin-top: 5px;
   margin-bottom: 15px;
