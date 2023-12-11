@@ -119,9 +119,12 @@ const deleteProductById = async (id) => {
 
 /**************************************************************************** */
 // restaurar del borrado lógico
-const restoreProductById = async (id) => {
+const restoreProductById = async (id, newData ) => {
   try {
-    const restoredProduct = await Product.restore({ where: { id } });
+    const restoredProduct = await Product.findByPk(id);
+
+    await restoredProduct.update(newData);
+    
     return restoredProduct;
   } catch (error) {
     throw error;
@@ -171,6 +174,10 @@ const getProductswithFilter = async (req, res, next) => {
   // Crea un objeto de condiciones vacío
   const whereConditions = {};
 
+  //Selecciona aquellos activos
+
+  // whereConditions.active = true;
+  
   // Agrega condiciones al objeto según los parámetros de consulta
   if (name) {
     whereConditions.name = {
@@ -187,12 +194,13 @@ const getProductswithFilter = async (req, res, next) => {
 
   try {
     const order = [];
-    if (price === "Highest") {
+    if (price === "Mayor a menor") {
       order.push(["price", "DESC"]);
-    } else if (price === "Lowest") {
+    } else if (price === "Menor a mayor") {
       order.push(["price", "ASC"]);
     }
     
+    console.log(whereConditions)
     let products = await Product.findAll({
       where: whereConditions, // Aplica las condiciones de filtro
       order: order, // Aplica el ordenamiento por precio

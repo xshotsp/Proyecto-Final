@@ -8,10 +8,7 @@ module.exports = (sequelize) => {
       allowNull: false,
       autoIncrement: true,
     },
-    idApi: {
-      type:DataTypes.INTEGER,
-      allowNull:false,
-    },
+    
     name: {
       type: DataTypes.STRING,
       allowNull: false,

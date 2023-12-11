@@ -14,8 +14,11 @@ import {
   SET_ACCESS,
   USER_LOGGED_IN,
   GET_ALL_USERS,
-  USER_LOG_OUT
-  
+  FINISH_PURCHASE,
+  GET_PURCHASE_USER,
+  USER_LOG_OUT,
+  GET_USER_CART,
+  CLEAN_USER_CART,
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -28,24 +31,25 @@ const initialState = {
   darkMode: false,
   allUsers:[],
   access:false,
-  activeUser:{}
+  activeUser:{},
+  purchase: {},
+  purchaseByUser: [],
+  userCart: [],
 };
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
-
     case GET_ALL_PRODUCTS:
       return {
         ...state,
         allproducts: [...action.payload],
       };
 
-      case GET_PRODUCT_NAME:
-        return {
-          ...state,
-          allproducts: [...action.payload],
-        };
-  
+    case GET_PRODUCT_NAME:
+      return {
+        ...state,
+        allproducts: [...action.payload],
+      };
 
     case CREATE_PRODUCT_REQUEST:
       return {
@@ -82,55 +86,85 @@ export default function reducer(state = initialState, action) {
         productDetails: null,
         error: action.payload,
       };
-     
-          
-    case GET_BRANDS: 
-          return{
-            ...state,
-            allBrands: action.payload       //
-      }
 
+    case GET_BRANDS:
+      return {
+        ...state,
+        allBrands: action.payload, //
+      };
 
     case CLEAN_PRODUCT_DETAIL:
+      return {
+        ...state,
+        productDetails: {},
+      };
+
+    case GET_ALL_SELECTS:
+      return {
+        ...state,
+        selectFilter: action.payload,
+      };
+
+    case GET_FILTROS:
+      return {
+        ...state,
+        allproducts: action.payload,
+      };
+
+    case TOGGLE_DARK_MODE:
+      return {
+        ...state,
+        darkMode: !state.darkMode,
+      };
+    case SET_ACCESS: {
+      return {
+        ...state,
+        access: action.payload,
+      };
+    }
+    case USER_LOGGED_IN: {
+      return {
+        ...state,
+        activeUser: action.payload,
+      };
+    }
+    case USER_LOG_OUT: {
+      return {
+        ...state,
+        activeUser: {},
+      };
+    }
+
+    case GET_ALL_USERS: {
+      return { ...state, allUsers: action.payload };
+    }
+    case GET_USER_CART: {
+      return {
+        ...state,
+        userCart: action.payload,
+      };
+    }
+    case CLEAN_USER_CART:{
+      const emptyArr = []
       return{
         ...state,
-        productDetails: {}
+        userCart: emptyArr
       }
+    }
 
-      case GET_ALL_SELECTS:
+    case FINISH_PURCHASE: {
         return {
-          ...state,
-          selectFilter: action.payload,
-        };
-  
-        case GET_FILTERS:
+        ...state,
+        purchase: action.payload
+        }
+    }
+
+    case GET_PURCHASE_USER: {
           return {
             ...state,
-            allproducts: action.payload,
-          };
-        
-          case TOGGLE_DARK_MODE:
-            return {
-              ...state,
-              darkMode: !state.darkMode,
-            };
-            case SET_ACCESS:{
-              return {
-                ...state,
-                access:action.payload
-              }
-            }
-            case USER_LOGGED_IN:{
-              return{
-                ...state,
-                activeUser:action.payload
-              }
-            }
-
-            case GET_ALL_USERS :{
-              return {...state,
-                allUsers : action.payload}
-            }
+            purchaseByUser: action.payload
+          }
+    }
 
             case USER_LOG_OUT:{
               return{
@@ -141,6 +175,5 @@ export default function reducer(state = initialState, action) {
 
     default:
       return state;
-
   }
 }

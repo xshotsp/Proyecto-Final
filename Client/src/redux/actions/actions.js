@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import axios from "axios";
 import getFindSelects from "../../functions/getFindSelects";
 import {
@@ -17,34 +18,17 @@ import {
   GET_ALL_USERS,
   SET_ACCESS,
   USER_LOGGED_IN,
-  USER_LOG_OUT
+  FINISH_PURCHASE,
+  GET_PURCHASE_USER,
+  USER_LOG_OUT,
+  GET_USER_CART,
+  CLEAN_USER_CART,
 } from "./actionTypes";
 
-const URL = "https://quirkz.up.railway.app"; 
-// const URL = "http://localhost:3001";
+//const URL = "https://quirkz.up.railway.app"; 
+const URL = "http://localhost:3001";
 
-// export const getAllProducts = async () => {
-//     try {
-//       const response = await fetch('http://localhost:3001/product');
-//       if (!response.ok) {
-//         throw new Error('No se pudo obtener la lista de productos');
-//       }
 
-//       const products = await response.json();
-//       return products;
-//     } catch (error) {
-//       console.error('Error al obtener los productos:', error);
-//       throw error;
-//     }
-//   };
-
-//   getAllProducts()
-//     .then(products => {
-//       console.log('Productos obtenidos:', products);
-//     })
-//     .catch(error => {
-//       console.error('Error al obtener productos:', error);
-//     });
 
 export function getProducts() {
   return async function (dispatch) {
@@ -241,28 +225,69 @@ export const userLoggedIn = (user) => {
   };
 };
 
+export function finishPurchase(objectPago) {
+
+  return async function (dispatch) {
+   
+    try {
+      const response = await axios.post(`${URL}/purchase`, objectPago);
+      window.location.href = response.data.init_point;
+
+      dispatch({
+        type: FINISH_PURCHASE,
+        payload: response.data
+      });
+    } catch (error) {
+      console.error('Error in finishPurchase:', error);
+    }
+  };
+}
+
+
+export const getPurchaseByUser = (email) => {
+  console.log(email)
+  return async (dispatch) => {
+    try {
+      
+      const { data } = await axios.get(`${URL}/purchase/${email}`);
+      
+      return dispatch({
+        type: GET_PURCHASE_USER,
+        payload: data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+
 export const userLogOut = () => {
   return {
     type: USER_LOG_OUT,
   };
 };
-export const blockUserAction = (email) => {
-  return async (dispatch, getState) => {
+
+
+export const userCart = (email) =>{
+return async (dispatch) => {
     try {
-      // Actualizar el estado local
-      const { users } = getState();
-      const updatedUsers = users.map((user) =>
-        user.email === email ? { ...user, active: !user.active } : user
-      );
-      dispatch({ type: GET_ALL_USERS, payload: updatedUsers });
+      const { data } = await axios(`${URL}/cart/${email}`);
 
-      // Realizar una solicitud al servidor para bloquear/desbloquear al usuario
-      await axios.post(`${URL}/user/block`, { email });
-
-      // Despachar acción de bloqueo local
-      dispatch({ type: BLOCK_USER, payload: email });
+      return dispatch({
+        type: GET_USER_CART,
+        payload: data,
+      });
     } catch (error) {
-      console.error("Error al bloquear usuario:", error.message);
+      console.log(error);
     }
   };
 };
+
+
+export const cleanUserCart =()=>{
+  return {
+    type: CLEAN_USER_CART,
+  }
+}
+

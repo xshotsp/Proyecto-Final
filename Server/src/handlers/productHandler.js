@@ -32,29 +32,34 @@ const getAllProductsHandler = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 };
+  
+   
+  /********************************************************** */
+  const getIdHandler = async (req, res) => {
+    const id = req.params.id;
+    try {
+      const response = await getProductsById(id);
+      res.status(200).json(response);
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    }
+  };
+  
+  /************************************************************* */
+  const createProductsHandler = async (req, res) => {
+    console.log(req.body)
+    try {
+    
+      const product = await createProducts(req.body);
+      res.status(201).json(product);
+    } catch (error) {
+      res.status(400).json(error.message);
+    }
+  };
 
 
  
-/********************************************************** */
-const getIdHandler = async (req, res) => {
-  const id = req.params.id;
-  try {
-    const response = await getProductsById(id);
-    res.status(200).json(response);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-};
 
-/************************************************************* */
-const createProductsHandler = async (req, res) => {
-  try {
-    const product = await createProducts(req.body);
-    res.status(201).json(product);
-  } catch (error) {
-    res.status(400).json(error.message);
-  }
-};
 
 /************************************************************+ */
 const restoreProductHandler = async (req, res) => {

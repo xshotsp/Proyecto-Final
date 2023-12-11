@@ -31,8 +31,8 @@ const createOrder = async (req, res) => {
                 "external_reference": payer.email,
                  items: items,
                 "back_urls": {
-                    "success": "http://localhost:5173/",
-                    "failure": "http://localhost:5173/",
+                    "success": "https://localhost:5173/success",
+                    "failure": "https://quirkzmain.vercel.app",
                     "pending": ""
                 },
                 auto_return: "approved",

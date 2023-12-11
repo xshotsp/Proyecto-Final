@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
 //Firebase
 import { useState, useEffect } from "react";
@@ -6,13 +7,18 @@ import s from "./login.module.css";
 import { useNavigate } from "react-router-dom";
 import SocialLogin from "../SocialLogin/SocialLogin";
 import { useDispatch, useSelector } from "react-redux";
-import { setAccess, userLoggedIn } from "../../redux/actions/actions";
+import { setAccess, userCart, userLoggedIn } from "../../redux/actions/actions";
 import Swal from "sweetalert2";
 
+<<<<<<< HEAD
  const URL = "https://quirkz.up.railway.app"; 
 // const URL = "http://localhost:3001";
+=======
+//const URL = "https://quirkz.up.railway.app"; 
+const URL = "http://localhost:3001";
+>>>>>>> aac19179f77d09bcc58fa43b775600a05ea36160
 
-const Login = () => {
+const Login = ({ cartItems }) => {
   const [usuario, setUsuario] = useState("");
   const [contraseña, setContraseña] = useState("");
 
@@ -28,6 +34,13 @@ const Login = () => {
     });
   };
 
+  const productsId = cartItems?.map((product) => {
+    return {
+      productId: product.id,
+      quantity: product.quantity,
+    };
+  });
+
   const handleSubmit = async (e) => {
     
     e.preventDefault();
@@ -35,8 +48,23 @@ const Login = () => {
       const { data } = await axios(
         `${URL}/user/login/?email=${usuario}&password=${contraseña}`
       );
+      const itemsArr = {
+        email: usuario,
+        products: productsId,
+      };
+      await axios.post(`${URL}/cart`, itemsArr);
+
+      Swal.fire({
+        icon: "success",
+        title: "",
+        text: "Carrito actualizado.",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+
       dispatch(setAccess(data.access));
       dispatch(userLoggedIn(usuario));
+      dispatch(userCart(usuario))
     } catch (error) {
       mostrarAlerta("error", error.response.data.error);
     }
@@ -78,7 +106,7 @@ const Login = () => {
       <br />
       <h3 className={s.or__h3}> O </h3>
       <div>
-        <SocialLogin />
+        <SocialLogin cartItems={cartItems} />
       </div>
     </section>
   );

@@ -17,7 +17,11 @@ const HomePage = ({ handleAddProduct }) => {
   const selects = useSelector((state) => state.selectFilter);
   const colourOpt = selects?.colour;
   const brandOpt = selects?.brand;
+<<<<<<< HEAD
   const PriceOpt = ["Highest", "Lowest"];
+=======
+  const PriceOpt = ["Mayor a menor", "Menor a mayor"];
+>>>>>>> aac19179f77d09bcc58fa43b775600a05ea36160
 
   useEffect(() => {
     dispatch(getAllSelects());

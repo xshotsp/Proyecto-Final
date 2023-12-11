@@ -1,19 +1,13 @@
 const axios = require("axios");
 
 const capitalizeString = inputString => {
-  const parts = inputString.split('/');
+  const words = inputString.split(' ');
 
-  const capitalizedParts = parts.map(part => {
-      if (part === part.toUpperCase()) {
-          return part.charAt(0) + part.slice(1).toLowerCase();
-      } else if (part === part.toLowerCase()) {
-          return part.charAt(0).toUpperCase() + part.slice(1).toLowerCase();
-      } else {
-          return part;
-      }
+  const capitalizedWords = words.map(word => {
+    return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
   });
 
-  const resultString = capitalizedParts.join('/');
+  const resultString = capitalizedWords.join(' ');
 
   return resultString;
 };
@@ -50,5 +44,5 @@ try {
 };
 
 module.exports = {
-  translate
+  translate,capitalizeString
 }
