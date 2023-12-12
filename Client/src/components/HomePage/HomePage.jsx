@@ -94,7 +94,7 @@ const HomePage = ({ handleAddProduct }) => {
           )}
         </div>
       </div>
-      <ProductList />
+      <ProductList handleAddProduct={handleAddProduct} />
     </div>
   );
 };

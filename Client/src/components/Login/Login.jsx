@@ -11,8 +11,8 @@ import { setAccess, userCart, userLoggedIn } from "../../redux/actions/actions";
 import Swal from "sweetalert2";
 import validate from "./validate";
 
-const URL = "https://quirkz.up.railway.app";
-//const URL = "http://localhost:3001";
+const URL = import.meta.env.VITE_URL
+
 
 const Login = ({ cartItems, setToken }) => {
   const [loginInput, setLoginInput] = useState({
@@ -55,7 +55,6 @@ const Login = ({ cartItems, setToken }) => {
       })
     );
   };
-  console.log(errors);
 
   const handleSubmit = async (e) => {
     
@@ -104,7 +103,6 @@ const Login = ({ cartItems, setToken }) => {
     if (access) navigate("/");
   }, [access]);
 
-  console.log(loginInput);
 
   return (
     <section className={s["login-container"]}>
