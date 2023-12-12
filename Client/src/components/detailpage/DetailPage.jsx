@@ -11,23 +11,23 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-const DetailPage = ({ login, handleAddProduct }) => {
+const DetailPage = ({ access, handleAddProduct, currentUserId }) => {
   const dispatch = useDispatch();
+
   const { id } = useParams();
   const allProducts = useSelector((state) => state.allproducts);
   const product = useSelector((state) => state.productDetails);
-  console.log(product);
   const sliderRef = useRef(null);
+
+  // Validar si product es null o undefined antes de acceder a sus propiedades
+  const brandName = product?.brands?.[0]?.name || 'Cargando...';
+
   const mixedProducts = allProducts
-  .filter(prod => prod.id !== product.id)
-  .toSorted((a, b) => a - b)
-  .filter((value, index, self) => self.indexOf(value) === index)
-  .slice(0, 5);
-  if (product.brands && product.brands.length > 0) {
-    var brandName = product.brands[0].name; 
-  } else {
-    brandName = 'Cargando...'
-  }
+    // Validar si product tiene la propiedad id antes de filtrar
+    .filter(prod => prod.id !== product?.id)
+    .toSorted((a, b) => a - b)
+    .filter((value, index, self) => self.indexOf(value) === index)
+    .slice(0, 5);
 
   const [showHeart, setShowHeart] = useState(true);
 
@@ -46,7 +46,6 @@ const DetailPage = ({ login, handleAddProduct }) => {
       <FontAwesomeIcon icon={faChevronRight} />
     </div>
   );
-  
   const sliderSettings = {
     dots: true,
     infinite: true,
@@ -56,7 +55,6 @@ const DetailPage = ({ login, handleAddProduct }) => {
     prevArrow: <PrevArrow />,
     nextArrow: <NextArrow />
   };
-  
   const nextSlide = () => {
     if (sliderRef.current) {
       sliderRef.current.slickNext();
@@ -70,7 +68,7 @@ const DetailPage = ({ login, handleAddProduct }) => {
   };
 
   useEffect(() => {
-    if(id && !product.id) {
+    if (id && !product?.id) {
       dispatch(fetchProductById(id));
     }
     return () => {
@@ -78,57 +76,58 @@ const DetailPage = ({ login, handleAddProduct }) => {
     };
   }, [dispatch, id]);
 
+  // Validar si product es null o undefined antes de renderizar
   if (!product) {
-        return <p className={s.error}>Cargando...</p>;
+    return <p className={s.error}>Cargando...</p>;
   }
 
   return (
-    <div className={s.productDetailsContainer}>
-      <div className={s.backBtn}>
-      <Link to='/'>
-        <button>Volver</button>
-      </Link>
-      </div>
-      <br />
-      <h1>{product.name}</h1>
-      <br />
-      <img src={product.image} 
-      alt="product" 
-      className={s.productImage} />
-      
-      <div className={s.shopBtn}>
-        <h2>
-        <button className={s.addBtn} 
-        onClick={() => handleAddProduct(product)}>
-          <FontAwesomeIcon icon={faCartFlatbed} /> AÃ±adir Al Carrito
-        </button>
-        <button onClick={changeIcon}>
-          <FontAwesomeIcon icon={showHeart ? faHeart : faHeartCircleCheck} />
-        </button>
-        <br />
-        <span>
-          <p>
-            <FontAwesomeIcon icon={faTruck} /> Envios gratis en tus ordenes a partir de $3000
-          </p>
-        </span>
-        </h2>
-      </div>
-      <div className={s.productInfo}>
-        <h2 className={s.price}>Precio: ${product.price || 'Cargando...'}</h2>
-        <h2 className={s.colour}>Color: {product.colour || 'Cargando...'}</h2>
-        <h2 className={s.brand}>Marca: {brandName}</h2>
-      </div>
-
-      <div className={s.descriptionTextBox}>
-        <br />
-        <h2>Productos Que Tambien Te Pueden Interesar</h2>
-        <div>
-        <Slider ref={sliderRef} {...sliderSettings}>
-          {mixedProducts.map((product) => <Card key={product.id} product={product} handleAddProduct={handleAddProduct}/>)}
-        </Slider>
+    <div className={s.mainContainer}>
+      <div className={s.productDetailsContainer}>
+        <h2>{product.id}</h2>
+        <div className={s.backBtn}>
+          <Link to='/'>
+            <button>Volver</button>
+          </Link>
         </div>
+        <br />
+        <h1>{product.name}</h1>
+        <br />
+        <img src={product.image} alt="product" className={s.productImage} />
+
+        <div className={s.shopBtn}>
+          <h2>
+            <button className={s.addBtn} onClick={() => handleAddProduct(product)}>
+              <FontAwesomeIcon icon={faCartFlatbed} /> Añadir Al Carrito
+            </button>
+            <button onClick={changeIcon}>
+              <FontAwesomeIcon icon={showHeart ? faHeart : faHeartCircleCheck} />
+            </button>
+            <br />
+            <span>
+              <p>
+                <FontAwesomeIcon icon={faTruck} /> Envios gratis en tus ordenes a partir de $3000
+              </p>
+            </span>
+          </h2>
+        </div>
+        <div className={s.productInfo}>
+          <h2 className={s.price}>Precio: ${product.price || 'Cargando...'}</h2>
+          <h2 className={s.colour}>Color: {product.colour || 'Cargando...'}</h2>
+          <h2 className={s.brand}>Marca: {brandName}</h2>
+        </div>
+
+        <div className={s.descriptionTextBox}>
+          <br />
+          <h2>Productos Que Tambien Te Pueden Interesar</h2>
+          <div>
+            <Slider ref={sliderRef} {...sliderSettings}>
+              {mixedProducts.map((product) => <Card key={product.id} product={product} />)}
+            </Slider>
+          </div>
+        </div>
+        <ReviewyComentarios access={access} productoId={id} currentUserId={currentUserId} />
       </div>
-      <ReviewyComentarios login={login} productoId={id}/>
     </div>
   );
 };

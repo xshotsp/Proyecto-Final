@@ -34,8 +34,6 @@ const URL = "https://quirkz.up.railway.app";
 
 
 
-
-
 export function getProducts() {
   return async function (dispatch) {
     try {

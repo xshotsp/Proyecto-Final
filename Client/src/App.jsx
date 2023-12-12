@@ -55,6 +55,7 @@ function App() {
           quantity: 1,
         },
       };
+
       const response = await axios.post(`${URL}/cart`, objProduct);
       console.log(response)
       if (pathname === "/" || pathname === `/product/${product.id}`) {
@@ -166,7 +167,7 @@ function App() {
         />
         <Route
           path="/product/:id"
-          element={<DetailPage login={Login} handleAddProduct={handleAddProduct} />}
+          element={<DetailPage access={access} currentUserId='1' handleAddProduct={handleAddProduct} />}
         />
         <Route path="/contacto" element={<Contact />} />
         <Route path="/form" element={<FormPage />} />
