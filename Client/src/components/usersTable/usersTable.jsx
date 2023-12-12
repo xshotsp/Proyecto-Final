@@ -25,7 +25,7 @@ const UsersTable = () => {
 
   return (
     <div>
-      <h2>Usuarios</h2>
+      <h2>Users</h2>
       <table>
         <thead>
           <tr>
@@ -33,7 +33,7 @@ const UsersTable = () => {
             <th>Name</th>
             <th>Lastname</th>
             <th>Phone</th>
-            <th>Bloquear</th>
+            <th>Banned</th>
           </tr>
         </thead>
         <tbody>

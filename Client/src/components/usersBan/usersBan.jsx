@@ -19,7 +19,7 @@ const UsersBanTable = () => {
 
   return (
     <div>
-      <h2>Usuarios Bloqueados</h2>
+      <h2>Banned Users</h2>
       <table>
         <thead>
           <tr>

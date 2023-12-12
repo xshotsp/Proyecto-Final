@@ -12,7 +12,7 @@ import {
   GET_ALL_SELECTS,
   CLEAN_PRODUCT_DETAIL,
   GET_BRANDS,
-  GET_FILTROS,
+  GET_FILTERS,
   GET_ALL_PRODUCTS,
   TOGGLE_DARK_MODE,
   GET_ALL_USERS,
@@ -170,7 +170,7 @@ export const getFilters = (filtros) => {
       const response = await axios.get(url);
 
       dispatch({
-        type: GET_FILTROS,
+        type: GET_FILTERS,
         payload: response.data,
       });
     } catch (error) {

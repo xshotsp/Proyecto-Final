@@ -79,14 +79,15 @@ const DetailPage = ({ login, handleAddProduct }) => {
   }, [dispatch, id]);
 
   if (!product) {
-        return <p className={s.error}>Cargando...</p>;
+    
+        return <p className={s.error}>Loading...</p>;
   }
 
   return (
     <div className={s.productDetailsContainer}>
       <div className={s.backBtn}>
       <Link to='/'>
-        <button>Volver</button>
+        <button>Back</button>
       </Link>
       </div>
       <br />
@@ -99,8 +100,8 @@ const DetailPage = ({ login, handleAddProduct }) => {
       <div className={s.shopBtn}>
         <h2>
         <button className={s.addBtn} 
-        onClick={() => handleAddProduct(product)}>
-          <FontAwesomeIcon icon={faCartFlatbed} /> AÃ±adir Al Carrito
+        onClick={() => handleAddProduct(product)}>          
+          <FontAwesomeIcon icon={faCartFlatbed} /> Add shopping cart
         </button>
         <button onClick={changeIcon}>
           <FontAwesomeIcon icon={showHeart ? faHeart : faHeartCircleCheck} />
@@ -114,14 +115,14 @@ const DetailPage = ({ login, handleAddProduct }) => {
         </h2>
       </div>
       <div className={s.productInfo}>
-        <h2 className={s.price}>Precio: ${product.price || 'Cargando...'}</h2>
-        <h2 className={s.colour}>Color: {product.colour || 'Cargando...'}</h2>
-        <h2 className={s.brand}>Marca: {brandName}</h2>
+        <h2 className={s.price}>Price: ${product.price || 'Loading...'}</h2>
+        <h2 className={s.colour}>Colour: {product.colour || 'Loading...'}</h2>
+        <h2 className={s.brand}>Brand: {brandName}</h2>
       </div>
 
       <div className={s.descriptionTextBox}>
         <br />
-        <h2>Productos Que Tambien Te Pueden Interesar</h2>
+        <h2>Products You May Also Be Interested in</h2>
         <div>
         <Slider ref={sliderRef} {...sliderSettings}>
           {mixedProducts.map((product) => <Card key={product.id} product={product} handleAddProduct={handleAddProduct}/>)}

@@ -7,8 +7,6 @@ import { useSelector } from 'react-redux';
 import { getPurchaseByUser } from '../../redux/actions/actions';
 
 
-
-
 const MyShopping = () => {
 
   const {email} = useParams();
@@ -16,8 +14,7 @@ const MyShopping = () => {
   const purchaseItems = useSelector((state) => state.purchaseByUser)
   const navigate = useNavigate();
 
-  console.log(purchaseItems)
-
+ 
   let myItems = []
   for (let shop of purchaseItems) {
     for (let item of shop.items){
@@ -25,7 +22,7 @@ const MyShopping = () => {
     }
   }
 
-  
+ 
    useEffect (() => {
      dispatch(getPurchaseByUser(email))
     }, [email])

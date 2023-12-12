@@ -50,7 +50,7 @@ const Dashboard = () => {
           onClick={() => handleBotonClick("usuariosBloqueados")}
           className={botonActivo === "usuariosBloqueados" ? styles.activo : ""}
         >
-          Usuarios Bloqueados
+          Blocked Users
         </button>
         <button
           onClick={() => handleBotonClick("productos")}

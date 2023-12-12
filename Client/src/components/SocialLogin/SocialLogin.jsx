@@ -46,7 +46,7 @@ const SocialLogin = ({ cartItems }) => {
     Swal.fire({
       icon: "success",
       title: "",
-      text: "Carrito actualizado.",
+      text: "Updated shopping cart.",
       showConfirmButton: false,
       timer: 1500,
     });

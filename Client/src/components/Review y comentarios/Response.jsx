@@ -19,11 +19,11 @@ const Response = ({ onAddResponse }) => {
       <textarea
         rows="4"
         cols="50"
-        placeholder="Escribe tu respuesta aquí..."
+        placeholder="Add your response here..."
         value={responseText}
         onChange={handleResponseChange}
       />
-      <button onClick={handleAddResponse}>Agregar Respuesta</button>
+      <button onClick={handleAddResponse}>Add Response</button>
     </div>
   );
 };
