@@ -191,7 +191,7 @@ const getProductswithFilter = async (req, res, next) => {
       [Op.iLike]: `%${colour}%`,
     };
   }
-  
+
   try {
     const order = [];
     if (price === "Highest") {

@@ -26,7 +26,7 @@ import {
 } from "./actionTypes";
 
 //const URL = "https://quirkz.up.railway.app"; 
-const URL = "http://localhost:3001";
+ const URL = "http://localhost:3001";
 
 
 

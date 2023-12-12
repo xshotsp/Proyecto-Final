@@ -8,7 +8,7 @@ import { useSelector, useDispatch} from 'react-redux';
 import { finishPurchase } from '../../redux/actions/actions';
 import { useEffect } from "react";
 
-//const URL = 'http://localhost:3001'
+// const URL = 'http://localhost:3001'
 //const URL = "https://quirkz.up.railway.app"
 
 
@@ -27,6 +27,8 @@ const Cart = ({
     (price, item) => price + item.quantity * item.price,
     0
   );
+
+  const priceToFixed = totalPrice.toFixed(2)
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -53,7 +55,8 @@ const Cart = ({
     } else {
       // const response = await axios.post(`${URL}/purchase`, cartItems);
       // window.location.href = response.data.init_point;
-      dispatch(finishPurchase(cartItems));
+      console.log(userCart)
+      dispatch(finishPurchase(userCart));
     
     }
   };
@@ -108,19 +111,14 @@ const Cart = ({
       </div>
 
       <div className={s["cart-items-total-price-name"]}>
-        <br />
-        <div className={s["cart-items-total-price"]}> 
-        <h2>
-        Total price: ${totalPrice}
-        </h2>
+        <br />      
+        <div className={s["cart-items-total-price"]}>
+          <h2> Total price: ${priceToFixed}</h2>
         </div>
         <div>
           <br />
-          <button className={s.btncart}
-          disabled={totalPrice ? false : true}
-          onClick = {mercadoPago}
-          >
-            Complete purchase
+          <button disabled={priceToFixed ? false : true} onClick={mercadoPago}>
+          Complete purchase
           </button>
         </div>
         <br />

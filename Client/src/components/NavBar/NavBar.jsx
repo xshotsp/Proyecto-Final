@@ -25,11 +25,12 @@ import { signOutFunction } from "../../firebase/firebase.config";
 const NavBar = ({cartItems}) => {
   const [activePage, setActivePage] = useState("");
   const dispatch = useDispatch();
-  const { darkMode, access, activeUser } = useSelector((state) => state);
+  const { darkMode, access, activeUser, userCart } = useSelector((state) => state);
   const [showOptions, setShowOptions] = useState(false);
   const navigate = useNavigate();
 
-  const totalItemsCart = cartItems.length ? cartItems.reduce((total, item) => total + item.quantity, 0) : 0
+  const cartToUse = access ? userCart : cartItems;
+  const totalItemsCart = cartToUse.reduce((total, item) => total + item.quantity, 0);
   
   const handleMouseEnter = (page) => {
     setActivePage(page);

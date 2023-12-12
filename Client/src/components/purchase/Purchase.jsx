@@ -6,23 +6,25 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 
-const URL = "http://localhost:3001"
+ const URL = "http://localhost:3001"
 //const URL = "https://quirkz.up.railway.app"
 
 const SuccessPayment = ({cartItems}) => {
     const navigate = useNavigate();
+    const userCart = useSelector((state) => state.userCart);
    
-     //const resPurchase = useSelector((state) => state.purchase)
-     const resPurchase = {collector_id: "24324", date_created: "2023-12-10"}
+     const resPurchase = useSelector((state) => state.purchase)
+     console.log(resPurchase)
+   /*   const resPurchase = {collector_id: "24324", date_created: "2023-12-10"} */
      const User = useSelector((state) => state.activeUser)
 
      //console.log(User)
     //const User = {name:"Luis", lastname: "Lenis", email: "llenis73@gmail.com"}
     
-     const totalPrice = Math.floor(cartItems.reduce((price, item) => price + item.quantity * item.price, 0))
+     const totalPrice = Math.floor(userCart.reduce((price, item) => price + item.quantity * item.price, 0))
     
      let items = []
-     for (let product of cartItems){
+     for (let product of userCart){
         items.push({name:product.name, quantity:product.quantity, price: product.price})
      }
      const purchase = {items: items, totalAmount: totalPrice, order:resPurchase.collector_id, 
@@ -32,7 +34,6 @@ const SuccessPayment = ({cartItems}) => {
   
     const handleSubmit = async (event) => {
         event.preventDefault();
-        console.log(purchase)
         await axios.post(`${URL}/history`, purchase);
         
         navigate(`/`);
@@ -55,7 +56,7 @@ const SuccessPayment = ({cartItems}) => {
        
         <h2> Items: </h2>
         <div>
-          {cartItems.map((product) => (
+          {userCart.map((product) => (
             <div key={product.id} className={s["purchase-items-list"]}>
                         
               <br />
