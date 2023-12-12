@@ -17,7 +17,10 @@ import {
 
 } from './actionTypes';
 
-const URL = "https://quirkz.up.railway.app"
+//const URL = "https://quirkz.up.railway.app"
+
+const URL = "http://localhost:3001";
+
 
 // export const getAllProducts = async () => {
 //     try {
