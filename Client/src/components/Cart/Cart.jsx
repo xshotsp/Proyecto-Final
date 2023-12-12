@@ -9,8 +9,8 @@ import { finishPurchase } from '../../redux/actions/actions';
 import { useEffect } from "react";
 
 
-// const URL = 'http://localhost:3001'
-const URL = "https://quirkz.up.railway.app"
+//const URL = 'http://localhost:3001'
+//const URL = "https://quirkz.up.railway.app"
 
 
 
@@ -58,13 +58,12 @@ const Cart = ({
     } else {
       // const response = await axios.post(`${URL}/purchase`, cartItems);
       // window.location.href = response.data.init_point;
-      console.log(userCart)
       dispatch(finishPurchase(userCart));
     
     }
   };
 
-  useEffect(() => {}, [userCart]);
+/*   useEffect(() => {}, [userCart,access]); */
 
   return (
     <div className={s["cart-items"]}>
