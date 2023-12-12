@@ -8,35 +8,46 @@ import FormPage from "./components/formpage/FormPage";
 import Login from "./components/Login/Login";
 import DetailPage from "./components/detailpage/DetailPage";
 import Cart from "./components/Cart/Cart";
-import EditPerfilForm from "./components/editPerfilForm/EditPerfilForm";
-import RenderizarTable from "./components/Tables/Tables"
-import EditProductForm from "./components/editProduct/EditProduct";
-import MyShopping from "./components/myShooping/MyShooping";
-import SuccessPayment from "./components/purchase/Purchase";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  setAccess,
-  toggleDarkMode,
-  
-  userLoggedIn,
-} from "./redux/actions/actions";
+import { toggleDarkMode } from "./redux/actions/actions";
 import { useEffect, useState } from "react";
 import Contact from "./components/Contact/Contact";
 import Error404 from "./components/Error/Error404";
-import { auth } from "./firebase/firebase.config";
 import { onAuthStateChanged } from "firebase/auth";
-import Swal from 'sweetalert2';
+import { auth } from "./firebase/firebase.config";
 import Dashboard from "./components/Dashboard/Dashboard";
-
 function App() {
   const darkMode = useSelector((state) => state.darkMode);
   const cartFromLocalStorage = JSON.parse(localStorage.getItem("cart") || "[]");
   const [cartItems, setCartItems] = useState(cartFromLocalStorage);
   const dispatch = useDispatch();
-
+  const [login, setLogin] = useState({
+    access: false,
+    email: "",
+    photo: "",
+  });
+console.log(login)
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cartItems));
+    onAuthStateChanged(auth, async (user) => {
+      if (user === null) {
+        setLogin({
+          access: false,
+          email: "",
+          photo: "",
+        });
+      } else {
+        const userObject = {
+          access: true,
+          email: user.email,
+          photo: user.photoURL,
+        };
+        setLogin(userObject);
+      }
+    });
   }, [cartItems]);
+
+
 
   const handleAddProduct = (product) => {
     const ProductExist = cartItems.find((item) => item.id === product.id);
@@ -51,13 +62,6 @@ function App() {
     } else {
       setCartItems([...cartItems, { ...product, quantity: 1 }]);
     }
-    Swal.fire({
-      icon: 'success',
-      title: '',
-      text: 'sumado al carrito ',
-      showConfirmButton: false,
-      timer: 1500
-    })
   };
 
   const handleRemoveProduct = (product) => {
@@ -79,24 +83,13 @@ function App() {
     setCartItems([]);
   };
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      if (user !== null) {
-        dispatch(setAccess(true));
-        dispatch(userLoggedIn(user.email));
-      }
-    });
-
-    return () => {
-      unsubscribe();
-    };
-  }, []);
-
   return (
-    <div className={darkMode ? "div__darkMode" : ""}>
+    <div className={darkMode && "div__darkMode"}>
       <NavBar
         darkMode={darkMode}
         setDarkMode={() => dispatch(toggleDarkMode())}
+        login={login}
+        setLogin={setLogin}
         cartItems={cartItems}
       />
       <Routes>
@@ -115,13 +108,11 @@ function App() {
         />
         <Route path="/contacto" element={<Contact />} />
         <Route path="/form" element={<FormPage />} />
-        <Route path="/login" element={<Login />} />
+        <Route
+          path="/login"
+          element={<Login login={login} setLogin={setLogin} />}
+        />
         <Route path="/createuser" element={<CreateUserForm />} />
-        <Route path="/editperfil/:email" element= {<EditPerfilForm />} />
-        <Route path="/admin" element={<RenderizarTable />} />
-        <Route path="/editproduct/:id" element= {<EditProductForm />} />
-        <Route path="/success" element= {<SuccessPayment cartItems={cartItems} />} />
-        <Route path="/shopping/:email" element = {<MyShopping />} />
         <Route path="*" element={<Error404 />} />
         <Route
           path="/cart"
@@ -134,7 +125,7 @@ function App() {
             />
           }
         />
-        <Route path="/dashboard" element={<Dashboard/>} />
+         <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
       <Footer />
     </div>

@@ -26,9 +26,11 @@ const UsersTable = () => {
     fetchData();
   }, [dispatch]);
 
-  // Función para bloquear/desbloquear un usuario
-  const handleBlockUser = (email) => {
-    dispatch(blockUserAction(email)); // Usa la nueva acción
+  
+  const handleBlockUser = async (email) => {
+    
+   const input = {active: false}
+  await axios.put(`${URL}/user/all/${email}`, input);
   };
 
   return (

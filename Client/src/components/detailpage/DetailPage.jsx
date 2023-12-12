@@ -26,7 +26,7 @@ const DetailPage = ({ login, handleAddProduct }) => {
   if (product.brands && product.brands.length > 0) {
     var brandName = product.brands[0].name; 
   } else {
-    brandName = 'Loading...'
+    brandName = 'Cargando...'
   }
 
   const [showHeart, setShowHeart] = useState(true);
@@ -79,16 +79,14 @@ const DetailPage = ({ login, handleAddProduct }) => {
   }, [dispatch, id]);
 
   if (!product) {
-    
-        return <p className={s.error}>Loading...</p>;
+        return <p className={s.error}>Cargando...</p>;
   }
 
   return (
     <div className={s.productDetailsContainer}>
-      <h2>{product.id}</h2>
       <div className={s.backBtn}>
       <Link to='/'>
-        <button>Back</button>
+        <button>Volver</button>
       </Link>
       </div>
       <br />
@@ -102,7 +100,7 @@ const DetailPage = ({ login, handleAddProduct }) => {
         <h2>
         <button className={s.addBtn} 
         onClick={() => handleAddProduct(product)}>
-          <FontAwesomeIcon icon={faCartFlatbed} /> Add shoping cart
+          <FontAwesomeIcon icon={faCartFlatbed} /> AÃ±adir Al Carrito
         </button>
         <button onClick={changeIcon}>
           <FontAwesomeIcon icon={showHeart ? faHeart : faHeartCircleCheck} />
@@ -116,14 +114,14 @@ const DetailPage = ({ login, handleAddProduct }) => {
         </h2>
       </div>
       <div className={s.productInfo}>
-        <h2 className={s.price}>Price: ${product.price || 'Loading...'}</h2>
-        <h2 className={s.colour}>Colour: {product.colour || 'Loading...'}</h2>
-        <h2 className={s.brand}>Brand: {brandName}</h2>
+        <h2 className={s.price}>Precio: ${product.price || 'Cargando...'}</h2>
+        <h2 className={s.colour}>Color: {product.colour || 'Cargando...'}</h2>
+        <h2 className={s.brand}>Marca: {brandName}</h2>
       </div>
 
       <div className={s.descriptionTextBox}>
         <br />
-        <h2>Products can be interested</h2>
+        <h2>Productos Que Tambien Te Pueden Interesar</h2>
         <div>
         <Slider ref={sliderRef} {...sliderSettings}>
           {mixedProducts.map((product) => <Card key={product.id} product={product} />)}
