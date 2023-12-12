@@ -10,7 +10,7 @@ import Comentarios from './Comentarios';
 import CommentForm from './CommentForm';
 import Review from './Review'
 
-const ReviewyComentarios = ({ login, productoId,  currentUserId }) => {
+const ReviewyComentarios = ({ access, productoId,  currentUserId }) => {
 
   const [backendComments, setBackendComments] = useState([]);
   const [activeComment, setActiveComment] = useState(null);
@@ -20,8 +20,8 @@ const ReviewyComentarios = ({ login, productoId,  currentUserId }) => {
     (backendComment) => backendComment.parentId === null
   );
 
-  const canComment = login.access === true ; //validaciones falta la validacion de compra 
-  //const canComment = login.access === true && userHasPurchasedProduct(productoId.purchase === true);
+  const canComment = access === true ; //validaciones falta la validacion de compra 
+  //const canComment = access === true && userHasPurchasedProduct(productoId.purchase === true);
 
   const getReplies = CommentId => {
     return backendComments.filter(backendComment => backendComment.parentId === CommentId)
@@ -66,7 +66,6 @@ const updateComment = (text, CommentId) =>{
    })
 }
 
-
 const handleRatingChange = (rating) => {
   setUserRating(rating);
 };
@@ -78,6 +77,7 @@ const handleRatingChange = (rating) => {
       setBackendComments(data);
     });
   }, []);
+  
 
   return (
     <div className={style.Comments}>
@@ -107,7 +107,7 @@ const handleRatingChange = (rating) => {
               activeComment={activeComment}
               setActiveComment={setActiveComment}
               addComment={addComments}
-              login={login}
+              access={access}
               />
           ))}
        </div>

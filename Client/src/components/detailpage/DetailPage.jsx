@@ -11,7 +11,7 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-const DetailPage = ({ login, handleAddProduct, currentUserId }) => {
+const DetailPage = ({ access, handleAddProduct, currentUserId }) => {
   const dispatch = useDispatch();
 
   const { id } = useParams();
@@ -78,8 +78,6 @@ const DetailPage = ({ login, handleAddProduct, currentUserId }) => {
     };
   }, [dispatch, id]);
 
-  console.log('ideapi',product.idapi)
-
   // Validar si product es null o undefined antes de renderizar
   if (!product) {
     return <p className={s.error}>Cargando...</p>;
@@ -130,7 +128,7 @@ const DetailPage = ({ login, handleAddProduct, currentUserId }) => {
             </Slider>
           </div>
         </div>
-        <ReviewyComentarios login={login} productoId={product.idapi} currentUserId={currentUserId} />
+        <ReviewyComentarios access={access} productoId={id} currentUserId={currentUserId} />
       </div>
     </div>
   );

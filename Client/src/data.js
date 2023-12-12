@@ -2,7 +2,7 @@ export const getComments = async () => {
   return [
     {
       id: "1",
-      body: "First comment",
+      body: "exelente me encantaron",
       rating:5,
       username: "Jack",
       userId: "1",
@@ -11,7 +11,7 @@ export const getComments = async () => {
     },
     {
       id: "2",
-      body: "Second comment",
+      body: "Voy a comprame otros dos ",
       username: "John",
       rating:3,
       userId: "2",
@@ -20,8 +20,8 @@ export const getComments = async () => {
     },
     {
       id: "3",
-      body: "First comment first child",
-      username: "John",
+      body: "Muchas gracias por su compra",
+      username: "Marcos",
       rating:2,
       userId: "2",
       parentId: "1",
@@ -29,8 +29,8 @@ export const getComments = async () => {
     },
     {
       id: "4",
-      body: "Second comment second child",
-      username: "John",
+      body: "me alegra que le haya encancado",
+      username: "Marcos",
       rating:5,
       userId: "2",
       parentId: "2",

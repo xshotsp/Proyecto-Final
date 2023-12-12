@@ -14,7 +14,7 @@ const Comentarios = ({
   addComment,
   setActiveComment,
   parentId = null,
-  login,
+  access,
 }) => {
   const fiveMinutes = 300000;
   const timePassed = new Date() - new Date(Comment.createdAt) > fiveMinutes;
@@ -86,7 +86,7 @@ const Comentarios = ({
           </div>
         )}
         <div className={style.comment_actions}>
-          {canReply && login?.access && (
+          {canReply && access && (
             <div
               className={style.comment_action}
               onClick={() =>
