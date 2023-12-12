@@ -1,6 +1,11 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
-import { toggleDarkMode } from "../../redux/actions/actions";
+import {
+  cleanUserCart,
+  setAccess,
+  toggleDarkMode,
+  userLogOut,
+} from "../../redux/actions/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -17,13 +22,17 @@ import styles from "./navbar.module.css";
 
 import { signOutFunction } from "../../firebase/firebase.config";
 
-const NavBar = ({ login, setLogin, cartItems }) => {
+const NavBar = ({cartItems}) => {
   const [activePage, setActivePage] = useState("");
   const dispatch = useDispatch();
-  const darkMode = useSelector((state) => state.darkMode);
+  const { darkMode, access, activeUser,userCart } = useSelector((state) => state);
   const [showOptions, setShowOptions] = useState(false);
   const navigate = useNavigate();
 
+  const cartToUse = access ? userCart : cartItems;
+  const totalItemsCart = cartToUse.reduce((total, item) => total + item.quantity, 0);
+  
+  
   const handleMouseEnter = (page) => {
     setActivePage(page);
   };
@@ -37,14 +46,12 @@ const NavBar = ({ login, setLogin, cartItems }) => {
   };
 
   const handleLogout = () => {
-    setLogin({
-      access: false,
-      email: "",
-      photo: "",
-    });
+    dispatch(setAccess(false));
+    dispatch(userLogOut());
+    dispatch(cleanUserCart())
 
     signOutFunction();
-
+    localStorage.clear();
     setShowOptions(false);
     navigate("/");
   };
@@ -73,7 +80,7 @@ const NavBar = ({ login, setLogin, cartItems }) => {
               {activePage === "contacto" && <span>Contacto</span>}
             </li>
           </Link>
-          {!login.access && (
+          {!access && (
             <Link
               to="/createuser"
               onMouseEnter={() => handleMouseEnter("createuser")}
@@ -85,7 +92,7 @@ const NavBar = ({ login, setLogin, cartItems }) => {
               </li>
             </Link>
           )}
-          {!login.access && (
+          {!access && (
             <Link
               to="/login"
               onMouseEnter={() => handleMouseEnter("login")}
@@ -106,7 +113,7 @@ const NavBar = ({ login, setLogin, cartItems }) => {
               {activePage === "cart" && <span>Carrito</span>}
               
             </li>
-        <span className={styles.cart__items}>{cartItems.length ? cartItems.length : 0}</span>
+            <span className={styles.cart__items}>{totalItemsCart}</span>
           </Link>
         </ul>
         <div className={styles.darkModeToggle} onClick={handleDarkModeToggle}>
@@ -115,19 +122,28 @@ const NavBar = ({ login, setLogin, cartItems }) => {
             className={styles.darkModeIcon}
           />
         </div>
-        {login.access && (
-          <div className={styles.user__photo}>
+        {access && (
+          <div
+            className={styles.photo__container}
+            onClick={() => setShowOptions(!showOptions)}
+          >
             <img
-              src={login.photo}
+              src={activeUser?.profile_picture}
               alt=""
-              onClick={() => setShowOptions(!showOptions)}
+              className={styles.user__photo}
             />
           </div>
         )}
 
         {showOptions && (
           <div className={styles.user__options}>
-            <p>{login.email}</p>
+            <p>{activeUser?.email}</p>
+            <Link to={`/editperfil/${activeUser?.email}`}>
+              <button>Editar Perfil</button>
+            </Link>
+            <Link to={`/shopping/${activeUser?.email}`}>
+              <button>Mis Compras</button>
+            </Link>
             <button onClick={handleLogout}>Logout</button>
           </div>
         )}

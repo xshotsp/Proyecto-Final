@@ -1,16 +1,15 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import {
   createProductRequest,
   createProductSuccess,
   createProductFailure,
-  getProducts,
   getBrands,
 } from "../../redux/actions/actions";
-import validate from "./validate"
+import validate from "./validate";
 import axios from "axios";
-import s from "./productForm.module.css"
+import s from "./EditProduct.module.css"
 import Swal from 'sweetalert2';
 
 //const URL="https://quirkz.up.railway.app"
@@ -18,20 +17,40 @@ const URL = "http://localhost:3001"
 
 
 
-const ProductForm = () => {
+const EditProduct = () => {
+
+  const {id} = useParams();
+
   const dispatch = useDispatch();
-  const allBrands = useSelector((state)=>state.allBrands);
+  //const allBrands = useSelector((state)=>state.allBrands);
   const darkMode = useSelector((state) => state.darkMode);
   
   
   const [errorSubmit, setErrorSubmit] = useState("");
   //const [control,setControl] = useState("");
  
+  
+  const [productData, setProductData] = useState({
+    name: "",
+    image: "",
+    price: "",
+    colour: "",
+    quantity: 0,
+    additionalImage: [],
+    brands: [],
+    active: true
+  });
 
   useEffect(()=>{
-    dispatch(getProducts())
+    async function getByID() {
+        const { data } = await axios.get(`${URL}/product/${id}`)
+        setProductData(data)
+    }
+    getByID()
     dispatch(getBrands())
-  }, [])
+  }, [id, dispatch])
+
+  const color_select = ["Beige","Black", "Blue", "Brown", "Gray", "Green", "Kaqui", "Red", "White", "Yellow", productData.colour]
 
   const mostrarAlerta = (iconType, msjText) => {
     Swal.fire({
@@ -41,32 +60,9 @@ const ProductForm = () => {
     });
   };
 
-  const color_select = ["Beige","Black", "Blue", "Brown", "Gray", "Green", "Kaqui", "Red", "White", "Yellow"]
-  const [productData, setProductData] = useState({
-    name: "",
-    image: "",
-    price: "",
-    colour: "",
-    quantity: 0,
-    additionalImage: [],
-    brands: "",
-    active: true
-  });
+  const [errors, setErrors] = useState({});
 
-  const [errors, setErrors] = useState({
-    name: "",
-    image: "",
-    price: "",
-    colour: "",
-    quantity: "",
-    brands: ""
-  });
 
-  // const validateAd = (productData) => {
-  //   if (productData.additionalImage.length === 3){
-  //     setControl("Maximo tres imagenes" );
-  //   } 
-  // }
 
   const handleChange = (e) => {
     setProductData({
@@ -110,43 +106,22 @@ const ProductForm = () => {
     return
   }
 
-  // const handleChangeAdditional = (event) => {
-  //   const file = event.target.files[0]
-  //   if(file) {
-  //     const reader = new FileReader();
-  //     reader.readAsDataURL(file);
-  //     reader.onload = function charge () {
-        
-  //       setProductData({
-  //         ...productData,
-  //         [event.target.name] : [...productData[event.target.name], reader.result]
-  //       }) 
-  //       validateAd({
-  //          ...productData,
-  //       [event.target.name] : [...productData[event.target.name], reader.result]}, event.target.name)
-  //     }     
-         
-  //   } else {
-  //     setProductData({...productData, [event.target.name]: ""})
-      
-  //   } 
-  //   return 
-  // }
+  
 
     const esVacio= (elemento) => {
     return elemento === "";
   } 
  
-    const buttonDisabled= ()=>{
-      let disabledAux = true;
-      let long = Object.values(errors)
-      if (long.every(esVacio)) disabledAux = false;
-      else{
-          disabledAux = true;
-        }
+    // const buttonDisabled= ()=>{
+    //   let disabledAux = true;
+    //   let long = Object.values(errors)
+    //   if (long.every(esVacio)) disabledAux = false;
+    //   else{
+    //       disabledAux = true;
+    //     }
     
-      return disabledAux
-    }
+    //   return disabledAux
+    // }
   
     const removeImage = (e) =>{
       setProductData({
@@ -161,28 +136,7 @@ const ProductForm = () => {
       )
     }
 
-    // const removeImageAd = (e) =>{
-    //   setControl("")
-    //   setErrorSubmit("")
-    //   if (e.target.name === "additionalImage0"){
-    //     setProductData({
-    //       ...productData, 
-    //       additionalImage : [...productData.additionalImage.filter(X=>X !== productData.additionalImage[0])]
-    //     })
-    //   }
-    //   if (e.target.name === "additionalImage1"){
-    //     setProductData({
-    //       ...productData,
-    //       additionalImage : [...productData.additionalImage.filter(X=>X !== productData.additionalImage[1])]
-    //      })
-    //     }
-    //   else if (e.target.name === "additionalImage2"){
-    //     setProductData({
-    //       ...productData,
-    //       additionalImage : [...productData.additionalImage.filter(X=>X !== productData.additionalImage[2])]
-    //      })
-    //     }
-    // }
+    
   
   
 
@@ -190,23 +144,22 @@ const ProductForm = () => {
     e.preventDefault();
     
     try {
+      console.log(errors)
       let long = Object.values(errors);
       
       if (long.every(esVacio)) {
           dispatch(createProductRequest());
-          productData.active=true
-          const response = await axios.post(`${URL}/product`, productData);
+          
+          const response = await axios.put(`${URL}/product/put/${id}`, productData);
           const newProduct = response.data;
-          console.log(response)
-          if (newProduct) mostrarAlerta('success' , 'El producto se creó de manera exitosa' );
+          if (newProduct) mostrarAlerta('success' , 'El producto se actualizó de manera exitosa' );
   
           dispatch(createProductSuccess(newProduct));
       
-          setProductData({ name: "", image: "", price: "", quantity: "", colour: "", additionalImage: [], brands: ""});
-          //setControl("");
+          
 
         }else {
-          mostrarAlerta('error', 'Debe llenar todos los campos sin errores')
+          mostrarAlerta('error','Debe llenar todos los campos sin errores')
         }
     } catch (error) {
       console.log(error)
@@ -219,7 +172,7 @@ const ProductForm = () => {
 
   return (
     <div>
-      <h2 className={s.h2}>Create Product</h2>
+      <h2 className={s.h2}>Edit Product</h2>
       <form className={`${s.form} ${s["product-form"]}  ${darkMode && s.darkMode}`} onSubmit={handleSubmit}>
         <label>
           Name:
@@ -282,22 +235,14 @@ const ProductForm = () => {
         <label className="label-form" htmlFor="colour">Color</label>
             <select  name="colour" onChange={handleChange} value={productData.colour} >
             <option  hidden>select color</option>
-              {color_select?.map((option) => (
-              <option key={option} value={option}>{option}</option>))}
+              {color_select?.map((option, index) => (
+              <option key={index} value={option}>{option}</option>))}
             </select>
           <span>{errors.colour}</span>
-                
-
-         <label>Brands: </label>
-        <select onChange={handleChange} name="brands" id="brands" value={productData.brands}>
-          <option hidden>select brand</option>{
-            allBrands?.map((b)=><option key={b} value={b.id}>{b.name}</option>)
-          }
-        </select>
-        <span>{errors.brands}</span>
         
-        <button type="submit" id="submit" disabled={buttonDisabled() || !productData.price || !productData.name || !productData.quantity}>
-          Create Product
+        
+        <button type="submit" id="submit" >
+          Edit Product
         </button>
         {errorSubmit && <span>{errorSubmit}</span>}
       </form>
@@ -306,4 +251,4 @@ const ProductForm = () => {
   );
 };
 
-export default ProductForm;
+export default EditProduct;

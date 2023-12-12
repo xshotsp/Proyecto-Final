@@ -57,6 +57,12 @@
     justify-content: space-around;
   }
   
-  
+  .error {
+    height: 20px;
+    padding-top: 10px;
+    text-align: left;
+    font-weight: 900;
+  }
+  /* Otros estilos según sea necesario */
   
   
