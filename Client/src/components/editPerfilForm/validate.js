@@ -6,11 +6,11 @@ const validate = (state) => {
     const patronNumerico = /^[0-9]+$/;
         
    
-    if (state.name.length > 50) errors.name = 'Debe ser menor a 50 caracteres';
+    if (state.name.length > 50) errors.name = 'Must be less than 50 characters';
 
-    if (state.lastname.length > 50) errors.lastname = 'Debe ser menor a 50 caracteres';
+    if (state.lastname.length > 50) errors.lastname = 'Must be less than 50 characters';
       
-    if (state.phone && !patronNumerico.test(state.phone)) errors.phone = 'Este campo debe ser numerico'
+    if (state.phone && !patronNumerico.test(state.phone)) errors.phone = 'This field must be numeric'
     
   
     

@@ -10,9 +10,9 @@ import Swal from 'sweetalert2';
 import placeHolderPhoto from "../../assets/placeholder foto.jpg"
 import { userLoggedIn } from "../../redux/actions/actions";
 
-const URL = "http://localhost:3001";
+// const URL = "http://localhost:3001";
 
-//const URL = 'https://quirkz.up.railway.app';
+const URL = 'https://quirkz.up.railway.app';
 
 const EditPerfilForm = () => {
 
@@ -106,7 +106,7 @@ useEffect (() => {
               dispatch(userLoggedIn(email));
               navigate('/');
              
-          } else mostrarAlerta('error', 'Debe llenar todos los campos sin errores')
+          } else mostrarAlerta('error', 'You must complete all fields without errors')
 
     } catch (error) {
       console.log(error)

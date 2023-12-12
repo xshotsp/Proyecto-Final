@@ -100,7 +100,7 @@ const DetailPage = ({ login, handleAddProduct }) => {
         <h2>
         <button className={s.addBtn} 
         onClick={() => handleAddProduct(product)}>
-          <FontAwesomeIcon icon={faCartFlatbed} /> Añadir Al Carrito
+          <FontAwesomeIcon icon={faCartFlatbed} /> AÃ±adir Al Carrito
         </button>
         <button onClick={changeIcon}>
           <FontAwesomeIcon icon={showHeart ? faHeart : faHeartCircleCheck} />

@@ -29,7 +29,7 @@ const ProductList = ({ handleAddProduct }) => {
 
       {products[0]?.name && (
         <h1 className={`${s.titulo} ${darkMode && s.darkMode} `}>
-          Lista de Productos
+          Product List
         </h1>
       )}
 

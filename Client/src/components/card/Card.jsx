@@ -16,8 +16,8 @@ const Card = ({ product, handleAddProduct }) => {
         <h3 className={s.namecard}>{name}</h3>
       </Link>
       <div className={s.propiedades}>
-        <p>Precio: {`$${price}`}</p>
-        <p>Color: {colour}</p>
+        <p>Price: {`$${price}`}</p>
+        <p>Colour: {colour}</p>
       </div>
       <button
         className={`${s.productAddButton} ${
@@ -25,7 +25,7 @@ const Card = ({ product, handleAddProduct }) => {
         }`}
         onClick={() => handleAddProduct(product)}
       >
-        Añadir al carrito
+        Add to shopping cart
       </button>
     </div>
   );

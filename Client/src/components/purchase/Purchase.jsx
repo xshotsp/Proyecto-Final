@@ -1,23 +1,18 @@
 /* eslint-disable react/prop-types */
 import s from './Purchase.module.css'
-//import transporter from '../../functions/sendMails';
 import axios from 'axios'
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 
-
-
-
- const URL = "http://localhost:3001"
-//const URL = "https://quirkz.up.railway.app"
+ 
+const URL = "https://quirkz.up.railway.app"
 
 const SuccessPayment = () => {
     const {search}= useLocation();
     const navigate = useNavigate();
     const userCart = useSelector((state) => state.userCart);
     const User = useSelector((state) => state.activeUser)
-    console.log(userCart)
 
     const getCollectionId = (search) => {
       const params = search.split('&');

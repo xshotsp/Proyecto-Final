@@ -8,8 +8,11 @@ import { useSelector, useDispatch} from 'react-redux';
 import { finishPurchase } from '../../redux/actions/actions';
 import { useEffect } from "react";
 
-// const URL = 'http://localhost:3001'
+
+//const URL = 'http://localhost:3001'
 //const URL = "https://quirkz.up.railway.app"
+
+
 
 
 
@@ -55,17 +58,16 @@ const Cart = ({
     } else {
       // const response = await axios.post(`${URL}/purchase`, cartItems);
       // window.location.href = response.data.init_point;
-      console.log(userCart)
       dispatch(finishPurchase(userCart));
     
     }
   };
 
-  useEffect(() => {}, [userCart]);
+/*   useEffect(() => {}, [userCart,access]); */
 
   return (
     <div className={s["cart-items"]}>
-      <h2 className={s["cart-items-header"]}>Productos en el carrito: </h2>
+      <h2 className={s["cart-items-header"]}>Products in the shopping cart: </h2>
       <div className={s["clear-cart"]}>
         {(access ? userCart.length : cartItems.length) >= 1 && (
           <button className={s["clear-cart-button"]} onClick={handleClearCart}>

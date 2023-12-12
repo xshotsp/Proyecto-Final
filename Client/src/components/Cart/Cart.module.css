@@ -8,12 +8,22 @@
     border: 1px solid #ccc;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 140px;
+    margin-top: 100px;
   }
   
   .cart-items-header {
     font-size: 1.5rem;
     color: #333;
     margin-bottom: 10px;
+  }
+  .btncart {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    margin-left: 500px;
   }
   
   .clear-cart-button {
@@ -23,6 +33,7 @@
     padding: 10px;
     margin-top: 10px;
     cursor: pointer;
+    margin: 30px;
   }
   
   .clear-cart-button:hover {

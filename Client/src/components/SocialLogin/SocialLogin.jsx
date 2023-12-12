@@ -9,7 +9,7 @@ import { useDispatch } from "react-redux";
 import { userCart, userLoggedIn } from "../../redux/actions/actions";
 import Swal from "sweetalert2";
 
-const URL = "http://localhost:3001";
+const URL = "https://quirkz.up.railway.app";
 
 const SocialLogin = ({ cartItems }) => {
   const dispatch = useDispatch();
@@ -32,7 +32,8 @@ const SocialLogin = ({ cartItems }) => {
         profile_picture: user.photoURL,
         provider,
       };
-      await axios.post(`${URL}/user`, userObject);
+      const userResponse = await axios.post(`${URL}/user`, userObject);
+      dispatch(userLoggedIn(userResponse.data))
     }
 
     const itemsArr = {
