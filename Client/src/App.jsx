@@ -137,9 +137,10 @@ function App() {
         console.log(user);
         dispatch(setAccess(true));
         dispatch(userLoggedIn(user.email));
-        dispatch(userCart(user.email));
+        dispatch(userCart(user.email))
       }
     });
+
 
     return () => {
       unsubscribe();

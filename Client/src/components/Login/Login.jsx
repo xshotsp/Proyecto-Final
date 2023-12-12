@@ -58,6 +58,7 @@ const Login = ({ cartItems, setToken }) => {
   console.log(errors);
 
   const handleSubmit = async (e) => {
+    
     e.preventDefault();
     try {
       const response = await axios(`${URL}/user/${loginInput.usuario}`);
@@ -65,7 +66,7 @@ const Login = ({ cartItems, setToken }) => {
         Swal.fire({
           icon: "error",
           title: "",
-          text: "El correo electronico ya esta asociado a una cuenta de google.",
+          text: "The email is already associated with a Google account.",
           showConfirmButton: false,
           timer: 1500,
         });
@@ -86,7 +87,7 @@ const Login = ({ cartItems, setToken }) => {
       Swal.fire({
         icon: "success",
         title: "",
-        text: "Carrito actualizado.",
+        text: "Updated shopping cart.",
         showConfirmButton: false,
         timer: 1500,
       });

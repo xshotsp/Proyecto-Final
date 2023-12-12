@@ -94,9 +94,43 @@ const HomePage = ({ handleAddProduct }) => {
           )}
         </div>
       </div>
-      <ProductList handleAddProduct={handleAddProduct} />
+      <ProductList />
     </div>
   );
 };
 
 export default HomePage;
+
+//   return (
+//     <div>
+//       <div>
+//       <Hero />
+//       </div>
+//       <div className={s.filtersContainer}>
+//         <Filters
+//           name="colour"
+//           options={colourOpt}
+//           handleChange={handleChange}    
+//           state={null}
+//         />
+//         <Filters
+//           name="brand"
+//           options={brandOpt}
+//           handleChange={handleChange}
+//           state={null}
+//         />
+//         <Filters
+//           className="filters"
+//           name="price"
+//           handleChange={handleChange}
+//           options={PriceOpt}
+//           state={null}
+//         />
+//       </div>
+      
+//       <ProductList />
+//     </div>
+//   );
+// };
+
+//export default HomePage;

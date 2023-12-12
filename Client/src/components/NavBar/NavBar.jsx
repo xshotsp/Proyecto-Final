@@ -112,8 +112,7 @@ const NavBar = ({cartItems,setCartItems,setToken}) => {
           <Link to="/cart" className={styles.cart}>
             <li className={activePage === "cart" ? styles.active : ""}>
               <FontAwesomeIcon icon={faShoppingCart} />
-              {activePage === "cart" && <span>Carrito</span>}
-              
+              {activePage === "cart" && <span>Shopping cart</span>}
             </li>
             <span className={styles.cart__items}>{totalItemsCart}</span>
           </Link>
