@@ -28,8 +28,7 @@ import Swal from "sweetalert2";
 import Dashboard from "./components/Dashboard/Dashboard";
 import axios from "axios";
 
-//const URL = "http://localhost:3001";
-const URL = "https://quirkz.up.railway.app"
+const URL = import.meta.env.VITE_URL;
 
 function App() {
   const storedToken = localStorage.getItem("token");

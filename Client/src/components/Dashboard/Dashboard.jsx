@@ -1,18 +1,22 @@
 // Dashboard.jsx
-import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import  { useState, useEffect } from "react";
+import { useDispatch, /* useSelector */ } from "react-redux";
 import { getAllUsersAction, getAllProducts } from "../../redux/actions/actions";
 import UsersTable from "../usersTable/usersTable";
 import UsersBanTable from "../usersBan/usersBan"; // Asegúrate de importar el componente correcto
 import ProductsTable from "../productsTable/productsTable";
 import styles from "./Dashboard.module.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
   const [botonActivo, setBotonActivo] = useState(null);
+/*   const products = useSelector((state) => state.allproducts); */
   const [data, setData] = useState([]);
 
-  useEffect(() => {
+   useEffect(() => {
     if (botonActivo === "usuarios") {
       dispatch(getAllUsersAction()).then((userData) => setData(userData));
     } else if (botonActivo === "usuariosBloqueados") {
@@ -25,7 +29,6 @@ const Dashboard = () => {
     } else if (botonActivo === "productos") {
       dispatch(getAllProducts()).then((productData) => setData(productData));
     }
-    
   }, [dispatch, botonActivo]);
 
   const handleBotonClick = (boton) => {
@@ -36,6 +39,7 @@ const Dashboard = () => {
     <div className={styles.container}>
       <div className={styles.column}>
         <h2>Quirkz</h2>
+
         <button
           onClick={() => handleBotonClick("usuarios")}
           className={botonActivo === "usuarios" ? styles.activo : ""}
@@ -67,7 +71,13 @@ const Dashboard = () => {
         {botonActivo === "productos" && <ProductsTable data={data} />}
         {/* Agrega otras lógicas de renderizado para "compras" u otros botones según sea necesario */}
       </div>
-        {botonActivo && <p>Giving information {botonActivo}</p>}
+      {/*         {botonActivo && <p>Giving information {botonActivo}</p>} */}
+      {botonActivo === "productos" && (
+        <Link to="/form">
+          <FontAwesomeIcon icon={faPlus} />
+          Create product
+        </Link>
+      )}
     </div>
   );
 };

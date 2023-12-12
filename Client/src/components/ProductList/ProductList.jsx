@@ -16,12 +16,15 @@ const ProductList = ({ handleAddProduct }) => {
   const cardsPerPage = 5;
   const lastCardIndex = currentPage * cardsPerPage;
   const firstCardIndex = lastCardIndex - cardsPerPage;
-  const currentCards = products.slice(firstCardIndex, lastCardIndex);
+  const productsActive = [...products].filter((p)=> p.active === true)
+  const currentCards = productsActive.slice(firstCardIndex, lastCardIndex);
+
+
 
   useEffect(() => {
     if (products.length === 0) dispatch(getAllProducts());
     setCurrentPage(1);
-  }, [dispatch]);
+  }, [products]); 
 
   return (
     <div>
@@ -35,7 +38,6 @@ const ProductList = ({ handleAddProduct }) => {
 
       {products[0]?.name && (
         <div className={`${s.productList} ${darkMode && s.darkMode}`}>
-          {/* {products.map((product) => ( */}
           {currentCards.map((product) => (
             <Card
               key={product.id}
@@ -47,7 +49,7 @@ const ProductList = ({ handleAddProduct }) => {
       )}
 
       <Pagination
-        filteredProducts={products} //cambio
+        filteredProducts={productsActive} //cambio
         cardsPerPage={cardsPerPage}
         setCurrentPage={setCurrentPage}
         currentPage={currentPage}
