@@ -80,16 +80,16 @@ const ReviewyComentarios = ({ login, productoId }) => {
     let alertMessage = '';
 
     if (!isLoggedIn || !hasPurchased) {
-      alertMessage = 'Debes iniciar sesión y haber comprado el producto para dejar una revisión.';
+      alertMessage = 'You must log in and have purchased the product to leave a review.';
     } else {
       const userReviewed = ratingsAndComments.some((review) => review.userId === userName );
 
       switch (true) {
         case userRating <= 0 || userComment.trim() === '':
-          alertMessage = 'Completa la calificación y el comentario antes de enviar.';
+          alertMessage = 'Please fill out the rating and comment before submitting.';
           break;
         case userReviewed:
-          alertMessage = 'Solo puedes calificar el producto una vez.';
+          alertMessage = 'You can only rate the product once.';
           break;
         default:
           const newReview = { rating: userRating, comment: userComment, userId:userName, productoId: productoId };
@@ -126,16 +126,16 @@ const ReviewyComentarios = ({ login, productoId }) => {
   return (
     <div>
     <button onClick={handleClearLocalStorage}>
-        Limpiar localStorage
+        Clean localStorage
       </button>
       <section>
-        <h2>Crea una reseña de este producto</h2>
+        <h2>Create a review about this product</h2>
         {isLoggedIn && hasPurchased ? (
           <div>
             <Review score={userRating} shouldClearCommentyReview={clearCommentyReview} onRatingChange={handleRatingChange} />
           </div>
         ) : (
-          <p>Debes iniciar sesión y haber comprado el producto para dejar una revisión.</p>
+          <p>You must sign in and have purchased the product to leave a review.</p>
         )}
       </section>
 
@@ -147,7 +147,7 @@ const ReviewyComentarios = ({ login, productoId }) => {
           shouldClearCommentyReview={clearCommentyReview}
         />
         <button onClick={() => { handleClearCommentyReview(); handleSubmitReview(); }}>
-          Enviar Reseña
+          Send Review
         </button>
       </section>
     ) : (
@@ -155,13 +155,13 @@ const ReviewyComentarios = ({ login, productoId }) => {
     )}
 
       <section>
-        <h2>Calificaciones y comentarios</h2>
+        <h2>Ratings and comments</h2>
       {ratingsAndComments.length > 0 && (
         <div>
-          <p>Últimas reseñas:</p>
-          <p>Usuario: {ratingsAndComments[ratingsAndComments.length - 1].userId}</p>
+          <p>Latest reviews:</p>
+          <p>User: {ratingsAndComments[ratingsAndComments.length - 1].userId}</p>
            <Review score={ratingsAndComments[ratingsAndComments.length - 1].rating} />
-           <p>Comentario: {ratingsAndComments[ratingsAndComments.length - 1].comment}</p>
+           <p>Coment: {ratingsAndComments[ratingsAndComments.length - 1].comment}</p>
            
           <button onClick={() => setShowResponseSection(!showResponseSection)}>
             {showResponseSection ? 'Ocultar Respuestas' : 'Responder'}
@@ -177,8 +177,8 @@ const ReviewyComentarios = ({ login, productoId }) => {
               <div>
                 {responses.map((response, index) => (
                   <div key={index}>
-                    <p>Usuario: {response.userId}</p>
-                    <p>Respuesta: {response.text}</p>
+                    <p>User: {response.userId}</p>
+                    <p>Response: {response.text}</p>
                   </div>
                 ))}
                 <button onClick={() => setShowResponseSection(!showResponseSection)}>

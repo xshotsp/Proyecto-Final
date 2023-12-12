@@ -16,7 +16,7 @@ const ProductsTable = () => {
         dispatch({ type: GET_ALL_PRODUCTS, payload: response.data });
         setProductData(response.data);
       } catch (error) {
-        console.error("Error al obtener productos:", error.message);
+        console.error("Error getting products:", error.message);
       }
     };
 
@@ -25,7 +25,7 @@ const ProductsTable = () => {
 
   return (
     <div>
-      <h2>Productos</h2>
+      <h2>Products</h2>
       <table>
         <thead>
           <tr>

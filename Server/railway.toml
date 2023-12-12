@@ -1,9 +1,0 @@
-# railway.toml
-
-[[services]]
-  name = "quirkz"
-  commands = [
-    ["npm", "run", "install-prod"],
-    ["npm", "run", "build"],
-  ]
-  run = ["npm", "start"]

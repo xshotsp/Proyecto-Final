@@ -51,7 +51,7 @@ const Cart = ({
       });
       Toast.fire({
         icon: "error",
-        title: "Primero debes iniciar sesion",
+        title: "You must first log in",
       });
 
       navigate("/login");
@@ -71,7 +71,7 @@ const Cart = ({
       <div className={s["clear-cart"]}>
         {(access ? userCart.length : cartItems.length) >= 1 && (
           <button className={s["clear-cart-button"]} onClick={handleClearCart}>
-            Limpiar carrito
+            Clear shopping cart
           </button>
         )}
       </div>
