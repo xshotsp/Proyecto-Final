@@ -32,7 +32,7 @@ const Hero = () => {
   return (
     <div className={s.heroContainer} style={backgroundImageStyle}>
       <div className={s.heroText}>
-        <h2>¡NUEVA COLECCIÓN DISPONIBLE!</h2>
+        <h2>¡NEW COLLECTION AVAILABLE!</h2>
       </div>
     </div>
   );

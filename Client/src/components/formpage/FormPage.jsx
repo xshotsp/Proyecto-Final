@@ -206,7 +206,7 @@ const ProductForm = () => {
           //setControl("");
 
         }else {
-          mostrarAlerta('error', 'Debe llenar todos los campos sin errores')
+          mostrarAlerta('error', 'You must complete all fields without errors')
         }
     } catch (error) {
       console.log(error)
@@ -279,7 +279,7 @@ const ProductForm = () => {
           <span>{errors.quantity}</span>
         </label>
         </div>
-        <label className="label-form" htmlFor="colour">Color</label>
+        <label className="label-form" htmlFor="colour">Colour</label>
             <select  name="colour" onChange={handleChange} value={productData.colour} >
             <option  hidden>select color</option>
               {color_select?.map((option) => (

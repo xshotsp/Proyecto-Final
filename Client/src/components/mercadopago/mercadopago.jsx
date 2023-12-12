@@ -18,12 +18,13 @@ const mercadopagoPurchase = () => {
 
     const postMercadopago = async () => {
         try {
-            const response = await axios.post(`${URL}/purchase`,{
+            // const response = await axios.post(`${URL}/purchase`,{
                 //pasar informacion de producto
+                const response = await axios.post(`${URL}/purchase`,
+                {
             })
 
-            const { id } = response.data;
-            return id;
+            window.location.href = response.data.init_point;
         } catch (error) {
             console.log(error);
         }

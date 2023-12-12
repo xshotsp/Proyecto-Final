@@ -10,8 +10,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { setAccess, userCart, userLoggedIn } from "../../redux/actions/actions";
 import Swal from "sweetalert2";
 
-//const URL = "https://quirkz.up.railway.app"; 
-const URL = "http://localhost:3001";
+ const URL = "https://quirkz.up.railway.app"; 
+// const URL = "http://localhost:3001";
 
 const Login = ({ cartItems }) => {
   const [usuario, setUsuario] = useState("");
@@ -71,14 +71,14 @@ const Login = ({ cartItems }) => {
   return (
     <section className={s["login-container"]}>
       <hr />
-      <h2>Mi Cuenta</h2>
+      <h2>My account</h2>
       <hr />
-      <h2>Acceder</h2>
+      <h2>Access</h2>
       <form className={s["login-form"]} onSubmit={handleSubmit}>
         <label>
           <input
             type="text"
-            placeholder="Nombre de usuario o correo electrónico"
+            placeholder="User or email"
             value={usuario}
             onChange={(e) => setUsuario(e.target.value)}
           />
@@ -87,18 +87,18 @@ const Login = ({ cartItems }) => {
         <label>
           <input
             type="password"
-            placeholder="Ingrese su contraseña"
+            placeholder="Password"
             value={contraseña}
             onChange={(e) => setContraseña(e.target.value)}
           />
         </label>
         <br />
         <br />
-        <button type="submit">Acceder</button>
+        <button type="submit">Access</button>
       </form>
       <br />
       <br />
-      <h3 className={s.or__h3}> O </h3>
+      <h3 className={s.or__h3}> Or </h3>
       <div>
         <SocialLogin cartItems={cartItems} />
       </div>

@@ -13,7 +13,7 @@ import s from "./EditProduct.module.css"
 import Swal from 'sweetalert2';
 
 //const URL="https://quirkz.up.railway.app"
-const URL = "http://localhost:3001"
+ const URL = "http://localhost:3001"
 
 
 
@@ -152,14 +152,14 @@ const EditProduct = () => {
           
           const response = await axios.put(`${URL}/product/put/${id}`, productData);
           const newProduct = response.data;
-          if (newProduct) mostrarAlerta('success' , 'El producto se actualizó de manera exitosa' );
+          if (newProduct) mostrarAlerta('success' , 'The product was updated successfully' );
   
           dispatch(createProductSuccess(newProduct));
       
           
 
         }else {
-          mostrarAlerta('error','Debe llenar todos los campos sin errores')
+          mostrarAlerta('error','You must complete all fields without errors')
         }
     } catch (error) {
       console.log(error)
@@ -232,9 +232,9 @@ const EditProduct = () => {
           <span>{errors.quantity}</span>
         </label>
         </div>
-        <label className="label-form" htmlFor="colour">Color</label>
+        <label className="label-form" htmlFor="colour">Colour</label>
             <select  name="colour" onChange={handleChange} value={productData.colour} >
-            <option  hidden>select color</option>
+            <option  hidden>select colour</option>
               {color_select?.map((option, index) => (
               <option key={index} value={option}>{option}</option>))}
             </select>

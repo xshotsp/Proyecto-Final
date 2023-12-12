@@ -46,7 +46,6 @@ const DetailPage = ({ access, handleAddProduct, currentUserId }) => {
       <FontAwesomeIcon icon={faChevronRight} />
     </div>
   );
-
   const sliderSettings = {
     dots: true,
     infinite: true,
@@ -56,7 +55,6 @@ const DetailPage = ({ access, handleAddProduct, currentUserId }) => {
     prevArrow: <PrevArrow />,
     nextArrow: <NextArrow />
   };
-
   const nextSlide = () => {
     if (sliderRef.current) {
       sliderRef.current.slickNext();

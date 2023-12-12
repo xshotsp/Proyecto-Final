@@ -17,7 +17,7 @@ const HomePage = ({ handleAddProduct }) => {
   const selects = useSelector((state) => state.selectFilter);
   const colourOpt = selects?.colour;
   const brandOpt = selects?.brand;
-  const PriceOpt = ["Mayor a menor", "Menor a mayor"];
+  const PriceOpt = ["Highest", "Lowest"];
 
   useEffect(() => {
     dispatch(getAllSelects());
@@ -45,21 +45,21 @@ const HomePage = ({ handleAddProduct }) => {
       <div className={s.filtersContainer}>
         <Filters
           name="colour"
-          ticket="Color"
+          ticket="Colour"
           options={colourOpt}
           handleChange={handleChange}
           state={null}
         />
         <Filters
           name="brand"
-          ticket="Marca"
+          ticket="Brand"
           options={brandOpt}
           handleChange={handleChange}
           state={null}
         />
         <Filters
           name="price"
-          ticket="Ordenar por precio"
+          ticket="Price"
           handleChange={handleChange}
           options={PriceOpt}
           state={null}
@@ -73,7 +73,7 @@ const HomePage = ({ handleAddProduct }) => {
               setInitialFilters({});
             }}
           >
-            Reinicio
+            Restart
           </button>
         </div>
         <div>
