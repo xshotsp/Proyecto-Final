@@ -1,26 +1,28 @@
-require("dotenv").config();
 const server = require("./src/server");
 const express = require("express");
-const { conn } = require('./src/db.js');
+const { conn } = require("./src/db.js");
 const { apiLoaderProducts } = require("./src/apiLoaderProducts.js");
 const cloudinary = require("cloudinary").v2;
 
-const{PORT_SERVER,CLOUD_NAME,API_CLOUD_KEY,API_SECRET}= process.env
+const PORT = process.env.PORT || 3001;
 
-const PORT = PORT_SERVER;
+const app = express();
 
-          
-cloudinary.config({ 
-  cloud_name:CLOUD_NAME, 
-  api_key:API_CLOUD_KEY, 
-  api_secret: API_SECRET
+app.use(express.json({ upload_max_filesize: "10M" }));
+
+cloudinary.config({
+  cloud_name: "dlhtl7wr4",
+  api_key: "639611433264547",
+  api_secret: "EqvrtUWaUDEpg4aAChNztTm8SAU",
 });
 
-
-conn.sync({ force: false }).then(() => {
-server.listen(PORT, async() => {
-  
-  await apiLoaderProducts()
-  console.log(`Server listening on port ${PORT}`);
-})
-}).catch(error => console.error(error))
+conn
+  .sync({ force: true })
+  .then(() => {
+    // Cambia la llamada a server.listen por app.listen
+    server.listen(PORT, "0.0.0.0", async () => {
+      await apiLoaderProducts();
+      console.log(`Server listening on port ${PORT}`);
+    });
+  })
+  .catch((error) => console.error(error));

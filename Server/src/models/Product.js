@@ -25,10 +25,19 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    // additionalImage: {
-    //     type: DataTypes.ARRAY(DataTypes.STRING),
-    //     allowNull: false    
-    // }
+    additionalImage: {
+      type: DataTypes.ARRAY(DataTypes.STRING),
+      allowNull: true,    
+    },
+    quantity: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    active:{
+      type: DataTypes.BOOLEAN,
+      allowNull: true,
+    },
+   
   },{
     timestamps: false
   });

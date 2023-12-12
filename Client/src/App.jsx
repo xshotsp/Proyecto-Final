@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import "./App.css";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import NavBar from "./components/NavBar/NavBar";
 import Footer from "./components/Footer/Footer";
 import CreateUserForm from "./components/createUserForm/CreateUserForm";
@@ -11,10 +12,12 @@ import Cart from "./components/Cart/Cart";
 import EditPerfilForm from "./components/editPerfilForm/EditPerfilForm";
 import EditProductForm from "./components/editProduct/EditProduct";
 import MyShopping from "./components/myShooping/MyShooping";
+import SuccessPayment from "./components/purchase/Purchase";
 import { useSelector, useDispatch } from "react-redux";
 import {
   setAccess,
   toggleDarkMode,
+  userCart,
   userLoggedIn,
 } from "./redux/actions/actions";
 import { useEffect, useState } from "react";
@@ -22,66 +25,127 @@ import Contact from "./components/Contact/Contact";
 import Error404 from "./components/Error/Error404";
 import { auth } from "./firebase/firebase.config";
 import { onAuthStateChanged } from "firebase/auth";
-import Swal from 'sweetalert2';
+import Swal from "sweetalert2";
 import Dashboard from "./components/Dashboard/Dashboard";
+import axios from "axios";
+
+const URL = "http://localhost:3001";
 
 function App() {
   const darkMode = useSelector((state) => state.darkMode);
+  const access = useSelector((state) => state.access);
+  const activeUser = useSelector((state) => state.activeUser);
   const cartFromLocalStorage = JSON.parse(localStorage.getItem("cart") || "[]");
   const [cartItems, setCartItems] = useState(cartFromLocalStorage);
   const dispatch = useDispatch();
+  const { pathname } = useLocation();
+  console.log(pathname)
+
 
   useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(cartItems));
+    if (!access)localStorage.setItem("cart", JSON.stringify(cartItems));
+
   }, [cartItems]);
 
-  const handleAddProduct = (product) => {
-    const ProductExist = cartItems.find((item) => item.id === product.id);
-    if (ProductExist) {
-      setCartItems(
-        cartItems.map((item) =>
-          item.id === product.id
-            ? { ...ProductExist, quantity: ProductExist.quantity + 1 }
-            : item
-        )
-      );
+  const handleAddProduct = async (product) => {
+    if (access) {
+      const objProduct = {
+        email: activeUser.email,
+        products: {
+          productId: product.id,
+          quantity: 1,
+        },
+      };
+      const response = await axios.post(`${URL}/cart`, objProduct);
+      console.log(response)
+      if (pathname === "/" || pathname === `/product/${product.id}`) {
+        Swal.fire({
+          icon: "success",
+          title: "",
+          text: "sumado al carrito ",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+      dispatch(userCart(activeUser.email));
     } else {
-      setCartItems([...cartItems, { ...product, quantity: 1 }]);
+      const ProductExist = cartItems.find((item) => item.id === product.id);
+      if (ProductExist) {
+        setCartItems(
+          cartItems.map((item) =>
+            item.id === product.id
+              ? { ...ProductExist, quantity: ProductExist.quantity + 1 }
+              : item
+          )
+        );
+      } else {
+        setCartItems([...cartItems, { ...product, quantity: 1 }]);
+      }
+      if (pathname === "/" || "/product/:id") {
+        Swal.fire({
+          icon: "success",
+          title: "",
+          text: "sumado al carrito ",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
     }
-    Swal.fire({
-      icon: 'success',
-      title: '',
-      text: 'sumado al carrito ',
-      showConfirmButton: false,
-      timer: 1500
-    })
   };
 
-  const handleRemoveProduct = (product) => {
-    const ProductExist = cartItems.find((item) => item.id === product.id);
-    if (ProductExist.quantity === 1) {
-      setCartItems(cartItems.filter((item) => item.id !== product.id));
+  const handleRemoveProduct = async (product) => {
+    if (access) {
+      const objProduct = {
+        email: activeUser.email,
+        productId: product.id,
+      };
+      await axios.put(`${URL}/cart`, objProduct);
+      dispatch(userCart(activeUser.email));
     } else {
-      setCartItems(
-        cartItems.map((item) =>
-          item.id === product.id
-            ? { ...ProductExist, quantity: ProductExist.quantity - 1 }
-            : item
-        )
-      );
+      const ProductExist = cartItems.find((item) => item.id === product.id);
+      if (ProductExist.quantity === 1) {
+        setCartItems(cartItems.filter((item) => item.id !== product.id));
+      } else {
+        setCartItems(
+          cartItems.map((item) =>
+            item.id === product.id
+              ? { ...ProductExist, quantity: ProductExist.quantity - 1 }
+              : item
+          )
+        );
+      }
     }
   };
 
-  const handleClearCart = () => {
+  const handleClearCart = async () => {
+    if (access) {
+      await axios.delete(`${URL}/cart/${activeUser.email}`);
+      dispatch(userCart(activeUser.email));
+    }
     setCartItems([]);
+    Swal.fire({
+      icon: "success",
+      title: "",
+      text: "Carrito Borrado.",
+      showConfirmButton: false,
+      timer: 1500,
+    });
   };
 
-  onAuthStateChanged(auth, async (user) => {
-    if (user !== null) {
-      dispatch(setAccess(true));
-      dispatch(userLoggedIn(user.email));
-    }
-  });
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (user !== null) {
+        dispatch(setAccess(true));
+        dispatch(userLoggedIn(user.email));
+        dispatch(userCart(user.email))
+      }
+    });
+
+
+    return () => {
+      unsubscribe();
+    };
+  }, []);
 
   return (
     <div className={darkMode ? "div__darkMode" : ""}>
@@ -102,15 +166,16 @@ function App() {
         />
         <Route
           path="/product/:id"
-          element={<DetailPage handleAddProduct={handleAddProduct} />}
+          element={<DetailPage login={Login} handleAddProduct={handleAddProduct} />}
         />
         <Route path="/contacto" element={<Contact />} />
         <Route path="/form" element={<FormPage />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<Login cartItems={cartItems} />} />
         <Route path="/createuser" element={<CreateUserForm />} />
         <Route path="/editperfil/:email" element= {<EditPerfilForm />} />
         <Route path="/editproduct/:id" element= {<EditProductForm />} />
-        <Route path="/shopping" element = {<MyShopping />} />
+        <Route path="/success" element= {<SuccessPayment cartItems={cartItems} />} />
+        <Route path="/shopping/:email" element = {<MyShopping />} />
         <Route path="*" element={<Error404 />} />
         <Route
           path="/cart"
@@ -123,7 +188,7 @@ function App() {
             />
           }
         />
-        <Route path="/dashboard" element={<Dashboard/>} />
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
       <Footer />
     </div>

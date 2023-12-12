@@ -1,6 +1,6 @@
 
 .purchase-items {
-    max-width: 1000px;
+    max-width: 700px;
     margin: 0 auto;
     padding: 20px;
     background-color: #fff;
@@ -61,19 +61,19 @@
     margin-left: auto;
     display: flex;
     align-items: center;
-    font-size: 1rem;
+    font-size: 0.8rem;
   }
   
 
   
   .purchase-items-price {
-    font-size: 1rem;
+    font-size: 0.8rem;
     color: #555;
     margin-left: auto;
   }
   
   .purchase-items-order {
-    font-size: 1rem;
+    font-size: 0.8rem;
     color: #555;
     margin-left: auto;
   }

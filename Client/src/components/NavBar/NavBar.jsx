@@ -1,9 +1,10 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 import {
+  cleanUserCart,
   setAccess,
   toggleDarkMode,
-  userLoggedIn,
+  userLogOut,
 } from "../../redux/actions/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
@@ -21,13 +22,16 @@ import styles from "./navbar.module.css";
 
 import { signOutFunction } from "../../firebase/firebase.config";
 
-const NavBar = () => {
+const NavBar = ({cartItems}) => {
   const [activePage, setActivePage] = useState("");
   const dispatch = useDispatch();
-  const { darkMode, access, activeUser } = useSelector((state) => state);
+  const { darkMode, access, activeUser, userCart } = useSelector((state) => state);
   const [showOptions, setShowOptions] = useState(false);
   const navigate = useNavigate();
 
+  const cartToUse = access ? userCart : cartItems;
+  const totalItemsCart = cartToUse.reduce((total, item) => total + item.quantity, 0);
+  
   const handleMouseEnter = (page) => {
     setActivePage(page);
   };
@@ -42,10 +46,11 @@ const NavBar = () => {
 
   const handleLogout = () => {
     dispatch(setAccess(false));
-    dispatch(userLoggedIn(""));
+    dispatch(userLogOut());
+    dispatch(cleanUserCart())
 
     signOutFunction();
-
+    localStorage.clear();
     setShowOptions(false);
     navigate("/");
   };
@@ -106,6 +111,7 @@ const NavBar = () => {
               <FontAwesomeIcon icon={faShoppingCart} />
               {activePage === "cart" && <span>Shopping cart</span>}
             </li>
+            <span className={styles.cart__items}>{totalItemsCart}</span>
           </Link>
         </ul>
         <div className={styles.darkModeToggle} onClick={handleDarkModeToggle}>

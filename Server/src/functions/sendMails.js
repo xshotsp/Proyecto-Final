@@ -24,5 +24,3 @@ transporter.verify()
 
             
 module.exports = transporter;
-
-

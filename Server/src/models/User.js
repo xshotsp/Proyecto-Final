@@ -5,8 +5,8 @@ module.exports = (sequelize) => {
     "user",
     {
       email: {
-        primaryKey: true,
         type: DataTypes.STRING,
+        primaryKey: true,
         allowNull: false,
       },
       name: {

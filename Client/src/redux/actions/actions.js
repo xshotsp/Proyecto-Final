@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import axios from "axios";
 import getFindSelects from "../../functions/getFindSelects";
 import {
@@ -11,39 +12,23 @@ import {
   GET_ALL_SELECTS,
   CLEAN_PRODUCT_DETAIL,
   GET_BRANDS,
-  GET_FILTROS,
+  GET_FILTERS,
   GET_ALL_PRODUCTS,
   TOGGLE_DARK_MODE,
   GET_ALL_USERS,
   SET_ACCESS,
   USER_LOGGED_IN,
+  FINISH_PURCHASE,
+  GET_PURCHASE_USER,
+  USER_LOG_OUT,
+  GET_USER_CART,
+  CLEAN_USER_CART,
 } from "./actionTypes";
 
-/* const URL = "https://quirkz.up.railway.app"; */
-const URL = "http://localhost:3001";
+//const URL = "https://quirkz.up.railway.app"; 
+ const URL = "http://localhost:3001";
 
-// export const getAllProducts = async () => {
-//     try {
-//       const response = await fetch('http://localhost:3001/product');
-//       if (!response.ok) {
-//         throw new Error('No se pudo obtener la lista de productos');
-//       }
 
-//       const products = await response.json();
-//       return products;
-//     } catch (error) {
-//       console.error('Error al obtener los productos:', error);
-//       throw error;
-//     }
-//   };
-
-//   getAllProducts()
-//     .then(products => {
-//       console.log('Productos obtenidos:', products);
-//     })
-//     .catch(error => {
-//       console.error('Error al obtener productos:', error);
-//     });
 
 export function getProducts() {
   return async function (dispatch) {
@@ -180,7 +165,7 @@ export const getFilters = (filtros) => {
       const response = await axios.get(url);
 
       dispatch({
-        type: GET_FILTROS,
+        type: GET_FILTERS,
         payload: response.data,
       });
     } catch (error) {
@@ -201,10 +186,10 @@ export const toggleDarkMode = () => ({
 export const getAllUsersAction = () => {
   return async (dispatch) => {
     try {
-      const { data } = await axios(`${URL}/user/all`);
+      const { data } = await axios.get(`${URL}/user/all`);
       const withoutPass = data.map((user) => {
-        const { email, username, profile_picture, phone } = user;
-        return { email, username, profile_picture, phone };
+        const { email, name, lastname, profile_picture, phone, active } = user;
+        return { email, name, lastname, profile_picture, phone, active };
       });
 
       dispatch({
@@ -212,10 +197,11 @@ export const getAllUsersAction = () => {
         payload: withoutPass,
       });
     } catch (error) {
-      console.log(error.message);
+      console.error("Error al obtener usuarios:", error.message);
     }
   };
 };
+
 
 export const setAccess = (boolean) => {
   return {
@@ -238,3 +224,70 @@ export const userLoggedIn = (user) => {
     }
   };
 };
+
+export function finishPurchase(objectPago) {
+
+  return async function (dispatch) {
+   
+    try {
+      const response = await axios.post(`${URL}/purchase`, objectPago);
+      window.location.href = response.data.init_point;
+
+      dispatch({
+        type: FINISH_PURCHASE,
+        payload: response.data
+      });
+    } catch (error) {
+      console.error('Error in finishPurchase:', error);
+    }
+  };
+}
+
+
+export const getPurchaseByUser = (email) => {
+  console.log(email)
+  return async (dispatch) => {
+    try {
+      
+      const { data } = await axios.get(`${URL}/purchase/${email}`);
+      
+      return dispatch({
+        type: GET_PURCHASE_USER,
+        payload: data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+
+export const userLogOut = () => {
+  return {
+    type: USER_LOG_OUT,
+  };
+};
+
+
+export const userCart = (email) =>{
+return async (dispatch) => {
+    try {
+      const { data } = await axios(`${URL}/cart/${email}`);
+
+      return dispatch({
+        type: GET_USER_CART,
+        payload: data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+
+export const cleanUserCart =()=>{
+  return {
+    type: CLEAN_USER_CART,
+  }
+}
+

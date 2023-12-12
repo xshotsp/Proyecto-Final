@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
 import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../../redux/actions/actions";
 import axios from "axios";
 const {ACCESS_TOKEN}=  process.env;
 // const URL = "https://quirkz.up.railway.app/"
+const URL = "http://localhost:3001"
 
 const mercadopagoPurchase = () => {
     const dispatch = useDispatch()

@@ -1,11 +1,13 @@
 .form__container {
   max-width: 400px;
-  margin: 0 auto;
+  margin: 40px auto; 
   padding: 20px;
   background-color: #fff;
   border: 1px solid #ccc;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 250px;
+
 }
 
 .form {
@@ -65,12 +67,13 @@ span {
   color: #777;
 }
 
-button {
+.btnC {
   background-color: #5bc0de; /* / Color de fondo del botón / */
   color: #fff; /* / Color del texto del botón / */
   border: none;
   padding: 10px;
   cursor: pointer;
+  margin-left: 200px;
 }
 
 button:hover {

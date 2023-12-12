@@ -14,7 +14,6 @@ const payment= new Preference(client)
 const createOrder = async (req, res) => {
 
     try {
-
         const cart = req.body
 
         let items = cart.map((product) => ({
@@ -29,11 +28,11 @@ const createOrder = async (req, res) => {
 
         let preference = {
             body:{
-               // "external_reference": payer.email,
-                items: items,
+                "external_reference": payer.email,
+                 items: items,
                 "back_urls": {
                     "success": "http://localhost:5173/success",
-                    "failure": "http://localhost:5173/",
+                    "failure": "https://quirkzmain.vercel.app",
                     "pending": ""
                 },
                 auto_return: "approved",
@@ -47,20 +46,17 @@ const createOrder = async (req, res) => {
                 ],
             },
                 binary_mode: true,
-                createClient,
+                payer: {
+                    createClient,
+                },
                 createPayment,
                 createMerchantOrder
             }
         }
-
-        // const response = await payment.create(preference)
-        // .then(function(response){
-        //     res.json({
-        //         id: response.id
-        //     })
-        // })
+        
 
         const response = await payment.create(preference)
+
         res.status(200).send(response)
     } catch (error) {
         res.status(400).json({error: error.message})

@@ -4,17 +4,20 @@ const { Sequelize } = require("sequelize");
 const fs = require("fs");
 const path = require("path");
 
-const { DATABASE_URL } = process.env;
+const { DATABASE_URL, DB_USER, DB_PASSWORD, DB_HOST } = process.env;
 
 if (!DATABASE_URL) {
   throw new Error("DATABASE_URL not defined");
 }
 
-  const sequelize = new Sequelize(DATABASE_URL, {
-    logging: false,
-    native: false,
-  });
-
+  // const sequelize = new Sequelize(DATABASE_URL, {
+  //   logging: false,
+  //   native: false,
+  // });
+  const sequelize = new Sequelize(
+    `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/products`,
+    { logging: false }
+ );
 
 
 const basename = path.basename(__filename);
@@ -39,7 +42,7 @@ let capsEntries = entries.map((entry) => [
 ]);
 sequelize.models = Object.fromEntries(capsEntries);
 
-const { Product, Brand, Rewiew, User, Favorite } = sequelize.models;
+const { Product, Brand, Rewiew, User, Favorite, UserProduct } = sequelize.models;
 
 Product.belongsToMany(Brand, { through: "Product_Brand", timestamps: false });
 Brand.belongsToMany(Product, { through: "Product_Brand", timestamps: false });
@@ -47,12 +50,14 @@ Brand.belongsToMany(Product, { through: "Product_Brand", timestamps: false });
 Product.belongsToMany(Rewiew, { through: "Product_Rewiew" });
 Rewiew.belongsToMany(Product, { through: "Product_Rewiew" });
 
-
-// Product.belongsToMany(User, {through:"Product_User"})
-// User.belongsToMany(Product, {through:"Product_User"})
-
-User.hasMany(Product);
-Product.belongsTo(User);
+User.belongsToMany(Product, {
+  through: { model: UserProduct, unique: false },
+  as: "products",
+});
+Product.belongsToMany(User, {
+  through: { model: UserProduct, unique: false },
+  as: "users",
+});
 
 Product.belongsToMany(Favorite, {
   through: "Product_Favorite",
