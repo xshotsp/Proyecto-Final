@@ -17,7 +17,6 @@ import {
   USER_LOG_OUT,
   FINISH_PURCHASE,
   GET_PURCHASE_USER,
-  USER_LOG_OUT,
   GET_USER_CART,
   CLEAN_USER_CART,
 } from "../actions/actionTypes";

@@ -22,11 +22,7 @@ import styles from "./navbar.module.css";
 
 import { signOutFunction } from "../../firebase/firebase.config";
 
-<<<<<<< HEAD
-const NavBar = ({ login, setLogin, cartItems }) => {
-=======
 const NavBar = ({cartItems}) => {
->>>>>>> 9a10530f18e4388d4c538f456db76dc2cc0824ed
   const [activePage, setActivePage] = useState("");
   const dispatch = useDispatch();
   const { darkMode, access, activeUser, userCart } = useSelector((state) => state);

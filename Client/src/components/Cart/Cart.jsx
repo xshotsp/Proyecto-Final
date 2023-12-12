@@ -8,16 +8,11 @@ import { useSelector, useDispatch} from 'react-redux';
 import { finishPurchase } from '../../redux/actions/actions';
 import { useEffect } from "react";
 
-<<<<<<< HEAD
 
 // const URL = 'http://localhost:3001'
 const URL = "https://quirkz.up.railway.app"
 
 
-=======
-// const URL = 'http://localhost:3001'
-//const URL = "https://quirkz.up.railway.app"
->>>>>>> 9a10530f18e4388d4c538f456db76dc2cc0824ed
 
 
 
@@ -75,15 +70,6 @@ const Cart = ({
     <div className={s["cart-items"]}>
       <h2 className={s["cart-items-header"]}>Products in the shopping cart: </h2>
       <div className={s["clear-cart"]}>
-<<<<<<< HEAD
-        {cartItems.length >= 1 && (
-          <button className={s["clear-cart-button"]} onClick={handleClearCart}>Clear shopping cart</button>
-        )}
-      </div>
-
-      {cartItems.length === 0 && (
-        <div className={s["cart-items-empty"]}>Empty shopping cart! ?? </div>
-=======
         {(access ? userCart.length : cartItems.length) >= 1 && (
           <button className={s["clear-cart-button"]} onClick={handleClearCart}>
             Limpiar carrito
@@ -93,7 +79,6 @@ const Cart = ({
 
       {(access ? userCart.length : cartItems.length) === 0 && (
         <div className={s["cart-items-empty"]}>Tu carrito esta vacio! ?? </div>
->>>>>>> 9a10530f18e4388d4c538f456db76dc2cc0824ed
       )}
 
       <div>
@@ -132,20 +117,6 @@ const Cart = ({
 
       <div className={s["cart-items-total-price-name"]}>
         <br />
-<<<<<<< HEAD
-        <div className={s["cart-items-total-price"]}> 
-        <h2>
-        Total Price: ${totalPrice.toFixed(2)}
-        </h2>
-        </div>
-        <div>
-          <br />
-          <button
-          disabled={cartItems.length === 0 ? true : false}
-          onClick = {mercadoPago}
-          >
-            Complete purchase
-=======
         <div className={s["cart-items-total-price"]}>
           <h2>Precio total: ${priceToFixed}</h2>
         </div>
@@ -153,7 +124,6 @@ const Cart = ({
           <br />
           <button disabled={priceToFixed ? false : true} onClick={mercadoPago}>
             Completar compra
->>>>>>> 9a10530f18e4388d4c538f456db76dc2cc0824ed
           </button>
         </div>
         <br />

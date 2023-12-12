@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import "./App.css";
 import { Route, Routes, useLocation } from "react-router-dom";
 import NavBar from "./components/NavBar/NavBar";
@@ -23,6 +22,7 @@ import {
 import { useEffect, useState } from "react";
 import Contact from "./components/Contact/Contact";
 import Error404 from "./components/Error/Error404";
+import { auth } from "./firebase/firebase.config";
 import { onAuthStateChanged } from "firebase/auth";
 import Swal from "sweetalert2";
 import Dashboard from "./components/Dashboard/Dashboard";
@@ -148,12 +148,10 @@ function App() {
 
 
   return (
-    <div className={darkMode && "div__darkMode"}>
+    <div className={darkMode ? "div__darkMode" : ""}>
       <NavBar
         darkMode={darkMode}
         setDarkMode={() => dispatch(toggleDarkMode())}
-        login={login}
-        setLogin={setLogin}
         cartItems={cartItems}
       />
       <Routes>
