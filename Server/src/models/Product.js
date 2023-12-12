@@ -7,10 +7,10 @@ module.exports = (sequelize) => {
       primaryKey: true,
       autoIncrement: true,
     },
-    // idapi: {
-    //   type: DataTypes.INTEGER,
-    //   allowNull: false,
-    // },
+    idapi: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
     name: {
       type: DataTypes.STRING,
       allowNull: false,
