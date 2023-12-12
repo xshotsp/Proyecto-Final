@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 import { getPurchaseByUser } from '../../redux/actions/actions';
 
 
-//const URL = 'http://localhost:3001'
+ const URL = 'http://localhost:3001'
 //const URL = "https://quirkz.up.railway.app"
 
 const MyShopping = () => {

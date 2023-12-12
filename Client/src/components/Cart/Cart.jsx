@@ -8,7 +8,7 @@ import { useSelector, useDispatch} from 'react-redux';
 import { finishPurchase } from '../../redux/actions/actions';
 import { useEffect } from "react";
 
-//const URL = 'http://localhost:3001'
+// const URL = 'http://localhost:3001'
 //const URL = "https://quirkz.up.railway.app"
 
 

@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
-import { getAllProducts, getProducts } from "../../redux/actions/actions";
+import { getAllProducts } from "../../redux/actions/actions";
 import s from "./ProductList.module.css";
 import Card from "../card/Card";
 import Pagination from "../pagination/Pagination";
@@ -21,7 +21,7 @@ const ProductList = ({ handleAddProduct }) => {
   useEffect(() => {
     if (products.length === 0) dispatch(getAllProducts());
     setCurrentPage(1);
-  }, [products]);
+  }, [dispatch]);
 
   return (
     <div>
