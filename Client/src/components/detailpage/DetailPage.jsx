@@ -84,7 +84,7 @@ const DetailPage = ({ access, handleAddProduct, currentUserId }) => {
   return (
     <div className={s.mainContainer}>
       <div className={s.productDetailsContainer}>
-        <h2>{product.id}</h2>
+        {/* <h2>{product.id}</h2> */}
         <div className={s.backBtn}>
           <Link to='/'>
             <button>Volver</button>
