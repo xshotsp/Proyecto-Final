@@ -16,8 +16,10 @@ const DetailPage = ({ login, handleAddProduct }) => {
   const { id } = useParams();
   const allProducts = useSelector((state) => state.allproducts);
   const product = useSelector((state) => state.productDetails);
-  console.log(product);
   const sliderRef = useRef(null);
+  const addImg = product.additionalImage && product.additionalImage.map((image, index)=>(
+    <img key={index} src={image} alt={`Product Image N°${index + 1}`} />
+  ))
   const mixedProducts = allProducts
   .filter(prod => prod.id !== product.id)
   .toSorted((a, b) => a - b)
@@ -81,7 +83,6 @@ const DetailPage = ({ login, handleAddProduct }) => {
   if (!product) {
         return <p className={s.error}>Cargando...</p>;
   }
-
   return (
     <div className={s.productDetailsContainer}>
       <div className={s.backBtn}>
@@ -95,7 +96,9 @@ const DetailPage = ({ login, handleAddProduct }) => {
       <img src={product.image} 
       alt="product" 
       className={s.productImage} />
-      
+      <div className={s.productAdditionalImg}>
+      {addImg}
+      </div>
       <div className={s.shopBtn}>
         <h2>
         <button className={s.addBtn} 

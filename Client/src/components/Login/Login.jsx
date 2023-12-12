@@ -4,7 +4,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import s from "./login.module.css";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import SocialLogin from "../SocialLogin/SocialLogin";
 import { useDispatch, useSelector } from "react-redux";
 import { setAccess, userCart, userLoggedIn } from "../../redux/actions/actions";
@@ -95,9 +95,8 @@ const Login = ({ cartItems }) => {
         <br />
         <br />
         <button type="submit">Acceder</button>
+        <p>¿No tienes una cuenta? <Link to='/createuser'>¡Registrate Aquí!</Link></p>
       </form>
-      <br />
-      <br />
       <h3 className={s.or__h3}> O </h3>
       <div>
         <SocialLogin cartItems={cartItems} />

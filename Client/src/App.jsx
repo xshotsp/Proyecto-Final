@@ -39,7 +39,6 @@ function App() {
   const [cartItems, setCartItems] = useState(cartFromLocalStorage);
   const dispatch = useDispatch();
   const { pathname } = useLocation();
-  console.log(pathname)
 
 
   useEffect(() => {
@@ -81,7 +80,7 @@ function App() {
       } else {
         setCartItems([...cartItems, { ...product, quantity: 1 }]);
       }
-      if (pathname === "/" || "/product/:id") {
+      if (pathname === "/" || pathname === "/product/:id") {
         Swal.fire({
           icon: "success",
           title: "",
