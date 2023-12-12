@@ -4,8 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../../redux/actions/actions";
 import axios from "axios";
 const {ACCESS_TOKEN}=  process.env;
-// const URL = "https://quirkz.up.railway.app/"
-const URL = "http://localhost:3001"
+
+const URL = "https://quirkz.up.railway.app"
+//const URL = "http://localhost:3001"
 
 const mercadopagoPurchase = () => {
     const dispatch = useDispatch()
@@ -21,7 +22,7 @@ const mercadopagoPurchase = () => {
         try {
             // const response = await axios.post(`${URL}/purchase`,{
                 //pasar informacion de producto
-                const response = await axios.post(`http://localhost:3001/purchase`,
+                const response = await axios.post(`${URL}/purchase`,
                 {
             })
 

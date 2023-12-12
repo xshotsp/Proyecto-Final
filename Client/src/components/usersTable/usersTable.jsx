@@ -5,7 +5,7 @@ import axios from "axios";
 import { GET_ALL_USERS } from "../../redux/actions/actionTypes";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBan } from '@fortawesome/free-solid-svg-icons';
-//import { blockUserAction } from "../../redux/actions/actions"; // Importa la nueva acción
+// import { blockUserAction } from "../../redux/actions/actions"; // Importa la nueva acción
 
 const UsersTable = () => {
   const dispatch = useDispatch();
@@ -26,14 +26,16 @@ const UsersTable = () => {
     fetchData();
   }, [dispatch]);
 
-  // Función para bloquear/desbloquear un usuario
-  const handleBlockUser = (email) => {
-    dispatch(blockUserAction(email)); // Usa la nueva acción
+  
+  const handleBlockUser = async (email) => {
+    
+   const input = {active: false}
+  await axios.put(`${URL}/user/all/${email}`, input);
   };
 
   return (
     <div>
-      <h2>Usuarios</h2>
+      <h2>Users</h2>
       <table>
         <thead>
           <tr>
@@ -41,7 +43,7 @@ const UsersTable = () => {
             <th>Name</th>
             <th>Lastname</th>
             <th>Phone</th>
-            <th>Bloquear</th>
+            <th>Banned</th>
           </tr>
         </thead>
         <tbody>

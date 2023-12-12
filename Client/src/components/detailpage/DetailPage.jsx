@@ -122,7 +122,7 @@ const DetailPage = ({ login, handleAddProduct }) => {
 
       <div className={s.descriptionTextBox}>
         <br />
-        <h2>Productos Que Tambien Te Pueden Interesar</h2>
+        <h2>Products You May Also Be Interested in</h2>
         <div>
         <Slider ref={sliderRef} {...sliderSettings}>
           {mixedProducts.map((product) => <Card key={product.id} product={product} handleAddProduct={handleAddProduct}/>)}

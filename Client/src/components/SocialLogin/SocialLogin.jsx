@@ -9,7 +9,7 @@ import { useDispatch } from "react-redux";
 import { userCart, userLoggedIn } from "../../redux/actions/actions";
 import Swal from "sweetalert2";
 
-const URL = "quirkz.up.railway.app";
+const URL = "https://quirkz.up.railway.app";
 
 const SocialLogin = ({ cartItems }) => {
   const dispatch = useDispatch();
@@ -46,7 +46,7 @@ const SocialLogin = ({ cartItems }) => {
     Swal.fire({
       icon: "success",
       title: "",
-      text: "Carrito actualizado.",
+      text: "Updated shopping cart.",
       showConfirmButton: false,
       timer: 1500,
     });

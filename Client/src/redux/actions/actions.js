@@ -18,15 +18,21 @@ import {
   GET_ALL_USERS,
   SET_ACCESS,
   USER_LOGGED_IN,
+  USER_LOG_OUT,
   FINISH_PURCHASE,
   GET_PURCHASE_USER,
-  USER_LOG_OUT,
   GET_USER_CART,
   CLEAN_USER_CART,
 } from "./actionTypes";
 
-//const URL = "https://quirkz.up.railway.app"; 
- const URL = "http://localhost:3001";
+const URL = "https://quirkz.up.railway.app"; 
+//const URL = "http://localhost:3001";
+  
+
+
+  
+
+
 
 
 
@@ -225,6 +231,9 @@ export const userLoggedIn = (user) => {
   };
 };
 
+
+
+      
 export function finishPurchase(objectPago) {
 
   return async function (dispatch) {
