@@ -8,10 +8,11 @@ import validate from './validate';
 import s from "./edit.module.css"
 import Swal from 'sweetalert2';
 import placeHolderPhoto from "../../assets/placeholder foto.jpg"
+import { userLoggedIn } from "../../redux/actions/actions";
 
-//const URL = "http://localhost:3001";
+const URL = "http://localhost:3001";
 
-const URL = 'https://quirkz.up.railway.app';
+//const URL = 'https://quirkz.up.railway.app';
 
 const EditPerfilForm = () => {
 
@@ -101,7 +102,12 @@ useEffect (() => {
       const long = Object.values(errors);
           if (long.length === 0) {
               await axios.put(`${URL}/user/${email}`, input);
+<<<<<<< HEAD
               mostrarAlerta('success' , 'User was successfully updated' );
+=======
+              mostrarAlerta('success' , 'El usuario se actualizó de manera exitosa' );
+              dispatch(userLoggedIn(email));
+>>>>>>> 9a10530f18e4388d4c538f456db76dc2cc0824ed
               navigate('/');
              
           } else mostrarAlerta('error', 'You must complete all fields without errors')

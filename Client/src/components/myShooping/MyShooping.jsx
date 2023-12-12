@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import s from './MyShopping.module.css'
 import { useParams, useNavigate} from 'react-router-dom';
 import { useEffect } from 'react';
@@ -7,7 +8,7 @@ import { useSelector } from 'react-redux';
 import { getPurchaseByUser } from '../../redux/actions/actions';
 
 
-//const URL = 'http://localhost:3001'
+ const URL = 'http://localhost:3001'
 //const URL = "https://quirkz.up.railway.app"
 
 const MyShopping = () => {

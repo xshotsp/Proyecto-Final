@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import validate from "./validate";
@@ -6,9 +6,15 @@ import { useNavigate } from "react-router-dom";
 import LabelAndInput from "../labelAndInput/LabelAndInput";
 import s from "./create.module.css";
 
+<<<<<<< HEAD
 const URL = 'https://quirkz.up.railway.app'
 
 //const URL = "http://localhost:3001";
+=======
+//const URL = 'https://quirkz.up.railway.app'
+
+const URL = "http://localhost:3001";
+>>>>>>> 9a10530f18e4388d4c538f456db76dc2cc0824ed
 
 const CreateUserForm = () => {
 

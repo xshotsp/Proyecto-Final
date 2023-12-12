@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import axios from "axios";
 import getFindSelects from "../../functions/getFindSelects";
 import {
@@ -20,10 +21,16 @@ import {
   USER_LOG_OUT,
   FINISH_PURCHASE,
   GET_PURCHASE_USER,
+  USER_LOG_OUT,
+  GET_USER_CART,
+  CLEAN_USER_CART,
 } from "./actionTypes";
 
 const URL = "https://quirkz.up.railway.app"; 
 // const URL = "http://localhost:3001";
+  
+
+
   
 
 
@@ -225,11 +232,7 @@ export const userLoggedIn = (user) => {
   };
 };
 
-export const userLogOut = () => {
-  return {
-    type: USER_LOG_OUT,
-  };
-};
+
 
       
 export function finishPurchase(objectPago) {
@@ -267,3 +270,34 @@ export const getPurchaseByUser = (email) => {
     }
   };
 };
+
+
+export const userLogOut = () => {
+  return {
+    type: USER_LOG_OUT,
+  };
+};
+
+
+export const userCart = (email) =>{
+return async (dispatch) => {
+    try {
+      const { data } = await axios(`${URL}/cart/${email}`);
+
+      return dispatch({
+        type: GET_USER_CART,
+        payload: data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+
+export const cleanUserCart =()=>{
+  return {
+    type: CLEAN_USER_CART,
+  }
+}
+
