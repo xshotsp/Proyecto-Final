@@ -79,15 +79,19 @@ const DetailPage = ({ login, handleAddProduct }) => {
   }, [dispatch, id]);
 
   if (!product) {
+<<<<<<< HEAD
     
         return <p className={s.error}>Loading...</p>;
+=======
+        return <p className={s.error}>Cargando...</p>;
+>>>>>>> fa7e3f5dd98666e9deb6fbf63cbe5193c40f37cb
   }
 
   return (
     <div className={s.productDetailsContainer}>
       <div className={s.backBtn}>
       <Link to='/'>
-        <button>Back</button>
+        <button>Volver</button>
       </Link>
       </div>
       <br />
@@ -100,8 +104,13 @@ const DetailPage = ({ login, handleAddProduct }) => {
       <div className={s.shopBtn}>
         <h2>
         <button className={s.addBtn} 
+<<<<<<< HEAD
         onClick={() => handleAddProduct(product)}>          
           <FontAwesomeIcon icon={faCartFlatbed} /> Add shopping cart
+=======
+        onClick={() => handleAddProduct(product)}>
+          <FontAwesomeIcon icon={faCartFlatbed} /> AÃ±adir Al Carrito
+>>>>>>> fa7e3f5dd98666e9deb6fbf63cbe5193c40f37cb
         </button>
         <button onClick={changeIcon}>
           <FontAwesomeIcon icon={showHeart ? faHeart : faHeartCircleCheck} />
@@ -115,9 +124,15 @@ const DetailPage = ({ login, handleAddProduct }) => {
         </h2>
       </div>
       <div className={s.productInfo}>
+<<<<<<< HEAD
         <h2 className={s.price}>Price: ${product.price || 'Loading...'}</h2>
         <h2 className={s.colour}>Colour: {product.colour || 'Loading...'}</h2>
         <h2 className={s.brand}>Brand: {brandName}</h2>
+=======
+        <h2 className={s.price}>Precio: ${product.price || 'Cargando...'}</h2>
+        <h2 className={s.colour}>Color: {product.colour || 'Cargando...'}</h2>
+        <h2 className={s.brand}>Marca: {brandName}</h2>
+>>>>>>> fa7e3f5dd98666e9deb6fbf63cbe5193c40f37cb
       </div>
 
       <div className={s.descriptionTextBox}>

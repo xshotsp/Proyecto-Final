@@ -6,10 +6,10 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 
- const URL = "http://localhost:3001"
-//const URL = "https://quirkz.up.railway.app"
+// const URL = "http://localhost:3001"
+const URL = "https://quirkz.up.railway.app"
 
-const SuccessPayment = ({cartItems}) => {
+const SuccessPayment = (/* {cartItems} */) => {
     const navigate = useNavigate();
     const userCart = useSelector((state) => state.userCart);
    

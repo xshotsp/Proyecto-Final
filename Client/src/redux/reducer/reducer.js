@@ -14,9 +14,9 @@ import {
   SET_ACCESS,
   USER_LOGGED_IN,
   GET_ALL_USERS,
+  USER_LOG_OUT,
   FINISH_PURCHASE,
   GET_PURCHASE_USER,
-  USER_LOG_OUT,
   GET_USER_CART,
   CLEAN_USER_CART,
 } from "../actions/actionTypes";
@@ -164,13 +164,6 @@ export default function reducer(state = initialState, action) {
             purchaseByUser: action.payload
           }
     }
-
-            case USER_LOG_OUT:{
-              return{
-                ...state,
-                activeUser:{}
-              }
-            }
 
     default:
       return state;
