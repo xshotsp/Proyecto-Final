@@ -140,7 +140,7 @@ const NavBar = ({cartItems}) => {
             <Link to={`/editperfil/${activeUser?.email}`}>
               <button>Edit Profile</button>
             </Link>
-            <Link to="/shopping">
+            <Link to={`/shooping/${activeUser?.email}`}>
               <button>My Purchases</button>
             </Link>
             <button onClick={handleLogout}>Logout</button>
