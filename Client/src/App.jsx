@@ -56,6 +56,8 @@ function App() {
         },
       };
 
+      console.log('activeUser',activeUser);
+
       const response = await axios.post(`${URL}/cart`, objProduct);
       console.log(response)
       if (pathname === "/" || pathname === `/product/${product.id}`) {

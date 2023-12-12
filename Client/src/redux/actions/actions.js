@@ -25,14 +25,8 @@ import {
   CLEAN_USER_CART,
 } from "./actionTypes";
 
-const URL = "https://quirkz.up.railway.app"; 
-// const URL = "http://localhost:3001";
-  
-
-
-  
-
-
+//const URL = "https://quirkz.up.railway.app"; 
+ const URL = "http://localhost:3001";
 
 export function getProducts() {
   return async function (dispatch) {
