@@ -67,6 +67,7 @@ const Dashboard = () => {
         {botonActivo === "productos" && <ProductsTable data={data} />}
         {/* Agrega otras lógicas de renderizado para "compras" u otros botones según sea necesario */}
       </div>
+        {botonActivo && <p>Giving information {botonActivo}</p>}
     </div>
   );
 };
