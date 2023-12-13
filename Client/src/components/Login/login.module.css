@@ -8,6 +8,7 @@
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: center;
+    margin: 40px auto;
   }
 
   .login-container h2 {
@@ -57,10 +58,18 @@
     justify-content: space-around;
   }
   
+  .error__container{
+    display: flex;
+    margin: 0 auto;
+    justify-content: center;
+    padding: 0;
+    height: 40px;
+  }
+
   .error {
-    height: 20px;
-    padding-top: 10px;
-    text-align: left;
+    color: rgb(220, 3, 3);
+    text-align: center;
+    margin: 0;
     font-weight: 900;
   }
   /* Otros estilos según sea necesario */

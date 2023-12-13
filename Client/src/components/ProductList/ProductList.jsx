@@ -16,26 +16,32 @@ const ProductList = ({ handleAddProduct }) => {
   const cardsPerPage = 5;
   const lastCardIndex = currentPage * cardsPerPage;
   const firstCardIndex = lastCardIndex - cardsPerPage;
-  const currentCards = products.slice(firstCardIndex, lastCardIndex);
+  const productsActive = [...products].filter((p) => p.active === true);
+  const currentCards = productsActive.slice(firstCardIndex, lastCardIndex);
 
   useEffect(() => {
     if (products.length === 0) dispatch(getAllProducts());
     setCurrentPage(1);
-  }, [dispatch]);
+  }, [products]);
 
   return (
     <div>
-      {products[0]?.message && <h2 className={`${s.titulo} ${darkMode && s.darkMode} `}>{products[0].message}</h2>}
-
-      {products[0]?.name && (
-        <h1 className={`${s.titulo} ${darkMode && s.darkMode} `}>
-          Lista de Productos
-        </h1>
+      {!productsActive.length && (
+        <h2 className={`${s.titulo} ${darkMode && s.darkMode} `}>
+          {"No products found matching your search."}
+        </h2>
       )}
 
-      {products[0]?.name && (
+      {productsActive.length ? (
+        <h1 className={`${s.titulo} ${darkMode && s.darkMode} `}>
+          Product List
+        </h1>
+      ) : (
+        ""
+      )}
+
+      {productsActive.length ? (
         <div className={`${s.productList} ${darkMode && s.darkMode}`}>
-          {/* {products.map((product) => ( */}
           {currentCards.map((product) => (
             <Card
               key={product.id}
@@ -44,10 +50,12 @@ const ProductList = ({ handleAddProduct }) => {
             />
           ))}
         </div>
+      ) : (
+        ""
       )}
 
       <Pagination
-        filteredProducts={products} //cambio
+        filteredProducts={productsActive} //cambio
         cardsPerPage={cardsPerPage}
         setCurrentPage={setCurrentPage}
         currentPage={currentPage}

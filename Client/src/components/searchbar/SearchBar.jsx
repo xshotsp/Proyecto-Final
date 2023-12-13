@@ -54,7 +54,7 @@ const SearchBar = () => {
       <input
         name="name"
         type="text"
-        placeholder="Buscar..."
+        placeholder="Search..."
         value={search}
         onChange={handleInputChange}
         className={styles.input}

@@ -57,5 +57,11 @@ a.productCard {
   background-color: var(--second-color);
   border-radius: 4px;
   margin-top: auto;
+  background-color: #696d7d;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  
 }
 

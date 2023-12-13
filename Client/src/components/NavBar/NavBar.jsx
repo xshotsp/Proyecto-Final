@@ -16,22 +16,28 @@ import {
   faListCheck,
   faMoon,
   faSun,
+  faGear,
 } from "@fortawesome/free-solid-svg-icons";
 import SearchBar from "../searchbar/SearchBar";
 import styles from "./navbar.module.css";
 
 import { signOutFunction } from "../../firebase/firebase.config";
 
-const NavBar = ({cartItems}) => {
+const NavBar = ({ cartItems, setCartItems, setToken }) => {
   const [activePage, setActivePage] = useState("");
   const dispatch = useDispatch();
-  const { darkMode, access, activeUser, userCart } = useSelector((state) => state);
+  const { darkMode, access, activeUser, userCart } = useSelector(
+    (state) => state
+  );
   const [showOptions, setShowOptions] = useState(false);
   const navigate = useNavigate();
 
   const cartToUse = access ? userCart : cartItems;
-  const totalItemsCart = cartToUse.reduce((total, item) => total + item.quantity, 0);
-  
+  const totalItemsCart = cartToUse.reduce(
+    (total, item) => total + item.quantity,
+    0
+  );
+
   const handleMouseEnter = (page) => {
     setActivePage(page);
   };
@@ -47,11 +53,14 @@ const NavBar = ({cartItems}) => {
   const handleLogout = () => {
     dispatch(setAccess(false));
     dispatch(userLogOut());
-    dispatch(cleanUserCart())
+    dispatch(cleanUserCart());
 
     signOutFunction();
     localStorage.clear();
+    setCartItems([]);
     setShowOptions(false);
+    setToken("");
+    localStorage.removeItem("token");
     navigate("/");
   };
 
@@ -69,6 +78,14 @@ const NavBar = ({cartItems}) => {
         </Link>
         <SearchBar expanded={true} />
         <ul className={styles.nav__ul}>
+          <li>
+            {activeUser?.admin && (
+              <Link to="/dashboard">
+                <FontAwesomeIcon icon={faGear} />
+              </Link>
+            )}
+          </li>
+
           <Link
             to="/contacto"
             onMouseEnter={() => handleMouseEnter("contacto")}
@@ -76,7 +93,7 @@ const NavBar = ({cartItems}) => {
           >
             <li className={activePage === "contacto" ? styles.active : ""}>
               <FontAwesomeIcon icon={faAddressBook} />
-              {activePage === "contacto" && <span>Contacto</span>}
+              {activePage === "contacto" && <span>Contact</span>}
             </li>
           </Link>
           {!access && (
@@ -87,7 +104,7 @@ const NavBar = ({cartItems}) => {
             >
               <li className={activePage === "createuser" ? styles.active : ""}>
                 <FontAwesomeIcon icon={faListCheck} />
-                {activePage === "createuser" && <span>Registrarse</span>}
+                {activePage === "createuser" && <span>Register</span>}
               </li>
             </Link>
           )}
@@ -103,14 +120,10 @@ const NavBar = ({cartItems}) => {
               </li>
             </Link>
           )}
-          <Link to="/form">
-            <li>Crear producto</li>
-          </Link>
           <Link to="/cart" className={styles.cart}>
             <li className={activePage === "cart" ? styles.active : ""}>
               <FontAwesomeIcon icon={faShoppingCart} />
-              {activePage === "cart" && <span>Carrito</span>}
-              
+              {activePage === "cart" && <span>Shopping cart</span>}
             </li>
             <span className={styles.cart__items}>{totalItemsCart}</span>
           </Link>
@@ -138,10 +151,10 @@ const NavBar = ({cartItems}) => {
           <div className={styles.user__options}>
             <p>{activeUser?.email}</p>
             <Link to={`/editperfil/${activeUser?.email}`}>
-              <button>Editar Perfil</button>
+              <button>Edit Profile</button>
             </Link>
             <Link to={`/shopping/${activeUser?.email}`}>
-              <button>Mis Compras</button>
+              <button>My Purchases</button>
             </Link>
             <button onClick={handleLogout}>Logout</button>
           </div>

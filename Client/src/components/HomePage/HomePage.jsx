@@ -17,7 +17,7 @@ const HomePage = ({ handleAddProduct }) => {
   const selects = useSelector((state) => state.selectFilter);
   const colourOpt = selects?.colour;
   const brandOpt = selects?.brand;
-  const PriceOpt = ["Mayor a menor", "Menor a mayor"];
+  const PriceOpt = ["Highest", "Lowest"];
 
   useEffect(() => {
     dispatch(getAllSelects());
@@ -45,21 +45,21 @@ const HomePage = ({ handleAddProduct }) => {
       <div className={s.filtersContainer}>
         <Filters
           name="colour"
-          ticket="Color"
+          ticket="Colour"
           options={colourOpt}
           handleChange={handleChange}
           state={null}
         />
         <Filters
           name="brand"
-          ticket="Marca"
+          ticket="Brand"
           options={brandOpt}
           handleChange={handleChange}
           state={null}
         />
         <Filters
           name="price"
-          ticket="Ordenar por precio"
+          ticket="Price"
           handleChange={handleChange}
           options={PriceOpt}
           state={null}
@@ -73,7 +73,7 @@ const HomePage = ({ handleAddProduct }) => {
               setInitialFilters({});
             }}
           >
-            Reinicio
+            Restart
           </button>
         </div>
         <div>
@@ -100,3 +100,37 @@ const HomePage = ({ handleAddProduct }) => {
 };
 
 export default HomePage;
+
+//   return (
+//     <div>
+//       <div>
+//       <Hero />
+//       </div>
+//       <div className={s.filtersContainer}>
+//         <Filters
+//           name="colour"
+//           options={colourOpt}
+//           handleChange={handleChange}    
+//           state={null}
+//         />
+//         <Filters
+//           name="brand"
+//           options={brandOpt}
+//           handleChange={handleChange}
+//           state={null}
+//         />
+//         <Filters
+//           className="filters"
+//           name="price"
+//           handleChange={handleChange}
+//           options={PriceOpt}
+//           state={null}
+//         />
+//       </div>
+      
+//       <ProductList />
+//     </div>
+//   );
+// };
+
+//export default HomePage;

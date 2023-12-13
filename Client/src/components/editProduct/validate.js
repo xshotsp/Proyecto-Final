@@ -24,7 +24,7 @@ const validate = (state, campo) => {
         if (state.quantity <= 0) errors.quantity = "Must be greater than 0" 
     }
 
-    if (!state.colour.length) errors.colour = "Color is required"
+    if (!state.colour.length) errors.colour = "Colour is required"
    
 
 
