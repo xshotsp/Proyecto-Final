@@ -23,6 +23,7 @@ import {
   GET_PURCHASE_USER,
   GET_USER_CART,
   CLEAN_USER_CART,
+  GET_ALL_PURCHASES,
 } from "./actionTypes";
 
 const URL = import.meta.env.VITE_URL
@@ -298,4 +299,20 @@ export const cleanUserCart =()=>{
     type: CLEAN_USER_CART,
   }
 }
+
+export const getAllPurchases = () => {
+  return async (dispatch) => {
+    try {
+      const purchases = (await axios.get(`${URL}/purchases/all`)).data;
+
+      console.log(purchases)
+      return dispatch({
+        type: GET_ALL_PURCHASES,
+        payload: purchases,
+      });
+    } catch (error) {
+      throw error.response.data;
+    }
+  };
+};
 

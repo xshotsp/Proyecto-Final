@@ -9,6 +9,7 @@ import styles from "./Dashboard.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
+import PurchaseTable from "../purchasesTable/PurchasesTable";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -40,7 +41,7 @@ const Dashboard = () => {
       <div className={styles.column}>
         <h2>Quirkz</h2>
 
-        <button
+        <button 
           onClick={() => handleBotonClick("usuarios")}
           className={botonActivo === "usuarios" ? styles.activo : ""}
         >
@@ -69,6 +70,7 @@ const Dashboard = () => {
         {botonActivo === "usuarios" && <UsersTable data={data} />}
         {botonActivo === "usuariosBloqueados" && <UsersBanTable />}
         {botonActivo === "productos" && <ProductsTable data={data} />}
+        {botonActivo === "compras" && <PurchaseTable data={data} />}
         {/* Agrega otras lógicas de renderizado para "compras" u otros botones según sea necesario */}
       </div>
       {/*         {botonActivo && <p>Giving information {botonActivo}</p>} */}
