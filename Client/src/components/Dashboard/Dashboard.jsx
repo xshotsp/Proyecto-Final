@@ -1,11 +1,15 @@
 // Dashboard.jsx
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { getAllUsersAction, getAllProducts } from "../../redux/actions/actions";
 import UsersTable from "../usersTable/usersTable";
 import UsersBanTable from "../usersBan/usersBan"; // Asegúrate de importar el componente correcto
 import ProductsTable from "../productsTable/productsTable";
 import styles from "./Dashboard.module.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
+import PurchaseTable from "../purchasesTable/PurchasesTable";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -65,9 +69,16 @@ const Dashboard = () => {
         {botonActivo === "usuarios" && <UsersTable data={data} />}
         {botonActivo === "usuariosBloqueados" && <UsersBanTable />}
         {botonActivo === "productos" && <ProductsTable data={data} />}
+        {botonActivo === "compras" && <PurchaseTable data={data} />}
         {/* Agrega otras lógicas de renderizado para "compras" u otros botones según sea necesario */}
       </div>
-        {botonActivo && <p>Giving information {botonActivo}</p>}
+         {/*         {botonActivo && <p>Giving information {botonActivo}</p>} */}
+      {botonActivo === "productos" && (
+        <Link to="/form">
+          <FontAwesomeIcon icon={faPlus} />
+          Create product
+        </Link>
+      )}
     </div>
   );
 };

@@ -19,6 +19,7 @@ import {
   GET_PURCHASE_USER,
   GET_USER_CART,
   CLEAN_USER_CART,
+  GET_ALL_PURCHASES,
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -35,6 +36,7 @@ const initialState = {
   purchase: {},
   purchaseByUser: [],
   userCart: [],
+  allPurchases:[]
 };
 
 export default function reducer(state = initialState, action) {
@@ -164,6 +166,12 @@ export default function reducer(state = initialState, action) {
             purchaseByUser: action.payload
           }
     }
+    case GET_ALL_PURCHASES: {
+      return {
+        ...state,
+        allPurchases: action.payload
+      }
+}
 
     default:
       return state;

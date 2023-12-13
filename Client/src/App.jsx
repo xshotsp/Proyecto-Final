@@ -27,9 +27,11 @@ import { onAuthStateChanged } from "firebase/auth";
 import Swal from "sweetalert2";
 import Dashboard from "./components/Dashboard/Dashboard";
 import axios from "axios";
+import DetailPurchase from "./components/detailPurchase/DetailPurchase";
 
+const URL = import.meta.env.VITE_URL;
 //const URL = "http://localhost:3001";
-const URL = "https://quirkz.up.railway.app"
+// const URL = "https://quirkz.up.railway.app"
 
 function App() {
   const storedToken = localStorage.getItem("token");
@@ -61,7 +63,7 @@ function App() {
         Swal.fire({
           icon: "success",
           title: "",
-          text: "sumado al carrito ",
+          text: "Added to shopping cart. ",
           showConfirmButton: false,
           timer: 1500,
         });
@@ -84,7 +86,7 @@ function App() {
         Swal.fire({
           icon: "success",
           title: "",
-          text: "sumado al carrito ",
+          text: "Added to shopping cart. ",
           showConfirmButton: false,
           timer: 1500,
         });
@@ -125,7 +127,7 @@ function App() {
     Swal.fire({
       icon: "success",
       title: "",
-      text: "Carrito Borrado.",
+      text: "Deleted shopping cart..",
       showConfirmButton: false,
       timer: 1500,
     });
@@ -207,6 +209,7 @@ function App() {
           }
         />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/purchase/:id" element={<DetailPurchase />} />
       </Routes>
       <Footer />
     </div>

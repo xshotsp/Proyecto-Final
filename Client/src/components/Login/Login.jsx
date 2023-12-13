@@ -11,8 +11,9 @@ import { setAccess, userCart, userLoggedIn } from "../../redux/actions/actions";
 import Swal from "sweetalert2";
 import validate from "./validate";
 
-const URL = "https://quirkz.up.railway.app";
-//const URL = "http://localhost:3001";
+const URL = import.meta.env.VITE_URL;
+//const URL = "https://quirkz.up.railway.app";
+// const URL = "http://localhost:3001";
 
 const Login = ({ cartItems, setToken }) => {
   const [loginInput, setLoginInput] = useState({
@@ -62,14 +63,15 @@ const Login = ({ cartItems, setToken }) => {
     e.preventDefault();
     try {
       const response = await axios(`${URL}/user/${loginInput.usuario}`);
+      if (!response.data) {
+        mostrarAlerta("error", "The user is not registered.");
+        return;
+      }
       if (response.data.provider === "google") {
-        Swal.fire({
-          icon: "error",
-          title: "",
-          text: "The email is already associated with a Google account.",
-          showConfirmButton: false,
-          timer: 1500,
-        });
+        mostrarAlerta(
+          "error",
+          "The email is already associated with a Google account."
+        );
         return;
       }
       const { data } = await axios(
@@ -83,14 +85,7 @@ const Login = ({ cartItems, setToken }) => {
         products: productsId,
       };
       await axios.post(`${URL}/cart`, itemsArr);
-
-      Swal.fire({
-        icon: "success",
-        title: "",
-        text: "Updated shopping cart.",
-        showConfirmButton: false,
-        timer: 1500,
-      });
+      mostrarAlerta("success", "Updated shopping cart.");
 
       dispatch(setAccess(data.access));
       dispatch(userLoggedIn(loginInput.usuario));
