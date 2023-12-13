@@ -13,6 +13,7 @@ const URL = import.meta.env.VITE_URL;
 const UsersTable = () => {
   const dispatch = useDispatch();
   const usersData = useSelector((state) => state.allUsers);
+  console.log(usersData)
 
   useEffect(() => {
     dispatch(getAllUsersAction());
