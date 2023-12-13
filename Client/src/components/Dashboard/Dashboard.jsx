@@ -80,6 +80,12 @@ const Dashboard = () => {
           Create product
         </Link>
       )}
+      {botonActivo === "usuarios" && (
+        <Link to="/createdashboard">
+          <FontAwesomeIcon icon={faPlus} />
+          Create user
+        </Link>
+      )}
     </div>
   );
 };
