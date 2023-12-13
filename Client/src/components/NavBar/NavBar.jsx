@@ -22,7 +22,7 @@ import styles from "./navbar.module.css";
 
 import { signOutFunction } from "../../firebase/firebase.config";
 
-const NavBar = ({cartItems}) => {
+const NavBar = ({cartItems,setCartItems,setToken}) => {
   const [activePage, setActivePage] = useState("");
   const dispatch = useDispatch();
   const { darkMode, access, activeUser, userCart } = useSelector((state) => state);
@@ -51,7 +51,10 @@ const NavBar = ({cartItems}) => {
 
     signOutFunction();
     localStorage.clear();
+    setCartItems([])
     setShowOptions(false);
+    setToken('');
+    localStorage.removeItem('token')
     navigate("/");
   };
 

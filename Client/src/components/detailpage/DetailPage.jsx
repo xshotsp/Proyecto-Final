@@ -11,7 +11,7 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-const DetailPage = ({ access, handleAddProduct, currentUserId }) => {
+const DetailPage = ({ access, user, handleAddProduct, currentUserId }) => {
   const dispatch = useDispatch();
 
   const { id } = useParams();

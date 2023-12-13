@@ -23,6 +23,23 @@ import {
   GET_PURCHASE_USER,
   GET_USER_CART,
   CLEAN_USER_CART,
+  //reviews
+  FETCH_REVIEWS_REQUEST,
+  FETCH_REVIEWS_SUCCESS,
+  FETCH_REVIEWS_FAILURE,
+  
+  CREATE_REVIEW_REQUEST,
+  CREATE_REVIEW_SUCCESS,
+  CREATE_REVIEW_FAILURE,
+
+  UPDATE_REVIEW_REQUEST,
+  UPDATE_REVIEW_SUCCESS,
+  UPDATE_REVIEW_FAILURE,
+
+  DELETE_REVIEW_REQUEST,
+  DELETE_REVIEW_SUCCESS,
+  DELETE_REVIEW_FAILURE,
+  
 } from "./actionTypes";
 
 //const URL = "https://quirkz.up.railway.app"; 
@@ -212,7 +229,7 @@ export const userLoggedIn = (user) => {
   return async (dispatch) => {
     try {
       const { data } = await axios(`${URL}/user/${user}`);
-
+       console.log('dtuser',data)
       return dispatch({
         type: USER_LOGGED_IN,
         payload: data,
@@ -292,3 +309,73 @@ export const cleanUserCart =()=>{
   }
 }
 
+
+//actions reviews
+
+export const getReviews = (productoId) => {
+  return async (dispatch) => {
+    dispatch({ type: FETCH_REVIEWS_REQUEST });
+
+    try {
+      // Ajusta la URL para incluir el ID del producto
+      const response = await axios.get(`${URL}/reviews?productoId=${productoId}`);
+
+      if (response.data.error) {
+        dispatch({ type: FETCH_REVIEWS_FAILURE, payload: response.data.error });
+      } else {
+        console.log('Respuesta de comentarios:', response.data);
+        dispatch({ type: FETCH_REVIEWS_SUCCESS, payload: response.data });
+      }
+    } catch (error) {
+      console.error('Error al obtener comentarios:', error);
+      dispatch({ type: FETCH_REVIEWS_FAILURE, payload: error });
+    }
+  };
+};
+
+export const createReview = (text, parentId, userRating, productoId) => {
+  const reviewData = {
+    text: text,
+    parentId: parentId,
+    rating: userRating,
+    productoId:productoId,
+  };
+
+  return async (dispatch) => {
+    dispatch({ type: CREATE_REVIEW_REQUEST });
+
+    try {
+      const response = await axios.post(`${URL}/reviews?productoId=${productoId}`, reviewData);
+      dispatch({ type: CREATE_REVIEW_SUCCESS, payload: response.data });
+      return response.data;
+    } catch (error) {
+      dispatch({ type: CREATE_REVIEW_FAILURE, payload: error });
+      throw error;
+    }
+  };
+};
+
+
+export const deleteReview = (productoId) => {
+  return async (dispatch) => {
+    dispatch({type: DELETE_REVIEW_REQUEST});
+    try {
+      const response = await axios.delete(`${URL}/reviews?productoId=${productoId}`);
+      dispatch({ type: DELETE_REVIEW_SUCCESS, payload:response.data});
+    } catch (error) {
+      dispatch({ type: DELETE_REVIEW_FAILURE, payload: error,});
+    }
+  };
+};
+
+export const updateReview = (productoId, updatedData) => {
+  return async (dispatch) => {
+    dispatch({type: UPDATE_REVIEW_REQUEST});
+    try {
+      const response = await axios.put(`${URL}/reviews?productoId=${productoId}`, updatedData);
+      dispatch({  type: UPDATE_REVIEW_SUCCESS, payload: response.data});
+    } catch (error) {
+      dispatch({ type: UPDATE_REVIEW_FAILURE, payload: error,});
+    }
+  };
+};

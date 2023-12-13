@@ -8,22 +8,27 @@ const Comentarios = ({
   Comment,
   replies,
   currentUserId,
-  deleteComment,
-  updateComment,
+  deleteReview,
+  updateReview,
   activeComment,
   addComment,
   setActiveComment,
-  parentId = null,
+  parentId,
   access,
 }) => {
   const fiveMinutes = 300000;
-  const timePassed = new Date() - new Date(Comment.createdAt) > fiveMinutes;
-  const canReply = Boolean(currentUserId);
-  const canEdit = currentUserId === Comment.userId && !timePassed;
-  const canDelete = currentUserId === Comment.userId && !timePassed;
-  const createdAt = new Date(Comment.createdAt).toLocaleDateString();
 
-  const [userRatingUpdate, setUserRatingUpdate] = useState(Comment.rating);
+  const timePassed =
+  Comment && Comment.createdAt
+    ? new Date() - new Date(Comment.createdAt) > fiveMinutes
+    : false;
+
+  const canReply = Boolean(currentUserId);
+  const canEdit = Comment && Comment.userEmail === currentUserId && !timePassed;
+  const canDelete = Comment && Comment.userEmail === currentUserId && !timePassed;
+  const createdAt = Comment ? new Date(Comment.createdAt).toLocaleDateString() : null;
+
+  const [userRatingUpdate, setUserRatingUpdate] = useState(Comment ? Comment.rating : null);
 
   const isReplying =
     activeComment &&
@@ -35,7 +40,7 @@ const Comentarios = ({
     activeComment.type === 'editing' &&
     activeComment.id === Comment.id;
 
-  const replyId = parentId ? parentId : Comment.id;
+    const replyId = parentId ? parentId : (Comment && Comment.id);
 
   const handleRatingChangeUpdate = (rating) => {
     setUserRatingUpdate(rating);
@@ -44,7 +49,7 @@ const Comentarios = ({
   if (!Comment) {
     return <p>Cargando comentarios...</p>;
   }
-
+  
   console.log('Comment:', Comment);
 
   return (
@@ -80,7 +85,7 @@ const Comentarios = ({
               submitLabel="recomentar"
               hasCancelButton
               initialText={Comment.body}
-              handleSubmit={(text) => updateComment(text, Comment.id)}
+              handleSubmit={(text) => updateReview(text, Comment.id)}
               handleCancel={() => setActiveComment(null)}
             />
           </div>
@@ -117,7 +122,7 @@ const Comentarios = ({
             <div
               className={style.comment_action}
               onClick={() => {
-                deleteComment(Comment.id);
+                deleteReview(Comment.id);
               }}
             >
               Eliminar
@@ -130,24 +135,24 @@ const Comentarios = ({
             handleSubmit={(text) => addComment(text, replyId)}
           />
         )}
-        {replies.length > 0 && (
-          <div className={style.replies}>
-            {replies.map((reply) => (
-              <Comentarios
-                Comment={reply}
-                key={reply.id}
-                replies={[]}
-                currentUserId={currentUserId}
-                deleteComment={deleteComment}
-                updateComment={updateComment}
-                addComment={addComment}
-                activeComment={activeComment}
-                setActiveComment={setActiveComment}
-                parentId={Comment.id}
-              />
-            ))}
-          </div>
-        )}
+       {replies.length > 0 && (
+  <div className={style.replies}>
+    {replies.map((reply) => (
+      <Comentarios
+        Comment={reply}
+        key={reply.id}
+        replies={getReplies(reply.id)} 
+        currentUserId={currentUserId}
+        deleteReview={deleteReview}
+        updateReview={updateReview}
+        addComment={addComment}
+        activeComment={activeComment}
+        setActiveComment={setActiveComment}
+        parentId={Comment.id}
+      />
+    ))}
+  </div>
+)}
       </div>
     </div>
   );

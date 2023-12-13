@@ -19,6 +19,20 @@ import {
   GET_PURCHASE_USER,
   GET_USER_CART,
   CLEAN_USER_CART,
+  // reviews
+
+  FETCH_REVIEWS_REQUEST,
+  FETCH_REVIEWS_SUCCESS,
+  FETCH_REVIEWS_FAILURE,
+  CREATE_REVIEW_REQUEST,
+  CREATE_REVIEW_SUCCESS,
+  CREATE_REVIEW_FAILURE,
+  UPDATE_REVIEW_REQUEST,
+  UPDATE_REVIEW_SUCCESS,
+  UPDATE_REVIEW_FAILURE,
+  DELETE_REVIEW_REQUEST,
+  DELETE_REVIEW_SUCCESS,
+  DELETE_REVIEW_FAILURE,
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -35,6 +49,7 @@ const initialState = {
   purchase: {},
   purchaseByUser: [],
   userCart: [],
+  reviews: [],
 };
 
 export default function reducer(state = initialState, action) {
@@ -164,6 +179,27 @@ export default function reducer(state = initialState, action) {
             purchaseByUser: action.payload
           }
     }
+
+    //reducer Review
+
+    case FETCH_REVIEWS_REQUEST:
+    case CREATE_REVIEW_REQUEST:
+    case DELETE_REVIEW_REQUEST:
+    case UPDATE_REVIEW_REQUEST:
+      return { ...state };
+
+    case FETCH_REVIEWS_SUCCESS:
+    case CREATE_REVIEW_SUCCESS:
+    case DELETE_REVIEW_SUCCESS:
+    case UPDATE_REVIEW_SUCCESS:
+      return { ...state, reviews: { ...state.reviews, ...action.payload } };
+
+
+    case FETCH_REVIEWS_FAILURE:
+    case CREATE_REVIEW_FAILURE:
+    case DELETE_REVIEW_FAILURE:
+    case UPDATE_REVIEW_FAILURE:
+      return { ...state, error: action.payload };
 
     default:
       return state;
