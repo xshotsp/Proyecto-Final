@@ -27,9 +27,9 @@ import { onAuthStateChanged } from "firebase/auth";
 import Swal from "sweetalert2";
 import Dashboard from "./components/Dashboard/Dashboard";
 import axios from "axios";
+import DetailPurchase from "./components/detailPurchase/DetailPurchase";
 
-const URL = "http://localhost:3001";
-//const URL = "https://quirkz.up.railway.app"
+const URL = import.meta.env.VITE_URL;
 
 function App() {
   const storedToken = localStorage.getItem("token");
@@ -207,6 +207,7 @@ function App() {
           }
         />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/purchase/:id" element={<DetailPurchase />} />
       </Routes>
       <Footer />
     </div>

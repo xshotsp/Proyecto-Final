@@ -1,12 +1,21 @@
 // UsersBanTable.jsx
-import React from "react";
-import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllUsersAction } from "../../redux/actions/actions";
 
 const UsersBanTable = () => {
-  const usersData = useSelector((state) => state.users);
+  const allUsers = useSelector((state) => state.allUsers);
+  const dispatch = useDispatch()
 
   // Filtra solo los usuarios bloqueados
-  const blockedUsers = usersData.filter((user) => !user.active);
+  const blockedUsers = allUsers.filter((user) => user.active === false);
+
+  console.log(blockedUsers)
+
+  useEffect(() => {
+    dispatch(getAllUsersAction())
+  }, [])
+  
 
   return (
     <div>

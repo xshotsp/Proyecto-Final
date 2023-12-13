@@ -6,9 +6,8 @@ import { useNavigate } from "react-router-dom";
 import LabelAndInput from "../labelAndInput/LabelAndInput";
 import s from "./create.module.css";
 
-//const URL = 'https://quirkz.up.railway.app'
+const URL = import.meta.env.VITE_URL
 
-const URL = "http://localhost:3001";
 
 const CreateUserForm = () => {
 

@@ -12,8 +12,7 @@ import axios from "axios";
 import s from "./EditProduct.module.css"
 import Swal from 'sweetalert2';
 
-//const URL="https://quirkz.up.railway.app"
-const URL = "http://localhost:3001"
+const URL=import.meta.env.VITE_URL
 
 
 

@@ -1,12 +1,18 @@
 /* Dashboard.module.css */
+:root {
+  --main-color: #fff;
+  --second-color: #696d7d;
+  --dark-mode: #e58c8a;
+}
 .container {
   display: flex;
   width: 80%;
-  border: 1px solid black;
+  border: 3px solid var(--second-color);
   height: 70vh;
   margin: 30px auto;
   overflow: hidden;
   margin: 40px auto;
+  border-radius: 40px;
 }
 
 .column {
@@ -16,7 +22,7 @@
   justify-content: space-around;
   width: 200px;
   height: 100%;
-  background-color: aquamarine;
+  background-color: var(--second-color);
   overflow-y: auto; 
 }
 
@@ -25,4 +31,7 @@
   overflow: auto; 
 }
 
+.activo {
+  background-color: transparent;
+}
 

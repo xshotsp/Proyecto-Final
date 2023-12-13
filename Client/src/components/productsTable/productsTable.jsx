@@ -1,27 +1,24 @@
 // ProductsTable.jsx
-import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { GET_ALL_PRODUCTS } from "../../redux/actions/actionTypes";
+import { getAllProducts } from "../../redux/actions/actions";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBan, faCheck, faEdit } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
+import s from "./productsTable.module.css"
+
+const URL = import.meta.env.VITE_URL;
 
 const ProductsTable = () => {
   const dispatch = useDispatch();
-  const productsData = useSelector((state) => state.products);
-  const [productData, setProductData] = useState([]);
+  const allproducts = useSelector((state) => state.allproducts);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get("https://quirkz.up.railway.app/product/all-products");
-        dispatch({ type: GET_ALL_PRODUCTS, payload: response.data });
-        setProductData(response.data);
-      } catch (error) {
-        console.error("Error getting products:", error.message);
-      }
-    };
 
-    fetchData();
-  }, [dispatch]);
+  const updateHandler = async (id) => {
+    await axios.put(`${URL}/product/restore/${id}`);
+    dispatch(getAllProducts())
+  };
+
 
   return (
     <div>
@@ -36,12 +33,22 @@ const ProductsTable = () => {
           </tr>
         </thead>
         <tbody>
-          {productData.map((product) => (
-            <tr key={product.id}>
+          {allproducts.map((product) => (
+            <tr key={product.id} className={!product.active && s.disabled}>
               <td>{product.id}</td>
               <td>{product.name}</td>
               <td>{product.price}</td>
               <td>{product.quantity}</td>
+              <td>
+                <Link to={`/editproduct/${product.id}`}>
+                  <FontAwesomeIcon icon={faEdit} />
+                </Link>
+              </td>
+              <td>
+                <button onClick={() => updateHandler(product.id)}>
+                  <FontAwesomeIcon icon={product.active ? faBan: faCheck} />
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>
