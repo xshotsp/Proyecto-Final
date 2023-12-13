@@ -11,8 +11,8 @@ import { setAccess, userCart, userLoggedIn } from "../../redux/actions/actions";
 import Swal from "sweetalert2";
 import validate from "./validate";
 
-const URL = "https://quirkz.up.railway.app";
-//const URL = "http://localhost:3001";
+//const URL = "https://quirkz.up.railway.app";
+const URL = "http://localhost:3001";
 
 const Login = ({ cartItems, setToken }) => {
   const [loginInput, setLoginInput] = useState({

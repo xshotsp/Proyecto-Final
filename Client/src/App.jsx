@@ -28,8 +28,8 @@ import Swal from "sweetalert2";
 import Dashboard from "./components/Dashboard/Dashboard";
 import axios from "axios";
 
-//const URL = "http://localhost:3001";
-const URL = "https://quirkz.up.railway.app"
+const URL = "http://localhost:3001";
+//const URL = "https://quirkz.up.railway.app"
 
 function App() {
   const storedToken = localStorage.getItem("token");
@@ -61,7 +61,7 @@ function App() {
         Swal.fire({
           icon: "success",
           title: "",
-          text: "sumado al carrito ",
+          text: "Added to shopping cart.",
           showConfirmButton: false,
           timer: 1500,
         });
@@ -84,7 +84,7 @@ function App() {
         Swal.fire({
           icon: "success",
           title: "",
-          text: "sumado al carrito ",
+          text: "Added to shopping cart.",
           showConfirmButton: false,
           timer: 1500,
         });
@@ -125,7 +125,7 @@ function App() {
     Swal.fire({
       icon: "success",
       title: "",
-      text: "Carrito Borrado.",
+      text: "Deleted shopping cart.",
       showConfirmButton: false,
       timer: 1500,
     });

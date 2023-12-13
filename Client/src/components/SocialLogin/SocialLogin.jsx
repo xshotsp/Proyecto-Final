@@ -9,7 +9,8 @@ import { useDispatch } from "react-redux";
 import { userCart, userLoggedIn } from "../../redux/actions/actions";
 import Swal from "sweetalert2";
 
-const URL = "https://quirkz.up.railway.app";
+const URL = "http://localhost:3001"
+//const URL = "https://quirkz.up.railway.app";
 
 const SocialLogin = ({ cartItems }) => {
   const dispatch = useDispatch();

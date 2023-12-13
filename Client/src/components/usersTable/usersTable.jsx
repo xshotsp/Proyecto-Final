@@ -7,6 +7,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBan } from '@fortawesome/free-solid-svg-icons';
 // import { blockUserAction } from "../../redux/actions/actions"; // Importa la nueva acción
 
+const URL = "http://localhost:3001"
+//const URL = "https://quirkz.up.railway.app";
+
 const UsersTable = () => {
   const dispatch = useDispatch();
   const usersData = useSelector((state) => state.users);
