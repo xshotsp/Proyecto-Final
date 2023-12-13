@@ -28,6 +28,7 @@ import Swal from "sweetalert2";
 import Dashboard from "./components/Dashboard/Dashboard";
 import axios from "axios";
 import DetailPurchase from "./components/detailPurchase/DetailPurchase";
+import CreateUserDashboard from "./components/createUserDashboard/CreateUserDashboard";
 
 const URL = import.meta.env.VITE_URL;
 
@@ -184,6 +185,7 @@ function App() {
           element={<Login cartItems={cartItems} setToken={setToken} />}
         />
         <Route path="/createuser" element={<CreateUserForm />} />
+        <Route path="/createdashboard" element={<CreateUserDashboard/>} />
         <Route path="/editperfil/:email" element={<EditPerfilForm />} />
         <Route path="/editproduct/:id" element={<EditProductForm />} />
         <Route
