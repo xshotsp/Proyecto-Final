@@ -55,8 +55,7 @@ function App() {
           quantity: 1,
         },
       };
-      const response = await axios.post(`${URL}/cart`, objProduct);
-      console.log(response);
+      await axios.post(`${URL}/cart`, objProduct);
       if (pathname === "/" || pathname === `/product/${product.id}`) {
         Swal.fire({
           icon: "success",
@@ -134,13 +133,11 @@ function App() {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user !== null) {
-        console.log(user);
         dispatch(setAccess(true));
         dispatch(userLoggedIn(user.email));
-        dispatch(userCart(user.email))
+        dispatch(userCart(user.email));
       }
     });
-
 
     return () => {
       unsubscribe();
@@ -154,7 +151,7 @@ function App() {
       dispatch(userLoggedIn(decodedToken.email));
       dispatch(userCart(decodedToken.email));
     }
-  }, [pathname,cartItems]);
+  }, [pathname, cartItems]);
   return (
     <div className={darkMode ? "div__darkMode" : ""}>
       <NavBar

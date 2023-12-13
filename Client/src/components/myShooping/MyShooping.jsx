@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { getPurchaseByUser } from '../../redux/actions/actions';
+import { v4 as uuidv4 } from 'uuid';
 
 
 const MyShopping = () => {
@@ -41,7 +42,7 @@ const MyShopping = () => {
 
       <div>
         {myItems.map((product) => (
-          <div key={product.id} className={s["purchase-items-list"]}>
+          <div key={uuidv4()} className={s["purchase-items-list"]}>
 
             <div className={s["purchase-items-date"]}>
             <h3>  
