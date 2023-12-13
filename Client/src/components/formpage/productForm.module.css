@@ -158,3 +158,8 @@
   box-sizing: border-box;
 
 }
+
+.product-form .close {
+  margin-left: 340px;
+  cursor: pointer;
+}
