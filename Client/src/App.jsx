@@ -27,6 +27,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import Swal from "sweetalert2";
 import Dashboard from "./components/Dashboard/Dashboard";
 import axios from "axios";
+import DetailPurchase from "./components/detailPurchase/DetailPurchase";
 
 const URL = import.meta.env.VITE_URL;
 
@@ -206,6 +207,7 @@ function App() {
           }
         />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/purchase/:id" element={<DetailPurchase />} />
       </Routes>
       <Footer />
     </div>

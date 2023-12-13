@@ -11,8 +11,7 @@ import { setAccess, userCart, userLoggedIn } from "../../redux/actions/actions";
 import Swal from "sweetalert2";
 import validate from "./validate";
 
-const URL = import.meta.env.VITE_URL
-
+const URL = import.meta.env.VITE_URL;
 
 const Login = ({ cartItems, setToken }) => {
   const [loginInput, setLoginInput] = useState({
@@ -57,18 +56,18 @@ const Login = ({ cartItems, setToken }) => {
   };
 
   const handleSubmit = async (e) => {
-    
     e.preventDefault();
     try {
       const response = await axios(`${URL}/user/${loginInput.usuario}`);
+      if (!response.data) {
+        mostrarAlerta("error", "The user is not registered.");
+        return;
+      }
       if (response.data.provider === "google") {
-        Swal.fire({
-          icon: "error",
-          title: "",
-          text: "The email is already associated with a Google account.",
-          showConfirmButton: false,
-          timer: 1500,
-        });
+        mostrarAlerta(
+          "error",
+          "The email is already associated with a Google account."
+        );
         return;
       }
       const { data } = await axios(
@@ -82,14 +81,7 @@ const Login = ({ cartItems, setToken }) => {
         products: productsId,
       };
       await axios.post(`${URL}/cart`, itemsArr);
-
-      Swal.fire({
-        icon: "success",
-        title: "",
-        text: "Updated shopping cart.",
-        showConfirmButton: false,
-        timer: 1500,
-      });
+      mostrarAlerta("success", "Updated shopping cart.");
 
       dispatch(setAccess(data.access));
       dispatch(userLoggedIn(loginInput.usuario));
@@ -102,7 +94,6 @@ const Login = ({ cartItems, setToken }) => {
   useEffect(() => {
     if (access) navigate("/");
   }, [access]);
-
 
   return (
     <section className={s["login-container"]}>
@@ -120,7 +111,7 @@ const Login = ({ cartItems, setToken }) => {
             onChange={formHandler}
           />
           <div className={s.error__container}>
-          {errors.usuario && <p className={s.error}>{errors.usuario}</p>}
+            {errors.usuario && <p className={s.error}>{errors.usuario}</p>}
           </div>
         </label>
         <br />
@@ -133,7 +124,9 @@ const Login = ({ cartItems, setToken }) => {
             onChange={formHandler}
           />
           <div className={s.error__container}>
-          {errors.contraseña && <p className={s.error}>{errors.contraseña}</p>}
+            {errors.contraseña && (
+              <p className={s.error}>{errors.contraseña}</p>
+            )}
           </div>
         </label>
         <br />
