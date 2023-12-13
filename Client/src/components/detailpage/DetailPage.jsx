@@ -29,7 +29,7 @@ const DetailPage = ({ login, handleAddProduct }) => {
   if (product.brands && product.brands.length > 0) {
     var brandName = product.brands[0].name; 
   } else {
-    brandName = 'Cargando...'
+    brandName = 'Loading...'
   }
 
   const [showHeart, setShowHeart] = useState(true);
