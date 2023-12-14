@@ -18,7 +18,7 @@ const Review = ({ score, onRatingChange, onReviewChange}) => {
 
   return (
     <div>
-      Calificación:{' '}
+      Rating:{' '}
       {[...Array(5)].map((_, index) => (
         <span
           key={index}
