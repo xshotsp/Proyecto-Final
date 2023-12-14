@@ -21,13 +21,13 @@ const Comentarios = ({ onCommentChange, shouldClearCommentyReview }) => {
       {isLoggedIn ? (
         <div>
           <textarea
-            placeholder="Escribe tu comentario..."
+            placeholder="Write a comment..."
             value={comment}
             onChange={handleCommentChange}
           />
         </div>
       ) : (
-        <p>Debes iniciar sesión para dejar un comentario.</p>
+        <p>You must log in to leave a comment.</p>
       )}
     </div>
   );

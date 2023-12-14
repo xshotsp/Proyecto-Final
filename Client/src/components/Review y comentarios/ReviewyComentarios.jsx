@@ -42,7 +42,7 @@ const ReviewyComentarios = () => {
     console.log('hasPurchased:', hasPurchased);
   
     if (!isLoggedIn || !hasPurchased) {
-      alertMessage = 'Debes iniciar sesión y haber comprado el producto para dejar una revisión.';
+      alertMessage = 'You must be logged in and have purchased the product to leave a review..';
     } else {
       const userReviewed = ratingsAndComments.some(review => review.userId === 'uniqueUserId');
   
@@ -52,12 +52,12 @@ const ReviewyComentarios = () => {
   
       switch (true) {
         case userRating <= 0 || userComment.trim() === '':
-          alertMessage = 'Completa la calificación y el comentario antes de enviar.';
+          alertMessage = 'Please complete the rating and comment before submitting';
           break;
         default:
           const newReview = { rating: userRating, comment: userComment, userId: 'uniqueUserId' };
           setRatingsAndComments((prevReviews) => [...prevReviews, newReview]);
-          console.log('Nueva revisión agregada:', newReview);
+          console.log('New review added', newReview);
 
           localStorage.setItem('ratingsAndComments', JSON.stringify([...ratingsAndComments, newReview]));
       }
@@ -106,10 +106,10 @@ const ReviewyComentarios = () => {
 
       {/* Mostrar calficaciones y comentarios existentes del producto */}
       <section>
-        <h2>Calification and Reviews</h2>
+        <h2>Comments and Reviews</h2>
         {ratingsAndComments.map((review, index) => (
           <div key={index}>
-             <p>User:{review.userId}</p>
+             {/* <p>Email:{review.email}</p> */}
             <p>Rating: {review.rating}</p>
             <p>Review: {review.comment}</p>
           </div>
