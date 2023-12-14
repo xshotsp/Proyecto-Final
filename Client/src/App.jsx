@@ -27,6 +27,8 @@ import { onAuthStateChanged } from "firebase/auth";
 import Swal from "sweetalert2";
 import Dashboard from "./components/Dashboard/Dashboard";
 import axios from "axios";
+import DetailPurchase from "./components/detailPurchase/DetailPurchase";
+import CreateUserDashboard from "./components/createUserDashboard/CreateUserDashboard";
 
 const URL = import.meta.env.VITE_URL;
 //const URL = "http://localhost:3001";
@@ -62,7 +64,7 @@ function App() {
         Swal.fire({
           icon: "success",
           title: "",
-          text: "sumado al carrito ",
+          text: "Added to the shopping cart.",
           showConfirmButton: false,
           timer: 1500,
         });
@@ -85,7 +87,7 @@ function App() {
         Swal.fire({
           icon: "success",
           title: "",
-          text: "sumado al carrito ",
+          text: "Added to the shopping cart.",
           showConfirmButton: false,
           timer: 1500,
         });
@@ -126,7 +128,7 @@ function App() {
     Swal.fire({
       icon: "success",
       title: "",
-      text: "Carrito Borrado.",
+      text: "Deleted shopping cart.",
       showConfirmButton: false,
       timer: 1500,
     });
