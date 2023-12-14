@@ -12,7 +12,7 @@ import {
   GET_ALL_SELECTS,
   CLEAN_PRODUCT_DETAIL,
   GET_BRANDS,
-  GET_FILTROS,
+  GET_FILTERS,
   GET_ALL_PRODUCTS,
   TOGGLE_DARK_MODE,
   GET_ALL_USERS,
@@ -23,14 +23,15 @@ import {
   GET_PURCHASE_USER,
   GET_USER_CART,
   CLEAN_USER_CART,
+  GET_ALL_PURCHASES,
 } from "./actionTypes";
 
-const URL = "https://quirkz.up.railway.app"; 
-// const URL = "http://localhost:3001";
+  const URL = import.meta.env.VITE_URL
+
+  // const URL = "https://quirkz.up.railway.app"
   
 
 
-  
 
 
 
@@ -38,6 +39,7 @@ export function getProducts() {
   return async function (dispatch) {
     try {
       const response = await axios.get(`${URL}/product/`);
+      
       dispatch({
         type: GET_PRODUCTS,
         payload: response.data,
@@ -54,10 +56,13 @@ export const getAllProducts = () => {
     try {
       const productsname = (await axios.get(`${URL}/product/all-products`))
         .data;
+
+        
       return dispatch({
         type: GET_ALL_PRODUCTS,
         payload: productsname,
       });
+      
     } catch (error) {
       throw error.response.data;
     }
@@ -132,7 +137,7 @@ export const fetchProductById = (id) => async (dispatch) => {
         `Error al obtener el producto. Código de estado: ${response.status}`
       );
     }
-
+    console.log(response)
     const productDetails = await response.json();
 
     dispatch({ type: FETCH_PRODUCT_SUCCESS, payload: productDetails });
@@ -169,7 +174,7 @@ export const getFilters = (filtros) => {
       const response = await axios.get(url);
 
       dispatch({
-        type: GET_FILTROS,
+        type: GET_FILTERS,
         payload: response.data,
       });
     } catch (error) {
@@ -239,7 +244,6 @@ export function finishPurchase(objectPago) {
     try {
       const response = await axios.post(`${URL}/purchase`, objectPago);
       window.location.href = response.data.init_point;
-
       dispatch({
         type: FINISH_PURCHASE,
         payload: response.data
@@ -252,7 +256,6 @@ export function finishPurchase(objectPago) {
 
 
 export const getPurchaseByUser = (email) => {
-  console.log(email)
   return async (dispatch) => {
     try {
       
@@ -298,3 +301,18 @@ export const cleanUserCart =()=>{
   }
 }
 
+export const getAllPurchases = () => {
+  return async (dispatch) => {
+    try {
+      const purchases = (await axios.get(`${URL}/purchases/all`)).data;
+
+      console.log(purchases)
+      return dispatch({
+        type: GET_ALL_PURCHASES,
+        payload: purchases,
+      });
+    } catch (error) {
+      throw error.response.data;
+    }
+  };
+};

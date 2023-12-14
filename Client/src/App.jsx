@@ -14,6 +14,7 @@ import MyShopping from "./components/myShooping/MyShooping";
 import SuccessPayment from "./components/purchase/Purchase";
 import { useSelector, useDispatch } from "react-redux";
 import {
+  getAllProducts,
   setAccess,
   toggleDarkMode,
   userCart,
@@ -27,26 +28,47 @@ import { onAuthStateChanged } from "firebase/auth";
 import Swal from "sweetalert2";
 import Dashboard from "./components/Dashboard/Dashboard";
 import axios from "axios";
+import DetailPurchase from "./components/detailPurchase/DetailPurchase";
+import CreateUserDashboard from "./components/createUserDashboard/CreateUserDashboard";
 
-const URL = "http://localhost:3001";
+const URL = import.meta.env.VITE_URL;
 
 function App() {
+  const storedToken = localStorage.getItem("token");
   const darkMode = useSelector((state) => state.darkMode);
   const access = useSelector((state) => state.access);
+  const allProducts = useSelector((state) => state.allproducts);
   const activeUser = useSelector((state) => state.activeUser);
   const cartFromLocalStorage = JSON.parse(localStorage.getItem("cart") || "[]");
   const [cartItems, setCartItems] = useState(cartFromLocalStorage);
+  const allUserProducts = useSelector((state) => state.userCart);
   const dispatch = useDispatch();
   const { pathname } = useLocation();
-  console.log(pathname)
-
-
-  useEffect(() => {
-    if (!access)localStorage.setItem("cart", JSON.stringify(cartItems));
-
-  }, [cartItems]);
+  const [token, setToken] = useState(storedToken || "");
 
   const handleAddProduct = async (product) => {
+    dispatch(getAllProducts());
+    dispatch(userCart(activeUser.email));
+    const productStore = allProducts.find((p) => p.id === product.id);
+    const stockBoolean = (await productStore.quantity) < product.quantity;
+    const userCartItem =
+      access && allProducts.length
+        ? allUserProducts.find((p) => p.id === product.id)
+        : cartItems.find((p) => p.id === product.id);
+
+    if (
+      stockBoolean ||
+      (userCartItem && userCartItem.quantity >= productStore.quantity)
+    ) {
+      return Swal.fire({
+        icon: "error",
+        title: "",
+        text: "Stock limit.",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
+
     if (access) {
       const objProduct = {
         email: activeUser.email,
@@ -55,14 +77,12 @@ function App() {
           quantity: 1,
         },
       };
-
-      const response = await axios.post(`${URL}/cart`, objProduct);
-      console.log(response)
+      await axios.post(`${URL}/cart`, objProduct);
       if (pathname === "/" || pathname === `/product/${product.id}`) {
         Swal.fire({
           icon: "success",
           title: "",
-          text: "sumado al carrito ",
+          text: "Added to cart.",
           showConfirmButton: false,
           timer: 1500,
         });
@@ -81,11 +101,11 @@ function App() {
       } else {
         setCartItems([...cartItems, { ...product, quantity: 1 }]);
       }
-      if (pathname === "/" || "/product/:id") {
+      if (pathname === "/" || pathname === `/product/${product.id}`) {
         Swal.fire({
           icon: "success",
           title: "",
-          text: "sumado al carrito ",
+          text: "Added to cart.",
           showConfirmButton: false,
           timer: 1500,
         });
@@ -119,14 +139,19 @@ function App() {
 
   const handleClearCart = async () => {
     if (access) {
-      await axios.delete(`${URL}/cart/${activeUser.email}`);
+      const objDelete = {
+        email: activeUser.email,
+      };
+      await axios.delete(`${URL}/cart`, {
+        data: objDelete,
+      });
       dispatch(userCart(activeUser.email));
     }
     setCartItems([]);
     Swal.fire({
       icon: "success",
       title: "",
-      text: "Carrito Borrado.",
+      text: "Cart Items Deleted.",
       showConfirmButton: false,
       timer: 1500,
     });
@@ -137,16 +162,32 @@ function App() {
       if (user !== null) {
         dispatch(setAccess(true));
         dispatch(userLoggedIn(user.email));
-        dispatch(userCart(user.email))
+        dispatch(userCart(user.email));
       }
     });
-
 
     return () => {
       unsubscribe();
     };
   }, []);
 
+  useEffect(() => {
+    if (token) {
+      try {
+        const decodedToken = JSON.parse(atob(token.split(".")[1]));
+        dispatch(setAccess(true));
+        dispatch(userLoggedIn(decodedToken.email));
+        dispatch(userCart(decodedToken.email));
+      } catch (error) {
+        console.error("Error decoding token:", error);
+        // Manejar el error de decodificación aquí, por ejemplo, redirigir al usuario o realizar otra acción apropiada.
+      }
+    }
+  }, [pathname, cartItems]);
+
+  useEffect(() => {
+    if (!access) localStorage.setItem("cart", JSON.stringify(cartItems));
+  }, [cartItems]);
 
   return (
     <div className={darkMode ? "div__darkMode" : ""}>
@@ -154,6 +195,8 @@ function App() {
         darkMode={darkMode}
         setDarkMode={() => dispatch(toggleDarkMode())}
         cartItems={cartItems}
+        setCartItems={setCartItems}
+        setToken={setToken}
       />
       <Routes>
         <Route
@@ -167,16 +210,25 @@ function App() {
         />
         <Route
           path="/product/:id"
-          element={<DetailPage access={access} currentUserId='1' handleAddProduct={handleAddProduct} />}
+          element={
+            <DetailPage login={Login} handleAddProduct={handleAddProduct} />
+          }
         />
         <Route path="/contacto" element={<Contact />} />
         <Route path="/form" element={<FormPage />} />
-        <Route path="/login" element={<Login cartItems={cartItems} />} />
+        <Route
+          path="/login"
+          element={<Login cartItems={cartItems} setToken={setToken} />}
+        />
         <Route path="/createuser" element={<CreateUserForm />} />
-        <Route path="/editperfil/:email" element= {<EditPerfilForm />} />
-        <Route path="/editproduct/:id" element= {<EditProductForm />} />
-        <Route path="/success" element= {<SuccessPayment cartItems={cartItems} />} />
-        <Route path="/shopping/:email" element = {<MyShopping />} />
+        <Route path="/createdashboard" element={<CreateUserDashboard />} />
+        <Route path="/editperfil/:email" element={<EditPerfilForm />} />
+        <Route path="/editproduct/:id" element={<EditProductForm />} />
+        <Route
+          path="/success"
+          element={<SuccessPayment cartItems={cartItems} />}
+        />
+        <Route path="/shopping/:email" element={<MyShopping />} />
         <Route path="*" element={<Error404 />} />
         <Route
           path="/cart"
@@ -190,6 +242,7 @@ function App() {
           }
         />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/purchase/:id" element={<DetailPurchase />} />
       </Routes>
       <Footer />
     </div>

@@ -61,7 +61,7 @@ const SearchBar = () => {
         onKeyDown={handleKeyPress}
       />
       <button onClick={handleSearch} className={styles.search}>
-      <Link to='/'>
+      <Link to='/' className={styles.search} >
         <FontAwesomeIcon icon={faSearch} />
       </Link>
       </button>

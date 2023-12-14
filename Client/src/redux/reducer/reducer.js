@@ -7,7 +7,7 @@ import {
   FETCH_PRODUCT_FAILURE,
   GET_PRODUCT_NAME,
   GET_ALL_SELECTS,
-  GET_FILTROS,
+  GET_FILTERS,
   GET_BRANDS,
   CLEAN_PRODUCT_DETAIL,
   TOGGLE_DARK_MODE,
@@ -19,6 +19,7 @@ import {
   GET_PURCHASE_USER,
   GET_USER_CART,
   CLEAN_USER_CART,
+  GET_ALL_PURCHASES,
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -35,6 +36,7 @@ const initialState = {
   purchase: {},
   purchaseByUser: [],
   userCart: [],
+  allPurchases:[]
 };
 
 export default function reducer(state = initialState, action) {
@@ -104,7 +106,7 @@ export default function reducer(state = initialState, action) {
         selectFilter: action.payload,
       };
 
-    case GET_FILTROS:
+    case GET_FILTERS:
       return {
         ...state,
         allproducts: action.payload,
@@ -164,6 +166,12 @@ export default function reducer(state = initialState, action) {
             purchaseByUser: action.payload
           }
     }
+    case GET_ALL_PURCHASES: {
+      return {
+        ...state,
+        allPurchases: action.payload
+      }
+}
 
     default:
       return state;

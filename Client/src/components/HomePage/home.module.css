@@ -35,7 +35,11 @@
     font-size: 14px;
   }
 
- 
+ .remove{
+  color: #ffffff;
+  background-color: #E58C8A;
+
+ }
   
   .reset__button {
     padding: 0 auto;
@@ -54,7 +58,7 @@
   }
   
   .buttonReset:hover {
-    background-color: #ff4d4d;
+    background-color: #f39c12;
   }
   
   .filtersList {

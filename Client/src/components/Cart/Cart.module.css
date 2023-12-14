@@ -126,3 +126,10 @@
     background-color: #ccc;
     cursor: not-allowed;
   }
+
+  .stock{
+    width: 50px;
+    text-align: center;
+    border: 1px solid black;
+    border-radius: 10px;
+  }

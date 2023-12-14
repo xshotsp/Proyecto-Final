@@ -20,14 +20,18 @@
 }
 
 .search {
+  
   color: #fff;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  text-decoration: none;
+  font-size: 12px;
+  padding: 10px;
 }
 
 .search:hover {
-  background-color: #2980b9;
+  background-color: #ffff;
 }
 
 .darkMode {

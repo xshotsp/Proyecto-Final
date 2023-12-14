@@ -9,7 +9,7 @@ export const CLEAN_PRODUCT_DETAIL = "CLEAN_PRODUCT_DETAIL";
 export const GET_ALL_SELECTS = 'GET_ALL_SELECTS';
 export const GET_PRODUCTS = "GET_PRODUCTS";
 export const GET_BRANDS = "GET_BRANDS";
-export const GET_FILTROS = "GET_FILTROS";
+export const GET_FILTERS = "GET_FILTERS";
 export const TOGGLE_DARK_MODE = "TOGGLE_DARK_MODE";
 export const GET_ALL_USERS = "GET_ALL_USERS";
 export const SET_ACCESS = "SET_ACCESS"
@@ -19,5 +19,5 @@ export const FINISH_PURCHASE = 'FINISH_PURCHASE'
 export const GET_PURCHASE_USER = 'GET_PURCHASE_USER'
 export const GET_USER_CART = 'GET_USER_CART'
 export const CLEAN_USER_CART = 'CLEAN_USER_CART'
-
+export const GET_ALL_PURCHASES = "GET_ALL_PURCHASES"
 
