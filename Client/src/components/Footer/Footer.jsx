@@ -7,22 +7,49 @@ const Footer = () => {
     <div className={s.container}>
         <u>QUIRKZ!</u>
       <ul className={s.links}>
-        <li>Company</li>
-        <li>Products</li>
-        <li>About us</li>
-        <li>Officce</li>
-        <li>Advertise: consultas@quirkz.com.ar</li>
-      
-      </ul>
-      <div className={s.socialIcons}>
-        
+        <div>
+        <h2>Company</h2>
+        <hr />
+        <br />
+        <li>About Us</li>
+        <br />
+        <li>Contacts</li>
+        <br />
+        <li>Stores</li>
+        </div>  
+        <div>
+        <h2>Support</h2>
+        <hr />
+        <br />
+        <li>Help</li>
+        <br />
+        <li>Delivery</li>
+        <br />
+        <li>Refunds</li>
+        <br />
+        <li>Returns</li>
+        <br />
+        <div>
+        </div>
+        </div>
+        <ul>
+          <u>
+            
+        <h2>Contacts</h2>
+          </u>
+
+        <p>+4 2321 5432</p>
+        <br />
         <div className={s.iconContainer}>
            <a><img src={FB} alt='facebook logo' /></a>
-        </div>
-        <div className={s.iconContainer}>
         <a><img src={INS} alt='facebook logo' /></a>
         </div>
-      </div>
+        <div className={s.iconContainer}>
+        <div className={s.socialIcons}>
+        </div>
+        </div>
+        </ul>
+      </ul>
       <div className={s.copyright}>
         <hr />
         <p>Copyright © 2023 - All rights reserved</p>

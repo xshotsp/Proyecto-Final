@@ -16,8 +16,16 @@ const DetailPage = ({ login, handleAddProduct }) => {
   const { id } = useParams();
   const allProducts = useSelector((state) => state.allproducts);
   const product = useSelector((state) => state.productDetails);
-  console.log(product);
   const sliderRef = useRef(null);
+  const addImg = product.additionalImage && Array.isArray(product.additionalImage) && product.additionalImage[0] && 
+  (product.additionalImage[0].startsWith('http') || product.additionalImage[0].startsWith('https'))
+  ? product.additionalImage.map((image, index) => (
+    <img key={index} src={image} alt={`Product image N°${index + 1}`} />
+  ))
+  : product.additionalImage && Array.isArray(product.additionalImage) && product.additionalImage.map((image, index) => (
+    <img key={index} src={`http://${image}`} alt={`Product image N°${index + 1}`} />
+  ));
+
   const mixedProducts = allProducts
   .filter(prod => prod.id !== product.id)
   .toSorted((a, b) => a - b)
@@ -26,7 +34,7 @@ const DetailPage = ({ login, handleAddProduct }) => {
   if (product.brands && product.brands.length > 0) {
     var brandName = product.brands[0].name; 
   } else {
-    brandName = 'Cargando...'
+    brandName = 'Loading...'
   }
 
   const [showHeart, setShowHeart] = useState(true);
@@ -82,7 +90,6 @@ const DetailPage = ({ login, handleAddProduct }) => {
     
         return <p className={s.error}>Loading...</p>;
   }
-
   return (
     <div className={s.productDetailsContainer}>
       <div className={s.backBtn}>
@@ -96,7 +103,9 @@ const DetailPage = ({ login, handleAddProduct }) => {
       <img src={product.image} 
       alt="product" 
       className={s.productImage} />
-      
+      <div>
+      {addImg}
+      </div>
       <div className={s.shopBtn}>
         <h2>
         <button className={s.addBtn} 
@@ -109,7 +118,7 @@ const DetailPage = ({ login, handleAddProduct }) => {
         <br />
         <span>
           <p>
-            <FontAwesomeIcon icon={faTruck} /> Envios gratis en tus ordenes a partir de $3000
+            <FontAwesomeIcon icon={faTruck} /> Free delivery on orders over $4000
           </p>
         </span>
         </h2>
