@@ -1,14 +1,11 @@
 /* eslint-disable react/prop-types */
-import s from "./Cart.module.css";
-import { useNavigate } from "react-router-dom";
-//import { useState } from 'react';
-import Swal from "sweetalert2";
-//import axios from 'axios';
-import { useSelector, useDispatch } from "react-redux";
-import { finishPurchase } from "../../redux/actions/actions";
-import { useEffect } from "react";
-
-//const URL = import.meta.env.VITE_URL
+// Cart.js
+import React from 'react';
+import s from './Cart.module.css';
+import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
+import { useSelector, useDispatch } from 'react-redux';
+import { finishPurchase } from '../../redux/actions/actions';
 
 const Cart = ({
   cartItems,
@@ -19,6 +16,7 @@ const Cart = ({
   const access = useSelector((state) => state.access);
   const userCart = useSelector((state) => state.userCart);
   const allproducts = useSelector((state) => state.allproducts);
+  const darkMode = useSelector((state) => state.darkMode);
 
   const totalPrice = (access ? userCart : cartItems).reduce(
     (price, item) => price + item.quantity * item.price,
@@ -31,10 +29,9 @@ const Cart = ({
   const navigate = useNavigate();
 
   const mercadoPago = async () => {
-    console.log("entre al finishPurchase");
     if (access === false) {
       const Toast = Swal.mixin({
-        toast: "true",
+        toast: true,
         showConfirmButton: false,
         timer: 3000,
         timerProgressBar: true,
@@ -44,89 +41,87 @@ const Cart = ({
         },
       });
       Toast.fire({
-        icon: "error",
-        title: "You must first log in",
+        icon: 'error',
+        title: 'You must first log in',
       });
 
-      navigate("/login");
+      navigate('/login');
     } else {
-      // const response = await axios.post(`${URL}/purchase`, cartItems);
-      // window.location.href = response.data.init_point;
       dispatch(finishPurchase(userCart));
     }
   };
 
-  /*   useEffect(() => {}, [userCart,access]); */
-
   return (
-    <div className={s["cart-items"]}>
-      <h2 className={s["cart-items-header"]}>
+    <div className={`${s.container} ${darkMode && s.darkMode}`}>
+      <h2 className={s['cart-items-header']}>
         Products in the shopping cart: {userCart?.length}
       </h2>
-      <div className={s["clear-cart"]}>
+      <div className={s['clear-cart']}>
         {(access ? userCart.length : cartItems.length) >= 1 && (
-          <button className={s["clear-cart-button"]} onClick={handleClearCart}>
+          <button className={s['clear-cart-button']} onClick={handleClearCart}>
             Clear shopping cart
           </button>
         )}
       </div>
 
       {(access ? userCart.length : cartItems.length) === 0 && (
-        <div className={s["cart-items-empty"]}>Empty shopping cart! ?? </div>
+        <div className={s['cart-items-empty']}>Empty shopping cart! ?? </div>
       )}
 
       <div>
         {(access ? userCart : cartItems).map((product) => (
-          <div key={product.id} className={s["cart-items-list"]}>
+          <div key={product.id} className={s['cart-item']}>
             <img
-              className={s["cart-items-img"]}
+              className={s['cart-items-img']}
               src={product.image}
               alt={product.name}
             />
-            <br />
-            <div className={s["cart-items-name"]}>
-              <h2>{product.name}</h2>
-            </div>
-            
-            <div className={s["cart-items-function"]}>
-              <button
-                className={s["cart-items-add"]}
-                onClick={() => handleAddProduct(product)}
-              >
-                +
-              </button>
+            <div className={s['cart-item-details']}>
+              <div className={s['cart-item-name']}>
+                <h2>{product.name}</h2>
+              </div>
+              <div className={s['cart-item-function']}>
+                <button
+                  className={s['cart-item-function-button']}
+                  onClick={() => handleAddProduct(product)}
+                >
+                  +
+                </button>
+                <button
+                  className={s['cart-item-function-button']}
+                  onClick={() => handleRemoveProduct(product)}
+                >
+                  -
+                </button>
+              </div>
 
-              <button
-                className={s["cart-items-remove"]}
-                onClick={() => handleRemoveProduct(product)}
-              >
-                -
-              </button>
-            </div>
- 
-            <div className={s["cart-items-price"]}>
-              {product.quantity} * ${product.price}
-            </div>
-            <div className={s["stock"]}>
-              {allproducts.map((item) => {
-                if (item.id === product.id) {
-                  return <div key={item.id}>Stock: {item.quantity}</div>;
-                }
-                return null;
-              })}
+              <div className={s['cart-item-price']}>
+                {product.quantity} * ${product.price}
+              </div>
+              <div className={s['stock']}>
+                {allproducts.map((item) => {
+                  if (item.id === product.id) {
+                    return <div key={item.id}>Stock: {item.quantity}</div>;
+                  }
+                  return null;
+                })}
+              </div>
             </div>
           </div>
         ))}
       </div>
 
-      <div className={s["cart-items-total-price-name"]}>
+      <div className={s['cart-items-total-price-name']}>
         <br />
-        <div className={s["cart-items-total-price"]}>
+        <div className={s['cart-items-total-price']}>
           <h2> Total price: ${priceToFixed}</h2>
         </div>
-        <div>
+        <div className={s['cart-items-complete-purchase']}>
           <br />
-          <button disabled={priceToFixed ? false : true} onClick={mercadoPago}>
+          <button
+            disabled={priceToFixed ? false : true}
+            onClick={mercadoPago}
+          >
             Complete purchase
           </button>
         </div>
