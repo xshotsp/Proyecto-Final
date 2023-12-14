@@ -1,132 +1,197 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  getReviews,
-  createReview,
-  deleteReview as deleteReviewFromData,
-  updateReview as updateReviewFromData,
-  userLoggedIn,
-} from '../../redux/actions/actions';
-import style from './ReviewyComentarios.module.css';
-import Comentarios from './Comentarios';
-import CommentForm from './CommentForm';
 import Review from './Review';
+import Comentarios from './Comentarios';
+import Response from './Response';
 
-const ReviewyComentarios = ({ access, productoId, currentUserId }) => {
-  const [activeComment, setActiveComment] = useState(null);
+const ReviewyComentarios = ({ login, productoId }) => {
   const [userRating, setUserRating] = useState(0);
-  const dispatch = useDispatch();
+  const [userComment, setUserComment] = useState('');
+  const [ratingsAndComments, setRatingsAndComments] = useState([]);
+  const [clearCommentyReview, setClearCommentyReview] = useState(false);
+  const [hasUserReviewed, setHasUserReviewed] = useState(false);
+  const [userName, setUserName] = useState('');
+  const [responses, setResponses] = useState([]);
+  const [showResponseSection, setShowResponseSection] = useState(false);
 
-  // Obtén las reseñas del estado de Redux
-  const backendComments = useSelector((state) => state.reviews);
-  const activeUser = useSelector((state) => state.activeUser);
 
-  console.log('aqui',currentUserId);
-  console.log('usuario',activeUser);
-  console.log('backendComments:', backendComments);
 
+  console.log('login',login);
   
-  const commentsArray = Object.values(backendComments);
+  const isLoggedIn = login.access;
+  const hasPurchased = true;
 
- const comentariosFiltrados = commentsArray.filter(comentario => comentario.parentId===null);
-
-  console.log('comentarios padre:', comentariosFiltrados);
-  const canComment = access === true;
-
-  const getReplies = (commentId) => {
-    const repliesArray = commentsArray || []; 
-    const replies = repliesArray.filter(({ parentId }) => parentId === commentId);
-    console.log('comentarios hijo:', replies);
-    return replies;
-  };
+  useEffect(() => {
+    if (isLoggedIn) {
+      setUserName(login.email);
+    }
+  }, [isLoggedIn, login.email]);
   
-  // Función para agregar un comentario
-  const addComment = (text, parentId) => {
-    if (canComment) {
-      const parentCommentId = parentId !== undefined ? parentId : null;
 
-      // Utiliza la acción de Redux para crear un comentario
-      dispatch(
-        createReview({
-          text,
-          parentId: parentCommentId,
-          rating: userRating,
-          productoId: parseInt(productoId),
-          username: activeUser.name || activeUser.email || 'anonimo',
-        })
-      ).then(() => {
-        // No necesitas actualizar el estado local, confía en que Redux se encargue
-        setActiveComment(null);
-        setUserRating(0);
-      });
-    } else {
-      alert('Debes estar autenticado y haber comprado el producto para comentar.');
-    }
+  const handleAddResponse = (responseText) => {
+    const newResponse = { text: responseText, userId: userName, productoId: productoId };
+    setResponses((prevResponses) => [...prevResponses, newResponse]);
+    console.log('Nueva respuesta agregada:', newResponse);
+
+    // Actualiza localStorage para incluir la nueva respuesta
+    localStorage.setItem(`responses-${productoId}`, JSON.stringify([...responses, newResponse]));
+    console.log('LocalStorage actualizado para productoId:', productoId);
   };
 
-  // Función para eliminar un comentario
-  const deleteComment = (commentId) => {
-    if (window.confirm('¿Estás seguro de que deseas eliminar este comentario?')) {
-      // Utiliza la acción de Redux para eliminar un comentario
-      dispatch(deleteReviewFromData(commentId));
-    }
+  const handleClearLocalStorage = () => {
+    // Limpiar el local storage para respuestas
+    localStorage.removeItem(`responses-${productoId}`);
+    setResponses([]);
+    console.log('LocalStorage limpiado para respuestas de productoId:', productoId);
+
+    // Limpiar el local storage para comentarios y reseñas
+    localStorage.removeItem(`ratingsAndComments-${productoId}`);
+    setRatingsAndComments([]);
+    console.log('LocalStorage limpiado para comentarios y reseñas de productoId:', productoId);
   };
 
-  // Función para actualizar un comentario
-  const updateComment = (text, commentId) => {
-    // Utiliza la acción de Redux para actualizar un comentario
-    dispatch(updateReviewFromData(text, commentId)).then(() => {
-      setActiveComment(null);
-    });
+  useEffect(() => {
+    const storedReviews = JSON.parse(localStorage.getItem(`ratingsAndComments-${productoId}`)) || [];
+    setRatingsAndComments(storedReviews);
+    console.log('Obtenidas revisiones del LocalStorage para productoId:', productoId);
+    const storedResponses = JSON.parse(localStorage.getItem(`responses-${productoId}`)) || [];
+    setResponses(storedResponses);
+    console.log('Obtenidas respuestas del LocalStorage para productoId:', productoId);
+  }, [productoId]);
+
+  const handleClearCommentyReview = () => {
+    setClearCommentyReview(true);
+    setTimeout(() => {
+      setClearCommentyReview(false);
+      setUserRating(0);
+      setUserComment('');
+      console.log('Comentario y calificación limpiados');
+    }, 100);
   };
 
-  // Función para manejar cambios en la calificación
   const handleRatingChange = (rating) => {
     setUserRating(rating);
   };
 
-  // Carga inicial de reseñas al montar el componente
+  const handleCommentChange = (comment) => {
+    setUserComment(comment);
+  };
+
+  const handleSubmitReview = () => {
+    let alertMessage = '';
+
+    if (!isLoggedIn || !hasPurchased) {
+      alertMessage = 'You must log in and have purchased the product to leave a review.';
+    } else {
+      const userReviewed = ratingsAndComments.some((review) => review.userId === userName );
+
+      switch (true) {
+        case userRating <= 0 || userComment.trim() === '':
+          alertMessage = 'Please fill out the rating and comment before submitting.';
+          break;
+        case userReviewed:
+          alertMessage = 'You can only rate the product once.';
+          break;
+        default:
+          const newReview = { rating: userRating, comment: userComment, userId:userName, productoId: productoId };
+          setRatingsAndComments((prevReviews) => [...prevReviews, newReview]);
+          console.log('Nueva revisión agregada:', newReview);
+
+          localStorage.setItem(`ratingsAndComments-${productoId}`, JSON.stringify([...ratingsAndComments, newReview]));
+          console.log('LocalStorage actualizado para productoId:', productoId);
+      }
+    }
+
+    if (alertMessage) {
+      console.log('Mostrar alerta:', alertMessage);
+      alert(alertMessage);
+    }
+  };
+
   useEffect(() => {
-    dispatch(getReviews(productoId));
-    dispatch(userLoggedIn());
-  }, [dispatch, productoId,activeUser]);
+    console.log('ratingsAndComments actualizado:', ratingsAndComments);
+    setClearCommentyReview(false);
+
+    const updatedReviews = ratingsAndComments.map(review => {
+      if (!review.userId) {
+        // Si no hay un userId en la revisión, asigna el nombre del usuario
+        return { ...review, userId: userName };
+      }
+      return review;
+    });
+
+    localStorage.setItem(`ratingsAndComments-${productoId}`, JSON.stringify(ratingsAndComments));
+    console.log('LocalStorage actualizado para productoId:', productoId);
+  }, [ratingsAndComments.length, productoId, userName]);
 
   return (
-    <div className={style.Comments}>
-      <h3 className={style.Comments_title}>Reseñas y Comentarios</h3>
-      {canComment ? (
-        <>
+    <div>
+    <button onClick={handleClearLocalStorage}>
+        Clean localStorage
+      </button>
+      <section>
+        <h2>Create a review about this product</h2>
+        {isLoggedIn && hasPurchased ? (
           <div>
-            <Review score={userRating} onRatingChange={handleRatingChange} />
+            <Review score={userRating} shouldClearCommentyReview={clearCommentyReview} onRatingChange={handleRatingChange} />
           </div>
-          <div className={style.Comment_form_title}>Escribe un comentario...</div>
-          <CommentForm submitLabel="Escribir" handleSubmit={addComment} />
-        </>
-      ) : (
-        <div className={style.Comment_form_title}>
-          Debes estar autenticado y haber comprado el producto para comentar.
+        ) : (
+          <p>You must sign in and have purchased the product to leave a review.</p>
+        )}
+      </section>
+
+      {isLoggedIn && hasPurchased ? (
+      <section>
+        <Comentarios
+          ratingsAndComments={ratingsAndComments.filter(review => review.productoId === productoId)}
+          onCommentChange={handleCommentChange}
+          shouldClearCommentyReview={clearCommentyReview}
+        />
+        <button onClick={() => { handleClearCommentyReview(); handleSubmitReview(); }}>
+          Send Review
+        </button>
+      </section>
+    ) : (
+      null
+    )}
+
+      <section>
+        <h2>Ratings and comments</h2>
+      {ratingsAndComments.length > 0 && (
+        <div>
+          <p>Latest reviews:</p>
+          <p>User: {ratingsAndComments[ratingsAndComments.length - 1].userId}</p>
+           <Review score={ratingsAndComments[ratingsAndComments.length - 1].rating} />
+           <p>Coment: {ratingsAndComments[ratingsAndComments.length - 1].comment}</p>
+           
+          <button onClick={() => setShowResponseSection(!showResponseSection)}>
+            {showResponseSection ? 'Ocultar Respuestas' : 'Responder'}
+          </button>
+          {isLoggedIn && hasPurchased && (
+                  <Response onAddResponse={handleAddResponse} />
+                )}
         </div>
       )}
-      <div className={style.comments_container}>
-        {comentariosFiltrados && comentariosFiltrados.length > 0 ? (
-          comentariosFiltrados.map((comentario) => (
-            <Comentarios
-              key={comentario.id}
-              comment={comentario}
-              replies={getReplies(comentario.id)}
-              currentUserId={currentUserId}
-              deleteComment={deleteComment}
-              updateComment={updateComment}
-              activeComment={activeComment}
-              setActiveComment={setActiveComment}
-              addComment={addComment}
-              access={access}
-            />
-          ))
-        ) : (
-          <p>No hay comentarios disponibles.</p>
-        )}
-      </div>
+        <div>
+        <section>
+            {showResponseSection && (
+              <div>
+                {responses.map((response, index) => (
+                  <div key={index}>
+                    <p>User: {response.userId}</p>
+                    <p>Response: {response.text}</p>
+                  </div>
+                ))}
+                <button onClick={() => setShowResponseSection(!showResponseSection)}>
+                  {showResponseSection ? 'Ocultar Respuestas' : 'Responder'}
+                </button>
+                {isLoggedIn && hasPurchased && (
+                  <Response onAddResponse={handleAddResponse} />
+                )}
+              </div>
+            )}
+          </section>
+        </div>
+      </section> 
     </div>
   );
 };
