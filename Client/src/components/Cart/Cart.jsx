@@ -126,13 +126,8 @@ const Cart = ({
         </div>
         <div>
           <br />
-<<<<<<< HEAD
-          <button className={s.btncart} disabled={priceToFixed ? false : true} onClick={mercadoPago}>
-          Complete purchase
-=======
           <button disabled={priceToFixed ? false : true} onClick={mercadoPago}>
             Complete purchase
->>>>>>> 9e470d6d36e895b7679960539acd135ce5df518e
           </button>
         </div>
         <br />
