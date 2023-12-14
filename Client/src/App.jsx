@@ -27,10 +27,13 @@ import { onAuthStateChanged } from "firebase/auth";
 import Swal from "sweetalert2";
 import Dashboard from "./components/Dashboard/Dashboard";
 import axios from "axios";
+import DetailPurchase from "./components/detailPurchase/DetailPurchase";
+import CreateUserDashboard from "./components/createUserDashboard/CreateUserDashboard";
 
-const URL = "http://localhost:3001";
+const URL = import.meta.env.VITE_URL;
 
 function App() {
+  const storedToken = localStorage.getItem("token");
   const darkMode = useSelector((state) => state.darkMode);
   const access = useSelector((state) => state.access);
   const activeUser = useSelector((state) => state.activeUser);
@@ -38,12 +41,10 @@ function App() {
   const [cartItems, setCartItems] = useState(cartFromLocalStorage);
   const dispatch = useDispatch();
   const { pathname } = useLocation();
-  console.log(pathname)
-
+  const [token, setToken] = useState(storedToken || "");
 
   useEffect(() => {
-    if (!access)localStorage.setItem("cart", JSON.stringify(cartItems));
-
+    if (!access) localStorage.setItem("cart", JSON.stringify(cartItems));
   }, [cartItems]);
 
   const handleAddProduct = async (product) => {
@@ -57,7 +58,7 @@ function App() {
       };
 
       const response = await axios.post(`${URL}/cart`, objProduct);
-      console.log(response)
+      console.log(response);
       if (pathname === "/" || pathname === `/product/${product.id}`) {
         Swal.fire({
           icon: "success",
@@ -81,7 +82,7 @@ function App() {
       } else {
         setCartItems([...cartItems, { ...product, quantity: 1 }]);
       }
-      if (pathname === "/" || "/product/:id") {
+      if (pathname === "/" || pathname === `/product/${product.id}`) {
         Swal.fire({
           icon: "success",
           title: "",
@@ -135,6 +136,7 @@ function App() {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user !== null) {
+        console.log(user);
         dispatch(setAccess(true));
         dispatch(userLoggedIn(user.email));
         dispatch(userCart(user.email))
@@ -147,13 +149,22 @@ function App() {
     };
   }, []);
 
-
+  useEffect(() => {
+    if (token) {
+      const decodedToken = JSON.parse(atob(token.split(".")[1]));
+      dispatch(setAccess(true));
+      dispatch(userLoggedIn(decodedToken.email));
+      dispatch(userCart(decodedToken.email));
+    }
+  }, [pathname,cartItems]);
   return (
     <div className={darkMode ? "div__darkMode" : ""}>
       <NavBar
         darkMode={darkMode}
         setDarkMode={() => dispatch(toggleDarkMode())}
         cartItems={cartItems}
+        setCartItems={setCartItems}
+        setToken={setToken}
       />
       <Routes>
         <Route
@@ -167,16 +178,25 @@ function App() {
         />
         <Route
           path="/product/:id"
-          element={<DetailPage access={access} currentUserId='1' handleAddProduct={handleAddProduct} />}
+          element={
+            <DetailPage login={Login} handleAddProduct={handleAddProduct} />
+          }
         />
         <Route path="/contacto" element={<Contact />} />
         <Route path="/form" element={<FormPage />} />
-        <Route path="/login" element={<Login cartItems={cartItems} />} />
+        <Route
+          path="/login"
+          element={<Login cartItems={cartItems} setToken={setToken} />}
+        />
         <Route path="/createuser" element={<CreateUserForm />} />
-        <Route path="/editperfil/:email" element= {<EditPerfilForm />} />
-        <Route path="/editproduct/:id" element= {<EditProductForm />} />
-        <Route path="/success" element= {<SuccessPayment cartItems={cartItems} />} />
-        <Route path="/shopping/:email" element = {<MyShopping />} />
+        <Route path="/createdashboard" element={<CreateUserDashboard/>} />
+        <Route path="/editperfil/:email" element={<EditPerfilForm />} />
+        <Route path="/editproduct/:id" element={<EditProductForm />} />
+        <Route
+          path="/success"
+          element={<SuccessPayment cartItems={cartItems} />}
+        />
+        <Route path="/shopping/:email" element={<MyShopping />} />
         <Route path="*" element={<Error404 />} />
         <Route
           path="/cart"
@@ -190,6 +210,7 @@ function App() {
           }
         />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/purchase/:id" element={<DetailPurchase />} />
       </Routes>
       <Footer />
     </div>

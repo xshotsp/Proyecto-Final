@@ -1,119 +1,134 @@
 import React, { useState, useEffect } from 'react';
-import { 
-   getComments,
-   createComment, 
-   deleteComment as deleteCommentFromData, 
-   updateComment as updateCommentFromData 
-  } from '../../data';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  getReviews,
+  createReview,
+  deleteReview as deleteReviewFromData,
+  updateReview as updateReviewFromData,
+  userLoggedIn,
+} from '../../redux/actions/actions';
 import style from './ReviewyComentarios.module.css';
 import Comentarios from './Comentarios';
 import CommentForm from './CommentForm';
-import Review from './Review'
+import Review from './Review';
 
-const ReviewyComentarios = ({ access, productoId,  currentUserId }) => {
-
-  const [backendComments, setBackendComments] = useState([]);
+const ReviewyComentarios = ({ access, productoId, currentUserId }) => {
   const [activeComment, setActiveComment] = useState(null);
   const [userRating, setUserRating] = useState(0);
+  const dispatch = useDispatch();
 
-  const rootComments = backendComments.filter(
-    (backendComment) => backendComment.parentId === null
-  );
+  // Obtén las reseñas del estado de Redux
+  const backendComments = useSelector((state) => state.reviews);
+  const activeUser = useSelector((state) => state.activeUser);
 
-  const canComment = access === true ; //validaciones falta la validacion de compra 
-  //const canComment = access === true && userHasPurchasedProduct(productoId.purchase === true);
+  console.log('aqui',currentUserId);
+  console.log('usuario',activeUser);
+  console.log('backendComments:', backendComments);
 
-  const getReplies = CommentId => {
-    return backendComments.filter(backendComment => backendComment.parentId === CommentId)
-        .sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
-}
-
-
-const addComments = (text, parentId) => {
-  if (canComment) {
-    createComment(text, parentId, userRating).then((newComment) => {
-      setBackendComments([newComment, ...backendComments]);
-      setActiveComment(null);
-      setUserRating(0);
-    });
-  } else {
-    alert('Debes estar autenticado y haber comprado el producto para comentar.');
-  }
-};
-
-
-const deleteComment = (CommentId) => {
-  if (window.confirm('¿Estás seguro de que deseas eliminar este comentario?')) {
-    deleteCommentFromData(CommentId).then(() => { 
-      const updatedBackendComments = backendComments.filter(
-        backendComment => backendComment.id !== CommentId
-      );
-      setBackendComments(updatedBackendComments);
-    });
-  }
-}
-
-const updateComment = (text, CommentId) =>{
-   updateCommentFromData(text, CommentId).then(()=>{
-    const updatedBackendComments = backendComments.map(backendComment => {
-      if(backendComment.id === CommentId){
-        return{...backendComment, body: text}
-      }
-      return backendComment
-    });
-     setBackendComments(updatedBackendComments);
-     setActiveComment(null);
-   })
-}
-
-const handleRatingChange = (rating) => {
-  setUserRating(rating);
-};
-
-
-
-  useEffect(() => {
-    getComments().then((data) => {
-      setBackendComments(data);
-    });
-  }, []);
   
+  const commentsArray = Object.values(backendComments);
+
+ const comentariosFiltrados = commentsArray.filter(comentario => comentario.parentId===null);
+
+  console.log('comentarios padre:', comentariosFiltrados);
+  const canComment = access === true;
+
+  const getReplies = (commentId) => {
+    const repliesArray = commentsArray || []; 
+    const replies = repliesArray.filter(({ parentId }) => parentId === commentId);
+    console.log('comentarios hijo:', replies);
+    return replies;
+  };
+  
+  // Función para agregar un comentario
+  const addComment = (text, parentId) => {
+    if (canComment) {
+      const parentCommentId = parentId !== undefined ? parentId : null;
+
+      // Utiliza la acción de Redux para crear un comentario
+      dispatch(
+        createReview({
+          text,
+          parentId: parentCommentId,
+          rating: userRating,
+          productoId: parseInt(productoId),
+          username: activeUser.name || activeUser.email || 'anonimo',
+        })
+      ).then(() => {
+        // No necesitas actualizar el estado local, confía en que Redux se encargue
+        setActiveComment(null);
+        setUserRating(0);
+      });
+    } else {
+      alert('Debes estar autenticado y haber comprado el producto para comentar.');
+    }
+  };
+
+  // Función para eliminar un comentario
+  const deleteComment = (commentId) => {
+    if (window.confirm('¿Estás seguro de que deseas eliminar este comentario?')) {
+      // Utiliza la acción de Redux para eliminar un comentario
+      dispatch(deleteReviewFromData(commentId));
+    }
+  };
+
+  // Función para actualizar un comentario
+  const updateComment = (text, commentId) => {
+    // Utiliza la acción de Redux para actualizar un comentario
+    dispatch(updateReviewFromData(text, commentId)).then(() => {
+      setActiveComment(null);
+    });
+  };
+
+  // Función para manejar cambios en la calificación
+  const handleRatingChange = (rating) => {
+    setUserRating(rating);
+  };
+
+  // Carga inicial de reseñas al montar el componente
+  useEffect(() => {
+    dispatch(getReviews(productoId));
+    dispatch(userLoggedIn());
+  }, [dispatch, productoId,activeUser]);
 
   return (
     <div className={style.Comments}>
-       <h3 className={style.Comments_title}>Reseñas y Comentarios</h3>
-          {canComment ? (
+      <h3 className={style.Comments_title}>Reseñas y Comentarios</h3>
+      {canComment ? (
         <>
           <div>
             <Review score={userRating} onRatingChange={handleRatingChange} />
           </div>
           <div className={style.Comment_form_title}>Escribe un comentario...</div>
-          <CommentForm submitLabel="Escribir" handleSubmit={addComments} />
+          <CommentForm submitLabel="Escribir" handleSubmit={addComment} />
         </>
       ) : (
         <div className={style.Comment_form_title}>
           Debes estar autenticado y haber comprado el producto para comentar.
         </div>
       )}
-       <div className={style.comments_container}>
-          {rootComments.map(rootComment => (
-              <Comentarios 
-              key={rootComment.id} 
-              Comment={rootComment} 
-              replies={getReplies(rootComment.id)}
+      <div className={style.comments_container}>
+        {comentariosFiltrados && comentariosFiltrados.length > 0 ? (
+          comentariosFiltrados.map((comentario) => (
+            <Comentarios
+              key={comentario.id}
+              comment={comentario}
+              replies={getReplies(comentario.id)}
               currentUserId={currentUserId}
               deleteComment={deleteComment}
               updateComment={updateComment}
               activeComment={activeComment}
               setActiveComment={setActiveComment}
-              addComment={addComments}
+              addComment={addComment}
               access={access}
-              />
-          ))}
-       </div>
+            />
+          ))
+        ) : (
+          <p>No hay comentarios disponibles.</p>
+        )}
+      </div>
     </div>
   );
 };
 
 export default ReviewyComentarios;
-

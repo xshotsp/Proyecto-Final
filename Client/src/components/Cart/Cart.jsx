@@ -9,8 +9,7 @@ import { finishPurchase } from '../../redux/actions/actions';
 import { useEffect } from "react";
 
 
-// const URL = 'http://localhost:3001'
-const URL = "https://quirkz.up.railway.app"
+//const URL = import.meta.env.VITE_URL
 
 
 
@@ -51,20 +50,19 @@ const Cart = ({
       });
       Toast.fire({
         icon: "error",
-        title: "Primero debes iniciar sesion",
+        title: "You must first log in",
       });
 
       navigate("/login");
     } else {
       // const response = await axios.post(`${URL}/purchase`, cartItems);
       // window.location.href = response.data.init_point;
-      console.log(userCart)
       dispatch(finishPurchase(userCart));
     
     }
   };
 
-  useEffect(() => {}, [userCart]);
+/*   useEffect(() => {}, [userCart,access]); */
 
   return (
     <div className={s["cart-items"]}>
@@ -72,13 +70,13 @@ const Cart = ({
       <div className={s["clear-cart"]}>
         {(access ? userCart.length : cartItems.length) >= 1 && (
           <button className={s["clear-cart-button"]} onClick={handleClearCart}>
-            Limpiar carrito
+            Clear shopping cart
           </button>
         )}
       </div>
 
       {(access ? userCart.length : cartItems.length) === 0 && (
-        <div className={s["cart-items-empty"]}>Tu carrito esta vacio! ?? </div>
+        <div className={s["cart-items-empty"]}>Empty shopping cart! ?? </div>
       )}
 
       <div>
@@ -116,14 +114,14 @@ const Cart = ({
       </div>
 
       <div className={s["cart-items-total-price-name"]}>
-        <br />
+        <br />      
         <div className={s["cart-items-total-price"]}>
-          <h2>Precio total: ${priceToFixed}</h2>
+          <h2> Total price: ${priceToFixed}</h2>
         </div>
         <div>
           <br />
           <button disabled={priceToFixed ? false : true} onClick={mercadoPago}>
-            Completar compra
+          Complete purchase
           </button>
         </div>
         <br />

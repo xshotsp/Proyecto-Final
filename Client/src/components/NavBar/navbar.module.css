@@ -58,7 +58,16 @@
   position: relative;
 }
 
+.nav__ul a {
+  color: var(--second-color);
+  margin-right: 0px;
+}
+
+
 .darkMode .nav__ul li {
+  color: var(--dark-mode);
+}
+.darkMode .nav__ul a {
   color: var(--dark-mode);
 }
 

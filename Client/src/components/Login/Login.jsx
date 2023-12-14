@@ -9,13 +9,19 @@ import SocialLogin from "../SocialLogin/SocialLogin";
 import { useDispatch, useSelector } from "react-redux";
 import { setAccess, userCart, userLoggedIn } from "../../redux/actions/actions";
 import Swal from "sweetalert2";
+import validate from "./validate";
 
- const URL = "https://quirkz.up.railway.app"; 
-// const URL = "http://localhost:3001";
+const URL = import.meta.env.VITE_URL;
 
-const Login = ({ cartItems }) => {
-  const [usuario, setUsuario] = useState("");
-  const [contraseña, setContraseña] = useState("");
+const Login = ({ cartItems, setToken }) => {
+  const [loginInput, setLoginInput] = useState({
+    usuario: "",
+    contraseña: "",
+  });
+  const [errors, setErrors] = useState({
+    usuario: "",
+    contraseña: "",
+  });
 
   const navigate = useNavigate();
   const access = useSelector((state) => state.access);
@@ -36,29 +42,50 @@ const Login = ({ cartItems }) => {
     };
   });
 
+  const formHandler = (event) => {
+    setLoginInput({
+      ...loginInput,
+      [event.target.name]: event.target.value,
+    });
+    setErrors(
+      validate({
+        ...loginInput,
+        [event.target.name]: event.target.value,
+      })
+    );
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      const response = await axios(`${URL}/user/${loginInput.usuario}`);
+      if (!response.data) {
+        mostrarAlerta("error", "The user is not registered.");
+        return;
+      }
+      if (response.data.provider === "google") {
+        mostrarAlerta(
+          "error",
+          "The email is already associated with a Google account."
+        );
+        return;
+      }
       const { data } = await axios(
-        `${URL}/user/login/?email=${usuario}&password=${contraseña}`
+        `${URL}/user/login/?email=${loginInput.usuario}&password=${loginInput.contraseña}`
       );
+      const newToken = data.token;
+      setToken(newToken);
+      localStorage.setItem("token", newToken);
       const itemsArr = {
-        email: usuario,
+        email: loginInput.usuario,
         products: productsId,
       };
       await axios.post(`${URL}/cart`, itemsArr);
-
-      Swal.fire({
-        icon: "success",
-        title: "",
-        text: "Carrito actualizado.",
-        showConfirmButton: false,
-        timer: 1500,
-      });
+      mostrarAlerta("success", "Updated shopping cart.");
 
       dispatch(setAccess(data.access));
-      dispatch(userLoggedIn(usuario));
-      dispatch(userCart(usuario))
+      dispatch(userLoggedIn(loginInput.usuario));
+      dispatch(userCart(loginInput.usuario));
     } catch (error) {
       mostrarAlerta("error", error.response.data.error);
     }
@@ -79,18 +106,28 @@ const Login = ({ cartItems }) => {
           <input
             type="text"
             placeholder="User or email"
-            value={usuario}
-            onChange={(e) => setUsuario(e.target.value)}
+            name="usuario"
+            value={loginInput.usuario}
+            onChange={formHandler}
           />
+          <div className={s.error__container}>
+            {errors.usuario && <p className={s.error}>{errors.usuario}</p>}
+          </div>
         </label>
         <br />
         <label>
           <input
             type="password"
             placeholder="Password"
-            value={contraseña}
-            onChange={(e) => setContraseña(e.target.value)}
+            name="contraseña"
+            value={loginInput.contraseña}
+            onChange={formHandler}
           />
+          <div className={s.error__container}>
+            {errors.contraseña && (
+              <p className={s.error}>{errors.contraseña}</p>
+            )}
+          </div>
         </label>
         <br />
         <br />

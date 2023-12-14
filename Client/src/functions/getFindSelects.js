@@ -1,8 +1,7 @@
 import axios from "axios";
 
 
-const URL = "https://quirkz.up.railway.app";
-// const URL = "http://localhost:3001"
+const URL = import.meta.env.VITE_URL
 
 
 const getFindSelects = async () => {
@@ -14,11 +13,11 @@ const getFindSelects = async () => {
 
         const productsInfo = (await axios.get(`${URL}/product/all-products`)).data;
         
-
+        const productsInfoActive = [...productsInfo].filter((p)=> p.active === true)
         
         //obtiene todos los selects de colour y quita espacios
-        for (let i=0; i<productsInfo.length; i++){
-            allColors.push(productsInfo[i].colour?.trim());
+        for (let i=0; i<productsInfoActive.length; i++){
+            allColors.push(productsInfoActive[i].colour?.trim());
         }  
  
         
