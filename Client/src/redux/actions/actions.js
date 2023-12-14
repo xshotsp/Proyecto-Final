@@ -253,7 +253,6 @@ export function finishPurchase(objectPago) {
 
 
 export const getPurchaseByUser = (email) => {
-  console.log(email)
   return async (dispatch) => {
     try {
       
