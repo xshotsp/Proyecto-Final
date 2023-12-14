@@ -110,7 +110,7 @@ const CreateUserForm = () => {
           {errors.passwordRep && <p>{errors.passwordRep}</p>}
           <span>*Mandatory</span>
           <br></br>
-          <button type="submit">Create</button>
+          <button className={s.btnC} type="submit">Create</button>
         </fieldset>
       </form>
     </div>

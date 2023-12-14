@@ -19,7 +19,7 @@
   z-index: 1001; 
 }
 .darkMode {
-  background-color: black;
+  background-color: #3b3a3a;
 }
 
 .darkMode h1 {
@@ -29,7 +29,8 @@
 .nav {
   display: flex;
   align-items: center;
-  flex-grow: 1; 
+  flex-grow: 1; /* Nuevo estilo para que los enlaces ocupen todo el espacio disponible */
+ 
 }
 
 .nav__h1 {

@@ -97,25 +97,29 @@ const DetailPage = ({ login, handleAddProduct }) => {
         <button>Back</button>
       </Link>
       </div>
-      <br />
       <h1>{product.name}</h1>
-      <br />
+      <div className={s.imageP}>
       <img src={product.image} 
       alt="product" 
       className={s.productImage} />
-      <div>
-      {addImg}
       </div>
+      <div className={s.additionalImagesContainer}>
+  {addImg && addImg.map((image, index) => (
+    <div key={index} className={s.imageAdditional}>
+      {image}
+    </div>
+  ))}
+</div>
+
       <div className={s.shopBtn}>
         <h2>
         <button className={s.addBtn} 
         onClick={() => handleAddProduct(product)}>          
           <FontAwesomeIcon icon={faCartFlatbed} /> Add shopping cart
         </button>
-        <button onClick={changeIcon}>
-          <FontAwesomeIcon icon={showHeart ? faHeart : faHeartCircleCheck} />
-        </button>
-        <br />
+       
+        
+  
         <span>
           <p>
             <FontAwesomeIcon icon={faTruck} /> Free delivery on orders over $4000
