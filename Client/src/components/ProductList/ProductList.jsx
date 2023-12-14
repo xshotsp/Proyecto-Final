@@ -26,13 +26,13 @@ const ProductList = ({ handleAddProduct }) => {
 
   return (
     <div>
-      {!productsActive.length && (
+{!productsActive.length && (
         <h2 className={`${s.titulo} ${darkMode && s.darkMode} `}>
           {"No products found matching your search."}
         </h2>
       )}
 
-      {productsActive.length ? (
+{productsActive.length ? (
         <h1 className={`${s.titulo} ${darkMode && s.darkMode} `}>
           Product List
         </h1>

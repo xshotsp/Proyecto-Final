@@ -1,6 +1,6 @@
 // Dashboard.jsx
-import  { useState, useEffect } from "react";
-import { useDispatch, /* useSelector */ } from "react-redux";
+import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { getAllUsersAction, getAllProducts } from "../../redux/actions/actions";
 import UsersTable from "../usersTable/usersTable";
 import UsersBanTable from "../usersBan/usersBan"; // Asegúrate de importar el componente correcto
@@ -73,7 +73,7 @@ const Dashboard = () => {
         {botonActivo === "compras" && <PurchaseTable data={data} />}
         {/* Agrega otras lógicas de renderizado para "compras" u otros botones según sea necesario */}
       </div>
-      {/*         {botonActivo && <p>Giving information {botonActivo}</p>} */}
+         {/*         {botonActivo && <p>Giving information {botonActivo}</p>} */}
       {botonActivo === "productos" && (
         <Link to="/form">
           <FontAwesomeIcon icon={faPlus} />

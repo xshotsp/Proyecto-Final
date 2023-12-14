@@ -9,7 +9,7 @@ import { finishPurchase } from '../../redux/actions/actions';
 import { useEffect } from "react";
 
 
-//const URL = import.meta.env.VITE_URL
+const URL = import.meta.env.VITE_URL
 
 
 

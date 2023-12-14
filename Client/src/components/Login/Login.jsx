@@ -12,6 +12,8 @@ import Swal from "sweetalert2";
 import validate from "./validate";
 
 const URL = import.meta.env.VITE_URL;
+//const URL = "https://quirkz.up.railway.app";
+// const URL = "http://localhost:3001";
 
 const Login = ({ cartItems, setToken }) => {
   const [loginInput, setLoginInput] = useState({

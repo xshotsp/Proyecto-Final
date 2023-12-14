@@ -27,10 +27,10 @@ import { onAuthStateChanged } from "firebase/auth";
 import Swal from "sweetalert2";
 import Dashboard from "./components/Dashboard/Dashboard";
 import axios from "axios";
-import DetailPurchase from "./components/detailPurchase/DetailPurchase";
-import CreateUserDashboard from "./components/createUserDashboard/CreateUserDashboard";
 
 const URL = import.meta.env.VITE_URL;
+//const URL = "http://localhost:3001";
+//const URL = "https://quirkz.up.railway.app"
 
 function App() {
   const storedToken = localStorage.getItem("token");
@@ -62,7 +62,7 @@ function App() {
         Swal.fire({
           icon: "success",
           title: "",
-          text: "Added to shopping cart.",
+          text: "sumado al carrito ",
           showConfirmButton: false,
           timer: 1500,
         });
@@ -85,7 +85,7 @@ function App() {
         Swal.fire({
           icon: "success",
           title: "",
-          text: "Added to shopping cart.",
+          text: "sumado al carrito ",
           showConfirmButton: false,
           timer: 1500,
         });
@@ -126,7 +126,7 @@ function App() {
     Swal.fire({
       icon: "success",
       title: "",
-      text: "Deleted shopping cart.",
+      text: "Carrito Borrado.",
       showConfirmButton: false,
       timer: 1500,
     });
