@@ -23,6 +23,11 @@ const Cart = ({
     0
   );
 
+  const totalItemsCart = (access ? userCart : cartItems).reduce(
+    (total, item) => total + item.quantity,
+    0
+  );
+
   const priceToFixed = totalPrice.toFixed(2);
 
   const dispatch = useDispatch();
@@ -54,7 +59,7 @@ const Cart = ({
   return (
     <div className={`${s.container} ${darkMode && s.darkMode}`}>
       <h2 className={s['cart-items-header']}>
-        Products in the shopping cart: {userCart?.length}
+        Products in the shopping cart: {totalItemsCart}
       </h2>
       <div className={s['clear-cart']}>
         {(access ? userCart.length : cartItems.length) >= 1 && (
