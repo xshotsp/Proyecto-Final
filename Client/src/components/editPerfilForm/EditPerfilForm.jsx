@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import LabelAndInput from "../labelAndInput/LabelAndInput";
@@ -18,8 +18,8 @@ const EditPerfilForm = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { email } = useParams();
+  const darkMode = useSelector((state) => state.darkMode);
 
-  console.log(email)
 
   const [photoUser, setPhotoUser] = useState(placeHolderPhoto);
   const [input, setInput] = useState({
@@ -116,7 +116,7 @@ useEffect (() => {
   };
 
   return (
-    <div>
+    <div className={`${s.container} ${darkMode && s.darkMode}`}>
       <form className={`${s.form} ${s["s-formedit"]}`} onSubmit={submitHandler}>
       <label onClick={volver} className ={s.close}>X</label>
         <fieldset>

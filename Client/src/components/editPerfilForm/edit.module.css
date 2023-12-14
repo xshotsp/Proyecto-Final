@@ -1,13 +1,34 @@
-.s-formedit {
-    max-width: 400px;
-    margin: 0 auto;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    color: #000;
-  }
+.container {
+  display: flex;
+  justify-content: center;
+  max-width: 400px;
+  margin: 30px auto 0 auto;
+  padding: 20px;
+  background-color: #fff; /* Light mode background color */
+  color: #3b3a3a; /* Light mode text color */
+  transition: background-color 0.2s, color 0.3s;
+  border: 1px solid #3b3a3a;
+  box-shadow: 5px 5px 20px rgb(132, 132, 132);
+  border-radius: 3px;
+}
+
+.darkMode *{
+  color: white;
+}
+
+.darkMode {
+  background-color: #3b3a3a; /* Dark mode background color */
+  color: #fff; /* Dark mode text color */
+  border: 1px solid #e58c8a;
+  box-shadow: 5px 5px 20px rgb(41, 39, 39);
+}
   
+
+.s-formedit  {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
   .s-formedit fieldset {
     border: none;
     padding: 0;
