@@ -2,74 +2,67 @@
 
 .container {
   max-width: 600px;
-  margin: 0 auto;
+  margin: 30px auto 0 auto;
   padding: 20px;
-  background-color: #fff;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  
+  background-color: #fff; /* Light mode background color */
+  color: #3b3a3a; /* Light mode text color */
+  transition: background-color 0.3s, color 0.3s;
+  border: 1px solid #3b3a3a;
+  box-shadow: 5px 5px 20px rgb(132, 132, 132);
+  border-radius: 3px;
 }
 
-.darkMode .container {
-  background-color: #333; /* Color de fondo en modo oscuro */
-  color: #fff; /* Color del texto en modo oscuro */
+.darkMode {
+  background-color: #3b3a3a; /* Dark mode background color */
+  color: #fff; /* Dark mode text color */
+  border: 1px solid #e58c8a;
+  box-shadow: 5px 5px 20px rgb(41, 39, 39);
 }
 
 .chau {
-  font-size: 2rem;
-  color: #333;
-  margin-bottom: 20px;
+  color: #007bff; /* Heading color */
 }
 
-p {
-  font-size: 1rem;
-  color: #555;
-  margin-top: 10px;
+.formGroup {
+  margin-bottom: 15px;
+
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #3b3a3a; /* Default label text color */
+}
+
+.darkMode label {
+  color: #fff; /* Dark mode label text color */
 }
 
 input,
 textarea {
   width: 100%;
-  padding: 10px;
-  margin-top: 5px;
-  margin-bottom: 15px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  padding: 8px;
   box-sizing: border-box;
+  border-radius: 3px;
 }
 
 .btnE {
   background-color: #007bff;
   color: #fff;
+  padding: 10px 15px;
   border: none;
-  padding: 10px;
   cursor: pointer;
-  margin-left: 500px;
+  font-size: 16px;
+  border-radius: 3px;
 }
 
-button:hover {
-  background-color: #0056b3;
-}
-
-h2 {
-  font-size: 1.5rem;
-  color: #333;
+.infoSection {
   margin-top: 20px;
 }
 
-h4 {
-  font-size: 1.2rem;
-  color: #333;
-  margin-bottom: 10px;
+.infoItem {
+  margin-bottom: 15px;
 }
 
-p {
-  font-size: 1rem;
-  color: #555;
-  margin-top: 10px;
-}
-
-strong {
-  font-weight: bold;
-}
+/* Add your other styles as needed */
