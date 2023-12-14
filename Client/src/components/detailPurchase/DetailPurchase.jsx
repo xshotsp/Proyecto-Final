@@ -1,7 +1,8 @@
 import  { useEffect } from "react";
-import { useParams} from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllPurchases } from "../../redux/actions/actions";
+import PurchaseTable from "../purchasesTable/PurchasesTable";
 /* import { Link } from "react-router-dom"; */
 
 
@@ -10,7 +11,7 @@ import { getAllPurchases } from "../../redux/actions/actions";
 const DetailPurchase = () => {
 
     const {id} = useParams()
- 
+ const navigate = useNavigate();
   const dispatch = useDispatch();
   const allpurchases = useSelector((state) => state.allPurchases);
   const purchase = allpurchases[id-1];
@@ -21,6 +22,9 @@ const DetailPurchase = () => {
     dispatch(getAllPurchases());
   }, []);
 
+  const volver = () => {
+  navigate('/dashboard',PurchaseTable);
+  }
 
 return (
     <div>
@@ -47,7 +51,9 @@ return (
           ))}
         </tbody>
       </table>
+      <button onClick={volver}>Come back</button>
     </div>
+
   );
 };
 
