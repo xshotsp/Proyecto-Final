@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   cleanUserCart,
   setAccess,
@@ -7,7 +7,7 @@ import {
   userLogOut,
 } from "../../redux/actions/actions";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faShoppingCart,
@@ -31,6 +31,7 @@ const NavBar = ({ cartItems, setCartItems, setToken }) => {
   );
   const [showOptions, setShowOptions] = useState(false);
   const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   const cartToUse = access ? userCart : cartItems;
   const totalItemsCart = cartToUse.reduce(
@@ -63,6 +64,12 @@ const NavBar = ({ cartItems, setCartItems, setToken }) => {
     localStorage.removeItem("token");
     navigate("/");
   };
+
+  useEffect(() => {
+    if (pathname === "/success") {
+      dispatch(cleanUserCart);
+    }
+  }, [location]);
 
   return (
     <div
