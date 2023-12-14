@@ -120,7 +120,7 @@ const Cart = ({
         </div>
         <div>
           <br />
-          <button disabled={priceToFixed ? false : true} onClick={mercadoPago}>
+          <button className={s.btncart} disabled={priceToFixed ? false : true} onClick={mercadoPago}>
           Complete purchase
           </button>
         </div>

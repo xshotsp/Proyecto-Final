@@ -11,6 +11,11 @@
   
 }
 
+.darkMode .container {
+  background-color: #333; /* Color de fondo en modo oscuro */
+  color: #fff; /* Color del texto en modo oscuro */
+}
+
 .chau {
   font-size: 2rem;
   color: #333;

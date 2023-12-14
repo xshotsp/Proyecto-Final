@@ -1,8 +1,10 @@
 import s from './Contact.module.css'
+import { useSelector} from "react-redux";
 
 const Contact = () => {
+  const darkMode = useSelector((state) => state.darkMode);
   return (
-    <div className={s.container}>
+    <div className={`${s.container} ${darkMode && s.darkMode}`}>
         <h1 className={s.chau}>
             Contact us!
         </h1>
@@ -26,7 +28,7 @@ const Contact = () => {
         placeholder='Send us your message here!'
         />
         <br />
-        <button>Send</button>
+        <button className={s.btnE}>Send</button>
         <br />
         <h2>Our information</h2>
         <br />

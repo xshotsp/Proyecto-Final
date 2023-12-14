@@ -26,11 +26,12 @@ import {
   GET_ALL_PURCHASES,
 } from "./actionTypes";
 
-const URL = import.meta.env.VITE_URL
+  const URL = import.meta.env.VITE_URL
+
+  // const URL = "https://quirkz.up.railway.app"
   
 
 
-  
 
 
 
@@ -38,6 +39,7 @@ export function getProducts() {
   return async function (dispatch) {
     try {
       const response = await axios.get(`${URL}/product/`);
+      
       dispatch({
         type: GET_PRODUCTS,
         payload: response.data,
@@ -54,10 +56,13 @@ export const getAllProducts = () => {
     try {
       const productsname = (await axios.get(`${URL}/product/all-products`))
         .data;
+
+        
       return dispatch({
         type: GET_ALL_PRODUCTS,
         payload: productsname,
       });
+      
     } catch (error) {
       throw error.response.data;
     }
@@ -132,7 +137,7 @@ export const fetchProductById = (id) => async (dispatch) => {
         `Error al obtener el producto. Código de estado: ${response.status}`
       );
     }
-
+    console.log(response)
     const productDetails = await response.json();
 
     dispatch({ type: FETCH_PRODUCT_SUCCESS, payload: productDetails });
@@ -312,4 +317,3 @@ export const getAllPurchases = () => {
     }
   };
 };
-

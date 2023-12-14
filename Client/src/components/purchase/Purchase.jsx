@@ -112,7 +112,3 @@ const SuccessPayment = () => {
   };
   
   export default SuccessPayment;
-
-
-
-

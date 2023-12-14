@@ -11,9 +11,8 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-const DetailPage = ({ access, handleAddProduct, currentUserId }) => {
+const DetailPage = ({ login, handleAddProduct }) => {
   const dispatch = useDispatch();
-
   const { id } = useParams();
   const allProducts = useSelector((state) => state.allproducts);
   const product = useSelector((state) => state.productDetails);
@@ -55,6 +54,7 @@ const DetailPage = ({ access, handleAddProduct, currentUserId }) => {
       <FontAwesomeIcon icon={faChevronRight} />
     </div>
   );
+  
   const sliderSettings = {
     dots: true,
     infinite: true,
@@ -64,6 +64,7 @@ const DetailPage = ({ access, handleAddProduct, currentUserId }) => {
     prevArrow: <PrevArrow />,
     nextArrow: <NextArrow />
   };
+  
   const nextSlide = () => {
     if (sliderRef.current) {
       sliderRef.current.slickNext();
@@ -77,7 +78,7 @@ const DetailPage = ({ access, handleAddProduct, currentUserId }) => {
   };
 
   useEffect(() => {
-    if (id && !product?.id) {
+    if(id && !product.id) {
       dispatch(fetchProductById(id));
     }
     return () => {
@@ -85,7 +86,6 @@ const DetailPage = ({ access, handleAddProduct, currentUserId }) => {
     };
   }, [dispatch, id]);
 
-  // Validar si product es null o undefined antes de renderizar
   if (!product) {
     
         return <p className={s.error}>Loading...</p>;
@@ -97,25 +97,29 @@ const DetailPage = ({ access, handleAddProduct, currentUserId }) => {
         <button>Back</button>
       </Link>
       </div>
-      <br />
       <h1>{product.name}</h1>
-      <br />
+      <div className={s.imageP}>
       <img src={product.image} 
       alt="product" 
       className={s.productImage} />
-      <div>
-      {addImg}
       </div>
+      <div className={s.additionalImagesContainer}>
+  {addImg && addImg.map((image, index) => (
+    <div key={index} className={s.imageAdditional}>
+      {image}
+    </div>
+  ))}
+</div>
+
       <div className={s.shopBtn}>
         <h2>
         <button className={s.addBtn} 
         onClick={() => handleAddProduct(product)}>          
           <FontAwesomeIcon icon={faCartFlatbed} /> Add shopping cart
         </button>
-        <button onClick={changeIcon}>
-          <FontAwesomeIcon icon={showHeart ? faHeart : faHeartCircleCheck} />
-        </button>
-        <br />
+       
+        
+  
         <span>
           <p>
             <FontAwesomeIcon icon={faTruck} /> Free delivery on orders over $4000
@@ -137,44 +141,8 @@ const DetailPage = ({ access, handleAddProduct, currentUserId }) => {
           {mixedProducts.map((product) => <Card key={product.id} product={product} handleAddProduct={handleAddProduct}/>)}
         </Slider>
         </div>
-        <br />
-        <h1>{product.name}</h1>
-        <br />
-        <img src={product.image} alt="product" className={s.productImage} />
-
-        <div className={s.shopBtn}>
-          <h2>
-            <button className={s.addBtn} onClick={() => handleAddProduct(product)}>
-              <FontAwesomeIcon icon={faCartFlatbed} /> Añadir Al Carrito
-            </button>
-            <button onClick={changeIcon}>
-              <FontAwesomeIcon icon={showHeart ? faHeart : faHeartCircleCheck} />
-            </button>
-            <br />
-            <span>
-              <p>
-                <FontAwesomeIcon icon={faTruck} /> Envios gratis en tus ordenes a partir de $3000
-              </p>
-            </span>
-          </h2>
-        </div>
-        <div className={s.productInfo}>
-          <h2 className={s.price}>Precio: ${product.price || 'Cargando...'}</h2>
-          <h2 className={s.colour}>Color: {product.colour || 'Cargando...'}</h2>
-          <h2 className={s.brand}>Marca: {brandName}</h2>
-        </div>
-
-        <div className={s.descriptionTextBox}>
-          <br />
-          <h2>Productos Que Tambien Te Pueden Interesar</h2>
-          <div>
-            <Slider ref={sliderRef} {...sliderSettings}>
-              {mixedProducts.map((product) => <Card key={product.id} product={product} />)}
-            </Slider>
-          </div>
-        </div>
-        <ReviewyComentarios access={access} productoId={id} currentUserId={currentUserId} />
       </div>
+      <ReviewyComentarios login={login} productoId={id}/>
     </div>
   );
 };

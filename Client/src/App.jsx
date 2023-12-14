@@ -56,14 +56,13 @@ function App() {
           quantity: 1,
         },
       };
-
       const response = await axios.post(`${URL}/cart`, objProduct);
       console.log(response);
       if (pathname === "/" || pathname === `/product/${product.id}`) {
         Swal.fire({
           icon: "success",
           title: "",
-          text: "sumado al carrito ",
+          text: "added to cart ",
           showConfirmButton: false,
           timer: 1500,
         });
@@ -127,7 +126,7 @@ function App() {
     Swal.fire({
       icon: "success",
       title: "",
-      text: "Carrito Borrado.",
+      text: "Cart Items Deleted.",
       showConfirmButton: false,
       timer: 1500,
     });
@@ -151,12 +150,17 @@ function App() {
 
   useEffect(() => {
     if (token) {
-      const decodedToken = JSON.parse(atob(token.split(".")[1]));
-      dispatch(setAccess(true));
-      dispatch(userLoggedIn(decodedToken.email));
-      dispatch(userCart(decodedToken.email));
+      try {
+        const decodedToken = JSON.parse(atob(token.split(".")[1]));
+        dispatch(setAccess(true));
+        dispatch(userLoggedIn(decodedToken.email));
+        dispatch(userCart(decodedToken.email));
+      } catch (error) {
+        console.error("Error decoding token:", error);
+        // Manejar el error de decodificación aquí, por ejemplo, redirigir al usuario o realizar otra acción apropiada.
+      }
     }
-  }, [pathname,cartItems]);
+  }, [token, dispatch]);
   return (
     <div className={darkMode ? "div__darkMode" : ""}>
       <NavBar

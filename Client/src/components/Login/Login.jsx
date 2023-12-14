@@ -1,6 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable react/prop-types */
-//Firebase
 import { useState, useEffect } from "react";
 import axios from "axios";
 import s from "./login.module.css";
@@ -54,7 +51,7 @@ const Login = ({ cartItems, setToken }) => {
       })
     );
   };
-
+console.log(URL)
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
