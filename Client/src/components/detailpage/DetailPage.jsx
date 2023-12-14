@@ -17,10 +17,15 @@ const DetailPage = ({ login, handleAddProduct }) => {
   const allProducts = useSelector((state) => state.allproducts);
   const product = useSelector((state) => state.productDetails);
   const sliderRef = useRef(null);
-  console.log(product.additionalImage);
-  const addImg = product.additionalImage ? product.additionalImage.map((image, index)=>(
+  const addImg = product.additionalImage && Array.isArray(product.additionalImage) && product.additionalImage[0] && 
+  (product.additionalImage[0].startsWith('http') || product.additionalImage[0].startsWith('https'))
+  ? product.additionalImage.map((image, index) => (
+    <img key={index} src={image} alt={`Product image N°${index + 1}`} />
+  ))
+  : product.additionalImage && Array.isArray(product.additionalImage) && product.additionalImage.map((image, index) => (
     <img key={index} src={`http://${image}`} alt={`Product image N°${index + 1}`} />
-  )) : null
+  ));
+
   const mixedProducts = allProducts
   .filter(prod => prod.id !== product.id)
   .toSorted((a, b) => a - b)

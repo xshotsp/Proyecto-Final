@@ -1,6 +1,6 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import {
   createProductRequest,
   createProductSuccess,
@@ -18,13 +18,14 @@ const URL=import.meta.env.VITE_URL
 
 
 const ProductForm = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const allBrands = useSelector((state)=>state.allBrands);
   const darkMode = useSelector((state) => state.darkMode);
   
   
   const [errorSubmit, setErrorSubmit] = useState("");
-  //const [control,setControl] = useState("");
+  const [control,setControl] = useState("");
  
 
   useEffect(()=>{
@@ -61,11 +62,14 @@ const ProductForm = () => {
     brands: ""
   });
 
-  // const validateAd = (productData) => {
-  //   if (productData.additionalImage.length === 3){
-  //     setControl("Maximo tres imagenes" );
-  //   } 
-  // }
+  const validateAd = (productData) => {
+    if (productData.additionalImage.length === 3){
+      setControl("Maximo tres imagenes" );
+    } 
+  }
+  const volver = () => {
+    navigate('/dashboard');
+  }
 
   const handleChange = (e) => {
     setProductData({
@@ -109,28 +113,28 @@ const ProductForm = () => {
     return
   }
 
-  // const handleChangeAdditional = (event) => {
-  //   const file = event.target.files[0]
-  //   if(file) {
-  //     const reader = new FileReader();
-  //     reader.readAsDataURL(file);
-  //     reader.onload = function charge () {
+  const handleChangeAdditional = (event) => {
+    const file = event.target.files[0]
+    if(file) {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = function charge () {
         
-  //       setProductData({
-  //         ...productData,
-  //         [event.target.name] : [...productData[event.target.name], reader.result]
-  //       }) 
-  //       validateAd({
-  //          ...productData,
-  //       [event.target.name] : [...productData[event.target.name], reader.result]}, event.target.name)
-  //     }     
+        setProductData({
+          ...productData,
+          [event.target.name] : [...productData[event.target.name], reader.result]
+        }) 
+        validateAd({
+           ...productData,
+        [event.target.name] : [...productData[event.target.name], reader.result]}, event.target.name)
+      }     
          
-  //   } else {
-  //     setProductData({...productData, [event.target.name]: ""})
+    } else {
+      setProductData({...productData, [event.target.name]: ""})
       
-  //   } 
-  //   return 
-  // }
+    } 
+    return 
+  }
 
     const esVacio= (elemento) => {
     return elemento === "";
@@ -160,28 +164,28 @@ const ProductForm = () => {
       )
     }
 
-    // const removeImageAd = (e) =>{
-    //   setControl("")
-    //   setErrorSubmit("")
-    //   if (e.target.name === "additionalImage0"){
-    //     setProductData({
-    //       ...productData, 
-    //       additionalImage : [...productData.additionalImage.filter(X=>X !== productData.additionalImage[0])]
-    //     })
-    //   }
-    //   if (e.target.name === "additionalImage1"){
-    //     setProductData({
-    //       ...productData,
-    //       additionalImage : [...productData.additionalImage.filter(X=>X !== productData.additionalImage[1])]
-    //      })
-    //     }
-    //   else if (e.target.name === "additionalImage2"){
-    //     setProductData({
-    //       ...productData,
-    //       additionalImage : [...productData.additionalImage.filter(X=>X !== productData.additionalImage[2])]
-    //      })
-    //     }
-    // }
+    const removeImageAd = (e) =>{
+      setControl("")
+      setErrorSubmit("")
+      if (e.target.name === "additionalImage0"){
+        setProductData({
+          ...productData, 
+          additionalImage : [...productData.additionalImage.filter(X=>X !== productData.additionalImage[0])]
+        })
+      }
+      if (e.target.name === "additionalImage1"){
+        setProductData({
+          ...productData,
+          additionalImage : [...productData.additionalImage.filter(X=>X !== productData.additionalImage[1])]
+         })
+        }
+      else if (e.target.name === "additionalImage2"){
+        setProductData({
+          ...productData,
+          additionalImage : [...productData.additionalImage.filter(X=>X !== productData.additionalImage[2])]
+         })
+        }
+    }
   
   
 
@@ -219,6 +223,7 @@ const ProductForm = () => {
     <div>
       <h2 className={s.h2}>Create Product</h2>
       <form className={`${s.form} ${s["product-form"]}  ${darkMode && s.darkMode}`} onSubmit={handleSubmit}>
+      <label onClick={volver} className ={s.close}>X</label>
         <label>
           Name:
           <input
@@ -284,7 +289,38 @@ const ProductForm = () => {
               <option key={index} value={option}>{option}</option>))}
             </select>
           <span>{errors.colour}</span>
-                
+
+         <label className={s.buttonfile}
+          htmlFor = "additionalImage">Load Additional Image (3 max)
+          <input
+            className={s.inputfile}
+            disabled={control}
+            type="file"
+            name="additionalImage"
+            id = "additionalImage"
+            onChange={handleChangeAdditional}
+          />
+          </label>
+        <img src={productData.additionalImage[0]} alt="" className={s.img} />
+        <div className={s.div__remove__btn}>
+          {
+            productData.additionalImage[0] && <button type="button" id="button" name="additionalImage0" onClick={removeImageAd}className={s.remove__btn}>X</button>
+          }
+        </div>
+        <img src={productData.additionalImage[1]} alt="" className={s.img}/>
+        <div className={s.div__remove__btn}>
+          {
+            productData.additionalImage[1] && <button type="button" id="button" name="additionalImage1" onClick={removeImageAd}className={s.remove__btn}>X</button>
+          }
+        </div> 
+        <img src={productData.additionalImage[2]} alt="" className={s.img}/>
+        <div className={s.div__remove__btn}>
+          {
+            productData.additionalImage[2] && <button type="button" id="button" name="additionalImage2" onClick={removeImageAd}className={s.remove__btn}>X</button>
+          }
+        </div>
+        <span>{control}</span> 
+           
 
          <label>Brands: </label>
         <select onChange={handleChange} name="brands" id="brands" value={productData.brands}>
