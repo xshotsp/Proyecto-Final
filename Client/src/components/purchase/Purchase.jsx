@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { cleanUserCart } from "../../redux/actions/actions";
+import { cleanUserCart, getAllProducts } from "../../redux/actions/actions";
 import s from "./Purchase.module.css";
 
 const URL = import.meta.env.VITE_URL;
@@ -17,7 +17,6 @@ const SuccessPayment = () => {
 
   const [purchaseResponse, setPurchaseResponse] = useState(null);
   const [loading, setLoading] = useState(true);
-  
 
   const getCollectionId = (search) => {
     const params = search.split("&");
@@ -79,6 +78,11 @@ const SuccessPayment = () => {
           productsId: cartIds,
         };
 
+        const deletionPromises = userCart.map((p) => {
+          return axios.put(`${URL}/product/put/${p.id}`, { subtract: p.quantity });
+        });
+        await Promise.all(deletionPromises);
+
         await axios.delete(`${URL}/cart`, {
           data: objCartItems,
         });
@@ -98,6 +102,7 @@ const SuccessPayment = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    dispatch(getAllProducts)
 
     navigate(`/`);
   };

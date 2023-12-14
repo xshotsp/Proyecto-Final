@@ -14,6 +14,7 @@ import MyShopping from "./components/myShooping/MyShooping";
 import SuccessPayment from "./components/purchase/Purchase";
 import { useSelector, useDispatch } from "react-redux";
 import {
+  getAllProducts,
   setAccess,
   toggleDarkMode,
   userCart,
@@ -36,18 +37,38 @@ function App() {
   const storedToken = localStorage.getItem("token");
   const darkMode = useSelector((state) => state.darkMode);
   const access = useSelector((state) => state.access);
+  const allProducts = useSelector((state) => state.allproducts);
   const activeUser = useSelector((state) => state.activeUser);
   const cartFromLocalStorage = JSON.parse(localStorage.getItem("cart") || "[]");
   const [cartItems, setCartItems] = useState(cartFromLocalStorage);
+  const allUserProducts = useSelector((state) => state.userCart);
   const dispatch = useDispatch();
   const { pathname } = useLocation();
   const [token, setToken] = useState(storedToken || "");
 
-  useEffect(() => {
-    if (!access) localStorage.setItem("cart", JSON.stringify(cartItems));
-  }, [cartItems]);
-
   const handleAddProduct = async (product) => {
+    dispatch(getAllProducts());
+    dispatch(userCart(activeUser.email));
+    const productStore = allProducts.find((p) => p.id === product.id);
+    const stockBoolean = (await productStore.quantity) < product.quantity;
+    const userCartItem =
+      access && allProducts.length
+        ? allUserProducts.find((p) => p.id === product.id)
+        : cartItems.find((p) => p.id === product.id);
+
+    if (
+      stockBoolean ||
+      (userCartItem && userCartItem.quantity >= productStore.quantity)
+    ) {
+      return Swal.fire({
+        icon: "error",
+        title: "",
+        text: "Stock limit.",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
+
     if (access) {
       const objProduct = {
         email: activeUser.email,
@@ -61,7 +82,7 @@ function App() {
         Swal.fire({
           icon: "success",
           title: "",
-          text: "sumado al carrito ",
+          text: "Added to cart.",
           showConfirmButton: false,
           timer: 1500,
         });
@@ -84,7 +105,7 @@ function App() {
         Swal.fire({
           icon: "success",
           title: "",
-          text: "sumado al carrito ",
+          text: "Added to cart.",
           showConfirmButton: false,
           timer: 1500,
         });
@@ -118,7 +139,12 @@ function App() {
 
   const handleClearCart = async () => {
     if (access) {
-      await axios.delete(`${URL}/cart/${activeUser.email}`);
+      const objDelete = {
+        email: activeUser.email,
+      };
+      await axios.delete(`${URL}/cart`, {
+        data: objDelete,
+      });
       dispatch(userCart(activeUser.email));
     }
     setCartItems([]);
@@ -153,6 +179,11 @@ function App() {
       dispatch(userCart(decodedToken.email));
     }
   }, [pathname, cartItems]);
+
+  useEffect(() => {
+    if (!access) localStorage.setItem("cart", JSON.stringify(cartItems));
+  }, [cartItems]);
+
   return (
     <div className={darkMode ? "div__darkMode" : ""}>
       <NavBar
@@ -185,7 +216,7 @@ function App() {
           element={<Login cartItems={cartItems} setToken={setToken} />}
         />
         <Route path="/createuser" element={<CreateUserForm />} />
-        <Route path="/createdashboard" element={<CreateUserDashboard/>} />
+        <Route path="/createdashboard" element={<CreateUserDashboard />} />
         <Route path="/editperfil/:email" element={<EditPerfilForm />} />
         <Route path="/editproduct/:id" element={<EditProductForm />} />
         <Route
