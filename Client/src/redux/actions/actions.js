@@ -239,7 +239,6 @@ export function finishPurchase(objectPago) {
     try {
       const response = await axios.post(`${URL}/purchase`, objectPago);
       window.location.href = response.data.init_point;
-
       dispatch({
         type: FINISH_PURCHASE,
         payload: response.data

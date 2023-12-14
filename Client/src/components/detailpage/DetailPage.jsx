@@ -18,16 +18,25 @@ const DetailPage = ({ access, handleAddProduct, currentUserId }) => {
   const allProducts = useSelector((state) => state.allproducts);
   const product = useSelector((state) => state.productDetails);
   const sliderRef = useRef(null);
-
-  // Validar si product es null o undefined antes de acceder a sus propiedades
-  const brandName = product?.brands?.[0]?.name || 'Cargando...';
+  const addImg = product.additionalImage && Array.isArray(product.additionalImage) && product.additionalImage[0] && 
+  (product.additionalImage[0].startsWith('http') || product.additionalImage[0].startsWith('https'))
+  ? product.additionalImage.map((image, index) => (
+    <img key={index} src={image} alt={`Product image N°${index + 1}`} />
+  ))
+  : product.additionalImage && Array.isArray(product.additionalImage) && product.additionalImage.map((image, index) => (
+    <img key={index} src={`http://${image}`} alt={`Product image N°${index + 1}`} />
+  ));
 
   const mixedProducts = allProducts
-    // Validar si product tiene la propiedad id antes de filtrar
-    .filter(prod => prod.id !== product?.id)
-    .toSorted((a, b) => a - b)
-    .filter((value, index, self) => self.indexOf(value) === index)
-    .slice(0, 5);
+  .filter(prod => prod.id !== product.id)
+  .toSorted((a, b) => a - b)
+  .filter((value, index, self) => self.indexOf(value) === index)
+  .slice(0, 5);
+  if (product.brands && product.brands.length > 0) {
+    var brandName = product.brands[0].name; 
+  } else {
+    brandName = 'Loading...'
+  }
 
   const [showHeart, setShowHeart] = useState(true);
 
@@ -81,7 +90,6 @@ const DetailPage = ({ access, handleAddProduct, currentUserId }) => {
     
         return <p className={s.error}>Loading...</p>;
   }
-
   return (
     <div className={s.productDetailsContainer}>
       <div className={s.backBtn}>
@@ -95,7 +103,9 @@ const DetailPage = ({ access, handleAddProduct, currentUserId }) => {
       <img src={product.image} 
       alt="product" 
       className={s.productImage} />
-      
+      <div>
+      {addImg}
+      </div>
       <div className={s.shopBtn}>
         <h2>
         <button className={s.addBtn} 
@@ -108,7 +118,7 @@ const DetailPage = ({ access, handleAddProduct, currentUserId }) => {
         <br />
         <span>
           <p>
-            <FontAwesomeIcon icon={faTruck} /> Envios gratis en tus ordenes a partir de $3000
+            <FontAwesomeIcon icon={faTruck} /> Free delivery on orders over $4000
           </p>
         </span>
         </h2>
