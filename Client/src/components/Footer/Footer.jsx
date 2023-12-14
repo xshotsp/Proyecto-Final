@@ -41,8 +41,8 @@ const Footer = () => {
         <p>+4 2321 5432</p>
         <br />
         <div className={s.iconContainer}>
-           <a><img src={FB} alt='facebook logo' /></a>
-        <a><img src={INS} alt='facebook logo' /></a>
+           <a href='https://www.facebook.com/profile.php?id=61554580442585' target='_blank' rel='noreferrer'><img src={FB} alt='facebook logo' /></a>
+        <a href='https://www.instagram.com/quirkzshop/' target='_blank' rel='noreferrer'><img src={INS} alt='facebook logo' /></a>
         </div>
         <div className={s.iconContainer}>
         <div className={s.socialIcons}>
