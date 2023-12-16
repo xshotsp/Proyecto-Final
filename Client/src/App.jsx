@@ -27,11 +27,9 @@ import { onAuthStateChanged } from "firebase/auth";
 import Swal from "sweetalert2";
 import Dashboard from "./components/Dashboard/Dashboard";
 import axios from "axios";
-import DetailPurchase from "./components/detailPurchase/DetailPurchase";
 
-const URL = import.meta.env.VITE_URL;
 //const URL = "http://localhost:3001";
-// const URL = "https://quirkz.up.railway.app"
+const URL = "https://quirkz.up.railway.app"
 
 function App() {
   const storedToken = localStorage.getItem("token");
@@ -189,6 +187,7 @@ function App() {
           element={<Login cartItems={cartItems} setToken={setToken} />}
         />
         <Route path="/createuser" element={<CreateUserForm />} />
+        <Route path="/createdashboard" element={<CreateUserDashboard/>} />
         <Route path="/editperfil/:email" element={<EditPerfilForm />} />
         <Route path="/editproduct/:id" element={<EditProductForm />} />
         <Route

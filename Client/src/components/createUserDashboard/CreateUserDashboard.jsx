@@ -4,13 +4,13 @@ import Swal from "sweetalert2";
 import validate from "./validate";
 import { useNavigate } from "react-router-dom";
 import LabelAndInput from "../labelAndInput/LabelAndInput";
-import s from "./create.module.css";
+import UsersTable from "../usersTable/usersTable";
+import s from "./createuser.module.css";
 
 const URL = import.meta.env.VITE_URL
 
-//const URL = "http://localhost:3001";
 
-const CreateUserForm = () => {
+const CreateUserDashboard = () => {
 
   const navigate = useNavigate()
   const [input, setInput] = useState({
@@ -24,13 +24,16 @@ const CreateUserForm = () => {
     phone: "",
     provider: "",
     active: true,
-    admin: false
+    admin: true
   });
 
   const [errors, setErrors] = useState({
+    name: "",
+    lastname: "",
     password: "",
     passwordRep: "",
     email: "",
+    phone: ""
   });
 
   const mostrarAlerta = (iconType, msjText) => {
@@ -55,7 +58,7 @@ const CreateUserForm = () => {
   };
 
   const comeback = () => {
-    navigate('/');
+    navigate('/dashboard', UsersTable);
   }
 
   const submitHandler = async (event) => {
@@ -66,9 +69,13 @@ const CreateUserForm = () => {
         await axios.post(`${URL}/user`, input);
         mostrarAlerta("success", "The user was created successfully");
         setInput({
-          password: "",
-          passwordRep: "",
-          email: "",
+            name: "",
+            lastname: "",
+            phone:"",
+            password: "",
+            passwordRep: "",
+            email: "",
+
         });
       } else if (long.length !==0 || !input.passwordRep) mostrarAlerta("error", "You must complete all fields without errors");
     } catch (error) {
@@ -84,6 +91,30 @@ const CreateUserForm = () => {
         <fieldset>
           <legend>Create User</legend>
 
+          <LabelAndInput
+            label="Name*"
+            type="text"
+            name="name"
+            value={input.name}
+            handler={formHandler}
+          />
+          {errors.name && <p>{errors.name}</p>}
+          <LabelAndInput
+            label="Lastname*"
+            type="text"
+            name="lastname"
+            value={input.lastname}
+            handler={formHandler}
+          />
+          {errors.lastname && <p>{errors.lastname}</p>}
+          <LabelAndInput
+            label="Phone*"
+            type="text"
+            name="phone"
+            value={input.phone}
+            handler={formHandler}
+          />
+          {errors.email && <p>{errors.email}</p>}
           <LabelAndInput
             label="Email*"
             type="text"
@@ -118,4 +149,4 @@ const CreateUserForm = () => {
   );
 };
 
-export default CreateUserForm;
+export default CreateUserDashboard;

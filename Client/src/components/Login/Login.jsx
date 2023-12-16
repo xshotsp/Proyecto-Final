@@ -11,9 +11,9 @@ import { setAccess, userCart, userLoggedIn } from "../../redux/actions/actions";
 import Swal from "sweetalert2";
 import validate from "./validate";
 
-const URL = import.meta.env.VITE_URL;
 //const URL = "https://quirkz.up.railway.app";
 // const URL = "http://localhost:3001";
+const URL = import.meta.env.VITE_URL;
 
 const Login = ({ cartItems, setToken }) => {
   const [loginInput, setLoginInput] = useState({
@@ -56,10 +56,8 @@ const Login = ({ cartItems, setToken }) => {
       })
     );
   };
-  console.log(errors);
 
   const handleSubmit = async (e) => {
-    
     e.preventDefault();
     try {
       const response = await axios(`${URL}/user/${loginInput.usuario}`);
@@ -99,8 +97,6 @@ const Login = ({ cartItems, setToken }) => {
     if (access) navigate("/");
   }, [access]);
 
-  console.log(loginInput);
-
   return (
     <section className={s["login-container"]}>
       <hr />
@@ -117,7 +113,7 @@ const Login = ({ cartItems, setToken }) => {
             onChange={formHandler}
           />
           <div className={s.error__container}>
-          {errors.usuario && <p className={s.error}>{errors.usuario}</p>}
+            {errors.usuario && <p className={s.error}>{errors.usuario}</p>}
           </div>
         </label>
         <br />
@@ -130,7 +126,9 @@ const Login = ({ cartItems, setToken }) => {
             onChange={formHandler}
           />
           <div className={s.error__container}>
-          {errors.contraseña && <p className={s.error}>{errors.contraseña}</p>}
+            {errors.contraseña && (
+              <p className={s.error}>{errors.contraseña}</p>
+            )}
           </div>
         </label>
         <br />

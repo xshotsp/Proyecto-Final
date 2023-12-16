@@ -1,12 +1,12 @@
-/* eslint-disable react/prop-types */
 import s from './Purchase.module.css'
 import axios from 'axios'
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 
- 
-const URL = "https://quirkz.up.railway.app"
+
+const URL = import.meta.env.VITE_URL
+
 
 const SuccessPayment = () => {
     const {search}= useLocation();
@@ -112,3 +112,7 @@ const SuccessPayment = () => {
   };
   
   export default SuccessPayment;
+
+
+
+

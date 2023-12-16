@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import {
   createProductRequest,
   createProductSuccess,
@@ -11,16 +11,16 @@ import validate from "./validate";
 import axios from "axios";
 import s from "./EditProduct.module.css"
 import Swal from 'sweetalert2';
+import ProductsTable from "../productsTable/productsTable";
 
-//const URL="https://quirkz.up.railway.app"
-const URL = "http://localhost:3001"
+const URL=import.meta.env.VITE_URL
 
 
 
 const EditProduct = () => {
 
   const {id} = useParams();
-
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   //const allBrands = useSelector((state)=>state.allBrands);
   const darkMode = useSelector((state) => state.darkMode);
@@ -155,7 +155,9 @@ const EditProduct = () => {
           if (newProduct) mostrarAlerta('success' , 'The product was updated successfully' );
   
           dispatch(createProductSuccess(newProduct));
-      
+          navigate('/dashboard', {
+            component: ProductsTable,
+          });
           
 
         }else {
