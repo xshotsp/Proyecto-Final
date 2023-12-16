@@ -34,5 +34,3 @@ const Comentarios = ({ onCommentChange, shouldClearCommentyReview }) => {
 };
 
 export default Comentarios;
-
-

@@ -14,6 +14,7 @@ import MyShopping from "./components/myShooping/MyShooping";
 import SuccessPayment from "./components/purchase/Purchase";
 import { useSelector, useDispatch } from "react-redux";
 import {
+  getAllProducts,
   setAccess,
   toggleDarkMode,
   userCart,
@@ -35,18 +36,38 @@ function App() {
   const storedToken = localStorage.getItem("token");
   const darkMode = useSelector((state) => state.darkMode);
   const access = useSelector((state) => state.access);
+  const allProducts = useSelector((state) => state.allproducts);
   const activeUser = useSelector((state) => state.activeUser);
   const cartFromLocalStorage = JSON.parse(localStorage.getItem("cart") || "[]");
   const [cartItems, setCartItems] = useState(cartFromLocalStorage);
+  const allUserProducts = useSelector((state) => state.userCart);
   const dispatch = useDispatch();
   const { pathname } = useLocation();
   const [token, setToken] = useState(storedToken || "");
 
-  useEffect(() => {
-    if (!access) localStorage.setItem("cart", JSON.stringify(cartItems));
-  }, [cartItems]);
-
   const handleAddProduct = async (product) => {
+    dispatch(getAllProducts());
+    dispatch(userCart(activeUser.email));
+    const productStore = allProducts.find((p) => p.id === product.id);
+    const stockBoolean = (await productStore.quantity) < product.quantity;
+    const userCartItem =
+      access && allProducts.length
+        ? allUserProducts.find((p) => p.id === product.id)
+        : cartItems.find((p) => p.id === product.id);
+
+    if (
+      stockBoolean ||
+      (userCartItem && userCartItem.quantity >= productStore.quantity)
+    ) {
+      return Swal.fire({
+        icon: "error",
+        title: "",
+        text: "Stock limit.",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
+
     if (access) {
       const objProduct = {
         email: activeUser.email,
@@ -55,8 +76,7 @@ function App() {
           quantity: 1,
         },
       };
-      const response = await axios.post(`${URL}/cart`, objProduct);
-      console.log(response);
+      await axios.post(`${URL}/cart`, objProduct);
       if (pathname === "/" || pathname === `/product/${product.id}`) {
         Swal.fire({
           icon: "success",
@@ -118,7 +138,12 @@ function App() {
 
   const handleClearCart = async () => {
     if (access) {
-      await axios.delete(`${URL}/cart/${activeUser.email}`);
+      const objDelete = {
+        email: activeUser.email,
+      };
+      await axios.delete(`${URL}/cart`, {
+        data: objDelete,
+      });
       dispatch(userCart(activeUser.email));
     }
     setCartItems([]);
@@ -134,13 +159,11 @@ function App() {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user !== null) {
-        console.log(user);
         dispatch(setAccess(true));
         dispatch(userLoggedIn(user.email));
-        dispatch(userCart(user.email))
+        dispatch(userCart(user.email));
       }
     });
-
 
     return () => {
       unsubscribe();
@@ -149,12 +172,22 @@ function App() {
 
   useEffect(() => {
     if (token) {
-      const decodedToken = JSON.parse(atob(token.split(".")[1]));
-      dispatch(setAccess(true));
-      dispatch(userLoggedIn(decodedToken.email));
-      dispatch(userCart(decodedToken.email));
+      try {
+        const decodedToken = JSON.parse(atob(token.split(".")[1]));
+        dispatch(setAccess(true));
+        dispatch(userLoggedIn(decodedToken.email));
+        dispatch(userCart(decodedToken.email));
+      } catch (error) {
+        console.error("Error decoding token:", error);
+        // Manejar el error de decodificación aquí, por ejemplo, redirigir al usuario o realizar otra acción apropiada.
+      }
     }
-  }, [pathname,cartItems]);
+  }, [pathname, cartItems]);
+
+  useEffect(() => {
+    if (!access) localStorage.setItem("cart", JSON.stringify(cartItems));
+  }, [cartItems]);
+
   return (
     <div className={darkMode ? "div__darkMode" : ""}>
       <NavBar
@@ -187,7 +220,7 @@ function App() {
           element={<Login cartItems={cartItems} setToken={setToken} />}
         />
         <Route path="/createuser" element={<CreateUserForm />} />
-        <Route path="/createdashboard" element={<CreateUserDashboard/>} />
+        <Route path="/createdashboard" element={<CreateUserDashboard />} />
         <Route path="/editperfil/:email" element={<EditPerfilForm />} />
         <Route path="/editproduct/:id" element={<EditProductForm />} />
         <Route

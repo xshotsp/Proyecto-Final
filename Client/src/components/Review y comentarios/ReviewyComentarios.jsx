@@ -3,7 +3,7 @@ import Review from './Review';
 import Comentarios from './Comentarios';
 import Response from './Response';
 
-const ReviewyComentarios = ({ login, productoId }) => {
+const ReviewyComentarios = ({ login = {}, productoId }) => {
   const [userRating, setUserRating] = useState(0);
   const [userComment, setUserComment] = useState('');
   const [ratingsAndComments, setRatingsAndComments] = useState([]);
@@ -15,7 +15,6 @@ const ReviewyComentarios = ({ login, productoId }) => {
 
 
 
-  console.log('login',login);
   
   const isLoggedIn = login.access;
   const hasPurchased = true;
@@ -125,9 +124,9 @@ const ReviewyComentarios = ({ login, productoId }) => {
 
   return (
     <div>
-    <button onClick={handleClearLocalStorage}>
+    {/* <button onClick={handleClearLocalStorage}>
         Clean localStorage
-      </button>
+      </button> */}
       <section>
         <h2>Create a review about this product</h2>
         {isLoggedIn && hasPurchased ? (
@@ -197,8 +196,3 @@ const ReviewyComentarios = ({ login, productoId }) => {
 };
 
 export default ReviewyComentarios;
-
-
-
-
-

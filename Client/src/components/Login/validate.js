@@ -16,7 +16,7 @@ const validate = ({usuario,contraseña}) => {
     errors.contraseña = "Password must contain at least one number.";
   }
 
-  if (!(contraseña.length >= 6 && contraseña.length <= 10)) {
+  if (!(contraseña.length >= 6 && contraseña.length <= 20)) {
     errors.contraseña = "The password must contain between 6 and 20 characters.";
   }
 

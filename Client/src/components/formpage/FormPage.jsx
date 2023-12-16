@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -14,7 +13,10 @@ import axios from "axios";
 import s from "./productForm.module.css"
 import Swal from 'sweetalert2';
 
+
 const URL=import.meta.env.VITE_URL
+
+
 
 
 
